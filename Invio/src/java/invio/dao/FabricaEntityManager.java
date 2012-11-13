@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
  */
 public class FabricaEntityManager {
 
-    private static EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("RamaniPU");
+    private static EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("InvioPU");
 
     private FabricaEntityManager() {
     }
