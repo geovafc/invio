@@ -9,7 +9,7 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author Junior
  */
 @ManagedBean
 @RequestScoped
