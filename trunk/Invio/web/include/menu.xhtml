@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <h:form>
+            <p:menu style="width: 95%">
+                <p:submenu label="Arquivo" >
+                    <!--rendered="{usuarioBean.administrador}"-->
+                    <p:menuitem 
+                        value="Upload" 
+                        action="/sistema/importacao/upload.xhtml"
+                        icon="ui-icon ui-extlink" 
+                        ajax="false"/>
+                </p:submenu>
+                <p:submenu label="Área">
+                    <p:menuitem 
+                        value="Temperatura Média" 
+                        action="/sistema/listas/listadearea.xhtml" 
+                        icon="ui-icon ui-extlink" ajax="false"/>
+                    <p:menuitem value="Informações de áreas" 
+                                action="/sistema/listas/listadeinfoarea.xhtml" 
+                                icon="ui-icon ui-extlink"
+                                ajax="false"/>
+
+
+                </p:submenu>
+                <p:submenu label="Cadastro de Usuário">
+                    <!--rendered="{usuarioBean.administrador}"-->
+                    <p:menuitem value="Cadastrar Novo Usuário" 
+                                icon="ui-icon ui-extlink"
+                                ajax="false"
+                                action="/sistema/admin/usuario/listausuarios.xhtml"/>
+                </p:submenu>
+                <p:submenu label="Sair do sistema">
+                    <p:menuitem value="Logout" 
+                                action="javascript:void(0)" 
+                                onclick="document.location='#{request.contextPath}/j_spring_security_logout'"
+                                icon="ui-icon-power"/> 
+                </p:submenu>
+            </p:menu>           
+        </h:form>
+    </h:body>
+</html>
+
