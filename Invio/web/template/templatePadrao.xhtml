@@ -11,8 +11,10 @@
     <h:body>
         <p:layout fullPage="true">
 
-            <p:layoutUnit position="north" size="77">
-                <ui:insert name="header">Topo</ui:insert>
+            <p:layoutUnit position="north" size="98" closable="false">
+                <ui:insert name="header">
+                    <ui:include src="/include/topo.xhtml"/>
+                </ui:insert>
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="200" header="Menu" resizable="false" 
