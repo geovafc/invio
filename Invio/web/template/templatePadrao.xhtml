@@ -15,9 +15,11 @@
                 <ui:insert name="header">Topo</ui:insert>
             </p:layoutUnit>
 
-            <p:layoutUnit position="west" size="200" header="Menu">
+            <p:layoutUnit position="west" size="200" header="Menu" resizable="false" 
+                          collapsible="true">
                 <ui:insert name="menu">
-                <ui:include src="/include/menu.xhtml"/></ui:insert>
+                    <ui:include src="/include/menu.xhtml"/>
+                </ui:insert>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" size="750">
