@@ -38,7 +38,9 @@
             </h:panelGrid>
 
             <p:commandButton 
-                ajax="false" value="Salvar" action="#{programaBean.salvar}"/>
+                ajax="false" value="Salvar" 
+                action="#{programaBean.salvar}"
+                update="form"/>
             <p:commandButton 
                 ajax="false" value="Cancelar" action="listar.xhtml"/>
         </h:form>
