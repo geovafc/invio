@@ -38,15 +38,20 @@ public class ProgramaRN {
     public List<Programa> obterTodos() {
         return dao.obterTodos(Programa.class);
     }
-    
-    
+
     public SelectItem[] getInstituicoes() {
         List<Instituicao> instituicaos = daoInstituicao.obterTodos(Instituicao.class);
         SelectItem[] retorno = new SelectItem[instituicaos.size()];
         for (int i = 0; i < retorno.length; i++) {
             retorno[i] = new SelectItem(instituicaos.get(i), instituicaos.get(i).getNome());
-           }
+        }
         return retorno;
     }
 
+    public static void main(String[] args) {
+        ProgramaRN programaRN = new ProgramaRN();
+        for (Programa p : programaRN.obterTodos()) {
+            System.out.println(p);
+        }
+    }
 }

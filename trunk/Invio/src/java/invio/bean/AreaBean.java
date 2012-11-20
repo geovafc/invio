@@ -50,7 +50,7 @@ public class AreaBean {
 
     public String salvar() {
         if (areaRN.salvar(area)) {
-            UtilBean.criarMensagemDeInformacao(
+            BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "A área " + area.getNome() + " foi gravada com sucesso.");
         }
@@ -60,9 +60,9 @@ public class AreaBean {
     public String excluir() {
         System.out.println("Area " + area);
         if (areaRN.remover(area)) {
-            UtilBean.criarMensagemDeInformacao("Área excluída", "Área: " + area.getNome());
+            BeanUtil.criarMensagemDeInformacao("Área excluída", "Área: " + area.getNome());
         } else {
-            UtilBean.criarMensagemDeErro("Erro ao excluir a área", "Área: " + area.getNome());
+            BeanUtil.criarMensagemDeErro("Erro ao excluir a área", "Área: " + area.getNome());
         }
         return "listar.xhtml";
     }

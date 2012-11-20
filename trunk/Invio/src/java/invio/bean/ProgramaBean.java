@@ -4,7 +4,6 @@
  */
 package invio.bean;
 
-import invio.entidade.Instituicao;
 import invio.entidade.Programa;
 import invio.rn.ProgramaRN;
 import java.util.List;
@@ -32,7 +31,8 @@ public class ProgramaBean {
 
     public List<Programa> getProgramas() {
         if (programas == null) {
-            programaRN.obterTodos();
+            programas = programaRN.obterTodos();
+            System.out.println("Programas: " +programas);
         }
         return programas;
     }
@@ -51,7 +51,7 @@ public class ProgramaBean {
     
     public String salvar() {
         if (programaRN.salvar(programa)) {
-            UtilBean.criarMensagemDeInformacao(
+            BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "O programa " + programa.getNome() + " foi salvo com sucesso.");
         }
@@ -60,9 +60,9 @@ public class ProgramaBean {
 
     public String excluir() {
         if (programaRN.remover(programa)) {
-            UtilBean.criarMensagemDeInformacao("O programa excluído", "Programa: " + programa.getNome());
+            BeanUtil.criarMensagemDeInformacao("O programa excluído", "Programa: " + programa.getNome());
         } else {
-            UtilBean.criarMensagemDeErro("Erro ao excluir o programa", "Programa: " + programa.getNome());
+            BeanUtil.criarMensagemDeErro("Erro ao excluir o programa", "Programa: " + programa.getNome());
         }
         return "listar.xhtml";
     }
