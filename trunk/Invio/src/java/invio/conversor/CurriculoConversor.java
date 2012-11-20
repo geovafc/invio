@@ -35,16 +35,16 @@ public class CurriculoConversor implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value == null) {
-            return null;
+            return "";
         } else if (value instanceof Curriculo) {
             Integer id = ((Curriculo) value).getId();
             if (id != null) {
                 return id.toString();
             } else {
-                return null;
+                return "";
             }
         } else {
-            return null;
+            return "";
         }
     }
     
