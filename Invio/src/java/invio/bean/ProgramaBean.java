@@ -25,7 +25,7 @@ public class ProgramaBean {
      */
     private ProgramaRN programaRN = new ProgramaRN();
     private List<Programa> programas;
-    private Programa programa;
+    private Programa programa = new Programa();
 
     public ProgramaBean() {
     }
