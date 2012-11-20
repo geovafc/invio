@@ -44,9 +44,8 @@ public class ProgramaRN {
         List<Instituicao> instituicaos = daoInstituicao.obterTodos(Instituicao.class);
         SelectItem[] retorno = new SelectItem[instituicaos.size()];
         for (int i = 0; i < retorno.length; i++) {
-           // retorno[i] = new SelectItem(instituicaos.get(i), instituicaos.get(i).getNome());
-            retorno[i] = new SelectItem(instituicaos.get(i), instituicaos.get(i).getSigla(), " - "+instituicaos.get(i).getNome());
-        }
+            retorno[i] = new SelectItem(instituicaos.get(i), instituicaos.get(i).getNome());
+           }
         return retorno;
     }
 
