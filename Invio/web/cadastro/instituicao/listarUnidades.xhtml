@@ -10,8 +10,10 @@
 
         <h:form id="form">
              
-            <h:inputHidden value="#{instituicaoBean.instituicao}" 
-                           converter="instituicaoConversor" />
+            <h:inputHidden 
+                id="ihInstituicao"
+                value="#{unidadeBean.instituicao}" 
+                converter="instituicaoConversor"/>
 
             <p:growl showDetail="true" showSummary="true"/>
 
@@ -19,7 +21,7 @@
 
             <p:dataTable 
                 id="dtUnidadesDeInstituicoes"
-                var="unidade" value="#{instituicaoBean.unidades}">
+                var="unidade" value="#{unidadeBean.unidades}">
 
                 <p:column headerText="Nome">  
                     <h:outputText value="#{unidade.nome}" />  
@@ -33,7 +35,7 @@
                         ajax="false">  
                         <f:setPropertyActionListener 
                             value="#{unidade}" 
-                            target="#{instituicaoBean.unidade}" />  
+                            target="#{unidadeBean.unidade}" />  
                     </p:commandButton>  
                     
                     <p:commandButton 

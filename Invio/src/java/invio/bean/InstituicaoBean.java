@@ -3,7 +3,6 @@ package invio.bean;
 import invio.entidade.Instituicao;
 import invio.entidade.Unidade;
 import invio.rn.InstituicaoRN;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -57,7 +56,7 @@ public class InstituicaoBean {
 
     public String salvar() {
         if (instituicaoRN.salvar(instituicao)) {
-            UtilBean.criarMensagemDeInformacao(
+            BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "A Instituição " + instituicao.getNome() + " foi gravada com sucesso.");
         }
@@ -67,9 +66,9 @@ public class InstituicaoBean {
     public String excluir() {
         System.out.println("Instituição " + instituicao);
         if (instituicaoRN.remover(instituicao)) {
-            UtilBean.criarMensagemDeInformacao("Instituição excluída", "Instituição: " + instituicao.getNome());
+            BeanUtil.criarMensagemDeInformacao("Instituição excluída", "Instituição: " + instituicao.getNome());
         } else {
-            UtilBean.criarMensagemDeErro("Erro ao excluir a Instituição", "Instituição: " + instituicao.getNome());
+            BeanUtil.criarMensagemDeErro("Erro ao excluir a Instituição", "Instituição: " + instituicao.getNome());
         }
         return "listar.xhtml";
     }
