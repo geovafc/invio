@@ -3,6 +3,7 @@ package invio.bean;
 import invio.entidade.Instituicao;
 import invio.entidade.Unidade;
 import invio.rn.InstituicaoRN;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -15,9 +16,12 @@ public class InstituicaoBean {
     private List<Instituicao> instituicoes;
     private Instituicao instituicao = new Instituicao();
     private Unidade unidade;
-    private List<Unidade> unidades;
+    private List<Unidade> unidades = instituicao.getUnidadeList();
 
-    
+    public InstituicaoBean(List<Instituicao> instituicoes, Unidade unidade) {
+        this.instituicoes = instituicoes;
+        this.unidade = unidade;
+    }
     
     
     public Unidade getUnidade() {
@@ -70,8 +74,18 @@ public class InstituicaoBean {
         return "listar.xhtml";
     }
     
-     public List<Unidade> getUnidades() {
-        unidades = instituicaoRN.obTerUnidades(instituicao);
+    
+    
+//     public List<Unidade> getUnidades() {
+//        unidades = instituicaoRN.obTerUnidades(instituicao);
+//        return unidades;
+//    }
+
+    public List<Unidade> getUnidades() {
         return unidades;
+    }
+
+    public void setUnidades(List<Unidade> unidades) {
+        this.unidades = unidades;
     }
 }
