@@ -4,7 +4,9 @@
  */
 package invio.bean;
 
+import invio.entidade.Area;
 import invio.rn.AreaRN;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -15,20 +17,53 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class AreaBean {
-    
-    AreaRN areaRN = new AreaRN();
+
+    private AreaRN areaRN = new AreaRN();
+    private List<Area> areas;
+    private Area area = new Area();
 
     /**
      * Creates a new instance of AreaBean
      */
     public AreaBean() {
     }
-    
-    public String salvar (){
-        
-        areaRN.salvar(null);
-        
-        return "/cadastro/confirmacao/";
+
+    public List<Area> getAreas() {
+        if (areas == null) {
+            areas = areaRN.obterTodos();
+        }
+        return areas;
     }
-    
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        System.out.println("setArea " + area);
+        this.area = area;
+    }
+
+    public String salvar() {
+        if (areaRN.salvar(area)) {
+            UtilBean.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "A área " + area.getNome() + " foi gravada com sucesso.");
+        }
+        return "listar.xhtml";
+    }
+
+    public String excluir() {
+        System.out.println("Area " + area);
+        if (areaRN.remover(area)) {
+            UtilBean.criarMensagemDeInformacao("Área excluída", "Área: " + area.getNome());
+        } else {
+            UtilBean.criarMensagemDeErro("Erro ao excluir a área", "Área: " + area.getNome());
+        }
+        return "listar.xhtml";
+    }
 }

@@ -6,20 +6,24 @@
     <h:body>
         <h:form>  
 
-              
-
-            <p:panelMenu style="width:190px">  
+            <p:menu style="width:190px">  
                 <p:submenu label="Cadastros">  
-                    <p:menuitem value="Área"  icon="ui-icon-arrowrefresh-1-w" />  
+                    <p:menuitem 
+                        value="Área"  ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w" 
+                        action="/cadastro/area/listar.xhtml"/>  
                     <p:menuitem value="Programa"  icon="ui-icon-arrowrefresh-1-w" />  
                     <p:menuitem value="Instituição"  icon="ui-icon-arrowrefresh-1-w" />  
                     <p:menuitem value="Unidade"  icon="ui-icon-arrowrefresh-1-w" />  
                     <p:menuitem value="Currículo"  icon="ui-icon-arrowrefresh-1-w" />  
                 </p:submenu>  
+                
                 <p:submenu label="Submissão">  
                     <p:menuitem value="Delete"   ajax="false" icon="ui-icon-close"/>  
                 </p:submenu>  
+                
                 <p:separator />  
+                
                 <p:submenu label="Relatórios" >  
                     <p:submenu label="Links" icon="ui-icon-extlink">  
                         <p:submenu label="PrimeFaces" icon="ui-icon-heart">  
@@ -31,7 +35,8 @@
                     </p:submenu>  
                     <p:menuitem value="Mobile"  icon="ui-icon-signal"/>  
                 </p:submenu>  
-            </p:panelMenu>  
+                
+            </p:menu>  
 
         </h:form> 
     </h:body>
