@@ -1,6 +1,7 @@
 package invio.bean;
 
 import invio.entidade.Instituicao;
+import invio.entidade.Unidade;
 import invio.rn.InstituicaoRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -13,6 +14,19 @@ public class InstituicaoBean {
    private InstituicaoRN instituicaoRN = new InstituicaoRN();
     private List<Instituicao> instituicoes;
     private Instituicao instituicao = new Instituicao();
+    private Unidade unidade;
+    private List<Unidade> unidades;
+
+    
+    
+    
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
+    }
 
     public InstituicaoBean() {
     }
@@ -54,5 +68,10 @@ public class InstituicaoBean {
             UtilBean.criarMensagemDeErro("Erro ao excluir a Instituição", "Instituição: " + instituicao.getNome());
         }
         return "listar.xhtml";
+    }
+    
+     public List<Unidade> getUnidades() {
+        unidades = instituicaoRN.obTerUnidades(instituicao);
+        return unidades;
     }
 }
