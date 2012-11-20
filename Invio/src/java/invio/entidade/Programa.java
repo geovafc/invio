@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "programa")
@@ -49,6 +50,9 @@ public class Programa implements Serializable {
     private List<Area> areaList;
     @ManyToMany(mappedBy = "programaList")
     private List<Curriculo> curriculoList;
+    @JoinColumn(name = "instituicao", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Instituicao instituicao;
 
     public Programa() {
     }
@@ -94,6 +98,14 @@ public class Programa implements Serializable {
 
     public void setCurriculoList(List<Curriculo> curriculoList) {
         this.curriculoList = curriculoList;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 
     @Override

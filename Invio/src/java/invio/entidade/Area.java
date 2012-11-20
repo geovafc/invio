@@ -12,9 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Enemias Junior
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "area")
@@ -44,9 +42,6 @@ public class Area implements Serializable {
     private String nome;
     @ManyToMany(mappedBy = "areaList")
     private List<Programa> programaList;
-    @JoinColumn(name = "Instituicao_idInstituicao", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Instituicao instituicaoidInstituicao;
 
     public Area() {
     }
@@ -83,14 +78,6 @@ public class Area implements Serializable {
 
     public void setProgramaList(List<Programa> programaList) {
         this.programaList = programaList;
-    }
-
-    public Instituicao getInstituicaoidInstituicao() {
-        return instituicaoidInstituicao;
-    }
-
-    public void setInstituicaoidInstituicao(Instituicao instituicaoidInstituicao) {
-        this.instituicaoidInstituicao = instituicaoidInstituicao;
     }
 
     @Override

@@ -2,9 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS `invio` ;
-CREATE SCHEMA IF NOT EXISTS `invio` DEFAULT CHARACTER SET utf8 ;
-USE `invio` ;
 
 -- -----------------------------------------------------
 -- Table `invio`.`curriculo`
@@ -33,18 +30,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `invio`.`programa`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`programa` ;
-
-CREATE  TABLE IF NOT EXISTS `invio`.`programa` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `nome` VARCHAR(500) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `invio`.`instituicao`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `invio`.`instituicao` ;
@@ -58,6 +43,25 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `invio`.`programa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`programa` ;
+
+CREATE  TABLE IF NOT EXISTS `invio`.`programa` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(500) NOT NULL ,
+  `instituicao` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_programa_instituicao1` (`instituicao` ASC) ,
+  CONSTRAINT `fk_programa_instituicao1`
+    FOREIGN KEY (`instituicao` )
+    REFERENCES `invio`.`instituicao` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `invio`.`area`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `invio`.`area` ;
@@ -65,14 +69,7 @@ DROP TABLE IF EXISTS `invio`.`area` ;
 CREATE  TABLE IF NOT EXISTS `invio`.`area` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(200) NOT NULL ,
-  `Instituicao_idInstituicao` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_Area_Instituicao1` (`Instituicao_idInstituicao` ASC) ,
-  CONSTRAINT `fk_Area_Instituicao1`
-    FOREIGN KEY (`Instituicao_idInstituicao` )
-    REFERENCES `invio`.`instituicao` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 
