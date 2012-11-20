@@ -10,7 +10,7 @@
 
         <h:form>
 
-            <h:inputHidden value="#{areaBean.area}" converter="areaConversor"/>
+            <h:inputHidden value="#{programaBean.programa}" converter="programaConversor"/>
             
             <h:panelGrid 
                 id="display" 
@@ -23,11 +23,11 @@
                 </f:facet>
                 
                 <h:outputText value="Nome:" />  
-                <h:outputText value="#{areaBean.area.nome}" 
+                <h:outputText value="#{programaBean.programa.nome}" 
                               style="font-weight:bold"/>  
 
                 <p:commandButton 
-                    action="#{areaBean.excluir}" 
+                    action="#{programaBean.excluir}" 
                     ajax="false"
                     value="Sim" />
 
