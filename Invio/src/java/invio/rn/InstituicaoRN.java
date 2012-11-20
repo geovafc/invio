@@ -6,6 +6,8 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Instituicao;
+import invio.entidade.Unidade;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
 public class InstituicaoRN {
 
     GenericDAO<Instituicao> dao = new GenericDAO<Instituicao>();
+    GenericDAO<Unidade> daoUnidades = new GenericDAO<Unidade>();
 
     public boolean salvar(Instituicao i) {
         if (i.getId() == null) {
@@ -35,4 +38,19 @@ public class InstituicaoRN {
     public List<Instituicao> obterTodos() {
         return dao.obterTodos(Instituicao.class);
     }
+    
+    public List<Unidade> obTerUnidades(Instituicao instituicao) {
+        List<Unidade> unidadesTemp1 = daoUnidades.obterTodos(Unidade.class);
+        ArrayList<Unidade> unidadesTemp2 = new ArrayList<Unidade>();
+        
+        for (Unidade unidade : unidadesTemp1) {
+            
+            if (unidade.getInstituicao().getId().equals(instituicao.getId())) {
+                unidadesTemp2.add(unidade);
+            }
+            
+        }
+        return unidadesTemp2;
+}
+
 }

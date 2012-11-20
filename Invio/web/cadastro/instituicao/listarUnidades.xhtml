@@ -9,32 +9,31 @@
     <ui:define name="content">
 
         <h:form id="form">
+             
+            <h:inputHidden value="#{instituicaoBean.instituicao}" 
+                           converter="instituicaoConversor" />
 
             <p:growl showDetail="true" showSummary="true"/>
 
-            <p:commandButton value="Novo" ajax="false" action="formulario.xhtml"/>
+            <p:commandButton value="Novo" ajax="false" action="formularioUnidade.xhtml"/>
 
             <p:dataTable 
-                id="dtInstituicao"
-                var="instituicao" value="#{instituicaoBean.instituicoes}">
+                id="dtUnidadesDeInstituicoes"
+                var="unidade" value="#{instituicaoBean.unidades}">
 
                 <p:column headerText="Nome">  
-                    <h:outputText value="#{instituicao.nome}" />  
-                </p:column>  
-                
-                <p:column headerText="Sigla">  
-                    <h:outputText value="#{instituicao.sigla}" />  
+                    <h:outputText value="#{unidade.nome}" />  
                 </p:column>  
 
                 <p:column headerText="Operações">  
 
                     <p:commandButton 
-                        action="formulario.xhtml"
+                        action="formularioUnidade.xhtml"
                         value="Editar"
                         ajax="false">  
                         <f:setPropertyActionListener 
-                            value="#{instituicao}" 
-                            target="#{instituicaoBean.instituicao}" />  
+                            value="#{unidade}" 
+                            target="#{instituicaoBean.unidade}" />  
                     </p:commandButton>  
                     
                     <p:commandButton 
@@ -42,18 +41,10 @@
                         action="excluir.xhtml"
                         value="Excluir">  
                         <f:setPropertyActionListener 
-                            value="#{instituicao}" 
-                            target="#{instituicaoBean.instituicao}" />  
-                    </p:commandButton>  
-
-                    <p:commandButton 
-                        ajax="false"
-                        action="listarUnidades.xhtml"
-                        value="Unidades">  
-                        <f:setPropertyActionListener 
-                            value="#{instituicao}" 
+                             value="#{unidade}" 
                             target="#{instituicaoBean.unidade}" />  
                     </p:commandButton>  
+
 
                 </p:column> 
 
