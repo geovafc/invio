@@ -7,6 +7,7 @@ package invio.bean;
 import invio.entidade.Instituicao;
 import invio.entidade.Unidade;
 import invio.rn.InstituicaoRN;
+import invio.rn.UnidadeRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -24,6 +25,7 @@ public class UnidadeBean {
      * Creates a new instance of UnidadeBean
      */
     private InstituicaoRN instituicaoRN = new InstituicaoRN();
+    private UnidadeRN unidadeRN = new UnidadeRN();
     private Unidade unidade = new Unidade();
     private Instituicao instituicao;
 
@@ -64,13 +66,41 @@ public class UnidadeBean {
     public String salvar() {
         if (unidade.getId() == null) {
             instituicao.getUnidadeList().add(unidade);
+            //instituicaoRN.salvar(instituicao);
+            unidade.setInstituicao(instituicao);
+            if (unidadeRN.salvar(unidade)) {
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
+            }
+
+
         } else {
             int indice = instituicao.getUnidadeList().indexOf(unidade); //Busca pelo ID -- equals
             if (indice >= 0) {
                 instituicao.getUnidadeList().set(indice, unidade);
+                //  instituicaoRN.salvar(instituicao);
+                unidade.setInstituicao(instituicao);
+                if (unidadeRN.salvar(unidade)) {
+                    BeanUtil.criarMensagemDeInformacao(
+                            "Operação realizada com sucesso",
+                            "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
+                } else {
+                    BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
+                }
             }
         }
-        instituicaoRN.salvar(instituicao);
+        //instituicaoRN.salvar(instituicao);
+        unidade.setInstituicao(instituicao);
+        if (unidadeRN.salvar(unidade)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
+        }
         return "listarUnidades.xhtml";
     }
 

@@ -59,6 +59,8 @@ public class InstituicaoBean {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "A Instituição " + instituicao.getNome() + " foi gravada com sucesso.");
+        }else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Instituição", "Instituição: " + instituicao.getNome());
         }
         return "listar.xhtml";
     }
