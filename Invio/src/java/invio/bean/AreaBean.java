@@ -53,6 +53,8 @@ public class AreaBean {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "A área " + area.getNome() + " foi gravada com sucesso.");
+        }else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a área", "Área: " + area.getNome());
         }
         return "listar.xhtml";
     }
