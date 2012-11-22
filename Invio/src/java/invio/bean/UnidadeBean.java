@@ -27,6 +27,7 @@ public class UnidadeBean {
     private InstituicaoRN instituicaoRN = new InstituicaoRN();
     private UnidadeRN unidadeRN = new UnidadeRN();
     private Unidade unidade = new Unidade();
+    private List<Unidade> unidades;
     private Instituicao instituicao;
 
     public UnidadeBean() {
@@ -55,13 +56,13 @@ public class UnidadeBean {
         this.instituicao = instituicao;
     }
 
-    public List<Unidade> getUnidades() {
-        if (instituicao != null) {
-            return instituicao.getUnidadeList();
-        } else {
-            return null; //TODO Retornar lista vazia
-        }
-    }
+//    public List<Unidade> getUnidades() {
+//        if (instituicao != null) {
+//            return instituicao.getUnidadeList();
+//        } else {
+//            return null; //TODO Retornar lista vazia
+//        }
+//    }
 
     public String salvar() {
         if (unidade.getId() == null) {
@@ -111,5 +112,16 @@ public class UnidadeBean {
         }
         instituicaoRN.salvar(instituicao);
         return "listarUnidades.xhtml";
+    }
+    
+        public List<Unidade> getUnidades() {
+            
+            if (instituicao !=null) {
+            unidades = unidadeRN.obTerUnidades(instituicao);     
+            }else{
+                return null; //TODO Retornar lista vazia
+            }
+       
+        return unidades;
     }
 }
