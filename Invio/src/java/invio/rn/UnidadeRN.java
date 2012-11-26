@@ -6,6 +6,7 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Unidade;
+import invio.rn.UnidadeRN;
 import invio.entidade.Instituicao;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,7 @@ import java.util.List;
 public class UnidadeRN {
 
     GenericDAO<Unidade> dao = new GenericDAO<Unidade>();
-    GenericDAO<Unidade> daoUnidades = new GenericDAO<Unidade>();
-    private List<Unidade> unidades;
+   private List<Unidade> unidades;
     
     public boolean salvar(Unidade u) {
         if (u.getId() == null) {
@@ -41,7 +41,7 @@ public class UnidadeRN {
     }
     
     public List<Unidade> obTerUnidades(Instituicao instituicao) {
-        List<Unidade> unidadesTemp1 = instituicao.getUnidadeList();
+        List<Unidade> unidadesTemp1 = dao.obterTodos(Unidade.class);
         ArrayList<Unidade> unidadesTemp2 = new ArrayList<Unidade>();
         
         
