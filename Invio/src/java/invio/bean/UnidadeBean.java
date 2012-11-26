@@ -34,7 +34,9 @@ public class UnidadeBean {
     }
 
     public Unidade getUnidade() {
+         System.out.println("Unidade: "+unidade);
         return unidade;
+        
     }
 
     public void setUnidade(Unidade unidade) {
