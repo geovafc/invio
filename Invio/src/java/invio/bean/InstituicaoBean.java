@@ -17,22 +17,23 @@ public class InstituicaoBean {
 
     private InstituicaoRN instituicaoRN = new InstituicaoRN();
     private List<Instituicao> instituicoes;
-    private Instituicao instituicao = new Instituicao();
+    private Instituicao instituicao;// = new Instituicao();
     private UnidadeRN unidadeRN = new UnidadeRN();
-    private Unidade unidade = new Unidade();
+    private Unidade unidade; //= new Unidade();
     private List<Unidade> unidades;
 
     public InstituicaoBean(List<Instituicao> instituicoes, Unidade unidade) {
         this.instituicoes = instituicoes;
         this.unidade = unidade;
     }
- public InstituicaoBean() {
+
+    public InstituicaoBean() {
     }
 
     public List<Instituicao> getInstituicoes() {
-        if (instituicoes == null) {
-            instituicoes = instituicaoRN.obterTodos();
-        }
+        //    if (instituicoes == null) {
+        instituicoes = instituicaoRN.obterTodos();
+        //  }
         return instituicoes;
     }
 
@@ -43,7 +44,6 @@ public class InstituicaoBean {
 //    public Instituicao getInstituicao() {
 //        return instituicao;
 //    }
-    
     public Instituicao getInstituicao() {
         if (instituicao != null) {
             return instituicao;
@@ -56,7 +56,7 @@ public class InstituicaoBean {
 //        System.out.println("setInstituicao " + instituicao);
 //        this.instituicao = instituicao;
 //    }
-     public void setInstituicao(Instituicao instituicao) {
+    public void setInstituicao(Instituicao instituicao) {
         if (BeanUtil.lerDaSessao("instituicao") == null) {
             BeanUtil.colocarNaSessao("instituicao", instituicao);
         }
@@ -68,14 +68,14 @@ public class InstituicaoBean {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "A Instituição " + instituicao.getNome() + " foi gravada com sucesso.");
-            
+
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Instituição", "Instituição: " + instituicao.getNome());
         }
-        
+
         return "/cadastro/instituicao/listar.xhtml";
     }
-    
+
     public String excluirInstituicao() {
         System.out.println("Instituição " + instituicao);
         if (instituicaoRN.remover(instituicao)) {
@@ -85,6 +85,23 @@ public class InstituicaoBean {
         }
         return "listar.xhtml";
     }
+    
+    public String irListarInstituicoes() {
+        instituicao = null;
+
+        return "/cadastro/instituicao/formularioUnidade.xhtml";
+    }
+    
+    public String novoFormularioInstituicao() {
+
+        instituicao = new Instituicao();
+        return "/cadastro/instituicao/formulario.xhtml";
+    }
+
+    
+    // CONTROLE DE UNIDADE APARTIR DESSA LINHA
+    // CONTROLE DE UNIDADE APARTIR DESSA LINHA
+    
     
     public String salvarUnidade() {
         unidade.setInstituicao(instituicao);
@@ -97,10 +114,12 @@ public class InstituicaoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
         }
+
+        unidades = null;
         return "listarUnidades.xhtml";
     }
-    
-     public String excluirUnidade() {
+
+    public String excluirUnidade() {
         System.out.println("Unidade: " + unidade);
         if (unidadeRN.remover(unidade)) {
             BeanUtil.criarMensagemDeInformacao("Unidade excluída", "Unidade: " + unidade.getNome());
@@ -109,34 +128,37 @@ public class InstituicaoBean {
         }
         return "listarUnidades.xhtml";
     }
-     
-     public String irEditarUnidade() {
-         
+
+    public String irEditarUnidade() {
+
         System.out.println("Unidade 1 :" + unidade + "Instituição 1: " + instituicao);
         return "/cadastro/instituicao/formularioUnidade.xhtml";
     }
-     public String irListarInstituicoes() {
-         instituicao = null;
-         
+
+    public String novoFormularioUnidade() {
+
+        unidade = new Unidade();
         return "/cadastro/instituicao/formularioUnidade.xhtml";
     }
+
     
-     public Unidade getUnidade() {
+
+    public Unidade getUnidade() {
         return unidade;
     }
 
     public void setUnidade(Unidade unidade) {
         this.unidade = unidade;
     }
+
     public List<Unidade> getUnidades() {
 
 //        if (instituicao != null) {
-            unidades = unidadeRN.obTerUnidades(instituicao);
+        unidades = unidadeRN.obTerUnidades(instituicao);
 //        } else {
 //            return null; //TODO Retornar lista vazia
 //        }
 
         return unidades;
     }
-    
 }
