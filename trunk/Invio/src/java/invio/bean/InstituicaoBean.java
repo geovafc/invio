@@ -89,7 +89,7 @@ public class InstituicaoBean {
     public String irListarInstituicoes() {
         instituicao = null;
 
-        return "/cadastro/instituicao/formularioUnidade.xhtml";
+        return "/cadastro/instituicao/listar.xhtml";
     }
     
     public String novoFormularioInstituicao() {
