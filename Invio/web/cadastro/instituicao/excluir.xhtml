@@ -27,14 +27,14 @@
                               style="font-weight:bold"/>  
 
                 <p:commandButton 
-                    action="#{instituicaoBean.excluir}" 
+                    action="#{instituicaoBean.excluirInstituicao()}" 
                     ajax="false"
                     value="Sim" />
 
                 <p:commandButton 
                     value="Não" 
                     ajax="false"
-                    action="listar.xhtml"/>
+                    action="#{instituicaoBean.irListarInstituicoes()}"/>
 
             </h:panelGrid> 
 
