@@ -12,7 +12,7 @@
              
             <h:inputHidden 
                 id="ihInstituicao"
-                value="#{unidadeBean.instituicao}" 
+                value="#{instituicaoBean.instituicao}" 
                 converter="instituicaoConversor"/>
 
             <p:growl showDetail="true" showSummary="true"/>
@@ -21,7 +21,7 @@
 
             <p:dataTable 
                 id="dtUnidadesDeInstituicoes"
-                var="unidade" value="#{unidadeBean.unidades}">
+                var="unidade" value="#{instituicaoBean.unidades}">
 
                 <p:column headerText="Nome">  
                     <h:outputText value="#{unidade.nome}" />  
@@ -30,12 +30,12 @@
                 <p:column headerText="Operações">  
 
                     <p:commandButton 
-                        action="formularioUnidade.xhtml"
+                        action="#{instituicaoBean.irEditarUnidade}"
                         value="Editar"
                         ajax="false">  
                         <f:setPropertyActionListener 
                             value="#{unidade}" 
-                            target="#{unidadeBean.unidade}" />  
+                            target="#{instituicaoBean.unidade}" />  
                     </p:commandButton>  
                     
                     <p:commandButton 
@@ -44,7 +44,7 @@
                         value="Excluir">  
                         <f:setPropertyActionListener 
                              value="#{unidade}" 
-                             target="#{unidadeBean.unidade}" />  
+                             target="#{instituicaoBean.unidade}" />  
                     </p:commandButton>  
 
 

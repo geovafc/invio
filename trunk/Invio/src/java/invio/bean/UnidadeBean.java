@@ -11,6 +11,7 @@ import invio.rn.UnidadeRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -18,7 +19,7 @@ import javax.faces.bean.ViewScoped;
  * @author Junior
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class UnidadeBean {
 
     /**
@@ -99,19 +100,20 @@ public class UnidadeBean {
 //            }
 //        }
 
-            unidade.setInstituicao(instituicao);
+        unidade.setInstituicao(instituicao);
 
-            System.out.println("Unidade 1 :" + unidade + "Instituição 1: " + instituicao);
-            if (unidadeRN.salvar(unidade)) {
-                BeanUtil.criarMensagemDeInformacao(
-                        "Operação realizada com sucesso",
-                        "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
-            } else {
-                BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
-            }
-    return "listarUnidades.xhtml";    
+        System.out.println("Unidade 1 :" + unidade + "Instituição 1: " + instituicao);
+        if (unidadeRN.salvar(unidade)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
+        }
+        return "listarUnidades.xhtml";
     }
 
+    
 
     public String excluir() {
         int indice = instituicao.getUnidadeList().indexOf(unidade); //Busca pelo ID -- equals
