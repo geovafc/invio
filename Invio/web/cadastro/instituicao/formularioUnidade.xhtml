@@ -9,11 +9,13 @@
 
         <h:form>
 
-            
+            <h:inputHidden 
+                id="ihInstituicao"
+                value="#{unidadeBean.instituicao}" 
+                converter="instituicaoConversor"/>
             <h:inputHidden 
                 id="objArea"
-                value="#{unidadeBean.unidade.id}"
-                converter="unidadeConversor"/>
+                value="#{unidadeBean.unidade.id}"/>
 
             <p:growl/>
 
