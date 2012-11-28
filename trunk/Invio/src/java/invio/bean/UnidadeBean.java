@@ -34,9 +34,9 @@ public class UnidadeBean {
     }
 
     public Unidade getUnidade() {
-         System.out.println("Unidade: "+unidade);
+        System.out.println("Unidade: " + unidade);
         return unidade;
-        
+
     }
 
     public void setUnidade(Unidade unidade) {
@@ -65,12 +65,43 @@ public class UnidadeBean {
 //            return null; //TODO Retornar lista vazia
 //        }
 //    }
-
     public String salvar() {
-        if (unidade.getId() == null) {
-            instituicao.getUnidadeList().add(unidade);
-            //instituicaoRN.salvar(instituicao);
+//        if (unidade.getId() == null) {
+//            instituicao.getUnidadeList().add(unidade);
+//            //instituicaoRN.salvar(instituicao);
+//            unidade.setInstituicao(instituicao);
+//            System.out.println("Unidade 1 :" + unidade + "Instituição 1: " + instituicao);
+//            if (unidadeRN.salvar(unidade)) {
+//                BeanUtil.criarMensagemDeInformacao(
+//                        "Operação realizada com sucesso",
+//                        "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
+//            } else {
+//                BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
+//            }
+//
+//
+//        } else {
+//            
+//            int indice = instituicao.getUnidadeList().indexOf(unidade); //Busca pelo ID -- equals
+//            if (indice >= 0) {
+//                instituicao.getUnidadeList().set(indice, unidade);
+//                //  instituicaoRN.salvar(instituicao);
+//                unidade.setInstituicao(instituicao);
+//                
+//            System.out.println("Unidade 1 :"+unidade+"Instituição 1: "+instituicao);
+//                if (unidadeRN.salvar(unidade)) {
+//                    BeanUtil.criarMensagemDeInformacao(
+//                            "Operação realizada com sucesso",
+//                            "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
+//                } else {
+//                    BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
+//                }
+//            }
+//        }
+
             unidade.setInstituicao(instituicao);
+
+            System.out.println("Unidade 1 :" + unidade + "Instituição 1: " + instituicao);
             if (unidadeRN.salvar(unidade)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
@@ -78,34 +109,9 @@ public class UnidadeBean {
             } else {
                 BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
             }
-
-
-        } else {
-            int indice = instituicao.getUnidadeList().indexOf(unidade); //Busca pelo ID -- equals
-            if (indice >= 0) {
-                instituicao.getUnidadeList().set(indice, unidade);
-                //  instituicaoRN.salvar(instituicao);
-                unidade.setInstituicao(instituicao);
-                if (unidadeRN.salvar(unidade)) {
-                    BeanUtil.criarMensagemDeInformacao(
-                            "Operação realizada com sucesso",
-                            "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
-                } else {
-                    BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
-                }
-            }
-        }
-        //instituicaoRN.salvar(instituicao);
-        unidade.setInstituicao(instituicao);
-        if (unidadeRN.salvar(unidade)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "A Unidade " + unidade.getNome() + " foi gravada com sucesso.");
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar a Unidade", "Unidade: " + unidade.getNome());
-        }
-        return "listarUnidades.xhtml";
+    return "listarUnidades.xhtml";    
     }
+
 
     public String excluir() {
         int indice = instituicao.getUnidadeList().indexOf(unidade); //Busca pelo ID -- equals
@@ -115,15 +121,15 @@ public class UnidadeBean {
         instituicaoRN.salvar(instituicao);
         return "listarUnidades.xhtml";
     }
-    
-        public List<Unidade> getUnidades() {
-            
-            if (instituicao !=null) {
-            unidades = unidadeRN.obTerUnidades(instituicao);     
-            }else{
-                return null; //TODO Retornar lista vazia
-            }
-       
+
+    public List<Unidade> getUnidades() {
+
+        if (instituicao != null) {
+            unidades = unidadeRN.obTerUnidades(instituicao);
+        } else {
+            return null; //TODO Retornar lista vazia
+        }
+
         return unidades;
     }
 }
