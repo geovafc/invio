@@ -37,8 +37,29 @@
                     action="#{instituicaoBean.irListarInstituicoes()}"/>
 
             </h:panelGrid> 
+            
 
         </h:form>
+<!--    <h:form prependId="false">  
+                          
+        <p:growl id="messages" />  
+      
+        <h:panelGrid columns="1" cellpadding="5">  
+            <h:outputText id="msg" value="#{instituicaoBean.instituicao}"/>  
+              
+            <p:commandButton id="showDialogButton" value="Deseja realmente excluir?" onclick="confirmation.show()" type="button"/>  
+        </h:panelGrid>  
+          
+        <p:confirmDialog id="confirmDialog" message="Você deseja realmente excluir?"  
+                    header="Initiating destroy process" severity="alert" widgetVar="confirmation">  
+                      
+            <p:commandButton id="confirm" value="Sim" update="messages" oncomplete="confirmation.hide()"  
+                        actionListener="#{buttonBean.destroyWorld}" />  
+            <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button" />   
+                      
+        </p:confirmDialog>  
+      
+    </h:form>   -->
 
     </ui:define>
 
