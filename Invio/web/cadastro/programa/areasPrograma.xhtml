@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <h:inputHidden
+                />
+            <p:growl id="msg" showDetail="true"  showSummary="true" />  
+
+            <h:panelGrid columns="1">
+
+
+
+                <p:pickList id="plAreas" value="#{programaBean.itensAreas}" var="area" effect="bounce"  
+                            itemValue="#{area}" itemLabel="#{area.nome}" converter="areaConversor"  
+                            showSourceControls="true" showTargetControls="true"   
+                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >  
+
+                    <f:facet name="sourceCaption">Disponíveis</f:facet>  
+                    <f:facet name="targetCaption">Selecionadas</f:facet>  
+
+                    <p:column style="width:75%;">  
+                        #{area.nome}  
+                    </p:column>  
+
+                </p:pickList>  
+
+
+            </h:panelGrid>
+
+
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

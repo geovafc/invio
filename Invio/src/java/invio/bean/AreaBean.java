@@ -68,4 +68,5 @@ public class AreaBean {
         }
         return "listar.xhtml";
     }
+    
 }
