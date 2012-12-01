@@ -75,6 +75,12 @@ public class ProgramaRN {
     }
 
     public List<Area> obterItens2() {
+        
         return daoArea.obterTodos(Area.class);
+    }
+
+    public List<Area> obterAreas() {
+       
+       return daoArea.obterTodos(Area.class);
     }
 }

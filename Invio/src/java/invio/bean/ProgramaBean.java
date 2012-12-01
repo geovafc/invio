@@ -29,6 +29,18 @@ public class ProgramaBean {
      */
     private ProgramaRN programaRN = new ProgramaRN();
     private List<Programa> programas;
+    private List<Area> areas;
+    
+
+    public List<Area> getAreas() {
+        areas = programaRN.obterAreas(); 
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+    
     private Programa programa = new Programa();
 
     public ProgramaBean() {
@@ -81,6 +93,9 @@ public class ProgramaBean {
         return programaRN.getInstituicoes();
     }
     
+    // CONTROLE DE AREA APARTIR DESSA LINHA
+    // CONTROLE DE AREA APARTIR DESSA LINHA
+    
     
     private DualListModel<Area> itens2;
     private List<Area> selecionados2;
@@ -98,6 +113,14 @@ public class ProgramaBean {
         //  temp.removeAll(selecionados2);
         itens2 = new DualListModel<Area>(temp, selecionados2);
         return itens2;
+    }
+    public void setItensAreas(DualListModel<Area> itens) {
+        this.itens2 = itens;
+    }
+    
+    public List<Area> selecionaAreas(){
+        return areas;
+        
     }
     
 }
