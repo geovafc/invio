@@ -1,37 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Login Web</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
-<!--
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-
-      xmlns:h="http://java.sun.com/jsf/html">
-
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-
-        <title>Login Web</title>
-
+        <title>Login invio</title>
+        <link rel="icon" href="resources/imgagem/ico.png" type="image/ico" />
     </h:head>
-
     <h:body>
+        <ui:insert name="header">
+            <ui:include src="../include/topo.xhtml"/>
+        </ui:insert>
 
         <h:form id="formLogin">
 
-            <h1><h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/></h1>
+            <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
 
             <h:panelGrid id="gridLoginSenha" columns="2">
 
@@ -39,19 +23,15 @@ and open the template in the editor.
 
                 <h:inputText id="login" value=""/>
 
-
-
                 <h:outputText id="senhaLabel" value="Senha:"/>
 
                 <h:inputSecret id="senha" value=""/>
 
-            </h:panelGrid>
+            </h:panelGrid>  
 
             <h:commandButton id="botao" value="Entrar"
-             ajax="false" action="#{menu.xhtml}"/>
+                             ajax="false" action="#{menu.xhtml}"/>
 
         </h:form>
-
     </h:body>
-
-</html>-->
+</html>
