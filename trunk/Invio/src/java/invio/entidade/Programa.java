@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author RSORANSO
+ * @author Junior
  */
 @Entity
 @Table(name = "programa")
@@ -43,10 +42,7 @@ public class Programa implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @JoinTable(name = "programa_area", joinColumns = {
-        @JoinColumn(name = "programa", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "area", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "programaList")
     private List<Area> areaList;
     @ManyToMany(mappedBy = "programaList")
     private List<Curriculo> curriculoList;

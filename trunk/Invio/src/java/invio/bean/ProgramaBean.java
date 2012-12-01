@@ -4,12 +4,17 @@
  */
 package invio.bean;
 
+import invio.entidade.Area;
 import invio.entidade.Programa;
 import invio.rn.ProgramaRN;
+import invio.util.ComparadorArea;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
+import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -49,6 +54,11 @@ public class ProgramaBean {
         this.programa = programa;
     }
     
+    public String irAreasPrograma (){
+        
+        return "/cadastro/programa/areasPrograma.xhtml";
+    }
+    
     public String salvar() {
         if (programaRN.salvar(programa)) {
             BeanUtil.criarMensagemDeInformacao(
@@ -69,6 +79,25 @@ public class ProgramaBean {
     
     public SelectItem[] getInstituicoes() {
         return programaRN.getInstituicoes();
+    }
+    
+    
+    private DualListModel<Area> itens2;
+    private List<Area> selecionados2;
+    private ComparadorArea comparadorArea = new ComparadorArea();
+    
+    public DualListModel<Area> getItensAreas() {
+
+        selecionados2 = new ArrayList<Area>();
+
+        selecionados2 = programaRN.obterSelecionados2(programa);
+
+        List<Area> temp = programaRN.obterItens2();
+
+        Collections.sort(temp, comparadorArea);
+        //  temp.removeAll(selecionados2);
+        itens2 = new DualListModel<Area>(temp, selecionados2);
+        return itens2;
     }
     
 }

@@ -5,8 +5,10 @@
 package invio.rn;
 
 import invio.dao.GenericDAO;
+import invio.entidade.Area;
 import invio.entidade.Instituicao;
 import invio.entidade.Programa;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.model.SelectItem;
 
@@ -18,6 +20,7 @@ public class ProgramaRN {
 
     GenericDAO<Programa> dao = new GenericDAO<Programa>();
     GenericDAO<Instituicao> daoInstituicao = new GenericDAO<Instituicao>();
+    GenericDAO<Area> daoArea = new GenericDAO<Area>();
 
     public boolean salvar(Programa p) {
         if (p.getId() == null) {
@@ -53,5 +56,25 @@ public class ProgramaRN {
         for (Programa p : programaRN.obterTodos()) {
             System.out.println(p);
         }
+    }
+
+    public List<Area> obterSelecionados2(Programa programa) {
+        
+        List<Area> temp = daoArea.obterTodos(Area.class);
+        ArrayList<Area> areasSelecionadas = new ArrayList<Area>();
+
+        if (temp != null) {
+            for (Area area : temp) {
+                if (area.getId().equals(programa.getId())) {
+                areasSelecionadas.add(area);
+                }
+            }
+        }
+
+        return areasSelecionadas;
+    }
+
+    public List<Area> obterItens2() {
+        return daoArea.obterTodos(Area.class);
     }
 }
