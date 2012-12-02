@@ -6,23 +6,23 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        
+
         <h:form>
-            
+
             <p:growl id="growl" sticky="true" showDetail="true"/>  
-            
+
             <h:inputHidden id="objPrograma"
-                value="#{programaBean.programa.id}"/>
-            
+                           value="#{programaBean.programa.id}"/>
+
             <p:wizard widgetVar="wiz" 
                       flowListener="#{curriculoBean.onFlowProcess}"
-                              nextLabel="Próximo" backLabel="Anterior" >
-                
+                      nextLabel="Próximo" backLabel="Anterior" >
+
                 <p:tab id="personal" title="Pessoal">  
 
                     <p:panel header="Dados Pessoais" style="height: 420px">  
 
-                        
+
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
@@ -30,21 +30,21 @@
                             <p:message id="erroNome" for="nome"/>
 
                             <h:outputText value="CPF: *" />  
-                            <p:inputText id="cpf" required="true" label="Cpf"  
-                                         value="#{curriculoBean.curriculo.cpf}" /> 
+                            <p:inputMask id="cpf" required="true" label="Cpf"  
+                                         value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
                             <p:message id="erroCPF" for="cpf"/>
-                            
+
                             <h:outputText value="Matricula: *" />  
                             <p:inputText id="matricula" required="true" label="Matricula"  
                                          value="#{curriculoBean.curriculo.matricula}" /> 
                             <p:message id="erroMatricula" for="matricula"/>
-                            
+
                             <h:outputText value="Lattes: *" />  
                             <p:inputText id="lattes" required="true" label="Lattes"  
                                          value="#{curriculoBean.curriculo.lattes}" /> 
                             <p:message id="erroLatte" for="lattes"/>
-                            
-                            
+
+
                             <h:outputText value="Curso: *" />  
                             <p:inputText id="curso" required="true" label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
@@ -57,43 +57,44 @@
                 <p:tab id="address" title="Endereço">  
                     <p:panel header="Detalhes do Endereço" style="height: 420px">  
 
-                       
+
                         <h:panelGrid columns="3" columnClasses="label, value">  
-                            
+
                             <h:outputText value="Logradouro: " />  
                             <p:inputText id="logradouro" required="false" label="Logradouro"
                                          value="#{curriculoBean.curriculo.logradouro}" />  
                             <p:message id="erroLogradouro" for="logradouro"/>
-                            
+
                             <h:outputText value="Número: " />  
                             <p:inputText  id="numero" value="#{curriculoBean.curriculo.numeroEnd}" />  
                             <p:message id="erroNumero" for="numero"/>
-                            
-                            
+
+
                             <h:outputText value="Cep: " />  
-                            <p:inputText id="cep" required="false" value="#{curriculoBean.curriculo.cep}" />  
+                            <p:inputMask id="cep" required="false" 
+                                         value="#{curriculoBean.curriculo.cep}" mask="99999-999"/>  
                             <p:message id="erroCep" for="cep"/>
-                            
+
                             <h:outputText value="Bairro: *" />  
                             <p:inputText id="bairro" required="true" label="Bairro"
                                          value="#{curriculoBean.curriculo.bairro}" />  
                             <p:message id="erroBairro" for="bairro"/>
-                            
+
                             <h:outputText value="Cidade: *" />  
                             <p:inputText id="cidade" required="true" label="Cidade"
                                          value="#{curriculoBean.curriculo.cidade}" />  
                             <p:message id="erroCidade" for="cidade"/>
-                            
+
                             <h:outputText value="Estado: *" />  
                             <p:inputText id="estado" required="true" label="Estado"
                                          value="#{curriculoBean.curriculo.estado}" />  
                             <p:message id="erroEstado" for="estado"/>
-                            
+
                             <h:outputText value="País: *" />  
                             <p:inputText id="pais" required="true" label="País"
                                          value="#{curriculoBean.curriculo.pais}" />  
                             <p:message id="erroPais" for="pais"/>
-                            
+
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
@@ -106,15 +107,17 @@
                             <p:inputText id="email" required="true" label="Email"  
                                          value="#{curriculoBean.curriculo.email}" />  
                             <p:message id="erroEmail" for="email"/>
-                            
+
                             <h:outputText value="Telefone: " />  
-                            <p:inputText id="telefone" required="false" value="#{curriculoBean.curriculo.telefone}"/> 
+                            <p:inputMask id="telefone" required="false" 
+                                         value="#{curriculoBean.curriculo.telefone}" mask="(99) 9999-9999"/> 
                             <p:message id="erroTelefone" for="telefone"/>    
-                            
+
                             <h:outputText value="Celular: " />  
-                            <p:inputText id="celular" required="false" value="#{curriculoBean.curriculo.celular}"/>  
+                            <p:inputMask id="celular" required="false" 
+                                         value="#{curriculoBean.curriculo.celular}" mask="(99) 9999-9999"/>  
                             <p:message id="erroCelular" for="celular"/>
-                        
+
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
@@ -191,11 +194,11 @@
                                          actionListener="#{curriculoBean.salvarCurriculo()}"/>  
                     </p:panel>  
                 </p:tab>
-                
+
             </p:wizard>
-            
+
         </h:form>
-        
+
     </ui:define>
 
 </ui:composition>
