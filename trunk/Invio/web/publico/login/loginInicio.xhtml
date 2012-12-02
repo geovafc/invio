@@ -28,13 +28,14 @@
                     </h:panelGrid>
                     <p:panel style ="border-color: transparent; 
                              color: transparent; background: transparent " >
-                        
+
                         <div align="center">
                             <p:commandButton value="Entrar"/>
                         </div>
-                            
-                            <p:commandLink value="Esqueceu sua senha?"/>    
-                        
+
+                        <p:commandLink value="Esqueceu sua senha?" ajax="false" 
+                                       action="#{usuarioBean.recuperarSenha()}"/>    
+
 
                     </p:panel>
                 </p:panel>

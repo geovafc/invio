@@ -62,7 +62,6 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + curriculo.getNome());
         }
-
         return "/cadastro/curriculo/listar.xhtml";
     }
 

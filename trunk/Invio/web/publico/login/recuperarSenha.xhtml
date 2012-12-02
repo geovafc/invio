@@ -1,10 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../template/templateSemMenu.xhtml">
+                template="./../../template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        content
+
+        <h:form id="formrecuperarSenha">
+
+            <div align="center">
+                <p:panel>
+                    <h:outputText id="recSenha" value="Recuperar Senha do Sistema."/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid id="gridrecuperarSenha" cellspacing="0" cellpadding="2" style="width: 32%" columns="3">
+
+                        <h:outputText id="loginLabel" value="E-mail:"/>
+                        <h:inputText id="email"/>
+                        <p:message id="erroEmail" for="email"/>
+
+                        <h:outputText id="cpfLabel" value="CPF:"/>
+                        <h:inputSecret id="cpf" value=""/>
+                        <p:message id="erroCPF" for="cpf"/>
+
+
+                    </h:panelGrid>
+                    <p:panel style ="border-color: transparent; 
+                             color: transparent; background: transparent " >
+
+                        <div align="center">
+                            <p:commandButton value="Enviar"/>
+                        </div>
+
+                    </p:panel>
+                </p:panel>
+            </div>
+
+        </h:form>
     </ui:define>
 
 </ui:composition>
