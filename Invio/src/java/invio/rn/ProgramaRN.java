@@ -21,7 +21,6 @@ public class ProgramaRN {
     GenericDAO<Programa> dao = new GenericDAO<Programa>();
     GenericDAO<Instituicao> daoInstituicao = new GenericDAO<Instituicao>();
     GenericDAO<Area> daoArea = new GenericDAO<Area>();
-    Programa programa = new Programa();
 
     public boolean salvar(Programa p) {
         if (p.getId() == null) {
@@ -75,39 +74,20 @@ public class ProgramaRN {
         return areasSelecionadas;
     }
 
-    public List<Area> obterItens2() {
+    public List<Area> obterItensNaoSelecionados(Programa programa) {
 
-        List<Area> areas = new ArrayList<Area>();
-        areas = daoArea.obterTodos(Area.class);
+        List<Area> areas = daoArea.obterTodos(Area.class);
 
-        List<Area> selecionados2;
-        selecionados2 = programa.getAreaList();
+        List<Area> selecionadas = programa.getAreaList();
 
-        List<Area> areasNaoSelecionadas = new ArrayList<Area>();
-
-        if (selecionados2 != null) {
-
-            for (Area area : areas) {
-
-                for (Area area2 : selecionados2) {
-
-                    if (area.getId() != area2.getId()) {
-
-                        areasNaoSelecionadas.add(area);
-                    }
-                }
-            }
-        } else {
-            areasNaoSelecionadas = daoArea.obterTodos(Area.class);;
+        if(selecionadas != null){
+            areas.removeAll(selecionadas);
         }
 
-
-        System.out.println("areas Nao Selecionadas: " + areasNaoSelecionadas);
-        return areasNaoSelecionadas;
+        return areas;
     }
 
     public List<Area> obterAreas() {
-
         return daoArea.obterTodos(Area.class);
     }
 }
