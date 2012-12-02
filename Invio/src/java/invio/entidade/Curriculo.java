@@ -57,7 +57,7 @@ public class Curriculo implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @Column(name = "cpf")
-    private int cpf;
+    private String cpf;
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
@@ -110,7 +110,7 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public Curriculo(Integer id, int cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
+    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -132,11 +132,11 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
