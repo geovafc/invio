@@ -7,6 +7,7 @@ package invio.entidade;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -98,6 +100,8 @@ public class Curriculo implements Serializable {
         @JoinColumn(name = "programa", referencedColumnName = "id")})
     @ManyToMany
     private List<Programa> programaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
+    private List<Login> loginList;
 
     public Curriculo() {
     }
@@ -255,6 +259,15 @@ public class Curriculo implements Serializable {
 
     public void setProgramaList(List<Programa> programaList) {
         this.programaList = programaList;
+    }
+
+    @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
 
     @Override

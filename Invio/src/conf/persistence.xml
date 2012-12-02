@@ -7,6 +7,7 @@
     <class>invio.entidade.Curriculo</class>
     <class>invio.entidade.Area</class>
     <class>invio.entidade.Instituicao</class>
+    <class>invio.entidade.Login</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
