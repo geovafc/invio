@@ -2,9 +2,12 @@ package invio.bean;
 
 import invio.entidade.Curriculo;
 import invio.rn.CurriculoRN;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @RequestScoped
@@ -46,7 +49,6 @@ public class CurriculoBean {
         }
         this.curriculo = curriculo;
     }
-
     public String salvarCurriculo() {
         if (curriculoRN.salvar(curriculo)) {
             BeanUtil.criarMensagemDeInformacao(

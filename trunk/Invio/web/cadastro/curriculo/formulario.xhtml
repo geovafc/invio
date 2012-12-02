@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form>  
+            
+            <p:growl id="growl" sticky="true" showDetail="true"/>  
+
+            <p:wizard widgetVar="wiz"  
+                      flowListener="#{curriculoBean.onFlowProcess}">  
+
+                <p:tab id="personal" title="Pessoal">  
+
+                    <p:panel header="Dados Pessoais">  
+
+                        <h:messages errorClass="error"/>  
+
+                        <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+                            <h:outputText value="Nome: *" />  
+                            <p:inputText required="true" label="Nome"  
+                                         value="#{curriculoBean.curriculo.nome}" />  
+
+                            <h:outputText value="CPF: *" />  
+                            <p:inputText required="true" label="Cpf"  
+                                         value="#{curriculoBean.curriculo.cpf}" /> 
+
+                            <h:outputText value="Matricula: *" />  
+                            <p:inputText required="true" label="Matricula"  
+                                         value="#{curriculoBean.curriculo.matricula}" /> 
+
+                            <h:outputText value="Lattes: *" />  
+                            <p:inputText required="true" label="Lattes"  
+                                         value="#{curriculoBean.curriculo.lattes}" /> 
+
+                            <h:outputText value="Curso: *" />  
+                            <p:inputText required="true" label="Curso"  
+                                         value="#{curriculoBean.curriculo.curso}" />  
+
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="address" title="Endereço">  
+                    <p:panel header="Detalhes do Endereço">  
+
+                        <h:messages errorClass="error"/>  
+
+                        <h:panelGrid columns="2" columnClasses="label, value">  
+                            <h:outputText value="Logradouro: " />  
+                            <p:inputText required="true" label="Logradouro"
+                                         value="#{curriculoBean.curriculo.logradouro}" />  
+
+                            <h:outputText value="Número: " />  
+                            <p:inputText  value="#{curriculoBean.curriculo.numeroEnd}" />  
+
+                            <h:outputText value="Cep: " />  
+                            <p:inputText value="#{curriculoBean.curriculo.cep}" />  
+
+                            <h:outputText value="Bairro: " />  
+                            <p:inputText required="true" label="Bairro"
+                                         value="#{curriculoBean.curriculo.bairro}" />  
+
+                            <h:outputText value="Cidade: " />  
+                            <p:inputText required="true" label="Cidade"
+                                         value="#{curriculoBean.curriculo.cidade}" />  
+
+                            <h:outputText value="Estado: " />  
+                            <p:inputText required="true" label="Estado"
+                                         value="#{curriculoBean.curriculo.estado}" />  
+
+                            <h:outputText value="País: " />  
+                            <p:inputText required="true" label="País"
+                                         value="#{curriculoBean.curriculo.pais}" />  
+
+                            <!--                    <h:outputText value="Skip to last: " />  
+                                                <h:selectBooleanCheckbox value="#{userWizard.skip}" />  -->
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="contact" title="Contato">  
+                    <p:panel header="Infomações do Contato">  
+
+                        <h:messages errorClass="error"/>  
+
+                        <h:panelGrid columns="2" columnClasses="label, value">  
+                            <h:outputText value="Email: *" />  
+                            <p:inputText required="true" label="Email"  
+                                         value="#{curriculoBean.curriculo.email}" />  
+
+                            <h:outputText value="Telefone: " />  
+                            <p:inputText value="#{curriculoBean.curriculo.telefone}"/>  
+
+                            <h:outputText value="Celular: " />  
+                            <p:inputText value="#{curriculoBean.curriculo.celular}"/>  
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="confirm" title="confirmação">  
+                    <p:panel header="confirmação">  
+
+                        <h:panelGrid id="confirmation" columns="6">  
+                            <h:outputText value="Nome: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.nome}" />  
+
+                            <h:outputText value="CPF: " />  
+                            <h:outputText  styleClass="outputLabel"  
+                                           value="#{curriculoBean.curriculo.cpf}"/>  
+
+                            <h:outputText value="Matricula: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.matricula}" />>  
+
+                            <h:outputText value="Lattes: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.lattes}" />  
+
+                            <h:outputText value="Curso: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.curso}" />  
+
+                            <h:outputText value="Logradouro: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.cpf}" />  
+
+                            <h:outputText value="Número: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.curso}" />  
+
+                            <h:outputText value="Cep: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.curso}"/> 
+
+                            <h:outputText value="Bairro: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.curso}" />  
+
+                            <h:outputText value="Cidade: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.cidade}" />  
+
+                            <h:outputText value="Estado: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.estado}" />  
+
+                            <h:outputText value="País: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.pais}" />  
+
+                            <h:outputText value="Email: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.email}" />  
+
+                            <h:outputText value="Telefone: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.telefone}" />  
+
+                            <h:outputText value="Celular: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.celular}" />  
+
+                            <h:outputText />  
+                            <h:outputText />  
+                        </h:panelGrid>  
+
+                        <p:commandButton value="Submit" update="growl"   
+                                         actionListener="#{curriculoBean.save}"/>  
+
+                    </p:panel>  
+                </p:tab>  
+
+            </p:wizard>  
+
+        </h:form>  
+
+
+        <!--                <h:form>
+                
+                            <h:inputHidden 
+                                id="objCurriculo"
+                                value="#{curriculoBean.curriculo.id}"/>
+                
+                            <p:growl/>
+                
+                            <h:panelGrid columns="3">
+                
+                                <h:outputText value="Nome: "/>
+                                <h:inputText id="curriculoNome" value="#{curriculoBean.curriculo.nome}"/>
+                                <h:message for="instituicaoNome"/>
+                
+                                <h:outputText value="CPF: "/>
+                                <h:inputText id="curriculoCpf" value="#{curriculoBean.curriculo.cpf}"/>
+                                <h:message for="curriculoCpf"/>
+                
+                                <h:outputText value="Logradouro: "/>
+                                <h:inputText id="curriculoLogradouro" value="#{curriculoBean.curriculo.logradouro}"/>
+                                <h:message for="curriculoLogradouro"/>
+                
+                                <h:outputText value="Número: "/>
+                                <h:inputText id="curriculoNumero" value="#{curriculoBean.curriculo.numeroEnd}"/>
+                                <h:message for="curriculoNumero"/>
+                
+                                <h:outputText value="CEP: "/>
+                                <h:inputText id="curriculoCep" value="#{curriculoBean.curriculo.cep}"/>
+                                <h:message for="curriculoCep"/>
+                
+                                <h:outputText value="Bairro: "/>
+                                <h:inputText id="curriculoBairro" value="#{curriculoBean.curriculo.bairro}"/>
+                                <h:message for="curriculoBairro"/>
+                
+                                <h:outputText value="Cidade: "/>
+                                <h:inputText id="curriculoCidade" value="#{curriculoBean.curriculo.cidade}"/>
+                                <h:message for="curriculoCidade"/>
+                                
+                                <h:outputText value="Estado: "/>
+                                <h:inputText id="curriculoEstado" value="#{curriculoBean.curriculo.estado}"/>
+                                <h:message for="curriculoEstado"/>
+                                
+                                <h:outputText value="País: "/>
+                                <h:inputText id="curriculoPais" value="#{curriculoBean.curriculo.pais}"/>
+                                <h:message for="curriculoPais"/>
+                                
+                                <h:outputText value="Telefone: "/>
+                                <h:inputText id="curriculoTelefone" value="#{curriculoBean.curriculo.telefone}"/>
+                                <h:message for="curriculoTelefone"/>
+                                
+                                <h:outputText value="Celular: "/>
+                                <h:inputText id="curriculoCelular" value="#{curriculoBean.curriculo.celular}"/>
+                                <h:message for="curriculoCelular"/>
+                                
+                                <h:outputText value="E-mail: "/>
+                                <h:inputText id="curriculoEmail" value="#{curriculoBean.curriculo.email}"/>
+                                <h:message for="curriculoEmail"/>
+                                
+                                <h:outputText value="Matricula: "/>
+                                <h:inputText id="curriculoMatricula" value="#{curriculoBean.curriculo.matricula}"/>
+                                <h:message for="curriculoMatricula"/>
+                                
+                                <h:outputText value="Curso: "/>
+                                <h:inputText id="curriculoCurso" value="#{curriculoBean.curriculo.curso}"/>
+                                <h:message for="curriculoCurso"/>
+                                
+                                <h:outputText value="Lattes: "/>
+                                <h:inputText id="curriculolattes" value="#{curriculoBean.curriculo.lattes}"/>
+                                <h:message for="curriculoLattes"/>
+                
+                            </h:panelGrid>
+                
+                            <p:commandButton 
+                                ajax="false" value="Salvar" action="#{curriculoBean.salvarCurriculo()}"/>
+                            <p:commandButton 
+                                ajax="false" value="Cancelar" action="#{curriculoBean.irListarCurriculos()}"/>
+                        </h:form>
+                
+                    </ui:define>
+                
+                </ui:composition>-->
