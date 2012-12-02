@@ -81,6 +81,6 @@ public class CurriculoBean {
     public String novoFormularioCurriculo() {
 
         curriculo = new Curriculo();
-        return "/cadastro/curriculo/formulario.xhtml";
+        return "/cadastro/curriculo/wizard.xhtml";
     }
 }
