@@ -6,6 +6,7 @@ package invio.bean;
 
 import invio.entidade.Area;
 import invio.entidade.Programa;
+import invio.rn.AreaRN;
 import invio.rn.ProgramaRN;
 import invio.util.ComparadorArea;
 import java.util.ArrayList;
@@ -24,13 +25,14 @@ import org.primefaces.model.DualListModel;
  * @author Junior
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ProgramaBean {
 
     /**
      * Creates a new instance of ProgramaBean
      */
     private ProgramaRN programaRN = new ProgramaRN();
+    private AreaRN areaRN = new AreaRN();
     private List<Programa> programas;
     private List<Area> areas;
     
@@ -101,25 +103,25 @@ public class ProgramaBean {
     
     
     private DualListModel<Area> itens2;
-    private List<Area> selecionados2;
+    private List<Area> selecionadas;
     private List<String> selecionadosVazio;
     private ComparadorArea comparadorArea = new ComparadorArea();
     
     public DualListModel<Area> getItensAreas() {
         
-        selecionados2 = new ArrayList<Area>();
-        selecionados2 = programa.getAreaList();
-        
+        selecionadas = new ArrayList<Area>();
+        selecionadas = programa.getAreaList(); 
+       
 
-        List<Area> temp = programaRN.obterItens2();
+        List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
 
-        Collections.sort(temp, comparadorArea);
+        Collections.sort(naoSelecionada, comparadorArea);
         //  temp.removeAll(selecionados2);
         
-        if (selecionados2 != null) {
-            itens2 = new DualListModel<Area>(temp, selecionados2);
+        if (selecionadas != null) {
+            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
         }else{
-        itens2 = new DualListModel<Area>(temp, null);    
+        itens2 = new DualListModel<Area>(naoSelecionada, null);    
         }
         
         return itens2;
@@ -130,14 +132,13 @@ public class ProgramaBean {
     
     
     public String salvarAreasPrograma (){
-    
-    ArrayList<Area> areasPrograma = new ArrayList<Area>();
-    
-    areasPrograma = (ArrayList<Area>) itens2.getTarget();
+        List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
         
-    programa.setAreaList(areasPrograma); 
-    
-    programaRN.salvar(programa);
+        
+        for (Area area : areasPrograma) {
+            area.getProgramaList().add(programa);
+            areaRN.salvar(area);
+        }
         
         return "/cadastro/programa/listar.xhtml";
     }
