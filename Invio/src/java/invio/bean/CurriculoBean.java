@@ -4,18 +4,22 @@ import invio.entidade.Curriculo;
 import invio.rn.CurriculoRN;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FlowEvent;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class CurriculoBean {
 
     private CurriculoRN curriculoRN = new CurriculoRN();
     private List<Curriculo> curriculos;
     private Curriculo curriculo;
+    private static Logger logger = Logger.getLogger(Curriculo.class.getName());
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -72,6 +76,18 @@ public class CurriculoBean {
         return "listar.xhtml";
     }
 
+    
+    public String onFlowProcess(FlowEvent event) {
+        logger.info("Current wizard step:" + event.getOldStep());  
+        logger.info("Next step:" + event.getNewStep()); 
+        System.out.println("id " + event.getNewStep());
+//        if (event.getNewStep().equals("confirm")) {
+//            carg = funcionario.getCargosID();
+//            empres = funcionario.getEmpresaID();
+//        }
+        return event.getNewStep();
+
+    }
     public String irListarCurriculos() {
         curriculo = null;
 
