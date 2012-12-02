@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import org.primefaces.model.DualListModel;
 
@@ -67,7 +68,7 @@ public class ProgramaBean {
     }
     
     public String irAreasPrograma (){
-        
+        System.out.println("PROGRAMA - AREA :" +programa);    
         return "/cadastro/programa/areasPrograma.xhtml";
     }
     
@@ -99,28 +100,45 @@ public class ProgramaBean {
     
     private DualListModel<Area> itens2;
     private List<Area> selecionados2;
+    private List<String> selecionadosVazio;
     private ComparadorArea comparadorArea = new ComparadorArea();
     
     public DualListModel<Area> getItensAreas() {
-
+        
         selecionados2 = new ArrayList<Area>();
-
-        selecionados2 = programaRN.obterSelecionados2(programa);
+        selecionados2 = programa.getAreaList();
+        
 
         List<Area> temp = programaRN.obterItens2();
 
         Collections.sort(temp, comparadorArea);
         //  temp.removeAll(selecionados2);
-        itens2 = new DualListModel<Area>(temp, selecionados2);
+        
+        if (selecionados2 != null) {
+            itens2 = new DualListModel<Area>(temp, selecionados2);
+        }else{
+        itens2 = new DualListModel<Area>(temp, null);    
+        }
+        
         return itens2;
     }
     public void setItensAreas(DualListModel<Area> itens) {
         this.itens2 = itens;
     }
     
-    public List<Area> selecionaAreas(){
-        return areas;
+    public String salvarAreasPrograma (){
+    
+    ArrayList<Area> areasPrograma = new ArrayList<Area>();
+    
+    areasPrograma = (ArrayList<Area>) itens2.getTarget();
         
+    programa.setAreaList(areasPrograma); 
+    
+    programaRN.salvar(programa);
+        
+        return "/cadastro/programa/listar.xhtml";
     }
+    
+    
     
 }

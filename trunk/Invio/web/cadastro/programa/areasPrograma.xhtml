@@ -11,8 +11,11 @@
 
         <h:form>
 
-            <h:inputHidden
+            <h:inputHidden 
+                id="ihPrograma"
+                value="#{programaBean.programa.id}" 
                 />
+            
             <p:growl id="msg" showDetail="true"  showSummary="true" />  
 
             <p:panel header="Selecione as áreas para o Programa: ">
@@ -36,6 +39,14 @@
 
 
                 </h:panelGrid>
+                <p:commandButton 
+                                    ajax="false" 
+                                    id="cbSalvar"
+                                    value="Salvar"
+                                    action="#{programaBean.salvarAreasPrograma}"
+                                    >
+
+                                </p:commandButton>
             </p:panel>
 
 
