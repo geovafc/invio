@@ -16,10 +16,10 @@
 
             <p:dataTable 
                 id="dtCurriculo"
-                var="curriculo" value="#{curriculoBean.curriculo}">
+                var="curriculo" value="#{curriculoBean.curriculos}">
 
                 <p:column headerText="Curriculo">  
-                    <h:outputText value="#{curriculo.curriculo}" />  
+                    <h:outputText value="#{curriculo.nome}" />  
                 </p:column>  
 
                 <p:column headerText="Operações">  
