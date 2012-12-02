@@ -2,26 +2,51 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../../template/templateSemMenu.xhtml"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        
+
         <h:form id="formLogin">
 
-            <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
+            <div align="center">
+                <p:panel>
+                    <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid id="gridLoginSenha" cellspacing="0" cellpadding="2" style="width: 32%" columns="3">
 
-            <h:panelGrid id="gridLoginSenha" columns="2">
+                        <h:outputText id="loginLabel" value="E-mail:"/>
+                        <h:inputText id="email"/>
+                        <p:message id="erroEmail" for="email"/>
 
-                <h:outputText id="loginLabel" value="E-mail:"/>
+                        <h:outputText id="senhaLabel" value="Senha:"/>
+                        <h:inputSecret id="senha" value=""/>
+                        <p:message id="erroSenha" for="senha"/>
 
-                <h:inputText id="login" value=""/>
 
-                <h:outputText id="senhaLabel" value="Senha:"/>
+                    </h:panelGrid>
+                    <p:panel style ="border-color: transparent; 
+                             color: transparent; background: transparent " >
+                        
+                        <div align="center">
+                            <p:commandButton value="Entrar"/>
+                        </div>
+                            
+                            <p:commandLink value="Esqueceu sua senha?"/>    
+                        
 
-                <h:inputSecret id="senha" value=""/>
+                    </p:panel>
+                </p:panel>
 
-            </h:panelGrid>  
 
+                <p:panel style ="border-color: transparent; color: transparent; background: transparent " >
+
+                    <p:commandButton value="Criar uma conta"/>
+
+                </p:panel>
+
+            </div>
 
         </h:form>
     </ui:define>
