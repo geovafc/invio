@@ -190,8 +190,9 @@
                             <h:outputText />  
                         </h:panelGrid>  
 
-                        <p:commandButton value="Confimar" update="growl"   
-                                         actionListener="#{curriculoBean.salvarCurriculo()}" action="cadastro/curriculo/listar.xhtml"/>  
+                        <p:commandButton value="Confimar" ajax="false" update="form"   
+                                         actionListener="#{curriculoBean.salvarCurriculo()}" 
+                                         action="listar.xhtml"/>  
                     </p:panel>  
                 </p:tab>
 
