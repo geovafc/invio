@@ -25,7 +25,7 @@
                 <p:column headerText="Operações">  
 
                     <p:commandButton 
-                        action="formulario.xhtml"
+                        action="wizard.xhtml"
                         value="Editar"
                         ajax="false">  
                         <f:setPropertyActionListener 
@@ -39,7 +39,7 @@
                         value="Excluir">  
                         <f:setPropertyActionListener 
                             value="#{curriculo}" 
-                            target="#{curriculo.curriculo}" />  
+                            target="#{curriculoBean.curriculo}" />  
                     </p:commandButton>  
 
                 </p:column> 

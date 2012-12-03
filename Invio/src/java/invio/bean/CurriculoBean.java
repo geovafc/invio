@@ -2,14 +2,10 @@ package invio.bean;
 
 import invio.entidade.Curriculo;
 import invio.rn.CurriculoRN;
-import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 @ManagedBean
@@ -20,6 +16,7 @@ public class CurriculoBean {
     private List<Curriculo> curriculos;
     private Curriculo curriculo;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
+    private boolean skip;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -57,12 +54,12 @@ public class CurriculoBean {
         if (curriculoRN.salvar(curriculo)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
-                    "O curriculo " + curriculo.getNome() + " foi gravado com sucesso.");
+                    "O curriculo de " + curriculo.getNome() + " foi gravado com sucesso.");
 
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + curriculo.getNome());
         }
-        return "/cadastro/curriculo/listar.xhtml";
+        return "listar.xhtml";
     }
 
     public String excluirCurriculo() {
@@ -75,18 +72,32 @@ public class CurriculoBean {
         return "listar.xhtml";
     }
 
+    public boolean isSkip(){
+        return skip;
+    }
     
+    public void setSkip(boolean skip){
+        this.skip = skip;
+    }
+
     public String onFlowProcess(FlowEvent event) {
         logger.info("Current wizard step:" + event.getOldStep());  
         logger.info("Next step:" + event.getNewStep()); 
-        System.out.println("id " + event.getNewStep());
+        if (skip) {
+            skip = false;
+            return "confirm";
+        }
+        else {
+        return event.getNewStep();
+            
+        }
+//        System.out.println("id " + event.getNewStep());
 //        if (event.getNewStep().equals("confirm")) {
 //            carg = funcionario.getCargosID();
 //            empres = funcionario.getEmpresaID();
 //        }
-        return event.getNewStep();
-
     }
+        
     public String irListarCurriculos() {
         curriculo = null;
 
