@@ -141,9 +141,12 @@ public class UsuarioBean {
             
             loginRN.salvar(login);
             
+        }else{
+             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.","");
+            return "/publico/login/telaConfirmacao.xhtml";
         }
 
-        return null;
+        return "/publico/indexHome.xhtml";
 
     }
 }
