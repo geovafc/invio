@@ -13,7 +13,7 @@
                 id="objtelaConfirmacao"
                 value="#{usuarioBean.login.id}"/> 
 
-            <p:growl showDetail="true" showSummary="true"/>
+            <p:messages showDetail="true" showSummary="true"/>
 
             <div align="center">
                 <p:panel>
@@ -31,7 +31,7 @@
                         <p:commandButton 
                             ajax="false" value="OK" 
                             action="#{usuarioBean.okCodigo()}" 
-                            update="form"/>
+                            />
                         <h:outputText value=""/>
                         <h:outputText value=""/>
 
