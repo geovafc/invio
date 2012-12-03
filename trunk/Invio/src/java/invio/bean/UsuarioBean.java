@@ -111,7 +111,7 @@ public class UsuarioBean {
     public String salvar(){
         
         curriculo.setBairro("");
-        curriculo.setCelular(0);
+        curriculo.setCelular("");
         curriculo.setCep("");
         curriculo.setCidade("");
         curriculo.setCurso("");
@@ -121,7 +121,7 @@ public class UsuarioBean {
         curriculo.setMatricula("");
         curriculo.setNumeroEnd("");
         curriculo.setPais("");
-        curriculo.setTelefone(0);
+        curriculo.setTelefone("");
         
         
         if (curriculoRN.salvar(curriculo)) {

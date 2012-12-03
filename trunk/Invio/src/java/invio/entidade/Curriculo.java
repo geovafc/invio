@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author RSORANSO
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "curriculo")
@@ -81,9 +81,9 @@ public class Curriculo implements Serializable {
     @Column(name = "pais")
     private String pais;
     @Column(name = "telefone")
-    private Integer telefone;
+    private String telefone;
     @Column(name = "celular")
-    private Integer celular;
+    private String celular;
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
@@ -204,19 +204,19 @@ public class Curriculo implements Serializable {
         this.pais = pais;
     }
 
-    public Integer getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public Integer getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(Integer celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

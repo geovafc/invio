@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author RSORANSO
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "login")
@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l"),
     @NamedQuery(name = "Login.findById", query = "SELECT l FROM Login l WHERE l.id = :id"),
     @NamedQuery(name = "Login.findBySenha", query = "SELECT l FROM Login l WHERE l.senha = :senha"),
-    @NamedQuery(name = "Login.findByCodigoConfirmacao", query = "SELECT l FROM Login l WHERE l.codigoConfirmacao = :codigoConfirmacao")})
+    @NamedQuery(name = "Login.findByCodigoConfirmacao", query = "SELECT l FROM Login l WHERE l.codigoConfirmacao = :codigoConfirmacao"),
+    @NamedQuery(name = "Login.findByCodigoConfimacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfimacaoTemp = :codigoConfimacaoTemp")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,6 +40,8 @@ public class Login implements Serializable {
     private String senha;
     @Column(name = "codigoConfirmacao")
     private String codigoConfirmacao;
+    @Column(name = "codigoConfimacaoTemp")
+    private String codigoConfimacaoTemp;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -77,6 +80,14 @@ public class Login implements Serializable {
 
     public void setCodigoConfirmacao(String codigoConfirmacao) {
         this.codigoConfirmacao = codigoConfirmacao;
+    }
+
+    public String getCodigoConfimacaoTemp() {
+        return codigoConfimacaoTemp;
+    }
+
+    public void setCodigoConfimacaoTemp(String codigoConfimacaoTemp) {
+        this.codigoConfimacaoTemp = codigoConfimacaoTemp;
     }
 
     public Curriculo getCurriculoId() {
