@@ -37,9 +37,9 @@
 
 
                         <h:outputText value="Senha: " />  
-                        <p:keyboard value="#{usuarioBean.login.senha}"  
-                                    password="true" keypadOnly="true"/> 
-
+                        <p:keyboard clearLabel="Clear" closeLabel="Close" 
+                                    backspaceLabel="Back" value="#{usuarioBean.login.senha}"  
+                                    password="true" keypadOnly="true"/>
 
                         <p:commandButton 
                             ajax="false" value="Enviar" 

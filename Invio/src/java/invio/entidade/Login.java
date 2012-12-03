@@ -5,6 +5,7 @@
 package invio.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findById", query = "SELECT l FROM Login l WHERE l.id = :id"),
     @NamedQuery(name = "Login.findBySenha", query = "SELECT l FROM Login l WHERE l.senha = :senha"),
     @NamedQuery(name = "Login.findByCodigoConfirmacao", query = "SELECT l FROM Login l WHERE l.codigoConfirmacao = :codigoConfirmacao"),
-    @NamedQuery(name = "Login.findByCodigoConfimacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfimacaoTemp = :codigoConfimacaoTemp")})
+    @NamedQuery(name = "Login.findByCodigoConfimacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfimacaoTemp = :codigoConfimacaoTemp"),
+    @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,6 +46,9 @@ public class Login implements Serializable {
     private String codigoConfirmacao;
     @Column(name = "codigoConfimacaoTemp")
     private String codigoConfimacaoTemp;
+    @Column(name = "dtCriacao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtCriacao;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -88,6 +95,14 @@ public class Login implements Serializable {
 
     public void setCodigoConfimacaoTemp(String codigoConfimacaoTemp) {
         this.codigoConfimacaoTemp = codigoConfimacaoTemp;
+    }
+
+    public Date getDtCriacao() {
+        return dtCriacao;
+    }
+
+    public void setDtCriacao(Date dtCriacao) {
+        this.dtCriacao = dtCriacao;
     }
 
     public Curriculo getCurriculoId() {
