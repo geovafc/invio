@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author RSORANSO
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "unidade")
