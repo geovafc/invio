@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "curriculo")
@@ -67,7 +67,7 @@ public class Curriculo implements Serializable {
     @Column(name = "numero_end")
     private String numeroEnd;
     @Column(name = "cep")
-    private Integer cep;
+    private String cep;
     @Basic(optional = false)
     @Column(name = "bairro")
     private String bairro;
@@ -164,11 +164,11 @@ public class Curriculo implements Serializable {
         this.numeroEnd = numeroEnd;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

@@ -43,7 +43,9 @@
 
                 <p:panel style ="border-color: transparent; color: transparent; background: transparent " >
 
-                    <p:commandButton value="Criar uma conta"/>
+                    <p:commandButton value="Criar uma conta" ajax="false" 
+                                     action="#{usuarioBean.salvar}" 
+                                     update="form"/>
 
                 </p:panel>
 
