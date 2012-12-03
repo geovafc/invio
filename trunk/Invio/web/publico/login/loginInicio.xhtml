@@ -18,12 +18,12 @@
                     <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
 
                         <h:outputText id="loginLabel" value="E-mail:"/>
-                        <h:inputText required="true" id="email"/>
+                        <p:inputText required="true" id="email"/>
 
-
-                        <h:outputText id="senhaLabel" value="Senha:"/>
-                        <h:inputSecret required="true" id="senha" />
-
+                        <h:outputText value="Senha: " />  
+                        <p:keyboard clearLabel="Clear" closeLabel="Close" 
+                                    backspaceLabel="Back" value="#{usuarioBean.login.senha}"  
+                                    password="true" keypadOnly="true"/>
 
                         <h:outputText id="mensagem" rendered="#{usuarioBean.aparecerMensagem}" 
                                       value="O e-mail ou a senha inserido está incorreto" />

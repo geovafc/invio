@@ -14,6 +14,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`area` (
   `nome` VARCHAR(200) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -21,9 +22,10 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `invio`.`curriculo`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `id` INT(11) NOT NULL ,
   `cpf` VARCHAR(50) NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
+  `dtNascimento` VARCHAR(100) NOT NULL ,
   `logradouro` VARCHAR(100) NOT NULL ,
   `numero_end` VARCHAR(50) NULL DEFAULT NULL ,
   `cep` VARCHAR(10) NULL DEFAULT NULL ,
@@ -39,7 +41,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `curso` VARCHAR(200) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -52,6 +54,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`instituicao` (
   `sigla` VARCHAR(100) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -70,6 +73,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`programa` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -103,8 +107,9 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `id` INT(11) NOT NULL ,
   `senha` VARCHAR(45) NOT NULL ,
   `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
-  `codigoConfimacaoTemp` VARCHAR(100) NULL ,
+  `codigoConfimacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
+  `dtCriacao` DATETIME NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_login_curriculo1` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_login_curriculo1`
@@ -113,6 +118,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -154,6 +160,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`unidade` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 

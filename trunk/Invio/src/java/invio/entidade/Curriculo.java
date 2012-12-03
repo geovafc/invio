@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -35,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findById", query = "SELECT c FROM Curriculo c WHERE c.id = :id"),
     @NamedQuery(name = "Curriculo.findByCpf", query = "SELECT c FROM Curriculo c WHERE c.cpf = :cpf"),
     @NamedQuery(name = "Curriculo.findByNome", query = "SELECT c FROM Curriculo c WHERE c.nome = :nome"),
+    @NamedQuery(name = "Curriculo.findByDtNascimento", query = "SELECT c FROM Curriculo c WHERE c.dtNascimento = :dtNascimento"),
     @NamedQuery(name = "Curriculo.findByLogradouro", query = "SELECT c FROM Curriculo c WHERE c.logradouro = :logradouro"),
     @NamedQuery(name = "Curriculo.findByNumeroEnd", query = "SELECT c FROM Curriculo c WHERE c.numeroEnd = :numeroEnd"),
     @NamedQuery(name = "Curriculo.findByCep", query = "SELECT c FROM Curriculo c WHERE c.cep = :cep"),
@@ -51,7 +50,6 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Curriculo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
@@ -61,6 +59,9 @@ public class Curriculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
+    @Basic(optional = false)
+    @Column(name = "dtNascimento")
+    private String dtNascimento;
     @Basic(optional = false)
     @Column(name = "logradouro")
     private String logradouro;
@@ -110,10 +111,11 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
+    public Curriculo(Integer id, String cpf, String nome, String dtNascimento, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
+        this.dtNascimento = dtNascimento;
         this.logradouro = logradouro;
         this.bairro = bairro;
         this.cidade = cidade;
@@ -146,6 +148,14 @@ public class Curriculo implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDtNascimento() {
+        return dtNascimento;
+    }
+
+    public void setDtNascimento(String dtNascimento) {
+        this.dtNascimento = dtNascimento;
     }
 
     public String getLogradouro() {
