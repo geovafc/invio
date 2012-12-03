@@ -12,7 +12,7 @@
 
             <h:inputHidden 
                 id="objnovoUsuario"
-                value="#{curriculoBean.curriculo.id}"/> 
+                value="#{usuarioBean.login.id}"/> 
 
             <p:growl showDetail="true" showSummary="true"/>
 
@@ -20,19 +20,19 @@
                 <h:panelGrid columns="3">
 
                     <h:outputText value="Nome: "/>
-                    <h:inputText required="true" id="curriculoNome" value="#{curriculoBean.curriculo.nome}"/>
+                    <h:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
                     <h:message id="erroNome" for="curriculoNome"/>
                    
                     <h:outputText value="CPF: "/>
-                    <h:inputText required="true" id="cpf" value="#{curriculoBean.curriculo.cpf}"/>
+                    <h:inputText required="true" id="cpf" value="#{usuarioBean.curriculo.cpf}"/>
                     <h:message id="erroCPF" for="curriculoCpf"/>
                     
                     <h:outputText value="E-mail: "/>
-                    <h:inputText required="true" id="email" value="#{curriculoBean.curriculo.nome}"/>
+                    <h:inputText required="true" id="email" value="#{usuarioBean.curriculo.email}"/>
                     <h:message id="erroEmail"  for="email"/>
                     
                     <h:outputText value="Senha: " />  
-                    <h:inputSecret required="true" id="senha" />
+                    <h:inputSecret required="true" id="senha" value="#{usuarioBean.login.senha}"/>
                     <p:message id="erroSenha" for="senha"/>
                     
 
