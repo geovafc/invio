@@ -15,23 +15,40 @@
 
             <p:growl showDetail="true" showSummary="true"/>
 
-            <p:panel>
-                <h:panelGrid columns="3">
+            <div align="center">
+                <p:panel>
+                    <h:outputText id="insira" value="Insira o código de confirmação enviado para sem e-mail."/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid columns="3">
 
-                    <h:outputText value="Confirmação: "/>
-                    <h:inputText required="true" id="logincodigoConfirmacao" value="#{usuarioBean.login.codigoConfirmacao}"/>
-                    <h:message id="errocodigoConfirmacao" for="logincodigoConfirmacao"/>
+                        <h:outputText value="Confirmação: "/>
+                        <h:inputText required="true" id="logincodigoConfirmacao" value="#{usuarioBean.login.codigoConfimacaoTemp}"/>
+                        <h:message id="errocodigoConfirmacao" for="logincodigoConfirmacao"/>
 
-                </h:panelGrid>
+                        <br/>
+                        <br/>
+                        <p:commandButton 
+                            ajax="false" value="Enviar" 
+                            action="#{usuarioBean.salvar}" 
+                            update="form"/>
+                        <h:outputText value=""/>
+                        <h:outputText value=""/>
 
-            </p:panel>
+                    </h:panelGrid>
 
-            <p:commandButton 
-                ajax="false" value="Enviar" 
-                action="#{usuarioBean.salvar}" 
-                update="form"/>
-            <p:commandButton 
-                ajax="false" value="Cancelar" action="loginInicio.xhtml"/>
+                </p:panel>
+            </div>
+
+
+        </h:form>
+
+        <h:form>
+            <div align="center">
+
+                <p:commandButton 
+                    ajax="false" value="Cancelar" action="loginInicio.xhtml"/>
+            </div>
         </h:form>
 
     </ui:define>

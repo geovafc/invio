@@ -87,8 +87,6 @@ public class UsuarioBean {
                         && loginTemp.getSenha().equals(login.getSenha())) {
                     
                     setEntrar(true);
-
-                    login = loginTemp;
                 }
             }
         } else {
@@ -97,7 +95,7 @@ public class UsuarioBean {
         }
 
         if (entrar == true) {
-            if (login.getCodigoConfirmacao() == null) {
+            if (login.getCodigoConfimacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
                 pagina= "/publico/login/telaConfirmacao.xhtml";
             }
             else if(login.getCodigoConfirmacao() != null){
@@ -129,6 +127,7 @@ public class UsuarioBean {
         }
         
         login.setCurriculoId(curriculo);
+        login.setCodigoConfimacaoTemp("");
         login.setCodigoConfirmacao("123");
         loginRN.salvar(login);
         
