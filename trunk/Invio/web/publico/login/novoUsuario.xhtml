@@ -10,7 +10,7 @@
 
 
         <h:form id="Cadastro">
-            
+
             <p:messages/>
             <h:inputHidden 
                 id="objnovoUsuario"
@@ -24,20 +24,22 @@
                     <h:panelGrid columns="2">
 
                         <h:outputText value="Nome: "/>
-                        <h:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
-                        
+                        <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
+
 
                         <h:outputText value="CPF: "/>
-                        <h:inputText required="true" id="cpf" value="#{usuarioBean.curriculo.cpf}"/>
-                        
+                        <p:inputMask required="true" id="cpf" 
+                                     value="#{usuarioBean.curriculo.cpf}" mask="999.999.999-99"/>
+
 
                         <h:outputText value="E-mail: "/>
-                        <h:inputText required="true" id="email" value="#{usuarioBean.curriculo.email}"/>
-                        
+                        <p:inputText required="true" id="email" value="#{usuarioBean.curriculo.email}"/>
+
 
                         <h:outputText value="Senha: " />  
-                        <h:inputSecret required="true" id="senha" value="#{usuarioBean.login.senha}"/>
-                        
+                        <p:keyboard value="#{usuarioBean.login.senha}"  
+                                    password="true" keypadOnly="true"/> 
+
 
                         <p:commandButton 
                             ajax="false" value="Enviar" 
