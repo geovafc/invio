@@ -5,7 +5,6 @@
 package invio.entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "programa")
@@ -43,7 +43,10 @@ public class Programa implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @ManyToMany(mappedBy = "programaList")
+    @JoinTable(name = "programa_area", joinColumns = {
+        @JoinColumn(name = "programa", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "area", referencedColumnName = "id")})
+    @ManyToMany
     private List<Area> areaList;
     @ManyToMany(mappedBy = "programaList")
     private List<Curriculo> curriculoList;
