@@ -40,14 +40,26 @@ public class UsuarioBean {
     public String entrar() {
 
         boolean entrar = false;
+        boolean aparecerMensagem;
 
         logins = loginRN.obterTodos();
         
         
-        
-        for (Login login1 : logins) {
+        if (logins != null || logins.size()>=0) {
+            
+        for (Login loginTemp : logins) {
+            
+            if (loginTemp.getCurriculoId().getEmail().equals(login.getCurriculoId().getEmail())
+                    && loginTemp.getSenha().equals(login.getSenha())) {
+               entrar = true;
+            }
             
         }
+            
+        }else{
+            
+        }
+        
 
         
 
