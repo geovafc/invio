@@ -17,11 +17,11 @@
                     <h:panelGrid id="gridLoginSenha" cellspacing="0" cellpadding="2" style="width: 32%" columns="3">
 
                         <h:outputText id="loginLabel" value="E-mail:"/>
-                        <h:inputText id="email"/>
+                        <h:inputText required="true" id="email"/>
                         <p:message id="erroEmail" for="email"/>
 
                         <h:outputText id="senhaLabel" value="Senha:"/>
-                        <h:inputSecret id="senha" value=""/>
+                        <h:inputSecret required="true" id="senha" />
                         <p:message id="erroSenha" for="senha"/>
 
 
@@ -30,7 +30,7 @@
                              color: transparent; background: transparent " >
 
                         <div align="center">
-                            <p:commandButton value="Entrar"/>
+                            <p:commandButton value="Entrar" action="#{usuarioBean.entrar}"/>
                         </div>
 
                         <p:commandLink value="Esqueceu sua senha?" ajax="false" 
