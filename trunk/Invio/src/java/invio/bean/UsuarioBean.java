@@ -135,6 +135,13 @@ public class UsuarioBean {
 
     public String okCodigo() {
 
+        if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())) {
+            
+            login.setCodigoConfimacaoTemp(login.getCodigoConfirmacao());
+            
+            loginRN.salvar(login);
+            
+        }
 
         return null;
 
