@@ -7,6 +7,11 @@
         <h:form style="width: 95%">  
 
             <p:menu style="width:97%">  
+
+                <p:menuitem value="Logout"   ajax="false" 
+                            icon="ui-icon-close"
+                            action="/publico/login/loginInicio.xhtml"/>  
+
                 <p:submenu style="width: 100%" label="Cadastros">  
                     <p:menuitem 
                         value="Área"  ajax="false"
@@ -26,11 +31,11 @@
                 <p:submenu style="width: 100%" label="Submissão">  
                     <p:menuitem value="Delete"   ajax="false" icon="ui-icon-close"/>  
                 </p:submenu>  
-                 
+
                 <p:submenu style="width: 100%" label="Relatórios" >  
-                      
+
                 </p:submenu>  
-                
+
             </p:menu>
 
         </h:form> 
