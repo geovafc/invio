@@ -8,34 +8,39 @@
     <ui:define name="content">
 
         <h:form id="formrecuperarSenha">
+            <p:messages/>
 
             <div align="center">
                 <p:panel>
                     <h:outputText id="recSenha" value="Recuperar Senha do Sistema."/>
                     <br/>
                     <br/>
-                    <h:panelGrid id="gridrecuperarSenha" cellspacing="0" cellpadding="2" style="width: 32%" columns="3">
+                    <h:panelGrid id="gridrecuperarSenha"  style="width: 32%" columns="2">
 
-                        <h:outputText id="loginLabel" value="E-mail:"/>
-                        <h:inputText id="email"/>
-                        <p:message id="erroEmail" for="email"/>
+                        <h:outputText  id="loginLabel" value="E-mail:"/>
+                        <h:inputText required="true" id="email"/>
+
 
                         <h:outputText id="cpfLabel" value="CPF:"/>
-                        <p:inputText id="cpf" value=""/>
-                        <p:message id="erroCPF" for="cpf"/>
+                        <h:inputText required="true" id="cpf" value=""/>
 
-
+                        <p:commandButton value="Enviar"/>
+                        <h:outputText value=""/>
                     </h:panelGrid>
-                    <p:panel style ="border-color: transparent; 
-                             color: transparent; background: transparent " >
 
-                        <div align="center">
-                            <p:commandButton value="Enviar"/>
-                        </div>
 
-                    </p:panel>
+
                 </p:panel>
             </div>
+
+        </h:form>
+         <h:form>
+            <div align="center">
+
+                <p:commandButton 
+                    ajax="false" value="Cancelar" action="loginInicio.xhtml"/>
+            </div>
+
 
         </h:form>
     </ui:define>

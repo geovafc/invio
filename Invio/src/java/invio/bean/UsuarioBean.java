@@ -22,12 +22,23 @@ import java.util.List;
 public class UsuarioBean {
 
     LoginRN loginRN = new LoginRN();
+    CurriculoRN curriculoRN = new CurriculoRN();
     List<Login> logins;
     Login login = new Login();
-
+    Curriculo curriculo = new Curriculo();
+    
     public UsuarioBean() {
     }
 
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
+    }
+
+    
     public Login getLogin() {
         return login;
     }
@@ -35,13 +46,36 @@ public class UsuarioBean {
     public void setLogin(Login login) {
         this.login = login;
     }
+    
+    public String irRecuperarSenha (){
+        
+        return "/publico/login/recuperarSenha.xhtml";
+    }
+    
+    boolean aparecerMensagem = false;
+
+    public boolean isAparecerMensagem() {
+        return aparecerMensagem;
+    }
+
+    public void setAparecerMensagem(boolean aparecerMensagem) {
+        this.aparecerMensagem = aparecerMensagem;
+    }
+    
+    boolean entrar = false;
+
+    public void setEntrar(boolean entrar) {
+        this.entrar = entrar;
+    }
+    
+    
 
     public String entrar() {
 
-        boolean entrar = false;
-        boolean aparecerMensagem = false;
+        
         boolean confirmacao = false;
-
+        String pagina = "";
+        
         logins = loginRN.obterTodos();
 
 
@@ -51,21 +85,56 @@ public class UsuarioBean {
 
                 if (loginTemp.getCurriculoId().getEmail().equals(login.getCurriculoId().getEmail())
                         && loginTemp.getSenha().equals(login.getSenha())) {
-                    entrar = true;
+                    
+                    setEntrar(true);
 
                     login = loginTemp;
                 }
             }
         } else {
-            aparecerMensagem = true;
-            return "/publico/login/loginInicio.xhtml";
+            setAparecerMensagem(true);
+            pagina= "/publico/login/loginInicio.xhtml";
         }
 
         if (entrar == true) {
             if (login.getCodigoConfirmacao() == null) {
-                return "/publico/login/telaConfirmacao.xhtml";
-            } 
+                pagina= "/publico/login/telaConfirmacao.xhtml";
+            }
+            else if(login.getCodigoConfirmacao() != null){
+                pagina = "/publico/indexHome.xhtml"; 
+            }
         }
+
+        return pagina;
+    }
+    
+    public String salvar(){
+        
+        curriculo.setBairro("");
+        curriculo.setCelular(0);
+        curriculo.setCep("");
+        curriculo.setCidade("");
+        curriculo.setCurso("");
+        curriculo.setEstado("");
+        curriculo.setLattes("");
+        curriculo.setLogradouro("");
+        curriculo.setMatricula("");
+        curriculo.setNumeroEnd("");
+        curriculo.setPais("");
+        curriculo.setTelefone(0);
+        
+        
+        if (curriculoRN.salvar(curriculo)) {
+            
+        }
+        
+        login.setCurriculoId(curriculo);
+        login.setCodigoConfirmacao("123");
+        loginRN.salvar(login);
+        
+        
+        BeanUtil.criarMensagemDeAviso("Foi envia para seu e-mail um código de confirmação de cadastro.", 
+                "Quando for realizado o login será solicitado o código.");
         
         return "/publico/login/loginInicio.xhtml";
     }

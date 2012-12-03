@@ -7,48 +7,55 @@
 
     <ui:define name="content">
 
-        <h:form id="formLogin">
-
+        <h:form id="Login">
+            <p:messages/>
             <div align="center">
-                <p:panel>
+
+                <p:panel id="panelLogin">
                     <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
                     <br/>
                     <br/>
-                    <h:panelGrid id="gridLoginSenha" cellspacing="0" cellpadding="2" style="width: 32%" columns="3">
+                    <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
 
                         <h:outputText id="loginLabel" value="E-mail:"/>
                         <h:inputText required="true" id="email"/>
-                        <p:message id="erroEmail" for="email"/>
+
 
                         <h:outputText id="senhaLabel" value="Senha:"/>
                         <h:inputSecret required="true" id="senha" />
-                        <p:message id="erroSenha" for="senha"/>
+
+
+                        <h:outputText id="mensagem" rendered="#{usuarioBean.aparecerMensagem}" 
+                                      value="O e-mail ou a senha inserido está incorreto" />
+                        <h:outputText rendered="#{usuarioBean.aparecerMensagem}" value=""/>
 
 
                     </h:panelGrid>
+
                     <p:panel style ="border-color: transparent; 
                              color: transparent; background: transparent " >
 
+
                         <div align="center">
-                            <p:commandButton value="Entrar" action="#{usuarioBean.entrar}"/>
+                            <p:commandButton update="Login" ajax="false" value="Entrar" action="#{usuarioBean.entrar}"/>
                         </div>
-
-                        <p:commandLink value="Esqueceu sua senha?" ajax="false" 
-                                       action="#{usuarioBean.recuperarSenha()}"/>    
-
 
                     </p:panel>
                 </p:panel>
 
+            </div>
 
-                <p:panel style ="border-color: transparent; color: transparent; background: transparent " >
-
-                    <p:commandButton value="Criar uma conta" ajax="false" 
-                                     action="#{usuarioBean.salvar}" 
-                                     update="form"/>
-
-                </p:panel>
-
+        </h:form>
+        <h:form>
+            <div align="center">
+                <p:commandLink value="Esqueceu sua senha?" ajax="false" 
+                               action="#{usuarioBean.irRecuperarSenha()}"/>
+            </div>
+            <br/>
+            <div align="center">
+                <p:commandButton value="Criar uma conta" ajax="false" 
+                                 action="novoUsuario.xhtml" 
+                                 update="form"/>
             </div>
 
         </h:form>
