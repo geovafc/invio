@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../../template/templatePadrao.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
 
@@ -29,28 +30,32 @@
                                          value="#{curriculoBean.curriculo.nome}" />
                             <p:message id="erroNome" for="nome"/>
 
-                            <h:outputText value="CPF: *" />  
-                            <p:inputMask id="cpf" required="true" label="Cpf"  
-                                         value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
-                            <p:message id="erroCPF" for="cpf"/>
+                            <h:outputText value="Data Nascimento: " />  
+                            <h:outputText value="#{curriculoBean.curriculo.dtNascimento}" id="nascimento"/>  
+                                <f:convertDateTime pattern="d/M/yyyy"/>  
 
-                            <h:outputText value="Matricula: *" />  
-                            <p:inputText id="matricula" required="true" label="Matricula"  
-                                         value="#{curriculoBean.curriculo.matricula}" /> 
-                            <p:message id="erroMatricula" for="matricula"/>
+                                <h:outputText value="CPF: *" />  
+                                <p:inputMask id="cpf" required="true" label="Cpf"  
+                                             value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
+                                <p:message id="erroCPF" for="cpf"/>
 
-                            <h:outputText value="Lattes: *" />  
-                            <p:inputText id="lattes" required="true" label="Lattes"  
-                                         value="#{curriculoBean.curriculo.lattes}" /> 
-                            <p:message id="erroLatte" for="lattes"/>
+                                <h:outputText value="Matricula: *" />  
+                                <p:inputText id="matricula" required="true" label="Matricula"  
+                                             value="#{curriculoBean.curriculo.matricula}" /> 
+                                <p:message id="erroMatricula" for="matricula"/>
+
+                                <h:outputText value="Lattes: *" />  
+                                <p:inputText id="lattes" required="true" label="Lattes"  
+                                             value="#{curriculoBean.curriculo.lattes}" /> 
+                                <p:message id="erroLatte" for="lattes"/>
 
 
-                            <h:outputText value="Curso: *" />  
-                            <p:inputText id="curso" required="true" label="Curso"  
-                                         value="#{curriculoBean.curriculo.curso}" />
-                            <p:message id="erroCurso" for="curso"/>
+                                <h:outputText value="Curso: *" />  
+                                <p:inputText id="curso" required="true" label="Curso"  
+                                             value="#{curriculoBean.curriculo.curso}" />
+                                <p:message id="erroCurso" for="curso"/>
 
-                        </h:panelGrid>  
+                        </h:panelGrid> 
                     </p:panel>  
                 </p:tab>  
 
