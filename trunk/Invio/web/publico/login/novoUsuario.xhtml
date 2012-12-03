@@ -14,25 +14,34 @@
                 id="objnovoUsuario"
                 value="#{curriculoBean.curriculo.id}"/> 
 
-            <p:growl/>
+            <p:growl showDetail="true" showSummary="true"/>
 
-            <h:panelGrid columns="3">
+            <p:panel>
+                <h:panelGrid columns="3">
 
-                <h:outputText value="Nome: "/>
-                <h:inputText id="curriculoNome" value="#{curriculoBean.curriculo.nome}"/>
-                <h:message for="curriculoNome"/>
+                    <h:outputText value="Nome: "/>
+                    <h:inputText required="true" id="curriculoNome" value="#{curriculoBean.curriculo.nome}"/>
+                    <h:message id="erroNome" for="curriculoNome"/>
+                   
+                    <h:outputText value="CPF: "/>
+                    <h:inputText required="true" id="cpf" value="#{curriculoBean.curriculo.cpf}"/>
+                    <h:message id="erroCPF" for="curriculoCpf"/>
+                    
+                    <h:outputText value="E-mail: "/>
+                    <h:inputText required="true" id="email" value="#{curriculoBean.curriculo.nome}"/>
+                    <h:message id="erroEmail"  for="email"/>
+                    
+                    <h:outputText value="Senha: " />  
+                    <h:inputSecret required="true" id="senha" />
+                    <p:message id="erroSenha" for="senha"/>
+                    
 
-                <h:outputText value="CPF: "/>
-                <h:inputText id="cpf" value="#{curriculoBean.curriculo.cpf}"/>
-                <h:message for="curriculoCpf"/>
+                </h:panelGrid>
 
-                <h:outputText value="Senha: " />  
-                <p:password id="senha" value="#{curriculoBean.curriculo.loginList}" feedback="true"/>  <!-- mano não sei como vou fazer o acesso aqui!! -->
-
-            </h:panelGrid>
+            </p:panel>
 
             <p:commandButton 
-                ajax="false" value="Entrar" 
+                ajax="false" value="Enviar" 
                 action="#{usuarioBean.salvar}" 
                 update="form"/>
             <p:commandButton 
