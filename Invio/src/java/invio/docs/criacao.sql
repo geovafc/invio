@@ -25,7 +25,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `id` INT(11) NOT NULL ,
   `cpf` VARCHAR(50) NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
-  `dtNascimento` VARCHAR(100) NOT NULL ,
+  `dtNascimento` DATE NOT NULL ,
   `logradouro` VARCHAR(100) NOT NULL ,
   `numero_end` VARCHAR(50) NULL DEFAULT NULL ,
   `cep` VARCHAR(10) NULL DEFAULT NULL ,

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "instituicao")
