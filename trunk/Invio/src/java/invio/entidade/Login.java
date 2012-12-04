@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "login")

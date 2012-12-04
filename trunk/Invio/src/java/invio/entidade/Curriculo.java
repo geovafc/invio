@@ -5,6 +5,7 @@
 package invio.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,12 +19,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "curriculo")
@@ -61,7 +64,8 @@ public class Curriculo implements Serializable {
     private String nome;
     @Basic(optional = false)
     @Column(name = "dtNascimento")
-    private String dtNascimento;
+    @Temporal(TemporalType.DATE)
+    private Date dtNascimento;
     @Basic(optional = false)
     @Column(name = "logradouro")
     private String logradouro;
@@ -111,7 +115,7 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public Curriculo(Integer id, String cpf, String nome, String dtNascimento, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
+    public Curriculo(Integer id, String cpf, String nome, Date dtNascimento, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -150,11 +154,11 @@ public class Curriculo implements Serializable {
         this.nome = nome;
     }
 
-    public String getDtNascimento() {
+    public Date getDtNascimento() {
         return dtNascimento;
     }
 
-    public void setDtNascimento(String dtNascimento) {
+    public void setDtNascimento(Date dtNascimento) {
         this.dtNascimento = dtNascimento;
     }
 
