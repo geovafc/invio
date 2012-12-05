@@ -143,7 +143,7 @@ public class UsuarioBean {
             loginRN.salvar(login);
 
 
-            BeanUtil.criarMensagemDeAviso("Foi envia para seu e-mail um código de confirmação de cadastro.",
+            BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                     "Quando for realizado o login será solicitado o código.");
         }
 
