@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,20 +55,19 @@ public class UsuarioBean {
 
         return "/publico/login/recuperarSenha.xhtml";
     }
-    public String irNovoUsuario(){
-        //login = new Login();
-        return "/publico/login/novoUsuario.xhtml";
+
+    public void configurarLimparSessao(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+                BeanUtil.limpaSessaoParaInicio(session);
     }
     
-    boolean aparecerMensagem = false;
-
-    public boolean isAparecerMensagem() {
-        return aparecerMensagem;
+    public String irNovoUsuario() {
+        //login = new Login();
+        configurarLimparSessao();
+        return "/publico/login/novoUsuario.xhtml";
     }
-
-    public void setAparecerMensagem(boolean aparecerMensagem) {
-        this.aparecerMensagem = aparecerMensagem;
-    }
+   
     boolean entrar = false;
 
     public void setEntrar(boolean entrar) {
@@ -74,7 +75,7 @@ public class UsuarioBean {
     }
 
     public String entrar() {
-     
+
         boolean confirmacao = false;
         boolean loginEncontrado = false;
         String pagina = "";
@@ -82,10 +83,10 @@ public class UsuarioBean {
         logins = loginRN.obterTodos();
 
 
-        if (logins != null || logins.size() > 0) {
-           
-            
-            
+        if (logins.size() > 0) {
+
+
+
             for (Login loginTemp : logins) {
 
                 if (loginTemp.getEmail().equals(login.getEmail())
@@ -102,7 +103,6 @@ public class UsuarioBean {
                         "");
             }
         } else {
-            setAparecerMensagem(true);
             setEntrar(false);
             pagina = "/publico/login/loginInicio.xhtml";
             //login = null;
@@ -121,60 +121,81 @@ public class UsuarioBean {
         return pagina;
     }
 
+    public void configurarSalvalCurricoLogin() {
+        curriculo.setBairro("");
+        curriculo.setCelular("");
+        curriculo.setCep("");
+        curriculo.setCidade("");
+        curriculo.setCurso("");
+        curriculo.setEstado("");
+        curriculo.setLattes("");
+        curriculo.setLogradouro("");
+        curriculo.setMatricula("");
+        curriculo.setNumeroEnd("");
+        curriculo.setPais("");
+        curriculo.setTelefone("");
+        curriculo.setDtNascimento(null);
+        String emailLogin = login.getEmail();
+        curriculo.setEmail(emailLogin);
+
+        boolean salvou = curriculoRN.salvar(curriculo);
+
+        if (salvou) {
+
+            login.setCurriculoId(curriculo);
+            login.setCodigoConfimacaoTemp("");
+            login.setCodigoConfirmacao("123");
+            login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
+            loginRN.salvar(login);
+            
+            configurarLimparSessao();
+            pagina2 = "/publico/login/loginInicio.xhtml";
+            //login = null;
+            BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
+                    "Quando for realizado o login será solicitado o código.");
+        }
+    }
+    String pagina2 = "";
+    boolean emailJaCadastrado = false;
+
+    public void setEmailJaCadastrado(boolean emailJaCadastrado) {
+        this.emailJaCadastrado = emailJaCadastrado;
+    }
+
     public String salvar() {
         //login = new Login();
 
-        boolean emailJaCadastrado = false;
-        String pagina2 = "";
 
         logins = loginRN.obterTodos();
 
-        for (Login loginTemp2 : logins) {
+        if (logins.size() > 0) {
 
-            if (login.getEmail().equals(loginTemp2.getEmail())) {
-                emailJaCadastrado = true;
+            for (Login loginTemp2 : logins) {
+
+                if (login.getEmail().equals(loginTemp2.getEmail())) {
+                    setEmailJaCadastrado(true);
+                }
             }
 
-        }
+            if (emailJaCadastrado = true) {
 
-        if (emailJaCadastrado = true) {
-            pagina2 = "/publico/login/loginInicio.xhtml";
-          //  login = null;
-            BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
-                    "");
+                configurarLimparSessao();
+                
+                pagina2 = "/publico/login/novoUsuario.xhtml";
+                //  login = null;
+                BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
+                        "");
+            } else {
+
+                configurarSalvalCurricoLogin();
+
+            }
+
         } else {
-            curriculo.setBairro("");
-            curriculo.setCelular("");
-            curriculo.setCep("");
-            curriculo.setCidade("");
-            curriculo.setCurso("");
-            curriculo.setEstado("");
-            curriculo.setLattes("");
-            curriculo.setLogradouro("");
-            curriculo.setMatricula("");
-            curriculo.setNumeroEnd("");
-            curriculo.setPais("");
-            curriculo.setTelefone("");
-            curriculo.setDtNascimento(null);
-            String emailLogin = login.getEmail();
-            curriculo.setEmail(emailLogin);
 
-            boolean salvou = curriculoRN.salvar(curriculo);
-
-            if (salvou) {
-
-                login.setCurriculoId(curriculo);
-                login.setCodigoConfimacaoTemp("");
-                login.setCodigoConfirmacao("123");
-                login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
-                loginRN.salvar(login);
-
-                pagina2 = "/publico/login/loginInicio.xhtml";
-                //login = null;
-                BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                        "Quando for realizado o login será solicitado o código.");
-            }
+            configurarSalvalCurricoLogin();
         }
+
 
         return pagina2;
     }

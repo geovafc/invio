@@ -4,10 +4,13 @@
  */
 package invio.bean;
 
+import java.util.Enumeration;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import java.util.logging.Logger;
 
 /**
  *
@@ -51,4 +54,34 @@ public class BeanUtil {
         Map<String, Object> sessionMap = ec.getSessionMap();
         sessionMap.remove(chave);
     }
+    
+    /** 
+* Método utilizado para remover as referências dos objetos que estão na sessão 
+* tomando cuidado para não remover os objetos de segurança do Spring 
+* @param session - sessão ativa do usuário 
+*/  
+@SuppressWarnings("unchecked")  
+public static void limpaSessaoParaInicio(HttpSession session) {  
+
+      
+    try{      
+        if(session != null){  
+            Enumeration atributeNames = session.getAttributeNames();  
+            StringBuilder strBuilder = new StringBuilder();  
+            while(atributeNames.hasMoreElements()){  
+                String keyObjeto = (String) atributeNames.nextElement();  
+                if(!keyObjeto.contains("SPRING")){  
+                    strBuilder.append(keyObjeto + "\n\t");  
+                    session.removeAttribute(keyObjeto);  
+                }  
+            }  
+            if(strBuilder.length() > 1){  
+   // VERIFICAR             LOGGER.info("Objetos excluídos da sessão("+session.getId()+") para início da aplicação: \n\t"+strBuilder.toString());  
+            }  
+        }  
+    }catch (Exception e) {  
+        e.printStackTrace();  
+    }  
+}  
+    
 }
