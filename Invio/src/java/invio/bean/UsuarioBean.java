@@ -129,10 +129,10 @@ public class UsuarioBean {
         curriculo.setPais("");
         curriculo.setTelefone("");
         curriculo.setDtNascimento(null);
-        
 
-        boolean salvou = curriculoRN.salvar(curriculo);   
-        
+
+        boolean salvou = curriculoRN.salvar(curriculo);
+
         if (salvou) {
 
             login.setCurriculoId(curriculo);

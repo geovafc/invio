@@ -22,7 +22,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `invio`.`curriculo`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
-  `id` INT(11) NOT NULL ,
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `cpf` VARCHAR(50) NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
   `dtNascimento` DATE NOT NULL ,
