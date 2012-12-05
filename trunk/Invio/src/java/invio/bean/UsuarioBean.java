@@ -84,7 +84,7 @@ public class UsuarioBean {
 
                 if (loginTemp.getEmail().equals(login.getEmail())
                         && loginTemp.getSenha().equals(login.getSenha())) {
-
+                    login = loginTemp;
                     setEntrar(true);
                     loginEncontrado = true;
                 }
