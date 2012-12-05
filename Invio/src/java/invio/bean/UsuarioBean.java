@@ -82,7 +82,7 @@ public class UsuarioBean {
 
             for (Login loginTemp : logins) {
 
-                if (loginTemp.getCurriculoId().getEmail().equals(login.getCurriculoId().getEmail())
+                if (loginTemp.getEmail().equals(login.getEmail())
                         && loginTemp.getSenha().equals(login.getSenha())) {
 
                     setEntrar(true);
@@ -129,7 +129,8 @@ public class UsuarioBean {
         curriculo.setPais("");
         curriculo.setTelefone("");
         curriculo.setDtNascimento(null);
-
+        String emailLogin = login.getEmail();
+        curriculo.setEmail(emailLogin);
 
         boolean salvou = curriculoRN.salvar(curriculo);
 
