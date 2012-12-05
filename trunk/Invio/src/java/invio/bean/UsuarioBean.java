@@ -53,6 +53,11 @@ public class UsuarioBean {
 
         return "/publico/login/recuperarSenha.xhtml";
     }
+    public String irNovoUsuario(){
+        //login = new Login();
+        return "/publico/login/novoUsuario.xhtml";
+    }
+    
     boolean aparecerMensagem = false;
 
     public boolean isAparecerMensagem() {
@@ -69,8 +74,7 @@ public class UsuarioBean {
     }
 
     public String entrar() {
-
-
+     
         boolean confirmacao = false;
         boolean loginEncontrado = false;
         String pagina = "";
@@ -79,7 +83,9 @@ public class UsuarioBean {
 
 
         if (logins != null || logins.size() > 0) {
-
+           
+            
+            
             for (Login loginTemp : logins) {
 
                 if (loginTemp.getEmail().equals(login.getEmail())
@@ -91,6 +97,7 @@ public class UsuarioBean {
             }
             if (loginEncontrado != true) {
                 pagina = "/publico/login/loginInicio.xhtml";
+                //login = null;
                 BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
                         "");
             }
@@ -98,6 +105,7 @@ public class UsuarioBean {
             setAparecerMensagem(true);
             setEntrar(false);
             pagina = "/publico/login/loginInicio.xhtml";
+            //login = null;
             BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
                     "");
         }
@@ -114,42 +122,61 @@ public class UsuarioBean {
     }
 
     public String salvar() {
+        //login = new Login();
 
-        //FAZEER TRATAMENTO: SE EXISTIR ALGUM E-MAIL PARECIDO NO BANCO
-        curriculo.setBairro("");
-        curriculo.setCelular("");
-        curriculo.setCep("");
-        curriculo.setCidade("");
-        curriculo.setCurso("");
-        curriculo.setEstado("");
-        curriculo.setLattes("");
-        curriculo.setLogradouro("");
-        curriculo.setMatricula("");
-        curriculo.setNumeroEnd("");
-        curriculo.setPais("");
-        curriculo.setTelefone("");
-        curriculo.setDtNascimento(null);
-        String emailLogin = login.getEmail();
-        curriculo.setEmail(emailLogin);
+        boolean emailJaCadastrado = false;
+        String pagina2 = "";
 
-        boolean salvou = curriculoRN.salvar(curriculo);
+        logins = loginRN.obterTodos();
 
-        if (salvou) {
+        for (Login loginTemp2 : logins) {
 
-            login.setCurriculoId(curriculo);
-            login.setCodigoConfimacaoTemp("");
-            login.setCodigoConfirmacao("123");
-            login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
-            loginRN.salvar(login);
+            if (login.getEmail().equals(loginTemp2.getEmail())) {
+                emailJaCadastrado = true;
+            }
 
-
-            BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                    "Quando for realizado o login será solicitado o código.");
         }
 
+        if (emailJaCadastrado = true) {
+            pagina2 = "/publico/login/loginInicio.xhtml";
+          //  login = null;
+            BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
+                    "");
+        } else {
+            curriculo.setBairro("");
+            curriculo.setCelular("");
+            curriculo.setCep("");
+            curriculo.setCidade("");
+            curriculo.setCurso("");
+            curriculo.setEstado("");
+            curriculo.setLattes("");
+            curriculo.setLogradouro("");
+            curriculo.setMatricula("");
+            curriculo.setNumeroEnd("");
+            curriculo.setPais("");
+            curriculo.setTelefone("");
+            curriculo.setDtNascimento(null);
+            String emailLogin = login.getEmail();
+            curriculo.setEmail(emailLogin);
 
+            boolean salvou = curriculoRN.salvar(curriculo);
 
-        return "/publico/login/loginInicio.xhtml";
+            if (salvou) {
+
+                login.setCurriculoId(curriculo);
+                login.setCodigoConfimacaoTemp("");
+                login.setCodigoConfirmacao("123");
+                login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
+                loginRN.salvar(login);
+
+                pagina2 = "/publico/login/loginInicio.xhtml";
+                //login = null;
+                BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
+                        "Quando for realizado o login será solicitado o código.");
+            }
+        }
+
+        return pagina2;
     }
 
     public String okCodigo() {
