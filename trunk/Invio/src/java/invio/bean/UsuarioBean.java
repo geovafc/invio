@@ -56,6 +56,12 @@ public class UsuarioBean {
         return "/publico/login/recuperarSenha.xhtml";
     }
 
+    public String cancelarTelaConfirmacao(){
+        
+        configurarLimparSessao();
+        return "/publico/login/loginInicio.xhtml";
+    }
+    
     public void configurarLimparSessao(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
                 HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
