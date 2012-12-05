@@ -129,6 +129,7 @@ public class UsuarioBean {
         curriculo.setPais("");
         curriculo.setTelefone("");
         curriculo.setDtNascimento(null);
+        
 
         boolean salvou = curriculoRN.salvar(curriculo);   
         
@@ -137,7 +138,7 @@ public class UsuarioBean {
             login.setCurriculoId(curriculo);
             login.setCodigoConfimacaoTemp("");
             login.setCodigoConfirmacao("123");
-            login.setDtCriacao(null);
+            login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
             loginRN.salvar(login);
 
 
