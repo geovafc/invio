@@ -202,7 +202,7 @@ public class UsuarioBean {
             configurarSalvalCurricoLogin();
         }
 
-
+        configurarLimparSessao();
         return pagina2;
     }
 
