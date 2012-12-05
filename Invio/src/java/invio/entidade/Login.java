@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findBySenha", query = "SELECT l FROM Login l WHERE l.senha = :senha"),
     @NamedQuery(name = "Login.findByCodigoConfirmacao", query = "SELECT l FROM Login l WHERE l.codigoConfirmacao = :codigoConfirmacao"),
     @NamedQuery(name = "Login.findByCodigoConfimacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfimacaoTemp = :codigoConfimacaoTemp"),
-    @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao")})
+    @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao"),
+    @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,6 +50,9 @@ public class Login implements Serializable {
     @Column(name = "dtCriacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtCriacao;
+    @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -60,9 +64,10 @@ public class Login implements Serializable {
         this.id = id;
     }
 
-    public Login(Integer id, String senha) {
+    public Login(Integer id, String senha, String email) {
         this.id = id;
         this.senha = senha;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -103,6 +108,14 @@ public class Login implements Serializable {
 
     public void setDtCriacao(Date dtCriacao) {
         this.dtCriacao = dtCriacao;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Curriculo getCurriculoId() {
