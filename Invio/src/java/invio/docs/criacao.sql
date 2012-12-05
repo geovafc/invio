@@ -1,6 +1,6 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 DROP SCHEMA IF EXISTS `invio` ;
 CREATE SCHEMA IF NOT EXISTS `invio` DEFAULT CHARACTER SET utf8 ;
@@ -108,11 +108,11 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `senha` VARCHAR(45) NOT NULL ,
   `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
   `codigoConfimacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
-  `curriculo_id` INT(11) NOT NULL ,
   `dtCriacao` DATETIME NULL DEFAULT NULL ,
   `email` VARCHAR(200) NOT NULL ,
+  `curriculo_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_login_curriculo1` (`curriculo_id` ASC) ,
+  INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_login_curriculo1`
     FOREIGN KEY (`curriculo_id` )
     REFERENCES `invio`.`curriculo` (`id` )
