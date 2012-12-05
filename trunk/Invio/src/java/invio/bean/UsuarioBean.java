@@ -10,8 +10,11 @@ import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.rn.CurriculoRN;
 import invio.rn.LoginRN;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -69,12 +72,13 @@ public class UsuarioBean {
 
 
         boolean confirmacao = false;
+        boolean loginEncontrado = false;
         String pagina = "";
 
         logins = loginRN.obterTodos();
 
 
-        if (logins != null || logins.size() >= 0) {
+        if (logins != null || logins.size() > 0) {
 
             for (Login loginTemp : logins) {
 
@@ -82,11 +86,20 @@ public class UsuarioBean {
                         && loginTemp.getSenha().equals(login.getSenha())) {
 
                     setEntrar(true);
+                    loginEncontrado = true;
                 }
+            }
+            if (loginEncontrado != true) {
+                pagina = "/publico/login/loginInicio.xhtml";
+                BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
+                        "");
             }
         } else {
             setAparecerMensagem(true);
+            setEntrar(false);
             pagina = "/publico/login/loginInicio.xhtml";
+            BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
+                    "");
         }
 
         if (entrar == true) {
@@ -102,6 +115,7 @@ public class UsuarioBean {
 
     public String salvar() {
 
+        //FAZEER TRATAMENTO: SE EXISTIR ALGUM E-MAIL PARECIDO NO BANCO
         curriculo.setBairro("");
         curriculo.setCelular("");
         curriculo.setCep("");
@@ -114,13 +128,16 @@ public class UsuarioBean {
         curriculo.setNumeroEnd("");
         curriculo.setPais("");
         curriculo.setTelefone("");
+        curriculo.setDtNascimento(null);
 
-
-        if (curriculoRN.salvar(curriculo)) {
+        boolean salvou = curriculoRN.salvar(curriculo);   
+        
+        if (salvou) {
 
             login.setCurriculoId(curriculo);
             login.setCodigoConfimacaoTemp("");
             login.setCodigoConfirmacao("123");
+            login.setDtCriacao(null);
             loginRN.salvar(login);
 
 
@@ -136,13 +153,13 @@ public class UsuarioBean {
     public String okCodigo() {
 
         if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())) {
-            
+
             login.setCodigoConfimacaoTemp(login.getCodigoConfirmacao());
-            
+
             loginRN.salvar(login);
-            
-        }else{
-             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.","");
+
+        } else {
+            BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
             return "/publico/login/telaConfirmacao.xhtml";
         }
 
