@@ -18,7 +18,7 @@
                     <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
 
                         <h:outputText id="loginLabel" value="E-mail:"/>
-                        <p:inputText required="true" id="email"/>
+                        <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
                         <h:outputText value="Senha: " />  
                         <p:keyboard clearLabel="Clear" closeLabel="Close" 
