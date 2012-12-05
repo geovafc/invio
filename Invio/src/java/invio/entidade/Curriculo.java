@@ -65,7 +65,6 @@ public class Curriculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @Basic(optional = false)
     @Column(name = "dtNascimento")
     @Temporal(TemporalType.DATE)
     private Date dtNascimento;
@@ -118,11 +117,10 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public Curriculo(Integer id, String cpf, String nome, Date dtNascimento, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
+    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
-        this.dtNascimento = dtNascimento;
         this.logradouro = logradouro;
         this.bairro = bairro;
         this.cidade = cidade;
