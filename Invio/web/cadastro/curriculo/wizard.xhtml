@@ -134,9 +134,14 @@
                     <p:panel header="Confirmação" style="height: 420px">  
 
                         <h:panelGrid id="confirmation" columns="3">  
+                            
                             <h:outputText value="Nome: " />  
                             <h:outputText styleClass="outputLabel"  
                                           value="#{curriculoBean.curriculo.nome}" />  
+                            
+                            <h:outputText value="Data de Nascimento: " />  
+                            <h:outputText styleClass="outputLabel"  
+                                          value="#{curriculoBean.curriculo.dtNascimento}" />  
 
                             <h:outputText value="CPF: " />  
                             <h:outputText  styleClass="outputLabel"  
