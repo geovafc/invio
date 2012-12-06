@@ -18,11 +18,12 @@
                     <h:panelGrid id="gridrecuperarSenha"  style="width: 32%" columns="2">
 
                         <h:outputText  id="loginLabel" value="E-mail:"/>
-                        <h:inputText required="true" id="email"/>
+                        <p:inputText required="true" id="email"/>
 
 
                         <h:outputText id="cpfLabel" value="CPF:"/>
-                        <h:inputText required="true" id="cpf" value=""/>
+                        <p:inputMask id="cpf" required="true" label="Cpf"
+                                     value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99"/>
 
                         <p:commandButton value="Enviar"/>
                         <h:outputText value=""/>
@@ -34,7 +35,7 @@
             </div>
 
         </h:form>
-         <h:form>
+        <h:form>
             <div align="center">
 
                 <p:commandButton 

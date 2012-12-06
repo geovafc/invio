@@ -13,7 +13,7 @@
             <p:growl showDetail="true" showSummary="true"/>
 
             <p:commandButton value="Novo" ajax="false" action="#{instituicaoBean.novoFormularioInstituicao()}"/>
-
+            
             <p:dataTable 
                 id="dtInstituicao"
                 var="instituicao" value="#{instituicaoBean.instituicoes}"
@@ -21,7 +21,7 @@
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                  rowsPerPageTemplate="5,10,15">
 
-                <p:column headerText="Nome" filterBy="#{instituicao.nome}" >  
+                <p:column headerText="Instituição" filterBy="#{instituicao.nome}" >  
                     <h:outputText value="#{instituicao.nome}" />  
                 </p:column>  
                 
