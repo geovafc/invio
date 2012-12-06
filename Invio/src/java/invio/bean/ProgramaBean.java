@@ -38,23 +38,21 @@ public class ProgramaBean {
     private Programa programa = new Programa();
 
     public List<Area> getAreas() {
-        areas = programaRN.obterAreas(); 
+        areas = programaRN.obterAreas();
         return areas;
     }
 
     public void setAreas(List<Area> areas) {
         this.areas = areas;
     }
-    
-    
 
     public ProgramaBean() {
     }
 
     public List<Programa> getProgramas() {
         //if (programas == null) {
-            programas = programaRN.obterTodos();
-            System.out.println("Programas: " +programas);
+        programas = programaRN.obterTodos();
+        System.out.println("Programas: " + programas);
         //}
         return programas;
     }
@@ -70,12 +68,12 @@ public class ProgramaBean {
     public void setPrograma(Programa programa) {
         this.programa = programa;
     }
-    
-    public String irAreasPrograma (){
-        System.out.println("PROGRAMA - AREA :" +programa);    
+
+    public String irAreasPrograma() {
+        System.out.println("PROGRAMA - AREA :" + programa);
         return "/cadastro/programa/areasPrograma.xhtml";
     }
-    
+
     public String salvar() {
         if (programaRN.salvar(programa)) {
             BeanUtil.criarMensagemDeInformacao(
@@ -83,6 +81,11 @@ public class ProgramaBean {
                     "O programa " + programa.getNome() + " foi salvo com sucesso.");
         }
         return "listar.xhtml";
+    }
+
+    public String novoPrograma() {
+        programa = new Programa();
+        return "/cadastro/programa/formulario.xhtml";
     }
 
     public String excluir() {
@@ -93,56 +96,50 @@ public class ProgramaBean {
         }
         return "listar.xhtml";
     }
-    
+
     public SelectItem[] getInstituicoes() {
         return programaRN.getInstituicoes();
     }
-    
     // CONTROLE DE AREA APARTIR DESSA LINHA
     // CONTROLE DE AREA APARTIR DESSA LINHA
-    
-    
     private DualListModel<Area> itens2;
     private List<Area> selecionadas;
     private List<String> selecionadosVazio;
     private ComparadorArea comparadorArea = new ComparadorArea();
-    
+
     public DualListModel<Area> getItensAreas() {
-        
+
         selecionadas = new ArrayList<Area>();
-        selecionadas = programa.getAreaList(); 
-       
+        selecionadas = programa.getAreaList();
+
 
         List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
 
         Collections.sort(naoSelecionada, comparadorArea);
         //  temp.removeAll(selecionados2);
-        
+
         if (selecionadas != null) {
             itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-        }else{
-        itens2 = new DualListModel<Area>(naoSelecionada, null);    
+        } else {
+            itens2 = new DualListModel<Area>(naoSelecionada, null);
         }
-        
+
         return itens2;
     }
+
     public void setItensAreas(DualListModel<Area> itens) {
         this.itens2 = itens;
     }
-    
-    
-    public String salvarAreasPrograma (){
+
+    public String salvarAreasPrograma() {
         List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
-       
-        
+
+
         for (Area area : areasPrograma) {
             area.getProgramaList().add(programa);
             areaRN.salvar(area);
         }
-        
+
         return "/cadastro/programa/listar.xhtml";
     }
-    
-    
-    
 }
