@@ -25,16 +25,17 @@
 
 
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
-                            
+
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
                                          value="#{curriculoBean.curriculo.nome}" />
                             <p:message id="erroNome" for="nome"/>
 
                             <h:outputText value="Data de Nascimento: " />
-                            <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
+                            <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" 
+                                        navigator="true" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
-                            
+
 
                             <h:outputText value="CPF: *" />  
                             <p:inputMask id="cpf" required="true" label="Cpf"  
@@ -53,7 +54,7 @@
 
 
                             <h:outputText value="Curso: *"/>
-                                
+
                             <p:inputText id="curso" required="true" label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso"/>
@@ -134,11 +135,11 @@
                     <p:panel header="Confirmação" style="height: 420px">  
 
                         <h:panelGrid id="confirmation" columns="3">  
-                            
+
                             <h:outputText value="Nome: " />  
                             <h:outputText styleClass="outputLabel"  
                                           value="#{curriculoBean.curriculo.nome}" />  
-                            
+
                             <h:outputText value="Data de Nascimento: " />  
                             <h:outputText styleClass="outputLabel"  
                                           value="#{curriculoBean.curriculo.dtNascimento}" />  

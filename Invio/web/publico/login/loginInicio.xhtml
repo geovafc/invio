@@ -22,14 +22,13 @@
 
                         <h:outputText value="Senha: " />  
                         <p:keyboard clearLabel="Clear" closeLabel="Close" id="senha1"
-                                    backspaceLabel="Back" value="#{usuarioBean.login.senha}"  
+                                     backspaceLabel="Back" value="#{usuarioBean.login.senha}"  
                                     password="true" keypadOnly="true"/>
 
                     </h:panelGrid>
 
                     <p:panel style ="border-color: transparent; 
                              color: transparent; background: transparent " >
-
 
                         <div align="center">
                             <p:commandButton ajax="false" value="Entrar" action="#{usuarioBean.entrar}"/>
