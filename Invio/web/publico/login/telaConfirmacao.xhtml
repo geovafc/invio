@@ -7,24 +7,24 @@
 
     <ui:define name="content">
 
-        <h:form>
+        <h:form id="Codigo">
 
             <h:inputHidden 
                 id="objtelaConfirmacao"
                 value="#{usuarioBean.login.id}"/> 
 
-            <p:messages showDetail="true" showSummary="true"/>
+            <p:messages id="Erro" showDetail="true" showSummary="true"/>
 
             <div align="center">
                 <p:panel>
                     <h:outputText id="insira" value="Insira o código de confirmação enviado para seu e-mail."/>
                     <br/>
                     <br/>
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="2">
 
                         <h:outputText value="Confirmação: "/>
-                        <h:inputText required="true" id="logincodigoConfirmacao" value="#{usuarioBean.login.codigoConfimacaoTemp}"/>
-                        <h:message id="errocodigoConfirmacao" for="logincodigoConfirmacao"/>
+                        <h:inputText required="true" id="codigoConfirmacao" value="#{usuarioBean.login.codigoConfimacaoTemp}"/>
+                        
 
                         <br/>
                         <br/>
