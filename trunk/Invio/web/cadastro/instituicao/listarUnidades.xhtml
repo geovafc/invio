@@ -9,7 +9,7 @@
     <ui:define name="content">
 
         <h:form id="form">
-             
+
             <h:inputHidden 
                 id="ihInstituicao"
                 value="#{instituicaoBean.instituicao}" 
@@ -18,6 +18,8 @@
             <p:growl showDetail="true" showSummary="true"/>
 
             <p:commandButton value="Novo" ajax="false" action="#{instituicaoBean.novoFormularioUnidade()}"/>
+
+            <p:commandButton value="Voltar" action="/cadastro/instituicao/listar.xhtml"/>
 
             <p:dataTable 
                 id="dtUnidadesDeInstituicoes"
@@ -37,14 +39,14 @@
                             value="#{unidade}" 
                             target="#{instituicaoBean.unidade}" />  
                     </p:commandButton>  
-                    
+
                     <p:commandButton 
                         ajax="false"
                         action="excluirUnidade.xhtml"
                         value="Excluir">  
                         <f:setPropertyActionListener 
-                             value="#{unidade}" 
-                             target="#{instituicaoBean.unidade}" />  
+                            value="#{unidade}" 
+                            target="#{instituicaoBean.unidade}" />  
                     </p:commandButton>  
 
 
