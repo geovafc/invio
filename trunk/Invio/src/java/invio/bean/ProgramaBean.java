@@ -35,7 +35,7 @@ public class ProgramaBean {
     private AreaRN areaRN = new AreaRN();
     private List<Programa> programas;
     private List<Area> areas;
-    
+    private Programa programa = new Programa();
 
     public List<Area> getAreas() {
         areas = programaRN.obterAreas(); 
@@ -46,16 +46,16 @@ public class ProgramaBean {
         this.areas = areas;
     }
     
-    private Programa programa = new Programa();
+    
 
     public ProgramaBean() {
     }
 
     public List<Programa> getProgramas() {
-        if (programas == null) {
+        //if (programas == null) {
             programas = programaRN.obterTodos();
             System.out.println("Programas: " +programas);
-        }
+        //}
         return programas;
     }
 
@@ -133,7 +133,7 @@ public class ProgramaBean {
     
     public String salvarAreasPrograma (){
         List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
-        
+       
         
         for (Area area : areasPrograma) {
             area.getProgramaList().add(programa);
