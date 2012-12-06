@@ -154,11 +154,12 @@ public class UsuarioBean {
             login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
             loginRN.salvar(login);
             
-            configurarLimparSessao();
+            
             pagina2 = "/publico/login/loginInicio.xhtml";
             //login = null;
             BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                     "Quando for realizado o login será solicitado o código.");
+            configurarLimparSessao();
         }
     }
     String pagina2 = "";
@@ -183,7 +184,7 @@ public class UsuarioBean {
                 }
             }
 
-            if (emailJaCadastrado = true) {
+            if (emailJaCadastrado == true) {
 
                 configurarLimparSessao();
                 
