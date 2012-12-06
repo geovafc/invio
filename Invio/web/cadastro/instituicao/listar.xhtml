@@ -16,13 +16,16 @@
 
             <p:dataTable 
                 id="dtInstituicao"
-                var="instituicao" value="#{instituicaoBean.instituicoes}">
+                var="instituicao" value="#{instituicaoBean.instituicoes}"
+                paginator="true" rows="6"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15">
 
-                <p:column headerText="Nome">  
+                <p:column headerText="Nome" filterBy="#{instituicao.nome}" >  
                     <h:outputText value="#{instituicao.nome}" />  
                 </p:column>  
                 
-                <p:column headerText="Sigla">  
+                <p:column headerText="Sigla" filterBy="#{instituicao.sigla}">  
                     <h:outputText value="#{instituicao.sigla}" />  
                 </p:column>  
 

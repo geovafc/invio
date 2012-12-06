@@ -16,10 +16,13 @@
 
             <p:dataTable 
                 id="dtArea"
-                var="area" value="#{areaBean.areas}">
+                var="area" value="#{areaBean.areas}"
+                paginator="true" rows="6"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15">
 
-                <p:column headerText="Nome">  
-                    <h:outputText value="#{area.nome}" />  
+                <p:column headerText="Nome" filterBy="#{area.nome}">  
+                    <h:outputText value="#{area.nome}"/>  
                 </p:column>  
 
                 <p:column headerText="Operações">  
