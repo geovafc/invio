@@ -4,14 +4,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:body>
-        <h:form style="width: 95%">  
+
+        <h:form style="width: 95%"> 
 
             <p:menu style="width:97%">  
-
-                <p:menuitem value="Logout"   ajax="false" 
-                            icon="ui-icon-close"
-                            action="/publico/login/loginInicio.xhtml"/>  
-
                 <p:submenu style="width: 100%" label="Cadastros">  
                     <p:menuitem 
                         value="Área"  ajax="false"
@@ -29,12 +25,20 @@
                                 action="/cadastro/curriculo/listar.xhtml"/>  
                 </p:submenu>                  
                 <p:submenu style="width: 100%" label="Submissão">  
-                    <p:menuitem value="Delete"   ajax="false" icon="ui-icon-close"/>  
+                    <p:menuitem value="Arquivo"   ajax="false" icon="ui-icon-arrowrefresh-1-w"/>  
                 </p:submenu>  
 
-                <p:submenu style="width: 100%" label="Relatórios" >  
+                <p:submenu style="width: 100%" label="Logout" >  
+
+                    <p:menuitem id="misair" ajax="false">
+                        <h:commandButton 
+                            id="btlogout"
+                            action="#{usuarioBean.logoutSair()}"
+                            image="/resources/imagem/sair.png"/>
+                    </p:menuitem>
 
                 </p:submenu>  
+
 
             </p:menu>
 
