@@ -55,7 +55,13 @@ public class UsuarioBean {
 
         return "/publico/login/recuperarSenha.xhtml";
     }
-
+    
+    
+    public String logoutSair() {
+        configurarLimparSessao();
+        return "/publico/login/loginInicio.xhtml";
+    }
+            
     public String cancelarTelaConfirmacao(){
         
         configurarLimparSessao();
