@@ -12,8 +12,8 @@
 
             <p:growl id="growl" sticky="true" showDetail="true"/>  
 
-            <h:inputHidden id="objPrograma"
-                           value="#{programaBean.programa.id}"/>
+            <h:inputHidden id="objCurriculo"
+                           value="#{curriculoBean.curriculo.id}"/>
 
             <p:wizard widgetVar="wiz" 
                       flowListener="#{curriculoBean.onFlowProcess}"
@@ -134,7 +134,7 @@
                 <p:tab id="confirm" title="Confirmação">  
                     <p:panel header="Confirmação" style="height: 420px">  
 
-                        <h:panelGrid id="confirmation" columns="3">  
+                        <h:panelGrid id="confirmation" columns="2">  
 
                             <h:outputText value="Nome: " />  
                             <h:outputText styleClass="outputLabel"  

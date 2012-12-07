@@ -119,8 +119,15 @@ public class UsuarioBean {
         if (entrar == true) {
             if (login.getCodigoConfimacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
                 pagina = "/publico/login/telaConfirmacao.xhtml";
-            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())) {
-                pagina = "/publico/indexHome.xhtml";
+            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao()) &&
+                    login.getPerfil().equals("Administrador")) {
+                pagina = "/publico/indexHomeAdmin.xhtml";
+            }else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao()) &&
+                    login.getPerfil().equals("Discente")) {
+                pagina = "/publico/indexHomeUser.xhtml";
+            }else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao()) &&
+                    login.getPerfil().equals("Docente")) {
+                pagina = "/publico/indexHomeUser.xhtml";
             }
         }
 
@@ -168,15 +175,15 @@ public class UsuarioBean {
 
     public ArrayList<String> getTipoPerfilUsuarioComum() {
         tiposPerfil = new ArrayList<String>();
-        tiposPerfil.add("Docente");
         tiposPerfil.add("Discente");
+        tiposPerfil.add("Docente");
         return tiposPerfil;
     }
     
     public ArrayList<String> getTipoPerfilAdmin() {
         tiposPerfil = new ArrayList<String>();
-        tiposPerfil.add("Docente");
         tiposPerfil.add("Discente");
+        tiposPerfil.add("Docente");
         tiposPerfil.add("Administrador");
         return tiposPerfil;
     }
