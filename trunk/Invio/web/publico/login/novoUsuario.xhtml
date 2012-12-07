@@ -20,6 +20,12 @@
                     <br/>
                     <h:panelGrid columns="2">
 
+                        <h:outputText value="Perfil Acadêmico: *" />
+                        <h:selectOneMenu required="true" id="perfilAcademico" value="#{usuarioBean.login.perfil}"
+                                         label="#{usuarioBean.tipoPerfilUsuarioComum.toString()}">
+                            <f:selectItems value="#{usuarioBean.tipoPerfilUsuarioComum}"/>
+                        </h:selectOneMenu>
+
                         <h:outputText value="Nome: "/>
                         <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
 
@@ -28,11 +34,6 @@
                         <p:inputMask required="true" id="cpf" 
                                      value="#{usuarioBean.curriculo.cpf}" mask="999.999.999-99"/>
 
-                        <h:outputText value="Perfil Acadêmico: *" />
-                        <h:selectOneMenu required="true" id="perfilAcademico" value="#{usuarioBean.login.perfil}"
-                                         label="#{usuarioBean.tipoPerfilUsuarioComum.toString()}">
-                            <f:selectItems value="#{usuarioBean.tipoPerfilUsuarioComum}"/>
-                        </h:selectOneMenu>
 
                         <h:outputText value="E-mail: "/>
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
