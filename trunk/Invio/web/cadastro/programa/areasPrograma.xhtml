@@ -18,10 +18,15 @@
 
             <p:growl id="msg" showDetail="true"  showSummary="true" />  
 
+            <p:commandButton 
+                ajax="false" 
+                id="novasAreas"
+                value="Cadastrar nova Área"
+                action="/cadastro/area/formulario.xhtml">
+            </p:commandButton>
+
             <p:panel header="Selecione as áreas para o Programa: ">
                 <h:panelGrid columns="1">
-
-
 
                     <p:pickList style="width: 20px" id="plAreas" value="#{programaBean.itensAreas}" var="area" effect="bounce"  
                                 itemValue="#{area}" itemLabel="#{area.nome}" converter="areaConversor"  
@@ -45,14 +50,8 @@
                     value="Salvar"
                     action="#{programaBean.salvarAreasPrograma}">
                 </p:commandButton>
-                
-                <p:commandButton 
-                    ajax="false" 
-                    id="novasAreas"
-                    value="Cadastrar nova Área"
-                    action="/cadastro/area/formulario.xhtml">
-                </p:commandButton>
-                
+
+
             </p:panel>
 
 

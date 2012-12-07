@@ -8,7 +8,21 @@
         <h:form style="width: 95%"> 
 
             <p:menu style="width:97%">  
+                <p:submenu style="width: 100%" label="Usuário">  
+
+                    <p:menuitem 
+                        value="Perfil"  ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w" 
+                        action="/cadastro/login/perfilUsuario.xhtml"/>  
+                    
+                    <p:menuitem 
+                        value="Alterar Senha"  ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w" 
+                        action="/cadastro/login/trocarSenha.xhtml"/>  
+
+                </p:submenu>
                 <p:submenu style="width: 100%" label="Cadastros">  
+
                     <p:menuitem 
                         value="Área"  ajax="false"
                         icon="ui-icon-arrowrefresh-1-w" 
@@ -18,11 +32,11 @@
                         value="Instituição"  ajax="false"
                         icon="ui-icon-arrowrefresh-1-w" 
                         action="/cadastro/instituicao/listar.xhtml"/>
-                    
+
                     <p:menuitem value="Programa"   ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
                                 action="/cadastro/programa/listar.xhtml"/>
-                    
+
                     <p:menuitem value="Currículo"  ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
                                 action="/cadastro/curriculo/listar.xhtml"/>  
