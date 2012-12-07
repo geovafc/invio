@@ -55,31 +55,28 @@ public class UsuarioBean {
 
         return "/publico/login/recuperarSenha.xhtml";
     }
-    
-    
+
     public String logoutSair() {
         configurarLimparSessao();
         return "/publico/login/loginInicio.xhtml";
     }
-            
-    public String cancelarTelaConfirmacao(){
-        
+
+    public String cancelarTelaConfirmacao() {
+
         configurarLimparSessao();
         return "/publico/login/loginInicio.xhtml";
     }
-    
-    public void configurarLimparSessao(){
+
+    public void configurarLimparSessao() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-                BeanUtil.limpaSessaoParaInicio(session);
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        BeanUtil.limpaSessaoParaInicio(session);
     }
-    
+
     public String irNovoUsuario() {
-        //login = new Login();
         configurarLimparSessao();
         return "/publico/login/novoUsuario.xhtml";
     }
-   
     boolean entrar = false;
 
     public void setEntrar(boolean entrar) {
@@ -94,10 +91,7 @@ public class UsuarioBean {
 
         logins = loginRN.obterTodos();
 
-
         if (logins.size() > 0) {
-
-
 
             for (Login loginTemp : logins) {
 
@@ -159,8 +153,8 @@ public class UsuarioBean {
             login.setCodigoConfirmacao("123");
             login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
             loginRN.salvar(login);
-            
-            
+
+
             pagina2 = "/publico/login/loginInicio.xhtml";
             //login = null;
             BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
@@ -168,6 +162,25 @@ public class UsuarioBean {
             configurarLimparSessao();
         }
     }
+    
+    
+     ArrayList<String> tiposPerfil ;
+
+    public ArrayList<String> getTipoPerfilUsuarioComum() {
+        tiposPerfil = new ArrayList<String>();
+        tiposPerfil.add("Docente");
+        tiposPerfil.add("Discente");
+        return tiposPerfil;
+    }
+    
+    public ArrayList<String> getTipoPerfilAdmin() {
+        tiposPerfil = new ArrayList<String>();
+        tiposPerfil.add("Docente");
+        tiposPerfil.add("Discente");
+        tiposPerfil.add("Administrador");
+        return tiposPerfil;
+    }
+    
     String pagina2 = "";
     boolean emailJaCadastrado = false;
 
@@ -176,8 +189,6 @@ public class UsuarioBean {
     }
 
     public String salvar() {
-        //login = new Login();
-
 
         logins = loginRN.obterTodos();
 
@@ -193,9 +204,8 @@ public class UsuarioBean {
             if (emailJaCadastrado == true) {
 
                 configurarLimparSessao();
-                
+
                 pagina2 = "/publico/login/novoUsuario.xhtml";
-                //  login = null;
                 BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
                         "");
             } else {

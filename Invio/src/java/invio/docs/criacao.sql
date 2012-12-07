@@ -111,6 +111,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `dtCriacao` DATETIME NULL DEFAULT NULL ,
   `email` VARCHAR(200) NOT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
+  `perfil` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_login_curriculo1`
