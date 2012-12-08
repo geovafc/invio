@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "area")

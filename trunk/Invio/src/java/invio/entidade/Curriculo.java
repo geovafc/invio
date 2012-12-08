@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "curriculo")
@@ -51,7 +51,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByEmail", query = "SELECT c FROM Curriculo c WHERE c.email = :email"),
     @NamedQuery(name = "Curriculo.findByMatricula", query = "SELECT c FROM Curriculo c WHERE c.matricula = :matricula"),
     @NamedQuery(name = "Curriculo.findByLattes", query = "SELECT c FROM Curriculo c WHERE c.lattes = :lattes"),
-    @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso")})
+    @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso"),
+    @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero")})
 public class Curriculo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -102,6 +103,9 @@ public class Curriculo implements Serializable {
     private String lattes;
     @Column(name = "curso")
     private String curso;
+    @Basic(optional = false)
+    @Column(name = "genero")
+    private String genero;
     @JoinTable(name = "curriculo_programa", joinColumns = {
         @JoinColumn(name = "curriculo", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "programa", referencedColumnName = "id")})
@@ -117,7 +121,7 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes) {
+    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes, String genero) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -129,6 +133,7 @@ public class Curriculo implements Serializable {
         this.email = email;
         this.matricula = matricula;
         this.lattes = lattes;
+        this.genero = genero;
     }
 
     public Integer getId() {
@@ -265,6 +270,14 @@ public class Curriculo implements Serializable {
 
     public void setCurso(String curso) {
         this.curso = curso;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     @XmlTransient
