@@ -39,6 +39,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `matricula` VARCHAR(20) NOT NULL ,
   `lattes` VARCHAR(200) NOT NULL ,
   `curso` VARCHAR(200) NULL DEFAULT NULL ,
+  `genero` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
