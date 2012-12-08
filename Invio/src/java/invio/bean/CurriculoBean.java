@@ -1,7 +1,9 @@
 package invio.bean;
 
 import invio.entidade.Curriculo;
+import invio.entidade.Login;
 import invio.rn.CurriculoRN;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -15,6 +17,7 @@ public class CurriculoBean {
     private CurriculoRN curriculoRN = new CurriculoRN();
     private List<Curriculo> curriculos;
     private Curriculo curriculo;
+    private Login login;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
     private boolean skip;
 
@@ -31,7 +34,29 @@ public class CurriculoBean {
         //  }
         return curriculos;
     }
-
+    
+    public Integer getIdLogin() {
+        
+        return login.getId();
+    }
+    
+//    public List<Curriculo> getCurriculoPorId(Login login) {
+//        //    if (instituicoes == null) {
+//        curriculos = curriculoRN.obterTodos();
+//        List<Curriculo> curriculoId =  new ArrayList<Curriculo>(); 
+//        
+//        for (Curriculo curriculo1 : curriculos) {
+//            
+//            if (curriculo1.getId().equals(login.getId())) {
+//                
+//                curriculoId.add(curriculo1);
+//            }
+//            
+//        } 
+//        //  }
+//        return curriculoId;
+//    }
+    
     public void setCurriculos(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
     }
@@ -91,11 +116,7 @@ public class CurriculoBean {
         return event.getNewStep();
             
         }
-//        System.out.println("id " + event.getNewStep());
-//        if (event.getNewStep().equals("confirm")) {
-//            carg = funcionario.getCargosID();
-//            empres = funcionario.getEmpresaID();
-//        }
+
     }
         
     public String irListarCurriculos() {
@@ -111,6 +132,6 @@ public class CurriculoBean {
     }
     
     public String irCurriculoUser() {
-        return "/cadastro/curriculo/wizardUser.xhtml";
+        return "/cadastro/curriculo/listarUser.xhtml";
     }
 }

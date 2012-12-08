@@ -119,14 +119,14 @@ public class UsuarioBean {
         if (entrar == true) {
             if (login.getCodigoConfimacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
                 pagina = "/publico/login/telaConfirmacao.xhtml";
-            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao()) &&
-                    login.getPerfil().equals("Administrador")) {
+            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())
+                    && login.getPerfil().equals("Administrador")) {
                 pagina = "/publico/indexHomeAdmin.xhtml";
-            }else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao()) &&
-                    login.getPerfil().equals("Discente")) {
+            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())
+                    && login.getPerfil().equals("Discente")) {
                 pagina = "/publico/indexHomeUser.xhtml";
-            }else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao()) &&
-                    login.getPerfil().equals("Docente")) {
+            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())
+                    && login.getPerfil().equals("Docente")) {
                 pagina = "/publico/indexHomeUser.xhtml";
             }
         }
@@ -169,9 +169,7 @@ public class UsuarioBean {
             configurarLimparSessao();
         }
     }
-    
-    
-     ArrayList<String> tiposPerfil ;
+    ArrayList<String> tiposPerfil;
 
     public ArrayList<String> getTipoPerfilUsuarioComum() {
         tiposPerfil = new ArrayList<String>();
@@ -179,7 +177,7 @@ public class UsuarioBean {
         tiposPerfil.add("Docente");
         return tiposPerfil;
     }
-    
+
     public ArrayList<String> getTipoPerfilAdmin() {
         tiposPerfil = new ArrayList<String>();
         tiposPerfil.add("Discente");
@@ -187,7 +185,6 @@ public class UsuarioBean {
         tiposPerfil.add("Administrador");
         return tiposPerfil;
     }
-    
     String pagina2 = "";
     boolean emailJaCadastrado = false;
 
@@ -229,6 +226,7 @@ public class UsuarioBean {
         configurarLimparSessao();
         return pagina2;
     }
+    String pagina3 = "";
 
     public String okCodigo() {
 
@@ -237,13 +235,22 @@ public class UsuarioBean {
             login.setCodigoConfimacaoTemp(login.getCodigoConfirmacao());
 
             loginRN.salvar(login);
+            
+            if (login.getPerfil().equals("Administrador")) {
+            pagina3 = "/publico/indexHomeAdmin.xhtml";
+        } else if (login.getPerfil().equals("Discente") || login.getPerfil().equals("Docente")) {
+            pagina3 = "/publico/indexHomeUser.xhtml";
+        }
 
         } else {
             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
-            return "/publico/login/telaConfirmacao.xhtml";
+            pagina3 = "/publico/login/telaConfirmacao.xhtml";
         }
 
-        return "/publico/indexHome.xhtml";
+        
+
+
+        return pagina3;
 
     }
 }
