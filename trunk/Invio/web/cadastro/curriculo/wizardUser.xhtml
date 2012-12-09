@@ -36,6 +36,10 @@
                                         navigator="true" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
+                            <h:outputText value="Nome: *" />  
+                            <p:inputText id="genero" required="true" label="Sexo"  
+                                         value="#{usuarioBean.login.curriculoId.genero}" />
+                            <p:message id="erroGenero" for="genero"/>
 
                             <h:outputText value="CPF: *" />  
                             <p:inputMask id="cpf" required="true" label="Cpf"  
