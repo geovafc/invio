@@ -31,7 +31,7 @@
                                          value="#{curriculoBean.curriculo.nome}" />
                             <p:message id="erroNome" for="nome"/>
 
-                            <h:outputText value="Data de Nascimento: " />
+                            <h:outputText value="Data de Nascimento: *" />
                             <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" 
                                         navigator="true" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
