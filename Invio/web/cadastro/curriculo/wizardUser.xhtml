@@ -31,7 +31,7 @@
                                          value="#{usuarioBean.login.curriculoId.nome}" />
                             <p:message id="erroNome" for="nome"/>
 
-                            <h:outputText value="Data de Nascimento: " />
+                            <h:outputText value="Data de Nascimento: *" />
                             <p:calendar value="#{usuarioBean.login.curriculoId.dtNascimento}" 
                                         navigator="true" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
@@ -170,15 +170,15 @@
 
                             <h:outputText value="Número: " />  
                             <h:outputText styleClass="outputLabel"  
-                                          value="#{usuarioBean.login.curriculoId.curso}" />  
+                                          value="#{usuarioBean.login.curriculoId.numeroEnd}" />  
 
                             <h:outputText value="Cep: " />  
                             <h:outputText styleClass="outputLabel"  
-                                          value="#{usuarioBean.login.curriculoId.curso}"/> 
+                                          value="#{usuarioBean.login.curriculoId.cep}"/> 
 
                             <h:outputText value="Bairro: " />  
                             <h:outputText styleClass="outputLabel"  
-                                          value="#{usuarioBean.login.curriculoId.curso}" />  
+                                          value="#{usuarioBean.login.curriculoId.bairro}" />  
 
                             <h:outputText value="Cidade: " />  
                             <h:outputText styleClass="outputLabel"  
