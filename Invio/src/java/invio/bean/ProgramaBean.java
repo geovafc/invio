@@ -138,7 +138,10 @@ public class ProgramaBean {
         for (Area area : areasPrograma) {
             area.getProgramaList().add(programa);
             areaRN.salvar(area);
+            programa.getAreaList().add(area);
+            programaRN.salvar(programa);
         }
+        
 
         return "/cadastro/programa/listar.xhtml";
     }
