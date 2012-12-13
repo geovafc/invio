@@ -119,16 +119,9 @@ public class UsuarioBean {
         if (entrar == true) {
             if (login.getCodigoConfimacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
                 pagina = "/publico/login/telaConfirmacao.xhtml";
-            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())
-                    && login.getPerfil().equals("Administrador")) {
-                pagina = "/publico/indexHomeAdmin.xhtml";
-            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())
-                    && login.getPerfil().equals("Discente")) {
-                pagina = "/publico/indexHomeUser.xhtml";
-            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())
-                    && login.getPerfil().equals("Docente")) {
-                pagina = "/publico/indexHomeUser.xhtml";
-            }
+            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())) {
+                pagina = "/publico/indexHome.xhtml";
+            } 
         }
 
         return pagina;
@@ -235,12 +228,9 @@ public class UsuarioBean {
             login.setCodigoConfimacaoTemp(login.getCodigoConfirmacao());
 
             loginRN.salvar(login);
-            
-            if (login.getPerfil().equals("Administrador")) {
-            pagina3 = "/publico/indexHomeAdmin.xhtml";
-        } else if (login.getPerfil().equals("Discente") || login.getPerfil().equals("Docente")) {
-            pagina3 = "/publico/indexHomeUser.xhtml";
-        }
+          
+            pagina3 = "/publico/indexHome.xhtml";
+        
 
         } else {
             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
