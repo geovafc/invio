@@ -28,7 +28,7 @@
 
                         <h:outputText value="Nome: "/>
                         <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
-                        
+
                         <h:outputText value="Sexo: "/>
                         <p:inputText required="true" id="curriculoGenero" value="#{usuarioBean.curriculo.genero}"/>
 
@@ -41,17 +41,15 @@
                         <h:outputText value="E-mail: "/>
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
-
                         <h:outputText value="Senha: " />  
-                        <p:keyboard clearLabel="Clear" closeLabel="Close" id="senha2"
-                                    backspaceLabel="Back" value="#{usuarioBean.login.senha}"  
-                                    password="true" keypadOnly="true"/>
+                        <p:password id="senha2" value="#{usuarioBean.login.senha}" /> 
 
                         <p:commandButton 
                             ajax="false" value="Enviar" 
                             action="#{usuarioBean.salvar()}" 
                             update="form"/>
                         <h:outputText value="" />
+
                     </h:panelGrid>
 
                 </p:panel>
