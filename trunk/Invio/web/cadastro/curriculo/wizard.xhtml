@@ -138,76 +138,96 @@
                 <p:tab id="confirm" title="Confirmação">  
                     <p:panel header="Confirmação" style="height: 420px">  
 
-                        <h:panelGrid id="confirmation" columns="2">  
+                        <h:panelGrid id="confirmation" columns="6" cellspacing="5" cellpadding="4" >  
 
                             <h:outputText value="Nome: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.nome}" />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.nome}" />  
 
                             <h:outputText value="Data de Nascimento: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.dtNascimento}" />  
+                            <h:inputText
+                                styleClass="outputLabel"
+                                value="#{curriculoBean.curriculo.dtNascimento}" 
+                                disabled="true">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                            </h:inputText>
 
                             <h:outputText value="CPF: " />  
-                            <h:outputText  styleClass="outputLabel"  
-                                           value="#{curriculoBean.curriculo.cpf}"/>  
+                            <h:inputText  styleClass="outputLabel"  
+                                          disabled="true"
+                                          value="#{curriculoBean.curriculo.cpf}"/>  
 
                             <h:outputText value="Matricula: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.matricula}" />
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.matricula}" />
 
                             <h:outputText value="Lattes: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.lattes}" />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.lattes}" />  
 
                             <h:outputText value="Curso: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.curso}" />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.curso}" />  
 
                             <h:outputText value="Logradouro: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.cpf}" />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.cpf}" />  
 
                             <h:outputText value="Número: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.curso}" />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.curso}" />  
 
                             <h:outputText value="Cep: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.curso}"/> 
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.curso}"/> 
 
                             <h:outputText value="Bairro: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.curso}" />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.curso}" />  
 
                             <h:outputText value="Cidade: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.cidade}" />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.cidade}" />  
 
                             <h:outputText value="Estado: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.estado}" />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.estado}" />  
 
                             <h:outputText value="País: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.pais}" />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.pais}" />  
 
                             <h:outputText value="Email: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.email}" />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.email}" />  
 
                             <h:outputText value="Telefone: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.telefone}" />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.telefone}" />  
 
                             <h:outputText value="Celular: " />  
-                            <h:outputText styleClass="outputLabel"  
-                                          value="#{curriculoBean.curriculo.celular}" />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.celular}" />  
 
                             <h:outputText />  
                             <h:outputText />  
                         </h:panelGrid>  
 
+                        <br/>
                         <p:commandButton value="Confimar" ajax="false" update="form"   
                                          actionListener="#{curriculoBean.salvarCurriculo()}" 
                                          action="listar.xhtml"/>  
