@@ -10,44 +10,47 @@
 
         <h:form id="form">
 
-            <p:growl showDetail="true" showSummary="true"/>
+            <p:panel header="Lista de Currículos">
+                <p:growl showDetail="true" showSummary="true"/>
 
-            <p:commandButton value="Novo" ajax="false" action="#{curriculoBean.novoFormularioCurriculo()}"/>
+                <p:commandButton value="Novo" ajax="false" action="#{curriculoBean.novoFormularioCurriculo()}"/>
 
-            <p:dataTable 
-                id="dtCurriculo"
-                var="curriculo" value="#{curriculoBean.curriculos}"
-                paginator="true" rows="6"  
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                 rowsPerPageTemplate="5,10,15">
+                
+                    <p:dataTable 
+                        id="dtCurriculo"
+                        var="curriculo" value="#{curriculoBean.curriculos}"
+                        paginator="true" rows="6"  
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        rowsPerPageTemplate="5,10,15">
 
-                <p:column headerText="Curriculo" filterBy="#{curriculo.nome}" >  
-                    <h:outputText value="#{curriculo.nome}" />  
-                </p:column>  
+                        <p:column headerText="Curriculo" filterBy="#{curriculo.nome}" >  
+                            <h:outputText value="#{curriculo.nome}" />  
+                        </p:column>  
 
-                <p:column headerText="Operações">  
+                        <p:column headerText="Operações">  
 
-                    <p:commandButton 
-                        action="wizard.xhtml"
-                        value="Editar"
-                        ajax="false">  
-                        <f:setPropertyActionListener 
-                            value="#{curriculo}" 
-                            target="#{curriculoBean.curriculo}" />  
-                    </p:commandButton>  
+                            <p:commandButton 
+                                action="wizard.xhtml"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>  
 
-                    <p:commandButton 
-                        ajax="false"
-                        action="excluir.xhtml"
-                        value="Excluir">  
-                        <f:setPropertyActionListener 
-                            value="#{curriculo}" 
-                            target="#{curriculoBean.curriculo}" />  
-                    </p:commandButton>  
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluir.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>  
 
-                </p:column> 
+                        </p:column> 
 
-            </p:dataTable>
+                    </p:dataTable>
+            </p:panel>
 
         </h:form>
 
