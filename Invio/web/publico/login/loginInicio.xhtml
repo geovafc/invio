@@ -21,9 +21,7 @@
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
                         <h:outputText value="Senha: " />  
-                        <p:keyboard clearLabel="Clear" closeLabel="Close" id="senha1"
-                                    backspaceLabel="Back" value="#{usuarioBean.login.senha}"  
-                                    password="true" keypadOnly="true"/>
+                        <p:password id="senha1" value="#{usuarioBean.login.senha}" /> 
 
                     </h:panelGrid>
 
