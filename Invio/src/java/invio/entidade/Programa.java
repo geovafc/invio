@@ -5,6 +5,7 @@
 package invio.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -47,7 +48,7 @@ public class Programa implements Serializable {
         @JoinColumn(name = "programa", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "area", referencedColumnName = "id")})
     @ManyToMany
-    private List<Area> areaList;
+    private List<Area> areaList = new ArrayList<Area>();
     @ManyToMany(mappedBy = "programaList")
     private List<Curriculo> curriculoList;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
