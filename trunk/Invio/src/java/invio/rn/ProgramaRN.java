@@ -51,12 +51,12 @@ public class ProgramaRN {
         return retorno;
     }
 
-    public static void main(String[] args) {
-        ProgramaRN programaRN = new ProgramaRN();
-        for (Programa p : programaRN.obterTodos()) {
-            System.out.println(p);
-        }
-    }
+//    public static void main(String[] args) {
+//        ProgramaRN programaRN = new ProgramaRN();
+//        for (Programa p : programaRN.obterTodos()) {
+//            System.out.println(p);
+//        }
+//    }
 
     public List<Area> obterSelecionados2(Programa programa) {
 

@@ -15,41 +15,59 @@
 
                 <p:commandButton value="Novo" ajax="false" action="#{curriculoBean.novoFormularioCurriculo()}"/>
 
-                
-                    <p:dataTable 
-                        id="dtCurriculo"
-                        var="curriculo" value="#{curriculoBean.curriculos}"
-                        paginator="true" rows="6"  
-                        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                        rowsPerPageTemplate="5,10,15">
 
-                        <p:column headerText="Currículo" filterBy="#{curriculo.nome}" >  
-                            <h:outputText value="#{curriculo.nome}" />  
-                        </p:column>  
+                <p:dataTable 
+                    id="dtCurriculo"
+                    var="curriculo" value="#{curriculoBean.curriculos}"
+                    paginator="true" rows="6"  
+                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                    rowsPerPageTemplate="5,10,15">
 
-                        <p:column headerText="Operações">  
+                    <p:column headerText="Currículo" filterBy="#{curriculo.nome}" >  
+                        <h:outputText value="#{curriculo.nome}" />  
+                    </p:column>  
 
-                            <p:commandButton 
-                                action="wizard.xhtml"
-                                value="Editar"
-                                ajax="false">  
-                                <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
-                                    target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>  
+                    <p:column headerText="Operações">  
 
-                            <p:commandButton 
-                                ajax="false"
-                                action="excluir.xhtml"
-                                value="Excluir">  
-                                <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
-                                    target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>  
+                        <p:commandButton 
+                            action="wizard.xhtml"
+                            value="Editar"
+                            ajax="false">  
+                            <f:setPropertyActionListener 
+                                value="#{curriculo}" 
+                                target="#{curriculoBean.curriculo}" />  
+                        </p:commandButton>  
 
-                        </p:column> 
+                        <p:commandButton 
+                            ajax="false"
+                            action="excluir.xhtml"
+                            value="Excluir">  
+                            <f:setPropertyActionListener 
+                                value="#{curriculo}" 
+                                target="#{curriculoBean.curriculo}" />  
+                        </p:commandButton>  
 
-                    </p:dataTable>
+                        <p:commandButton 
+                            ajax="false"
+                            action="/producao/periodicos.xhtml"
+                            value="Periódicos">  
+                            <f:setPropertyActionListener 
+                                value="#{curriculo}" 
+                                target="#{curriculoBean.curriculo}" />  
+                        </p:commandButton>  
+
+                        <p:commandButton 
+                            ajax="false"
+                            action="/producao/livros.xhtml"
+                            value="Livros">  
+                            <f:setPropertyActionListener 
+                                value="#{curriculo}" 
+                                target="#{curriculoBean.curriculo}" />  
+                        </p:commandButton>  
+
+                    </p:column> 
+
+                </p:dataTable>
             </p:panel>
 
         </h:form>

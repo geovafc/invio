@@ -2,8 +2,9 @@ package invio.bean;
 
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
+import invio.entidade.Producao;
 import invio.rn.CurriculoRN;
-import java.util.ArrayList;
+import invio.rn.ProducaoRN;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -20,6 +21,8 @@ public class CurriculoBean {
     private Login login;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
     private boolean skip;
+    private Producao producao;
+    private ProducaoRN producaoRN = new ProducaoRN();
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -39,23 +42,6 @@ public class CurriculoBean {
         
         return login.getId();
     }
-    
-//    public List<Curriculo> getCurriculoPorId(Login login) {
-//        //    if (instituicoes == null) {
-//        curriculos = curriculoRN.obterTodos();
-//        List<Curriculo> curriculoId =  new ArrayList<Curriculo>(); 
-//        
-//        for (Curriculo curriculo1 : curriculos) {
-//            
-//            if (curriculo1.getId().equals(login.getId())) {
-//                
-//                curriculoId.add(curriculo1);
-//            }
-//            
-//        } 
-//        //  }
-//        return curriculoId;
-//    }
     
     public void setCurriculos(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -130,6 +116,19 @@ public class CurriculoBean {
         curriculo = new Curriculo();
         return "/cadastro/curriculo/wizard.xhtml";
     }
+    
+    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
+    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
+
+    public Producao getProducao() {
+        return producao;
+    }
+
+    public void setProducao(Producao producao) {
+        this.producao = producao;
+    }
+    
+    
     
     
 }

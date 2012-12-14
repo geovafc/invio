@@ -6,7 +6,6 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Instituicao;
-import invio.entidade.Unidade;
 import java.util.List;
 
 /**
