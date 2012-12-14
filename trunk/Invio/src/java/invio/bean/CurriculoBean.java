@@ -5,6 +5,7 @@ import invio.entidade.Login;
 import invio.entidade.Producao;
 import invio.rn.CurriculoRN;
 import invio.rn.ProducaoRN;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +22,8 @@ public class CurriculoBean {
     private Login login;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
     private boolean skip;
-    private Producao producao;
+    private Producao producao = new Producao();
+    private List<Producao> producaos;
     private ProducaoRN producaoRN = new ProducaoRN();
 
     public CurriculoBean(List<Curriculo> curriculos) {
@@ -37,12 +39,12 @@ public class CurriculoBean {
         //  }
         return curriculos;
     }
-    
+
     public Integer getIdLogin() {
-        
+
         return login.getId();
     }
-    
+
     public void setCurriculos(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
     }
@@ -61,6 +63,7 @@ public class CurriculoBean {
         }
         this.curriculo = curriculo;
     }
+
     public String salvarCurriculo() {
         if (curriculoRN.salvar(curriculo)) {
             BeanUtil.criarMensagemDeInformacao(
@@ -83,28 +86,27 @@ public class CurriculoBean {
         return "listar.xhtml";
     }
 
-    public boolean isSkip(){
+    public boolean isSkip() {
         return skip;
     }
-    
-    public void setSkip(boolean skip){
+
+    public void setSkip(boolean skip) {
         this.skip = skip;
     }
 
     public String onFlowProcess(FlowEvent event) {
-        logger.info("Current wizard step:" + event.getOldStep());  
-        logger.info("Next step:" + event.getNewStep()); 
+        logger.info("Current wizard step:" + event.getOldStep());
+        logger.info("Next step:" + event.getNewStep());
         if (skip) {
             skip = false;
             return "confirm";
-        }
-        else {
-        return event.getNewStep();
-            
+        } else {
+            return event.getNewStep();
+
         }
 
     }
-        
+
     public String irListarCurriculos() {
         curriculo = null;
 
@@ -116,10 +118,9 @@ public class CurriculoBean {
         curriculo = new Curriculo();
         return "/cadastro/curriculo/wizard.xhtml";
     }
-    
-    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
-    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
 
+    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
+    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
     public Producao getProducao() {
         return producao;
     }
@@ -127,8 +128,23 @@ public class CurriculoBean {
     public void setProducao(Producao producao) {
         this.producao = producao;
     }
-    
-    
-    
-    
+
+    public List<Producao> getProducaos() {
+        producaos = new ArrayList<Producao>();
+        return producaos;
+    }
+
+    public void setProducaos(List<Producao> producaos) {
+        this.producaos = producaos;
+    }
+
+    public void salvarPeriodico() {
+        if (producaoRN.salvar(producao)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "A área " + producao.getTitulo() + " foi gravada com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a área", "Área: " + producao.getTitulo());
+        }
+    }
 }

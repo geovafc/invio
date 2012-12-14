@@ -7,62 +7,107 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        
-        <h:form id="form">  
 
-            <p:growl id="msgs" />  
+        <p:panel header="Lista de Periódicos">
 
-            <p:panel header="Create a new book">  
-                <h:panelGrid columns="2" id="grid">  
-                    <h:outputLabel value="Title : *" for="txt_title"></h:outputLabel>  
-                    <p:inputText id="txt_title"   
-                                 value="#{createBookBean.book.title}" required="true"/>  
+            <h:inputHidden 
+                id="ihInstituicao"
+                value="#{curriculoBean.curriculo}" 
+                converter="curriculoConversor"/>
 
-                    <h:outputLabel value="Author : *" for="txt_author"></h:outputLabel>  
-                    <p:inputText id="txt_author" required="true"   
-                                 value="#{createBookBean.book.author}" />  
+            <h:form id="form">  
 
-                    <p:commandButton value="Reset" type="reset"/>  
-                    <p:commandButton id="btn_add" value="Add" update="books msgs @parent"  
-                                     action="#{createBookBean.reinit}" >  
-                        <p:collector value="#{createBookBean.book}"   
-                                     addTo="#{createBookBean.books}" />  
-                    </p:commandButton>  
-                </h:panelGrid>  
-            </p:panel>  
+                <p:growl id="msgs" />  
 
-            <p:outputPanel id="books">  
-                <p:dataTable id="booksTable" value="#{createBookBean.books}" var="book">  
+                <p:panel header="Criar Novo Periódico">  
+                    <h:panelGrid columns="2" id="grid">  
+                        <h:outputLabel value="Título : *" for="txt_title"></h:outputLabel>  
+                        <p:inputText id="txt_title"   
+                                     value="#{curriculoBean.producao.titulo}" required="true"/>  
 
-                    <p:column>  
-                        <f:facet name="header">  
-                            <h:outputText value="Title" />  
-                        </f:facet>  
-                        <h:outputText value="#{book.title}" />  
-                    </p:column>  
+                        <h:outputLabel value="Autor : *" for="txt_author"></h:outputLabel>  
+                        <p:inputText id="txt_author" required="true"   
+                                     value="#{curriculoBean.producao.autor}" />  
 
-                    <p:column>  
-                        <f:facet name="header">  
-                            <h:outputText value="Author" />  
-                        </f:facet>  
-                        <h:outputText value="#{book.author}" />  
-                    </p:column>  
+                        <h:outputLabel value="Ano : *" for="dt_ano"></h:outputLabel>  
+                        <p:inputText id="dt_ano" required="true"   
+                                     value="#{curriculoBean.producao.ano}" />  
 
-                    <p:column>  
-                        <f:facet name="header">  
-                            <h:outputText value="Operation" />  
-                        </f:facet>  
-                        <p:commandLink value="Remove" update=":form:books" process=":form:books">  
-                            <p:collector value="#{book}"  
-                                         removeFrom="#{createBookBean.books}" />  
-                        </p:commandLink>  
-                    </p:column>  
+                        <h:outputLabel value="Revista : *" for="revista"></h:outputLabel>  
+                        <p:inputText id="revista" required="true"   
+                                     value="#{curriculoBean.producao.revista}" />  
 
-                </p:dataTable>  
-            </p:outputPanel>  
+                        <h:outputLabel value="Volume : *" for="volume"></h:outputLabel>  
+                        <p:inputText id="volume" required="true"   
+                                     value="#{curriculoBean.producao.volume}" />  
 
-        </h:form>  
-        
+                        <h:outputLabel value="Página : *" for="pagina"></h:outputLabel>  
+                        <p:inputText id="pagina" required="true"   
+                                     value="#{curriculoBean.producao.pagina}" />  
+
+                        <p:commandButton value="Limpar" type="reset"/>  
+                        <p:commandButton id="btn_add" value="Add"  
+                                         action="#{curriculoBean.salvarPeriodico()}"
+                                         update="producaosTabela"/>  
+                                
+                    </h:panelGrid>  
+                </p:panel>  
+
+                <p:outputPanel id="producaos">  
+                    <p:dataTable id="producaosTabela" value="#{curriculoBean.producaos}" var="producao">  
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Título" />  
+                            </f:facet>  
+                            <h:outputText value="#{producao.titulo}" />  
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Autor" />  
+                            </f:facet>  
+                            <h:outputText value="#{producao.autor}" />  
+                        </p:column>  
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Ano" />  
+                            </f:facet>  
+                            <h:outputText value="#{producao.ano}" />  
+                        </p:column>  
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Revista" />  
+                            </f:facet>  
+                            <h:outputText value="#{producao.revista}" />  
+                        </p:column>  
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Volume" />  
+                            </f:facet>  
+                            <h:outputText value="#{producao.volume}" />  
+                        </p:column>  
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Página" />  
+                            </f:facet>  
+                            <h:outputText value="#{producao.pagina}" />  
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="Operação" />  
+                            </f:facet>  
+
+                        </p:column>  
+
+                    </p:dataTable>  
+                </p:outputPanel>  
+
+            </h:form>  
+
+        </p:panel>
+
     </ui:define>
 
 </ui:composition>
