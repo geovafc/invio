@@ -6,44 +6,44 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Invio</title>
-        <link rel="icon" href="resources/imgagem/ico.png" type="image/ico" />
+        <link rel="icon" href="../resources/imagem/ico.png" type="image/ico" />
     </h:head>
     <h:body>
         <p:layout fullPage="true">
 
             <p:layoutUnit  position="north" size="94"
-                          resizable="false" 
-                          closable="false" 
-                          collapsible="false">
-                
+                           resizable="false" 
+                           closable="false" 
+                           collapsible="false">
+
                 <ui:insert name="header">
                     <ui:include src="../include/topo.xhtml"/>
                 </ui:insert>
-                
+
             </p:layoutUnit>
-            
+
             <p:layoutUnit position="west" 
                           size="200" 
                           header="Menu" 
                           resizable="false" 
                           collapsible="true" 
                           closable="false">
-                
+
                 <ui:insert name="menu">
                     <ui:include src="../include/menu.xhtml"/>
                 </ui:insert>
-                
+
             </p:layoutUnit>
 
             <p:layoutUnit position="center" size="750">
-                
+
                 <ui:insert name="content">
                     Conteudo
                 </ui:insert>
-                
+
             </p:layoutUnit>
 
-        </p:layout>
+        </p:layout >
     </h:body>
 </html>
 
