@@ -167,6 +167,29 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
+-- -----------------------------------------------------
+-- Table `invio`.`producao`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`producao` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `titulo` VARCHAR(100) NULL ,
+  `autor` VARCHAR(150) NULL ,
+  `ano` DATE NULL ,
+  `revista` VARCHAR(150) NULL ,
+  `volume` VARCHAR(45) NULL ,
+  `pagina` VARCHAR(45) NULL ,
+  `capitulo` VARCHAR(45) NULL ,
+  `curriculo_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_producao_curriculo1` (`curriculo_id` ASC) ,
+  CONSTRAINT `fk_producao_curriculo1`
+    FOREIGN KEY (`curriculo_id` )
+    REFERENCES `invio`.`curriculo` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

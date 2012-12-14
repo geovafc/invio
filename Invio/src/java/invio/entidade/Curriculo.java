@@ -112,6 +112,8 @@ public class Curriculo implements Serializable {
     @ManyToMany
     private List<Programa> programaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
+    private List<Producao> producaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
     private List<Login> loginList;
 
     public Curriculo() {
@@ -287,6 +289,15 @@ public class Curriculo implements Serializable {
 
     public void setProgramaList(List<Programa> programaList) {
         this.programaList = programaList;
+    }
+
+    @XmlTransient
+    public List<Producao> getProducaoList() {
+        return producaoList;
+    }
+
+    public void setProducaoList(List<Producao> producaoList) {
+        this.producaoList = producaoList;
     }
 
     @XmlTransient
