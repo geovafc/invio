@@ -21,7 +21,7 @@
             <p:commandButton 
                 ajax="false" 
                 id="novasAreas"
-                value="Cadastrar nova Área"
+                value="Nova Área"
                 action="/cadastro/area/formulario.xhtml">
             </p:commandButton>
 
@@ -50,7 +50,12 @@
                     value="Salvar"
                     action="#{programaBean.salvarAreasPrograma}">
                 </p:commandButton>
-
+                <p:commandButton 
+                    ajax="false" 
+                    id="cancelarAreas"
+                    value="Cancelar"
+                    action="listar.xhtml">
+                </p:commandButton>
 
             </p:panel>
 

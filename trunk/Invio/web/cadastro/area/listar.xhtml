@@ -8,7 +8,7 @@
 
     <ui:define name="content">
 
-        <h:form id="form">
+        <h:form  id="form">
             <p:panel header="Lista de Áreas">
 
                 <p:growl showDetail="true" showSummary="true"/>
@@ -19,7 +19,7 @@
                         id="dtArea"
                         var="area" value="#{areaBean.areas}"
                         paginator="true" rows="6"  
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        paginatorTemplate="  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                         rowsPerPageTemplate="5,10,15">
 
                         <p:column headerText="Área" filterBy="#{area.nome}">  

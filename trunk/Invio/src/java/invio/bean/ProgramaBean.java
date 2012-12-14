@@ -134,7 +134,8 @@ public class ProgramaBean {
     public String salvarAreasPrograma() {
         List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
 
-
+        areasPrograma.removeAll(selecionadas);
+        
         for (Area area : areasPrograma) {
             area.getProgramaList().add(programa);
             areaRN.salvar(area);
