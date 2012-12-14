@@ -25,6 +25,5 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>faces/publico/login/loginInicio.xhtml</welcome-file>
-        <!--<welcome-file>faces/publico/indexHome.xhtml</welcome-file>-->
     </welcome-file-list>
 </web-app>
