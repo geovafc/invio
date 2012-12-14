@@ -100,28 +100,29 @@ public class ProgramaBean {
     public SelectItem[] getInstituicoes() {
         return programaRN.getInstituicoes();
     }
+    
+    
     // CONTROLE DE AREA APARTIR DESSA LINHA
     // CONTROLE DE AREA APARTIR DESSA LINHA
+    
+    
     private DualListModel<Area> itens2;
     private List<Area> selecionadas;
-    private List<String> selecionadosVazio;
     private ComparadorArea comparadorArea = new ComparadorArea();
 
     public DualListModel<Area> getItensAreas() {
-
-        selecionadas = new ArrayList<Area>();
+   
         selecionadas = programa.getAreaList();
-
 
         List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
 
         Collections.sort(naoSelecionada, comparadorArea);
-        //  temp.removeAll(selecionados2);
 
         if (selecionadas != null) {
             itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-        } else {
-            itens2 = new DualListModel<Area>(naoSelecionada, null);
+        } else if (selecionadas == null){
+            selecionadas = new ArrayList<Area>();
+            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
         }
 
         return itens2;
@@ -133,16 +134,21 @@ public class ProgramaBean {
 
     public String salvarAreasPrograma() {
         List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
-
-        areasPrograma.removeAll(selecionadas);
         
-        for (Area area : areasPrograma) {
-            area.getProgramaList().add(programa);
-            areaRN.salvar(area);
-            programa.getAreaList().add(area);
-            programaRN.salvar(programa);
+        if (selecionadas.size()>0) {
+        areasPrograma.removeAll(selecionadas);    
         }
         
+        for (Area area : areasPrograma) {
+//            area.getProgramaList().add(programa);
+//            areaRN.salvar(area);
+            
+            //OBS: SEMPRE VERIFICAR SE ESTÁ SENDO ESTANCIADO A LISTA: programa.getAreaList()
+            //NA ENTIDADE PROGRAMA.
+            programa.getAreaList().add(area);
+            
+        }
+        programaRN.salvar(programa);
 
         return "/cadastro/programa/listar.xhtml";
     }
