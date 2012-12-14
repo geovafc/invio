@@ -7,7 +7,6 @@ package invio.bean;
 import invio.entidade.Area;
 import invio.rn.AreaRN;
 import java.util.List;
-import java.util.logging.Handler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 

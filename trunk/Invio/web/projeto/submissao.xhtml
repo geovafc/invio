@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form enctype="multipart/form-data">  
+            <p:panel header="Submissão de Trabalhos">
+
+                <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"  
+                              mode="advanced"   
+                              update="messages"  
+                              sizeLimit="100000"   
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
+
+                <p:growl id="messages" showDetail="true"/>  
+            </p:panel>
+        </h:form>  
+        
+    </ui:define>
+
+</ui:composition>
