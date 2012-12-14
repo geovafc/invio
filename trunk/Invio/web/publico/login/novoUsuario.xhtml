@@ -26,22 +26,26 @@
                             <f:selectItems value="#{usuarioBean.tipoPerfilUsuarioComum}"/>
                         </h:selectOneMenu>
 
-                        <h:outputText value="Nome: "/>
+                        <h:outputText value="Nome: *"/>
                         <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
 
-                        <h:outputText value="Sexo: "/>
-                        <p:inputText required="true" id="curriculoGenero" value="#{usuarioBean.curriculo.genero}"/>
+                        <h:outputText value="Sexo: *"/>
+                        <p:selectOneMenu id="curriculoGenero" required="true" value="#{usuarioBean.curriculo.genero}">  
+                            <f:selectItem itemLabel="Selecione" itemValue="" />  
+                            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
+                            <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
+                        </p:selectOneMenu> 
 
 
-                        <h:outputText value="CPF: "/>
+                        <h:outputText value="CPF: *"/>
                         <p:inputMask required="true" id="cpf" 
                                      value="#{usuarioBean.curriculo.cpf}" mask="999.999.999-99"/>
 
 
-                        <h:outputText value="E-mail: "/>
+                        <h:outputText value="E-mail: *"/>
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
-                        <h:outputText value="Senha: " />  
+                        <h:outputText value="Senha: *" />  
                         <p:password id="senha2" value="#{usuarioBean.login.senha}" /> 
 
                         <p:commandButton 
