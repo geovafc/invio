@@ -1,0 +1,171 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package invio.entidade;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author RSORANSO
+ */
+@Entity
+@Table(name = "producao")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Producao.findAll", query = "SELECT p FROM Producao p"),
+    @NamedQuery(name = "Producao.findById", query = "SELECT p FROM Producao p WHERE p.id = :id"),
+    @NamedQuery(name = "Producao.findByTitulo", query = "SELECT p FROM Producao p WHERE p.titulo = :titulo"),
+    @NamedQuery(name = "Producao.findByAutor", query = "SELECT p FROM Producao p WHERE p.autor = :autor"),
+    @NamedQuery(name = "Producao.findByAno", query = "SELECT p FROM Producao p WHERE p.ano = :ano"),
+    @NamedQuery(name = "Producao.findByRevista", query = "SELECT p FROM Producao p WHERE p.revista = :revista"),
+    @NamedQuery(name = "Producao.findByVolume", query = "SELECT p FROM Producao p WHERE p.volume = :volume"),
+    @NamedQuery(name = "Producao.findByPagina", query = "SELECT p FROM Producao p WHERE p.pagina = :pagina"),
+    @NamedQuery(name = "Producao.findByCapitulo", query = "SELECT p FROM Producao p WHERE p.capitulo = :capitulo")})
+public class Producao implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "titulo")
+    private String titulo;
+    @Column(name = "autor")
+    private String autor;
+    @Column(name = "ano")
+    @Temporal(TemporalType.DATE)
+    private Date ano;
+    @Column(name = "revista")
+    private String revista;
+    @Column(name = "volume")
+    private String volume;
+    @Column(name = "pagina")
+    private String pagina;
+    @Column(name = "capitulo")
+    private String capitulo;
+    @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Curriculo curriculoId;
+
+    public Producao() {
+    }
+
+    public Producao(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public Date getAno() {
+        return ano;
+    }
+
+    public void setAno(Date ano) {
+        this.ano = ano;
+    }
+
+    public String getRevista() {
+        return revista;
+    }
+
+    public void setRevista(String revista) {
+        this.revista = revista;
+    }
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public void setVolume(String volume) {
+        this.volume = volume;
+    }
+
+    public String getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(String pagina) {
+        this.pagina = pagina;
+    }
+
+    public String getCapitulo() {
+        return capitulo;
+    }
+
+    public void setCapitulo(String capitulo) {
+        this.capitulo = capitulo;
+    }
+
+    public Curriculo getCurriculoId() {
+        return curriculoId;
+    }
+
+    public void setCurriculoId(Curriculo curriculoId) {
+        this.curriculoId = curriculoId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Producao)) {
+            return false;
+        }
+        Producao other = (Producao) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "invio.entidade.Producao[ id=" + id + " ]";
+    }
+    
+}
