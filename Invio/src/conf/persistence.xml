@@ -3,14 +3,14 @@
   <persistence-unit name="InvioPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <non-jta-data-source/>
-    <class>invio.entidade.Instituicao</class>
-    <class>invio.entidade.Area</class>
-    <class>invio.entidade.Periodico</class>
-    <class>invio.entidade.Livro</class>
-    <class>invio.entidade.Unidade</class>
-    <class>invio.entidade.Curriculo</class>
     <class>invio.entidade.Programa</class>
     <class>invio.entidade.Login</class>
+    <class>invio.entidade.Curriculo</class>
+    <class>invio.entidade.Livro</class>
+    <class>invio.entidade.Unidade</class>
+    <class>invio.entidade.Area</class>
+    <class>invio.entidade.Instituicao</class>
+    <class>invio.entidade.Periodico</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

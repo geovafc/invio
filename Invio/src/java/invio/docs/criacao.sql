@@ -193,7 +193,7 @@ ENGINE = InnoDB;
 -- Table `invio`.`livro`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(150) NULL ,
   `capitulo` VARCHAR(45) NULL ,
   `autor` VARCHAR(150) NULL ,
@@ -213,4 +213,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-livro
