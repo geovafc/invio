@@ -19,8 +19,8 @@
 
                 <p:growl id="msgs" />  
 
-                <p:panel header="Criar Novo Periódico">  
-                    <h:panelGrid columns="2" id="grid">  
+                <p:panel header="Novo Periódico">  
+                    <h:panelGrid columns="6" id="grid" cellspacing="5">  
                         <h:outputLabel value="Título : *" for="txt_title"></h:outputLabel>  
                         <p:inputText id="txt_title"   
                                      value="#{curriculoBean.producao.titulo}" required="true"/>  
@@ -29,10 +29,11 @@
                         <p:inputText id="txt_author" required="true"   
                                      value="#{curriculoBean.producao.autor}" />  
 
+                        
                         <h:outputLabel value="Ano : *" for="dt_ano"></h:outputLabel>  
-                        <p:inputText id="dt_ano" required="true"   
-                                     value="#{curriculoBean.producao.ano}" />  
-
+                            <p:calendar value="#{curriculoBean.producao.ano}" 
+                                        navigator="true" pattern="dd/MM/yyyy" id="anoCal" required="true"/>
+                        
                         <h:outputLabel value="Revista : *" for="revista"></h:outputLabel>  
                         <p:inputText id="revista" required="true"   
                                      value="#{curriculoBean.producao.revista}" />  
@@ -46,15 +47,19 @@
                                      value="#{curriculoBean.producao.pagina}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
-                        <p:commandButton id="btn_add" value="Add"  
+                        <p:commandButton id="btn_add" value="Add"
+                                         ajax="false"
                                          action="#{curriculoBean.salvarPeriodico()}"
-                                         update="producaosTabela"/>  
-                                
+                                         update=":producaosTabela"/>
+                        
                     </h:panelGrid>  
                 </p:panel>  
 
-                <p:outputPanel id="producaos">  
-                    <p:dataTable id="producaosTabela" value="#{curriculoBean.producaos}" var="producao">  
+                <br/>
+                <p:dataTable id="producaosTabela" 
+                             value="#{curriculoBean.curriculo.producaoList}" var="producao"
+                             paginator="true" rows="6" 
+                             rowsPerPageTemplate="5,10,15">  
 
                         <p:column>  
                             <f:facet name="header">  
@@ -102,8 +107,7 @@
                         </p:column>  
 
                     </p:dataTable>  
-                </p:outputPanel>  
-
+               
             </h:form>  
 
         </p:panel>

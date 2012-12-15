@@ -119,8 +119,11 @@ public class CurriculoBean {
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
+    
     //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
     //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
+    
+    
     public Producao getProducao() {
         return producao;
     }
@@ -137,14 +140,20 @@ public class CurriculoBean {
     public void setProducaos(List<Producao> producaos) {
         this.producaos = producaos;
     }
-
-    public void salvarPeriodico() {
+   
+    public String salvarPeriodico() {
+        producao.setCurriculoId(curriculo);
+        curriculo.getProducaoList().add(producao);
         if (producaoRN.salvar(producao)) {
+            curriculoRN.salvar(curriculo);
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
-                    "A área " + producao.getTitulo() + " foi gravada com sucesso.");
+                    "O periódico " + producao.getTitulo() + " foi salvo com sucesso.");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar a área", "Área: " + producao.getTitulo());
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + producao.getTitulo());
         }
+        producao = new Producao();  
+          
+        return null;  
     }
 }
