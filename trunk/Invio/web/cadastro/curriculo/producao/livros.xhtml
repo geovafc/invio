@@ -1,10 +1,94 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../../template/templatePadrao.xhtml">
+                template="./../../../template/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        content
+
+        <p:panel header="Lista de Livros">
+
+            <h:inputHidden 
+                id="ihInstituicao"
+                value="#{curriculoBean.curriculo}" 
+                converter="curriculoConversor"/>
+
+            <h:form id="Livro">  
+
+                <p:messages showDetail="true" showSummary="true"/>  
+
+                <p:panel header="Novo Livro">  
+                    <h:panelGrid columns="6" id="grid" cellspacing="4">  
+                        <h:outputLabel value="Título : *"/> 
+                        <p:inputText id="Titulo"   
+                                     value="#{curriculoBean.producao.titulo}" required="true"/>  
+
+                        <h:outputLabel value="Autor : *" />  
+                        <p:inputText id="Autor" required="true"   
+                                     value="#{curriculoBean.producao.autor}" />  
+
+
+                        <h:outputLabel value="Ano Publicação : *"/>  
+                        <p:calendar  value="#{curriculoBean.producao.ano}" 
+                                     navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
+
+                        <h:outputLabel value="Capítulo : *" />  
+                        <p:inputText id="Revista" required="true"   
+                                     value="#{curriculoBean.producao.capitulo}" />  
+
+                    </h:panelGrid>  
+                </p:panel>  
+
+                <br/>
+                <p:dataTable id="producaosTabela" 
+                             value="#{curriculoBean.curriculo.producaoList}" var="producao"
+                             emptyMessage="Sem registro para a exibição."
+                             paginator="true" rows="5" 
+                             rowsPerPageTemplate="5,10,15">  
+
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Título" />  
+                        </f:facet>  
+                        <h:outputText value="#{producao.titulo}" />  
+                    </p:column>  
+
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Autor" />  
+                        </f:facet>  
+                        <h:outputText value="#{producao.autor}" />  
+                    </p:column>  
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Ano" />  
+                        </f:facet>  
+                        <h:outputText value="#{producao.ano}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                        </h:outputText>  
+                    </p:column>  
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Capítulo" />  
+                        </f:facet>  
+                        <h:outputText value="#{producao.capitulo}" />  
+                    </p:column>  
+                    
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Operação" />  
+                        </f:facet>  
+
+                    </p:column>  
+
+                </p:dataTable>  
+
+            </h:form>  
+
+        </p:panel>
+
     </ui:define>
 
 </ui:composition>
