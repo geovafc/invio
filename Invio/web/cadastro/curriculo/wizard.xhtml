@@ -36,11 +36,14 @@
                                         navigator="true" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
-                            <h:outputText value="Sexo: *" />  
-                            <p:inputText id="genero" required="true" label="Sexo"  
-                                         value="#{curriculoBean.curriculo.genero}" />
+                            <h:outputText value="Sexo: *"/>
+                            <p:selectOneMenu id="genero" required="true" value="#{usuarioBean.curriculo.genero}">  
+                                <f:selectItem itemLabel="Selecione" itemValue="" />  
+                                <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
+                                <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
+                            </p:selectOneMenu>
                             <p:message id="erroGenero" for="genero"/>
-
+                            
                             <h:outputText value="CPF: *" />  
                             <p:inputMask id="cpf" required="true" label="Cpf"  
                                          value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
@@ -227,7 +230,6 @@
                             <h:outputText />  
                         </h:panelGrid>  
 
-                        <br/>
                         <p:commandButton value="Confimar" ajax="false" update="form"   
                                          actionListener="#{curriculoBean.salvarCurriculo()}" 
                                          action="listar.xhtml"/>  
