@@ -33,34 +33,43 @@
                     </p:column>
 
                     <p:column headerText="Operações">  
+                        <div align="center">
+                            <p:commandButton 
+                                action="formulario.xhtml"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{programa}" 
+                                    target="#{programaBean.programa}" />  
+                            </p:commandButton>  
 
-                        <p:commandButton 
-                            action="formulario.xhtml"
-                            value="Editar"
-                            ajax="false">  
-                            <f:setPropertyActionListener 
-                                value="#{programa}" 
-                                target="#{programaBean.programa}" />  
-                        </p:commandButton>  
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluir.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{programa}" 
+                                    target="#{programaBean.programa}" />  
+                            </p:commandButton>
 
-                        <p:commandButton 
-                            ajax="false"
-                            action="excluir.xhtml"
-                            value="Excluir">  
-                            <f:setPropertyActionListener 
-                                value="#{programa}" 
-                                target="#{programaBean.programa}" />  
-                        </p:commandButton>
-                        <p:commandButton 
-                            ajax="false"
-                            action="#{programaBean.irAreasPrograma()}"
-                            value="Áreas">  
-                            <f:setPropertyActionListener 
-                                value="#{programa}" 
-                                target="#{programaBean.programa}" />  
-                        </p:commandButton>
-
+                        </div>
                     </p:column> 
+
+                    <p:column headerText="Incluir">
+                        <div align="center">
+
+                            <p:commandButton 
+                                ajax="false"
+                                action="#{programaBean.irAreasPrograma()}"
+                                value="Áreas">  
+                                <f:setPropertyActionListener 
+                                    value="#{programa}" 
+                                    target="#{programaBean.programa}" />  
+                            </p:commandButton>
+                        
+                        </div>
+
+                    </p:column>
 
                 </p:dataTable>
 

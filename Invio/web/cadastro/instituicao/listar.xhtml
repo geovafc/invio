@@ -33,40 +33,44 @@
                     </p:column>  
 
                     <p:column headerText="Operações">  
+                        <div align="center">
+                            <p:commandButton 
+                                action="formulario.xhtml"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{instituicao}" 
+                                    target="#{instituicaoBean.instituicao}" />  
+                            </p:commandButton>  
 
-                        <p:commandButton 
-                            action="formulario.xhtml"
-                            value="Editar"
-                            ajax="false">  
-                            <f:setPropertyActionListener 
-                                value="#{instituicao}" 
-                                target="#{instituicaoBean.instituicao}" />  
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            ajax="false"
-                            action="excluir.xhtml"
-                            value="Excluir">  
-                            <f:setPropertyActionListener 
-                                value="#{instituicao}" 
-                                target="#{instituicaoBean.instituicao}" />  
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            ajax="false"
-                            action="listarUnidades.xhtml"
-                            value="Unidades">  
-                            <f:setPropertyActionListener 
-                                value="#{instituicao}" 
-                                target="#{instituicaoBean.instituicao}" />  
-                        </p:commandButton>  
-
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluir.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{instituicao}" 
+                                    target="#{instituicaoBean.instituicao}" />  
+                            </p:commandButton>  
+                        </div>
                     </p:column> 
+
+                    <p:column headerText="Incluir">
+                        <div align="center">
+                            <p:commandButton 
+                                ajax="false"
+                                action="listarUnidades.xhtml"
+                                value="Unidades">  
+                                <f:setPropertyActionListener 
+                                    value="#{instituicao}" 
+                                    target="#{instituicaoBean.instituicao}" />  
+                            </p:commandButton>  
+                        </div>
+                    </p:column>
 
                 </p:dataTable>
 
             </p:panel>
-            
+
         </h:form>
 
     </ui:define>
