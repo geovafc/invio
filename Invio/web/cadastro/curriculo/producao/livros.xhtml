@@ -14,11 +14,11 @@
                 id="ihInstituicao"
                 value="#{curriculoBean.curriculo}" 
                 converter="curriculoConversor"/>
-          
-            
+
+
             <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />
-                
-            
+
+
             <h:form id="Livro">  
 
                 <p:messages showDetail="true" showSummary="true"/>  
@@ -32,7 +32,7 @@
                         <h:outputLabel value="Ano Publicação : *"/>  
                         <p:calendar  value="#{curriculoBean.livro.ano}" 
                                      navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
-                        
+
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="true"   
                                      value="#{curriculoBean.livro.autor}" />  
@@ -41,9 +41,9 @@
                         <h:outputLabel value="Capítulo : *" />  
                         <p:inputText id="Revista" required="true"   
                                      value="#{curriculoBean.livro.capitulo}" />
-                        
-                        
-                        
+
+
+
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Add"
                                          ajax="false"
@@ -91,7 +91,7 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    
+
                     <p:column headerText="Ano"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
@@ -110,25 +110,30 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    
+
                     <p:column headerText="Editar" style="width:38px">  
                         <p:rowEditor />  
                     </p:column>
-                    
+
                     <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
-                        
-                        <p:commandLink value="Excluir" update="livrosTabela">  
 
-                        </p:commandLink>
+                        <p:commandLink value="Excluir"
+                                       action="excluirLivro.xhtml"
+                                       >
+                            <f:setPropertyActionListener 
+                                value="#{livro}" 
+                                target="#{curriculoBean.livro}" />
+                        </p:commandLink>  
+
 
                     </p:column>
 
                     <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
-                        
+
                         <p:commandLink value="Comprovação" update="livrosTabela">  
 
                         </p:commandLink>
