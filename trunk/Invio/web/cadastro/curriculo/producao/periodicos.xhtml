@@ -23,41 +23,41 @@
                     <h:panelGrid columns="6" id="grid" cellspacing="4">  
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
-                                     value="#{curriculoBean.producao.titulo}" required="true"/>  
+                                     value="#{curriculoBean.periodico.titulo}" required="true"/>  
 
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="true"   
-                                     value="#{curriculoBean.producao.autor}" />  
+                                     value="#{curriculoBean.periodico.autor}" />  
 
                         
                         <h:outputLabel value="Ano Publicação : *"/>  
-                            <p:calendar  value="#{curriculoBean.producao.ano}" 
+                            <p:calendar  value="#{curriculoBean.periodico.ano}" 
                                         navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
                         
                         <h:outputLabel value="Revista : *" />  
                         <p:inputText id="Revista" required="true"   
-                                     value="#{curriculoBean.producao.revista}" />  
+                                     value="#{curriculoBean.periodico.revista}" />  
 
                         <h:outputLabel value="Volume : *" for="volume"/> 
                         <p:inputText id="Volume" required="true"   
-                                     value="#{curriculoBean.producao.volume}" />  
+                                     value="#{curriculoBean.periodico.volume}" />  
 
                         <h:outputLabel value="Página : *" for="pagina"/>  
                         <p:inputText id="Pagina" required="true"   
-                                     value="#{curriculoBean.producao.pagina}" />  
+                                     value="#{curriculoBean.periodico.pagina}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Add"
                                          ajax="false"
                                          action="#{curriculoBean.salvarPeriodico()}"
-                                         update=":producaosTabela"/>
+                                         update=":periodicosTabela"/>
                         
                     </h:panelGrid>  
                 </p:panel>  
 
                 <br/>
-                <p:dataTable id="producaosTabela" 
-                             value="#{curriculoBean.curriculo.producaoList}" var="producao"
+                <p:dataTable id="periodicosTabela" 
+                             value="#{curriculoBean.curriculo.periodicoList}" var="periodico"
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15">  
@@ -66,20 +66,20 @@
                             <f:facet name="header">  
                                 <h:outputText value="Título" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.titulo}" />  
+                            <h:outputText value="#{periodico.titulo}" />  
                         </p:column>  
 
                         <p:column>  
                             <f:facet name="header">  
                                 <h:outputText value="Autor" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.autor}" />  
+                            <h:outputText value="#{periodico.autor}" />  
                         </p:column>  
                         <p:column>  
                             <f:facet name="header">  
                                 <h:outputText value="Ano" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.ano}" >
+                            <h:outputText value="#{periodico.ano}" >
                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                             </h:outputText>  
                         </p:column>  
@@ -87,19 +87,19 @@
                             <f:facet name="header">  
                                 <h:outputText value="Revista" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.revista}" />  
+                            <h:outputText value="#{periodico.revista}" />  
                         </p:column>  
                         <p:column>  
                             <f:facet name="header">  
                                 <h:outputText value="Volume" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.volume}" />  
+                            <h:outputText value="#{periodico.volume}" />  
                         </p:column>  
                         <p:column>  
                             <f:facet name="header">  
                                 <h:outputText value="Página" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.pagina}" />  
+                            <h:outputText value="#{periodico.pagina}" />  
                         </p:column>  
 
                         <p:column>  

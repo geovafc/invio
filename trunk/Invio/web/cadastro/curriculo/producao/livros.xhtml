@@ -23,27 +23,33 @@
                     <h:panelGrid columns="6" id="grid" cellspacing="4">  
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
-                                     value="#{curriculoBean.producao.titulo}" required="true"/>  
+                                     value="#{curriculoBean.livro.titulo}" required="true"/>  
 
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="true"   
-                                     value="#{curriculoBean.producao.autor}" />  
+                                     value="#{curriculoBean.livro.autor}" />  
 
 
                         <h:outputLabel value="Ano Publicação : *"/>  
-                        <p:calendar  value="#{curriculoBean.producao.ano}" 
+                        <p:calendar  value="#{curriculoBean.livro.ano}" 
                                      navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
 
                         <h:outputLabel value="Capítulo : *" />  
                         <p:inputText id="Revista" required="true"   
-                                     value="#{curriculoBean.producao.capitulo}" />  
+                                     value="#{curriculoBean.livro.capitulo}" />
+                        
+                        <p:commandButton value="Limpar" type="reset"/>  
+                        <p:commandButton id="btn_add" value="Add"
+                                         ajax="false"
+                                         action="#{curriculoBean.salvarLivro()}"
+                                         update=":periodicosTabela"/>
 
                     </h:panelGrid>  
                 </p:panel>  
 
                 <br/>
-                <p:dataTable id="producaosTabela" 
-                             value="#{curriculoBean.curriculo.producaoList}" var="producao"
+                <p:dataTable id="livrosTabela" 
+                             value="#{curriculoBean.curriculo.livroList}" var="livro"
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15">  
@@ -52,20 +58,20 @@
                         <f:facet name="header">  
                             <h:outputText value="Título" />  
                         </f:facet>  
-                        <h:outputText value="#{producao.titulo}" />  
+                        <h:outputText value="#{livro.titulo}" />  
                     </p:column>  
 
                     <p:column>  
                         <f:facet name="header">  
                             <h:outputText value="Autor" />  
                         </f:facet>  
-                        <h:outputText value="#{producao.autor}" />  
+                        <h:outputText value="#{livro.autor}" />  
                     </p:column>  
                     <p:column>  
                         <f:facet name="header">  
                             <h:outputText value="Ano" />  
                         </f:facet>  
-                        <h:outputText value="#{producao.ano}" >
+                        <h:outputText value="#{livro.ano}" >
                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                         </h:outputText>  
                     </p:column>  
@@ -73,7 +79,7 @@
                         <f:facet name="header">  
                             <h:outputText value="Capítulo" />  
                         </f:facet>  
-                        <h:outputText value="#{producao.capitulo}" />  
+                        <h:outputText value="#{livro.capitulo}" />  
                     </p:column>  
                     
                     <p:column>  
