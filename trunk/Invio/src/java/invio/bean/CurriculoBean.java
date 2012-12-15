@@ -1,11 +1,12 @@
 package invio.bean;
 
 import invio.entidade.Curriculo;
+import invio.entidade.Livro;
 import invio.entidade.Login;
-import invio.entidade.Producao;
+import invio.entidade.Periodico;
 import invio.rn.CurriculoRN;
-import invio.rn.ProducaoRN;
-import java.util.ArrayList;
+import invio.rn.LivroRN;
+import invio.rn.PeriodicoRN;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -22,10 +23,11 @@ public class CurriculoBean {
     private Login login;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
     private boolean skip;
-    private Producao producao = new Producao();
-    private List<Producao> producaos;
-    private ProducaoRN producaoRN = new ProducaoRN();
-
+    private Periodico periodico = new Periodico();
+    private PeriodicoRN periodicoRN = new PeriodicoRN();
+    private LivroRN livroRN = new LivroRN();
+    private Livro livro = new Livro();
+    
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
     }
@@ -120,40 +122,61 @@ public class CurriculoBean {
     }
 
     
-    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
-    //CONTROLE DE PRODUCAO A PARTIR DESTA LINHA
+    //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
+    //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     
     
-    public Producao getProducao() {
-        return producao;
+    public Periodico getPeriodico() {
+        return periodico;
     }
 
-    public void setProducao(Producao producao) {
-        this.producao = producao;
+    public void setPeriodico(Periodico periodico) {
+        this.periodico = periodico;
     }
 
-    public List<Producao> getProducaos() {
-        producaos = new ArrayList<Producao>();
-        return producaos;
-    }
-
-    public void setProducaos(List<Producao> producaos) {
-        this.producaos = producaos;
-    }
-   
     public String salvarPeriodico() {
-        producao.setCurriculoId(curriculo);
-        curriculo.getProducaoList().add(producao);
-        if (producaoRN.salvar(producao)) {
+        periodico.setCurriculoId(curriculo);
+        curriculo.getPeriodicoList().add(periodico);
+        if (periodicoRN.salvar(periodico)) {
             curriculoRN.salvar(curriculo);
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
-                    "O periódico " + producao.getTitulo() + " foi salvo com sucesso.");
+                    "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + producao.getTitulo());
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
         }
-        producao = new Producao();  
+        periodico = new Periodico();  
           
         return null;  
     }
+    
+    
+    //CONTROLE DE LIVRO APARTIR DESTA LINHA
+    //CONTROLE DE LIVRO APARTIR DESTA LINHA
+    
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
+    
+    public String salvarLivro() {
+        livro.setCurriculoId(curriculo);
+        curriculo.getLivroList().add(livro);
+        if (livroRN.salvar(livro)) {
+            curriculoRN.salvar(curriculo);
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+        }
+        livro = new Livro();  
+          
+        return null;  
+    }
+    
 }

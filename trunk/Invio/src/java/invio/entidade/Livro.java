@@ -9,8 +9,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,51 +21,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author RSORANSO
+ * @author Junior
  */
 @Entity
-@Table(name = "producao")
+@Table(name = "livro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producao.findAll", query = "SELECT p FROM Producao p"),
-    @NamedQuery(name = "Producao.findById", query = "SELECT p FROM Producao p WHERE p.id = :id"),
-    @NamedQuery(name = "Producao.findByTitulo", query = "SELECT p FROM Producao p WHERE p.titulo = :titulo"),
-    @NamedQuery(name = "Producao.findByAutor", query = "SELECT p FROM Producao p WHERE p.autor = :autor"),
-    @NamedQuery(name = "Producao.findByAno", query = "SELECT p FROM Producao p WHERE p.ano = :ano"),
-    @NamedQuery(name = "Producao.findByRevista", query = "SELECT p FROM Producao p WHERE p.revista = :revista"),
-    @NamedQuery(name = "Producao.findByVolume", query = "SELECT p FROM Producao p WHERE p.volume = :volume"),
-    @NamedQuery(name = "Producao.findByPagina", query = "SELECT p FROM Producao p WHERE p.pagina = :pagina"),
-    @NamedQuery(name = "Producao.findByCapitulo", query = "SELECT p FROM Producao p WHERE p.capitulo = :capitulo")})
-public class Producao implements Serializable {
+    @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l"),
+    @NamedQuery(name = "Livro.findById", query = "SELECT l FROM Livro l WHERE l.id = :id"),
+    @NamedQuery(name = "Livro.findByTitulo", query = "SELECT l FROM Livro l WHERE l.titulo = :titulo"),
+    @NamedQuery(name = "Livro.findByCapitulo", query = "SELECT l FROM Livro l WHERE l.capitulo = :capitulo"),
+    @NamedQuery(name = "Livro.findByAutor", query = "SELECT l FROM Livro l WHERE l.autor = :autor"),
+    @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano")})
+public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Column(name = "titulo")
     private String titulo;
+    @Column(name = "capitulo")
+    private String capitulo;
     @Column(name = "autor")
     private String autor;
     @Column(name = "ano")
     @Temporal(TemporalType.DATE)
     private Date ano;
-    @Column(name = "revista")
-    private String revista;
-    @Column(name = "volume")
-    private String volume;
-    @Column(name = "pagina")
-    private String pagina;
-    @Column(name = "capitulo")
-    private String capitulo;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
 
-    public Producao() {
+    public Livro() {
     }
 
-    public Producao(Integer id) {
+    public Livro(Integer id) {
         this.id = id;
     }
 
@@ -87,6 +75,14 @@ public class Producao implements Serializable {
         this.titulo = titulo;
     }
 
+    public String getCapitulo() {
+        return capitulo;
+    }
+
+    public void setCapitulo(String capitulo) {
+        this.capitulo = capitulo;
+    }
+
     public String getAutor() {
         return autor;
     }
@@ -101,38 +97,6 @@ public class Producao implements Serializable {
 
     public void setAno(Date ano) {
         this.ano = ano;
-    }
-
-    public String getRevista() {
-        return revista;
-    }
-
-    public void setRevista(String revista) {
-        this.revista = revista;
-    }
-
-    public String getVolume() {
-        return volume;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
-    }
-
-    public String getPagina() {
-        return pagina;
-    }
-
-    public void setPagina(String pagina) {
-        this.pagina = pagina;
-    }
-
-    public String getCapitulo() {
-        return capitulo;
-    }
-
-    public void setCapitulo(String capitulo) {
-        this.capitulo = capitulo;
     }
 
     public Curriculo getCurriculoId() {
@@ -153,10 +117,10 @@ public class Producao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Producao)) {
+        if (!(object instanceof Livro)) {
             return false;
         }
-        Producao other = (Producao) object;
+        Livro other = (Livro) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -165,7 +129,7 @@ public class Producao implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Producao[ id=" + id + " ]";
+        return "invio.entidade.Livro[ id=" + id + " ]";
     }
     
 }

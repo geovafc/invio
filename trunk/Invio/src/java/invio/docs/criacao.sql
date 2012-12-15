@@ -168,9 +168,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `invio`.`producao`
+-- Table `invio`.`periodico`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`producao` (
+CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(100) NULL ,
   `autor` VARCHAR(150) NULL ,
@@ -178,7 +178,6 @@ CREATE  TABLE IF NOT EXISTS `invio`.`producao` (
   `revista` VARCHAR(150) NULL ,
   `volume` VARCHAR(45) NULL ,
   `pagina` VARCHAR(45) NULL ,
-  `capitulo` VARCHAR(45) NULL ,
   `curriculo_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_producao_curriculo1` (`curriculo_id` ASC) ,
@@ -190,7 +189,28 @@ CREATE  TABLE IF NOT EXISTS `invio`.`producao` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `invio`.`livro`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
+  `id` INT NOT NULL ,
+  `titulo` VARCHAR(150) NULL ,
+  `capitulo` VARCHAR(45) NULL ,
+  `autor` VARCHAR(150) NULL ,
+  `ano` DATE NULL ,
+  `curriculo_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_livro_curriculo1` (`curriculo_id` ASC) ,
+  CONSTRAINT `fk_livro_curriculo1`
+    FOREIGN KEY (`curriculo_id` )
+    REFERENCES `invio`.`curriculo` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+livro
