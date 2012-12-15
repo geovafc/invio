@@ -15,35 +15,35 @@
                 value="#{curriculoBean.curriculo}" 
                 converter="curriculoConversor"/>
 
-            <h:form id="form">  
+            <h:form id="Periodico">  
 
-                <p:growl id="msgs" />  
+                <p:messages showDetail="true" showSummary="true"/>  
 
                 <p:panel header="Novo Periódico">  
-                    <h:panelGrid columns="6" id="grid" cellspacing="5">  
-                        <h:outputLabel value="Título : *" for="txt_title"></h:outputLabel>  
-                        <p:inputText id="txt_title"   
+                    <h:panelGrid columns="6" id="grid" cellspacing="4">  
+                        <h:outputLabel value="Título : *"/> 
+                        <p:inputText id="Titulo"   
                                      value="#{curriculoBean.producao.titulo}" required="true"/>  
 
-                        <h:outputLabel value="Autor : *" for="txt_author"></h:outputLabel>  
-                        <p:inputText id="txt_author" required="true"   
+                        <h:outputLabel value="Autor : *" />  
+                        <p:inputText id="Autor" required="true"   
                                      value="#{curriculoBean.producao.autor}" />  
 
                         
-                        <h:outputLabel value="Ano : *" for="dt_ano"></h:outputLabel>  
-                            <p:calendar value="#{curriculoBean.producao.ano}" 
-                                        navigator="true" pattern="dd/MM/yyyy" id="anoCal" required="true"/>
+                        <h:outputLabel value="Data Publicação : *"/>  
+                            <p:calendar  value="#{curriculoBean.producao.ano}" 
+                                        navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
                         
-                        <h:outputLabel value="Revista : *" for="revista"></h:outputLabel>  
-                        <p:inputText id="revista" required="true"   
+                        <h:outputLabel value="Revista : *" />  
+                        <p:inputText id="Revista" required="true"   
                                      value="#{curriculoBean.producao.revista}" />  
 
-                        <h:outputLabel value="Volume : *" for="volume"></h:outputLabel>  
-                        <p:inputText id="volume" required="true"   
+                        <h:outputLabel value="Volume : *" for="volume"/> 
+                        <p:inputText id="Volume" required="true"   
                                      value="#{curriculoBean.producao.volume}" />  
 
-                        <h:outputLabel value="Página : *" for="pagina"></h:outputLabel>  
-                        <p:inputText id="pagina" required="true"   
+                        <h:outputLabel value="Página : *" for="pagina"/>  
+                        <p:inputText id="Pagina" required="true"   
                                      value="#{curriculoBean.producao.pagina}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
@@ -58,7 +58,8 @@
                 <br/>
                 <p:dataTable id="producaosTabela" 
                              value="#{curriculoBean.curriculo.producaoList}" var="producao"
-                             paginator="true" rows="6" 
+                             emptyMessage="Sem registro para a exibição."
+                             paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15">  
 
                         <p:column>  
@@ -78,7 +79,9 @@
                             <f:facet name="header">  
                                 <h:outputText value="Ano" />  
                             </f:facet>  
-                            <h:outputText value="#{producao.ano}" />  
+                            <h:outputText value="#{producao.ano}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                            </h:outputText>  
                         </p:column>  
                         <p:column>  
                             <f:facet name="header">  
