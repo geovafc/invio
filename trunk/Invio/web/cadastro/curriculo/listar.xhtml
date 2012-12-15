@@ -27,6 +27,26 @@
                         <h:outputText value="#{curriculo.nome}" />  
                     </p:column>  
 
+
+                    <p:column headerText="Produções">
+                        <p:commandButton 
+                            ajax="false"
+                            action="/cadastro/curriculo/producao/periodicos.xhtml"
+                            value="Periódicos">  
+                            <f:setPropertyActionListener 
+                                value="#{curriculo}" 
+                                target="#{curriculoBean.curriculo}" />  
+                        </p:commandButton>  
+
+                        <p:commandButton 
+                            ajax="false"
+                            action="/producao/livros.xhtml"
+                            value="Livros">  
+                            <f:setPropertyActionListener 
+                                value="#{curriculo}" 
+                                target="#{curriculoBean.curriculo}" />  
+                        </p:commandButton>      
+                    </p:column>  
                     <p:column headerText="Operações">  
 
                         <p:commandButton 
@@ -45,27 +65,10 @@
                             <f:setPropertyActionListener 
                                 value="#{curriculo}" 
                                 target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            ajax="false"
-                            action="/cadastro/curriculo/producao/periodicos.xhtml"
-                            value="Periódicos">  
-                            <f:setPropertyActionListener 
-                                value="#{curriculo}" 
-                                target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            ajax="false"
-                            action="/producao/livros.xhtml"
-                            value="Livros">  
-                            <f:setPropertyActionListener 
-                                value="#{curriculo}" 
-                                target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton>  
+                        </p:commandButton> 
 
                     </p:column> 
+
 
                 </p:dataTable>
             </p:panel>
