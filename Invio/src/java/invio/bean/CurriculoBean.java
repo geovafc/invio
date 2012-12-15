@@ -157,6 +157,8 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir Periodico", "Periodico: " + periodico.getTitulo());
         }
+        
+        periodico = new Periodico();
         return "periodicos.xhtml";
     }
     
@@ -196,6 +198,8 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir Livro", "Livro: " + livro.getTitulo());
         }
+        
+        livro = new Livro();
         return "livros.xhtml";
     }
     

@@ -26,27 +26,27 @@
                     <h:panelGrid columns="6" id="grid" cellspacing="4">  
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
-                                     value="#{curriculoBean.periodico.titulo}" required="true"/>  
+                                     value="#{curriculoBean.periodico.titulo}" required="false"/>  
 
                         <h:outputLabel value="Autor : *" />  
-                        <p:inputText id="Autor" required="true"   
+                        <p:inputText id="Autor" required="false"   
                                      value="#{curriculoBean.periodico.autor}" />  
 
 
                         <h:outputLabel value="Ano Publicação : *"/>  
                         <p:calendar  value="#{curriculoBean.periodico.ano}" 
-                                     navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
+                                     navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Revista : *" />  
-                        <p:inputText id="Revista" required="true"   
+                        <p:inputText id="Revista" required="false"   
                                      value="#{curriculoBean.periodico.revista}" />  
 
                         <h:outputLabel value="Volume : *" for="volume"/> 
-                        <p:inputText id="Volume" required="true"   
+                        <p:inputText id="Volume" required="false"   
                                      value="#{curriculoBean.periodico.volume}" />  
 
                         <h:outputLabel value="Página : *" for="pagina"/>  
-                        <p:inputText id="Pagina" required="true"   
+                        <p:inputText id="Pagina" required="false"   
                                      value="#{curriculoBean.periodico.pagina}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
@@ -166,7 +166,8 @@
                               min-height: 12px; white-space: pre-line">  
                         
                         <p:commandLink value="Excluir"
-                                       action="excluirPeriodico.xhtml"
+                                       ajax="false"
+                                       action="/cadastro/curriculo/producao/excluirPeriodico.xhtml"
                                        >
                             <f:setPropertyActionListener 
                                 value="#{periodico}" 
