@@ -20,23 +20,25 @@
                 <p:messages showDetail="true" showSummary="true"/>  
 
                 <p:panel header="Novo Livro">  
-                    <h:panelGrid columns="6" id="grid" cellspacing="4">  
+                    <h:panelGrid columns="4" id="grid" cellspacing="4">  
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
                                      value="#{curriculoBean.livro.titulo}" required="true"/>  
 
+                        <h:outputLabel value="Ano Publicação : *"/>  
+                        <p:calendar  value="#{curriculoBean.livro.ano}" 
+                                     navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
+                        
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="true"   
                                      value="#{curriculoBean.livro.autor}" />  
 
 
-                        <h:outputLabel value="Ano Publicação : *"/>  
-                        <p:calendar  value="#{curriculoBean.livro.ano}" 
-                                     navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="true"/>
-
                         <h:outputLabel value="Capítulo : *" />  
                         <p:inputText id="Revista" required="true"   
                                      value="#{curriculoBean.livro.capitulo}" />
+                        
+                        
                         
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Add"
