@@ -29,47 +29,52 @@
                     </p:column>  
 
 
-                    <p:column headerText="Produções">
-                        <p:commandButton 
-                            ajax="false"
-                            action="/cadastro/curriculo/producao/periodicos.xhtml"
-                            value="Periódicos">  
-                            <f:setPropertyActionListener 
-                                value="#{curriculo}" 
-                                target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            ajax="false"
-                            action="/cadastro/curriculo/producao/livros.xhtml"
-                            value="Livros">  
-                            <f:setPropertyActionListener 
-                                value="#{curriculo}" 
-                                target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton>      
-                    </p:column>  
                     <p:column headerText="Operações">  
+                        <div align="center">
+                            <p:commandButton 
+                                action="wizard.xhtml"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>  
 
-                        <p:commandButton 
-                            action="wizard.xhtml"
-                            value="Editar"
-                            ajax="false">  
-                            <f:setPropertyActionListener 
-                                value="#{curriculo}" 
-                                target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            ajax="false"
-                            action="excluir.xhtml"
-                            value="Excluir">  
-                            <f:setPropertyActionListener 
-                                value="#{curriculo}" 
-                                target="#{curriculoBean.curriculo}" />  
-                        </p:commandButton> 
-
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluir.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton> 
+                        </div>
                     </p:column> 
 
+
+
+                    <p:column headerText="Produções">
+                        <div align="center">
+                            <p:commandButton 
+                                ajax="false"
+                                action="/cadastro/curriculo/producao/periodicos.xhtml"
+                                value="Periódicos">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>  
+
+                            <p:commandButton 
+                                ajax="false"
+                                action="/cadastro/curriculo/producao/livros.xhtml"
+                                value="Livros">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>      
+
+                        </div>
+                    </p:column>
 
                 </p:dataTable>
             </p:panel>
