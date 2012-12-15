@@ -7,7 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        
+
         <h:form id="form">
 
             <p:panel header="Lista de Unidades">
@@ -36,26 +36,26 @@
                     </p:column>  
 
                     <p:column headerText="Operações">  
+                        <div align="center">
+                            <p:commandButton 
+                                action="#{instituicaoBean.irEditarUnidade}"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{unidade}" 
+                                    target="#{instituicaoBean.unidade}" />  
+                            </p:commandButton>  
 
-                        <p:commandButton 
-                            action="#{instituicaoBean.irEditarUnidade}"
-                            value="Editar"
-                            ajax="false">  
-                            <f:setPropertyActionListener 
-                                value="#{unidade}" 
-                                target="#{instituicaoBean.unidade}" />  
-                        </p:commandButton>  
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluirUnidade.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{unidade}" 
+                                    target="#{instituicaoBean.unidade}" />  
+                            </p:commandButton>  
 
-                        <p:commandButton 
-                            ajax="false"
-                            action="excluirUnidade.xhtml"
-                            value="Excluir">  
-                            <f:setPropertyActionListener 
-                                value="#{unidade}" 
-                                target="#{instituicaoBean.unidade}" />  
-                        </p:commandButton>  
-
-
+                        </div>
                     </p:column> 
 
                 </p:dataTable>

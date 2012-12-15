@@ -150,6 +150,16 @@ public class CurriculoBean {
         return null;  
     }
     
+    public String excluirPeriodico() {
+        System.out.println("Periodico: " + periodico);
+        if (periodicoRN.remover(periodico)) {
+            BeanUtil.criarMensagemDeInformacao("Peridico excluído", "Periodico: " + periodico.getTitulo());
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao excluir Periodico", "Periodico: " + periodico.getTitulo());
+        }
+        return "periodicos.xhtml";
+    }
+    
     
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
@@ -177,6 +187,16 @@ public class CurriculoBean {
         livro = new Livro();  
           
         return null;  
+    }
+    
+    public String excluirLivro() {
+        System.out.println("Livro: " + livro);
+        if (livroRN.remover(livro)) {
+            BeanUtil.criarMensagemDeInformacao("Livro excluído", "Livro: " + livro.getTitulo());
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao excluir Livro", "Livro: " + livro.getTitulo());
+        }
+        return "livros.xhtml";
     }
     
 }

@@ -165,9 +165,13 @@
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
                         
-                        <p:commandLink value="Excluir" update="periodicosTabela">  
-
-                        </p:commandLink>
+                        <p:commandLink value="Excluir"
+                                       action="excluirPeriodico.xhtml"
+                                       >
+                            <f:setPropertyActionListener 
+                                value="#{periodico}" 
+                                target="#{curriculoBean.periodico}" />
+                        </p:commandLink>  
 
                     </p:column>
 
