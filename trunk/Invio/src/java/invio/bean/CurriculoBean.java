@@ -9,9 +9,12 @@ import invio.rn.LivroRN;
 import invio.rn.PeriodicoRN;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.event.RowEditEvent;
 
 @ManagedBean
 @SessionScoped
@@ -27,7 +30,7 @@ public class CurriculoBean {
     private PeriodicoRN periodicoRN = new PeriodicoRN();
     private LivroRN livroRN = new LivroRN();
     private Livro livro = new Livro();
-    
+
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
     }
@@ -121,11 +124,8 @@ public class CurriculoBean {
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
-    
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
-    
-    
     public Periodico getPeriodico() {
         return periodico;
     }
@@ -145,11 +145,11 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
         }
-        periodico = new Periodico();  
-          
-        return null;  
+        periodico = new Periodico();
+
+        return null;
     }
-    
+
     public String excluirPeriodico() {
         System.out.println("Periodico: " + periodico);
         if (periodicoRN.remover(periodico)) {
@@ -157,16 +157,13 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir Periodico", "Periodico: " + periodico.getTitulo());
         }
-        
+
         periodico = new Periodico();
         return "periodicos.xhtml";
     }
-    
-    
-    //CONTROLE DE LIVRO APARTIR DESTA LINHA
-    //CONTROLE DE LIVRO APARTIR DESTA LINHA
-    
 
+    //CONTROLE DE LIVRO APARTIR DESTA LINHA
+    //CONTROLE DE LIVRO APARTIR DESTA LINHA
     public Livro getLivro() {
         return livro;
     }
@@ -174,7 +171,7 @@ public class CurriculoBean {
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
-    
+
     public String salvarLivro() {
         livro.setCurriculoId(curriculo);
         curriculo.getLivroList().add(livro);
@@ -186,11 +183,11 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
         }
-        livro = new Livro();  
-          
-        return null;  
+        livro = new Livro();
+
+        return null;
     }
-    
+
     public String excluirLivro() {
         System.out.println("Livro: " + livro);
         if (livroRN.remover(livro)) {
@@ -198,9 +195,9 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir Livro", "Livro: " + livro.getTitulo());
         }
-        
+
         livro = new Livro();
         return "livros.xhtml";
     }
-    
+
 }
