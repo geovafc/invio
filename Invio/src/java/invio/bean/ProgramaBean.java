@@ -12,12 +12,9 @@ import invio.util.ComparadorArea;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DualListModel;
 
 /**
