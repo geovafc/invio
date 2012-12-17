@@ -159,10 +159,13 @@
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
 
-                        <p:commandLink value="Comprovação" update="livrosTabela"
+                        <p:commandLink value="Comprovação" ajax="false" update="livrosTabela"
                                        action="uploadLivro.xhtml">  
-
+                            <f:setPropertyActionListener 
+                                value="#{periodico}" 
+                                target="#{curriculoBean.periodico}" />
                         </p:commandLink>
+
                     </p:column>
 
                 </p:dataTable>
