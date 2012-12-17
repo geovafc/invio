@@ -23,7 +23,7 @@
                 <h:message for="programaNome"/>
 
                 <h:outputText value="Instituição: "/>
-                <h:selectOneMenu 
+                <p:selectOneMenu 
                     id="instituicaoSelect" 
                     label="#{programaBean.programa.instituicao.nome}"
                     value="#{programaBean.programa.instituicao}"
@@ -32,7 +32,7 @@
                     <f:selectItems value="#{programaBean.instituicoes}"/>
                     <f:converter converterId="instituicaoConversor"/>
                 
-                </h:selectOneMenu>
+                </p:selectOneMenu>
                 <h:message for="instituicaoSelect"/>
 
             </h:panelGrid>
