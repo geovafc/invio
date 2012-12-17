@@ -113,7 +113,7 @@
                     </p:column>
 
                     <p:column headerText="Ano"
-                              style="max-width: 95px;min-width: 95px; 
+                              style="max-width: 65px;min-width: 65px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
                         <p:cellEditor>
@@ -180,9 +180,10 @@
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
 
-                        <p:commandLink value="Comprovação" update="periodicosTabela">  
-
+                        <p:commandLink value="Comprovação" update="periodicosTabela"
+                                       action="/cadastro/curriculo/producao/uploadPeriodico.xhtml">  
                         </p:commandLink>
+
                     </p:column>
 
                 </p:dataTable>  
