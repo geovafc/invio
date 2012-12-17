@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../template/templatePadrao.xhtml"
+                template="./../../../template/templatePadrao.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
@@ -13,12 +13,12 @@
 
                 <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"  
                               mode="advanced"  
-                              update="messages" label="Escolher" 
+                              update="messages" label="Carregar Arquivo" 
                               auto="true"  
                               sizeLimit="100000"   
                               allowTypes="/(\.|\/)(doc|jpe?g|docx|pdf)$/"/>  
 
-                <p:growl id="messages" showDetail="true"/>  
+                <p:growl id="messages" showDetail="true"/> 
 
             </p:panel>
 
