@@ -157,7 +157,7 @@ public class CurriculoBean {
                     "Operação realizada com sucesso",
                     "O Periódico " + periodicoTemp.getTitulo() + " foi salvo com sucesso.");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + periodicoTemp.getTitulo());
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodicoTemp.getTitulo());
         }
         periodico = new Periodico();
 
