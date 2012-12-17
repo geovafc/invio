@@ -34,8 +34,8 @@
 
 
                         <h:outputLabel value="Ano Publicação : *"/>  
-                        <p:calendar  value="#{curriculoBean.periodico.ano}" 
-                                     navigator="true" pattern="dd/MM/yyyy" id="DataPublicacao" required="false"/>
+                        <p:inputMask  value="#{curriculoBean.periodico.ano}" mask="9999"
+                                      id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Revista : *" />  
                         <p:inputText id="Revista" required="false"   
@@ -117,12 +117,12 @@
                         <p:cellEditor>
                             <f:facet name="output">  
                                 <h:outputLabel value="#{periodico.ano}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                                    <f:convertDateTime pattern="yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                                 </h:outputLabel> 
                             </f:facet>  
                             <f:facet name="input">  
                                 <p:inputText value="#{periodico.ano}" style="width: 90%">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                                    <f:convertDateTime pattern="yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                                 </p:inputText>
                             </f:facet> 
                         </p:cellEditor> 
@@ -160,11 +160,11 @@
                     <p:column headerText="Editar" style="width:38px">  
                         <p:rowEditor />  
                     </p:column>
-                    
+
                     <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
-                        
+
                         <p:commandLink value="Excluir"
                                        ajax="false"
                                        action="/cadastro/curriculo/producao/excluirPeriodico.xhtml"
@@ -179,7 +179,7 @@
                     <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
-                        
+
                         <p:commandLink value="Comprovação" update="periodicosTabela">  
 
                         </p:commandLink>

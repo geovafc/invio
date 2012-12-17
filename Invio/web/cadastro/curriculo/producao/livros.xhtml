@@ -23,25 +23,22 @@
 
                 <p:panel header="Novo Livro">  
                     <h:panelGrid columns="4" id="grid" cellspacing="4">  
+
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
                                      value="#{curriculoBean.livro.titulo}" required="false"/>  
-
-                        <h:outputLabel value="Ano Publicação : *"/>  
-                        <p:calendar  value="#{curriculoBean.livro.ano}" 
-                                     navigator="true" pattern="dd/MM/yyyy" 
-                                     id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="false"   
                                      value="#{curriculoBean.livro.autor}" />  
 
-
-                        <h:outputLabel value="Capítulo : *" />  
-                        <p:inputText id="Revista" required="false"   
+                        <h:outputLabel value="Ano Publicação : *" />  
+                        <p:inputMask id="anoPublicacao" required="false"  mask="9999" 
                                      value="#{curriculoBean.livro.capitulo}" />
 
-
+                        <h:outputLabel value="Capítulo : *" />  
+                        <p:inputText id="Capitulo" required="false"   
+                                     value="#{curriculoBean.livro.capitulo}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Add"
@@ -98,17 +95,30 @@
                         <p:cellEditor>
                             <f:facet name="output">  
                                 <h:outputLabel value="#{livro.ano}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                                    <f:convertDateTime pattern="yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                                 </h:outputLabel> 
                             </f:facet>  
                             <f:facet name="input">  
                                 <p:inputText value="#{livro.ano}" style="width: 90%">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                                    <f:convertDateTime pattern="yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                                 </p:inputText>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
 
+                    <p:column headerText="Capítulo"
+                              style="max-width: 110px;min-width: 110px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line"> 
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{livro.capitulo}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{livro.capitulo}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
 
                     <p:column headerText="Editar" style="width:38px">  
                         <p:rowEditor />  
