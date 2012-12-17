@@ -34,7 +34,7 @@
 
                         <h:outputLabel value="Ano Publicação : *" />  
                         <p:inputMask id="anoPublicacao" required="false"  mask="9999" 
-                                     value="#{curriculoBean.livro.capitulo}" />
+                                     value="#{curriculoBean.livro.ano}" />
 
                         <h:outputLabel value="Capítulo : *" />  
                         <p:inputText id="Capitulo" required="false"   
@@ -111,13 +111,11 @@
                         <p:cellEditor>
                             <f:facet name="output">  
                                 <h:outputLabel value="#{livro.ano}">
-                                    <f:convertDateTime pattern="yyyy" locale="pt,BR" timeZone="Brazil/East"/>
                                 </h:outputLabel> 
                             </f:facet>  
                             <f:facet name="input">  
-                                <p:inputText value="#{livro.ano}" style="width: 90%">
-                                    <f:convertDateTime pattern="yyyy" locale="pt,BR" timeZone="Brazil/East"/>
-                                </p:inputText>
+                                <p:inputMask mask="9999" value="#{livro.ano}" style="width: 90%">
+                                </p:inputMask>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
