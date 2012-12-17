@@ -149,6 +149,20 @@ public class CurriculoBean {
 
         return null;
     }
+    
+    public String salvarEditarPeriodico(Periodico periodicoTemp) {
+        
+        if (periodicoRN.salvar(periodicoTemp)) {
+                 BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "O Periódico " + periodicoTemp.getTitulo() + " foi salvo com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + periodicoTemp.getTitulo());
+        }
+        periodico = new Periodico();
+
+        return null;
+    }
 
     public String excluirPeriodico() {
         System.out.println("Periodico: " + periodico);
@@ -162,8 +176,11 @@ public class CurriculoBean {
         return "periodicos.xhtml";
     }
 
+    
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
+    
+    
     public Livro getLivro() {
         return livro;
     }
@@ -182,6 +199,20 @@ public class CurriculoBean {
                     "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+        }
+        livro = new Livro();
+
+        return null;
+    }
+    
+    public String salvarEditarLivro(Livro livroTemp) {
+        
+        if (livroRN.salvar(livroTemp)) {
+                 BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "O Livro " + livroTemp.getTitulo() + " foi salvo com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livroTemp.getTitulo());
         }
         livro = new Livro();
 
