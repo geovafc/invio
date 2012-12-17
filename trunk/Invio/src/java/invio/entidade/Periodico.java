@@ -5,7 +5,6 @@
 package invio.entidade;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,13 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Junior
+ * @author RSORANSO
  */
 @Entity
 @Table(name = "periodico")
@@ -49,8 +46,7 @@ public class Periodico implements Serializable {
     @Column(name = "autor")
     private String autor;
     @Column(name = "ano")
-    @Temporal(TemporalType.DATE)
-    private Date ano;
+    private String ano;
     @Column(name = "revista")
     private String revista;
     @Column(name = "volume")
@@ -92,11 +88,11 @@ public class Periodico implements Serializable {
         this.autor = autor;
     }
 
-    public Date getAno() {
+    public String getAno() {
         return ano;
     }
 
-    public void setAno(Date ano) {
+    public void setAno(String ano) {
         this.ano = ano;
     }
 
