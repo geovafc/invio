@@ -65,7 +65,9 @@
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
                              editable="true"
-                             >  
+                             >
+                    
+                    <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarPeriodico(periodico)}" update="periodicosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 

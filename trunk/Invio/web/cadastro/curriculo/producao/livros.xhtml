@@ -56,7 +56,8 @@
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
                              editable="true"
-                             >  
+                             >
+                    <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarLivro(livro)}" update="livrosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 
@@ -83,6 +84,21 @@
                             </f:facet>  
                             <f:facet name="input">  
                                 <p:inputText value="#{livro.autor}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
+
+                    <p:column headerText="Título"
+                              style="max-width: 110px;min-width: 110px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line">
+
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{livro.capitulo}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{livro.capitulo}" style="width: 90%"/>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
