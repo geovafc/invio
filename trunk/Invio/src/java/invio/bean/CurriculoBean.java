@@ -8,12 +8,16 @@ import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
 import invio.rn.PeriodicoRN;
 import invio.util.UploadArquivo;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean
 @SessionScoped
@@ -232,21 +236,19 @@ public class CurriculoBean {
     // CONTROLE DO UPLOAD DO ARQUIVO (LIVRO) APARTIR DESTA LINHA
     
     public void uploadActionLivro(FileUploadEvent event) {
-        this.fileUpload.fileUpload(event, ".pdf", "/arquivos/");
-        this.livro.setArquivo(this.fileUpload.getNome());
-        salvarAquivoLivro();
-    }
+        UploadedFile file = event.getFile();
+        InputStream stream = null;
+        try {
+            stream = file.getInputstream();
+            String tipo = file.getContentType();
+            String nomeDoArquivo = this.fileUpload.uploadLivro(livro, tipo, stream);
+            this.livro.setArquivo(nomeDoArquivo);
+            livroRN.salvar(livro);
+            //Inicializa
+            this.livro = new Livro();
+            this.fileUpload = new UploadArquivo();
+        } catch (IOException ex) {
+        }
 
-    public void salvarAquivoLivro() {
-
-        livroRN.salvar(livro);
-        this.fileUpload.gravar();
-        this.livro = new Livro();
-        this.fileUpload = new UploadArquivo();
     }
-    
-    
-     // CONTROLE DO UPLOAD DO ARQUIVO (PERIÓDICO) APARTIR DESTA LINHA
-    // CONTROLE DO UPLOAD DO ARQUIVO (PERIÓDICO) APARTIR DESTA LINHA
-    
 }
