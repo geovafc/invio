@@ -7,10 +7,12 @@ import invio.entidade.Periodico;
 import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
 import invio.rn.PeriodicoRN;
+import invio.util.UploadArquivo;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 
 @ManagedBean
@@ -27,6 +29,7 @@ public class CurriculoBean {
     private PeriodicoRN periodicoRN = new PeriodicoRN();
     private LivroRN livroRN = new LivroRN();
     private Livro livro = new Livro();
+    private UploadArquivo fileUpload = new UploadArquivo();
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -146,11 +149,11 @@ public class CurriculoBean {
 
         return null;
     }
-    
+
     public String salvarEditarPeriodico(Periodico periodicoTemp) {
-        
+
         if (periodicoRN.salvar(periodicoTemp)) {
-                 BeanUtil.criarMensagemDeInformacao(
+            BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "O Periódico " + periodicoTemp.getTitulo() + " foi salvo com sucesso.");
         } else {
@@ -173,11 +176,8 @@ public class CurriculoBean {
         return "periodicos.xhtml";
     }
 
-    
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
-    
-    
     public Livro getLivro() {
         return livro;
     }
@@ -201,11 +201,11 @@ public class CurriculoBean {
 
         return null;
     }
-    
+
     public String salvarEditarLivro(Livro livroTemp) {
-        
+
         if (livroRN.salvar(livroTemp)) {
-                 BeanUtil.criarMensagemDeInformacao(
+            BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "O Livro " + livroTemp.getTitulo() + " foi salvo com sucesso.");
         } else {
@@ -228,4 +228,25 @@ public class CurriculoBean {
         return "livros.xhtml";
     }
 
+    // CONTROLE DO UPLOAD DO ARQUIVO (LIVRO) APARTIR DESTA LINHA
+    // CONTROLE DO UPLOAD DO ARQUIVO (LIVRO) APARTIR DESTA LINHA
+    
+    public void uploadActionLivro(FileUploadEvent event) {
+        this.fileUpload.fileUpload(event, ".pdf", "/"+curriculo.getNome()+"/");
+        this.livro.setArquivo(this.fileUpload.getNome());
+        salvarAquivoLivro();
+    }
+
+    public void salvarAquivoLivro() {
+
+        livroRN.salvar(livro);
+        this.fileUpload.gravar();
+        this.livro = new Livro();
+        this.fileUpload = new UploadArquivo();
+    }
+    
+    
+     // CONTROLE DO UPLOAD DO ARQUIVO (PERIÓDICO) APARTIR DESTA LINHA
+    // CONTROLE DO UPLOAD DO ARQUIVO (PERIÓDICO) APARTIR DESTA LINHA
+    
 }

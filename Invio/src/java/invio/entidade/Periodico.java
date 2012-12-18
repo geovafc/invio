@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author Junior
  */
 @Entity
 @Table(name = "periodico")
@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Periodico.findByAno", query = "SELECT p FROM Periodico p WHERE p.ano = :ano"),
     @NamedQuery(name = "Periodico.findByRevista", query = "SELECT p FROM Periodico p WHERE p.revista = :revista"),
     @NamedQuery(name = "Periodico.findByVolume", query = "SELECT p FROM Periodico p WHERE p.volume = :volume"),
-    @NamedQuery(name = "Periodico.findByPagina", query = "SELECT p FROM Periodico p WHERE p.pagina = :pagina")})
+    @NamedQuery(name = "Periodico.findByPagina", query = "SELECT p FROM Periodico p WHERE p.pagina = :pagina"),
+    @NamedQuery(name = "Periodico.findByArquivo", query = "SELECT p FROM Periodico p WHERE p.arquivo = :arquivo")})
 public class Periodico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,6 +54,8 @@ public class Periodico implements Serializable {
     private String volume;
     @Column(name = "pagina")
     private String pagina;
+    @Column(name = "arquivo")
+    private String arquivo;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -118,6 +121,14 @@ public class Periodico implements Serializable {
 
     public void setPagina(String pagina) {
         this.pagina = pagina;
+    }
+
+    public String getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 
     public Curriculo getCurriculoId() {
