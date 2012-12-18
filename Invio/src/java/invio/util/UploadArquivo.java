@@ -6,8 +6,6 @@ package invio.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -60,18 +58,18 @@ public class UploadArquivo {
         FacesContext aFacesContext = FacesContext.getCurrentInstance();
         ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext();
 
-        return context.getRealPath("/funcionarios");
+        return context.getRealPath("/curriculo");
     }
 
     public void fileUpload(FileUploadEvent event, String type, String diretorio) {
         try {
             this.nome = new java.util.Date().getTime() + type;
-            //this.caminho = getRealPath() + diretorio + getNome();
-            this.caminho = "C:/" + diretorio + getNome();
+            this.caminho = getRealPath() + diretorio + getNome();
+            //this.caminho = "C:" + diretorio + getNome();
             this.arquivo = event.getFile().getContents();
 
-            //File file = new File(getRealPath() + diretorio);
-            File file = new File("C:/"+ diretorio);
+            File file = new File(getRealPath() + diretorio);
+            //File file = new File("C:"+ diretorio);
             file.mkdirs();
 
         } catch (Exception ex) {
