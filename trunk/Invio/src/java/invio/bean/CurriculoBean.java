@@ -232,7 +232,7 @@ public class CurriculoBean {
     // CONTROLE DO UPLOAD DO ARQUIVO (LIVRO) APARTIR DESTA LINHA
     
     public void uploadActionLivro(FileUploadEvent event) {
-        this.fileUpload.fileUpload(event, ".pdf", "/"+curriculo.getNome()+"/");
+        this.fileUpload.fileUpload(event, ".pdf", "/arquivos/");
         this.livro.setArquivo(this.fileUpload.getNome());
         salvarAquivoLivro();
     }
