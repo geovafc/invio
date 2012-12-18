@@ -240,7 +240,15 @@ public class CurriculoBean {
         InputStream stream = null;
         try {
             stream = file.getInputstream();
+            
             String tipo = file.getContentType();
+            if (tipo.equals("application/pdf")) {
+                tipo = "pdf";
+            }else if (tipo.equals("application/jpg")){
+                tipo = "jpg";
+            }
+            
+            
             String nomeDoArquivo = this.fileUpload.uploadLivro(livro, tipo, stream);
             this.livro.setArquivo(nomeDoArquivo);
             livroRN.salvar(livro);
