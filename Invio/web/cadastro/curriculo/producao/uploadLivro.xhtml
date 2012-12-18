@@ -16,11 +16,11 @@
                 value="#{curriculoBean.livro}" 
                 converter="livroConversor"/>
 
-                <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionLivro(event)}"  
+                <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionLivro}"  
                               mode="advanced"  
                               update="messages" label="Carregar Arquivos" 
                               auto="true"  
-                              sizeLimit="100000"   
+                              sizeLimit="10000000"   
                               allowTypes="/(\.|\/)(doc|jpe?g|docx|pdf)$/"/>  
 
                 <p:growl id="messages" showDetail="true"/>  

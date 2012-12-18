@@ -4,13 +4,15 @@
  */
 package invio.util;
 
+import invio.entidade.Livro;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -58,37 +60,32 @@ public class UploadArquivo {
         FacesContext aFacesContext = FacesContext.getCurrentInstance();
         ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext();
 
-        return context.getRealPath("/curriculo");
+        return context.getRealPath("/cadastro/curriculo/producao");
     }
 
-    public void fileUpload(FileUploadEvent event, String type, String diretorio) {
-        try {
-            this.nome = new java.util.Date().getTime() + type;
-            this.caminho = getRealPath() + diretorio + getNome();
-            //this.caminho = "C:" + diretorio + getNome();
-            this.arquivo = event.getFile().getContents();
-
-            File file = new File(getRealPath() + diretorio);
-            //File file = new File("C:"+ diretorio);
-            file.mkdirs();
-
-        } catch (Exception ex) {
-            System.out.println("Erro no upload do arquivo" + ex);
-        }
+    public String uploadLivro(Livro livro, String tipo, InputStream stream) {
+        String nomeDoArquivo = livro.getTitulo() + "_" + livro.getId() + "." + tipo;
+        upload(ConfiguracaoUtil.TipoProducao.LIVROS, nomeDoArquivo, stream);
+        return nomeDoArquivo;
     }
 
-    public void gravar() {
+    public void uploadPeriodicos(String nomeDoArquivo, InputStream stream) {
+        upload(ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
+    }
 
+    private void upload(ConfiguracaoUtil.TipoProducao tipo,
+            String nomeDoArquivo,
+            InputStream stream) {
         try {
-
-            FileOutputStream fos;
-            fos = new FileOutputStream(this.caminho);
-            fos.write(this.arquivo);
+            File arquivo = new File(ConfiguracaoUtil.getPath(tipo), nomeDoArquivo);
+            FileOutputStream fos = new FileOutputStream(arquivo);
+            int c = 0;
+            while ((c = stream.read()) != -1) {
+                fos.write(c);
+            }
             fos.close();
-
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e);
         }
-
     }
 }
