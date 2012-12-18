@@ -10,8 +10,13 @@
         <h:form enctype="multipart/form-data">  
 
             <p:panel header="Comprovação de Livro">
+                
+                 <h:inputHidden 
+                id="ihLivro"
+                value="#{curriculoBean.livro}" 
+                converter="livroConversor"/>
 
-                <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"  
+                <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionLivro(event)}"  
                               mode="advanced"  
                               update="messages" label="Carregar Arquivos" 
                               auto="true"  

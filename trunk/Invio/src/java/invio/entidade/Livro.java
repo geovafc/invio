@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author Junior
  */
 @Entity
 @Table(name = "livro")
@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Livro.findByTitulo", query = "SELECT l FROM Livro l WHERE l.titulo = :titulo"),
     @NamedQuery(name = "Livro.findByCapitulo", query = "SELECT l FROM Livro l WHERE l.capitulo = :capitulo"),
     @NamedQuery(name = "Livro.findByAutor", query = "SELECT l FROM Livro l WHERE l.autor = :autor"),
-    @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano")})
+    @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano"),
+    @NamedQuery(name = "Livro.findByArquivo", query = "SELECT l FROM Livro l WHERE l.arquivo = :arquivo")})
 public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +48,8 @@ public class Livro implements Serializable {
     private String autor;
     @Column(name = "ano")
     private String ano;
+    @Column(name = "arquivo")
+    private String arquivo;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -96,6 +99,14 @@ public class Livro implements Serializable {
 
     public void setAno(String ano) {
         this.ano = ano;
+    }
+
+    public String getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 
     public Curriculo getCurriculoId() {
