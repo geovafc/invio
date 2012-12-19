@@ -76,12 +76,7 @@ public class UploadArquivo {
         return nomeDoArquivo;
     }
     
-    
-//    public void uploadPeriodicos(String nomeDoArquivo, InputStream stream) {
-//        upload(ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
-//    }
-
-    private void upload(ConfiguracaoUtil.TipoProducao tipo,
+private void upload(ConfiguracaoUtil.TipoProducao tipo,
             String nomeDoArquivo,
             InputStream stream) {
         try {
@@ -97,7 +92,24 @@ public class UploadArquivo {
         }
     }
     
-    /*public void gravar(){
+    /*
+     * 
+     * public void fileUpload(FileUploadEvent event, String type, String diretorio) {
+        try {
+            this.nome = new java.util.Date().getTime() + type;
+            this.caminho = getRealPath() + diretorio + getNome();
+            this.arquivo = event.getFile().getContents();
+            
+            File file = new File(getRealPath() + diretorio);
+            file.mkdirs();
+
+        } catch (Exception ex) {
+            System.out.println("Erro no upload do arquivo" + ex);
+        }
+    }
+    * 
+    * 
+    * public void gravar(){
         try {
             
             FileOutputStream fos;
