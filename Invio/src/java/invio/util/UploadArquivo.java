@@ -96,4 +96,17 @@ public class UploadArquivo {
             System.out.println("Erro: " + e);
         }
     }
+    
+    /*public void gravar(){
+        try {
+            
+            FileOutputStream fos;
+            fos = new FileOutputStream(this.caminho);
+            fos.write(this.arquivo);
+            fos.close();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(UploadArquivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
 }
