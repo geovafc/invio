@@ -180,8 +180,36 @@ public class CurriculoBean {
         return "periodicos.xhtml";
     }
 
+    public void uploadActionPeriodico(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        InputStream stream = null;
+        try {
+            stream = file.getInputstream();
+            
+            String tipo = file.getContentType();
+            if (tipo.equals("application/pdf")) {
+                tipo = "pdf";
+            }else if (tipo.equals("application/jpg")){
+                tipo = "jpg";
+            }
+            
+            
+            String nomeDoArquivo = this.fileUpload.uploadPeriodico(periodico, tipo, stream);
+            this.periodico.setArquivo(nomeDoArquivo);
+            periodicoRN.salvar(periodico);
+            //Inicializa
+            this.periodico = new Periodico();
+            this.fileUpload = new UploadArquivo();
+        } catch (IOException ex) {
+        }
+
+    }
+    
+    
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
+  
+    
     public Livro getLivro() {
         return livro;
     }
@@ -232,9 +260,6 @@ public class CurriculoBean {
         return "livros.xhtml";
     }
 
-    // CONTROLE DO UPLOAD DO ARQUIVO (LIVRO) APARTIR DESTA LINHA
-    // CONTROLE DO UPLOAD DO ARQUIVO (LIVRO) APARTIR DESTA LINHA
-    
     public void uploadActionLivro(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         InputStream stream = null;
