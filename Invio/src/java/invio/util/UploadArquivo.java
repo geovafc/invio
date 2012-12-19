@@ -5,6 +5,7 @@
 package invio.util;
 
 import invio.entidade.Livro;
+import invio.entidade.Periodico;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -69,16 +70,23 @@ public class UploadArquivo {
         return nomeDoArquivo;
     }
 
-    public void uploadPeriodicos(String nomeDoArquivo, InputStream stream) {
+    public String uploadPeriodico(Periodico periodico, String tipo, InputStream stream) {
+        String nomeDoArquivo = periodico.getTitulo() + "_" + periodico.getId() + "." + tipo;
         upload(ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
+        return nomeDoArquivo;
     }
+    
+    
+//    public void uploadPeriodicos(String nomeDoArquivo, InputStream stream) {
+//        upload(ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
+//    }
 
     private void upload(ConfiguracaoUtil.TipoProducao tipo,
             String nomeDoArquivo,
             InputStream stream) {
         try {
-            File arquivo = new File(ConfiguracaoUtil.getPath(tipo), nomeDoArquivo);
-            FileOutputStream fos = new FileOutputStream(arquivo);
+            File arquivoTemp = new File(ConfiguracaoUtil.getPath(tipo), nomeDoArquivo);
+            FileOutputStream fos = new FileOutputStream(arquivoTemp);
             int c = 0;
             while ((c = stream.read()) != -1) {
                 fos.write(c);
