@@ -4,10 +4,11 @@
  */
 package invio.util;
 
+import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Periodico;
+import invio.util.ConfiguracaoUtil.TipoProducao;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import javax.faces.context.ExternalContext;
@@ -64,23 +65,26 @@ public class UploadArquivo {
         return context.getRealPath("/cadastro/curriculo/producao");
     }
 
-    public String uploadLivro(Livro livro, String tipo, InputStream stream) {
+    public String uploadLivro(Curriculo curriculo, Livro livro, String tipo, InputStream stream) {
         String nomeDoArquivo = livro.getTitulo() + "_" + livro.getId() + "." + tipo;
-        upload(ConfiguracaoUtil.TipoProducao.LIVROS, nomeDoArquivo, stream);
+        upload(curriculo, ConfiguracaoUtil.TipoProducao.LIVROS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
 
-    public String uploadPeriodico(Periodico periodico, String tipo, InputStream stream) {
+    public String uploadPeriodico(Curriculo curriculo, Periodico periodico, String tipo, InputStream stream) {
         String nomeDoArquivo = periodico.getTitulo() + "_" + periodico.getId() + "." + tipo;
-        upload(ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
+        upload(curriculo, ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
-    
-private void upload(ConfiguracaoUtil.TipoProducao tipo,
+
+    private void upload(Curriculo curriculo,
+            ConfiguracaoUtil.TipoProducao tipo,
             String nomeDoArquivo,
             InputStream stream) {
         try {
-            File arquivoTemp = new File(ConfiguracaoUtil.getPath(tipo), nomeDoArquivo);
+            String path = ConfiguracaoUtil.getPath(tipo) + "/" + curriculo.getId();
+            File pathPai = criarDiretorio(path);
+            File arquivoTemp = new File(pathPai, nomeDoArquivo);
             FileOutputStream fos = new FileOutputStream(arquivoTemp);
             int c = 0;
             while ((c = stream.read()) != -1) {
@@ -88,37 +92,18 @@ private void upload(ConfiguracaoUtil.TipoProducao tipo,
             }
             fos.close();
         } catch (Exception e) {
+            System.out.println("Erro upload");
             System.out.println("Erro: " + e);
         }
     }
-    
-    /*
-     * 
-     * public void fileUpload(FileUploadEvent event, String type, String diretorio) {
-        try {
-            this.nome = new java.util.Date().getTime() + type;
-            this.caminho = getRealPath() + diretorio + getNome();
-            this.arquivo = event.getFile().getContents();
-            
-            File file = new File(getRealPath() + diretorio);
-            file.mkdirs();
 
-        } catch (Exception ex) {
-            System.out.println("Erro no upload do arquivo" + ex);
+    private File criarDiretorio(String path) {
+        File filePath = new File(path);
+        if (!filePath.exists()) {
+            System.out.println("criando diretorio ...");
+            System.out.println(filePath.mkdirs());
+            
         }
+        return filePath;
     }
-    * 
-    * 
-    * public void gravar(){
-        try {
-            
-            FileOutputStream fos;
-            fos = new FileOutputStream(this.caminho);
-            fos.write(this.arquivo);
-            fos.close();
-            
-        } catch (Exception ex) {
-            Logger.getLogger(UploadArquivo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
 }

@@ -10,7 +10,6 @@ import invio.rn.PeriodicoRN;
 import invio.util.UploadArquivo;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -185,16 +184,16 @@ public class CurriculoBean {
         InputStream stream = null;
         try {
             stream = file.getInputstream();
-            
+
             String tipo = file.getContentType();
             if (tipo.equals("application/pdf")) {
                 tipo = "pdf";
-            }else if (tipo.equals("application/jpg")){
+            } else if (tipo.equals("application/jpg")) {
                 tipo = "jpg";
             }
-            
-            
-            String nomeDoArquivo = this.fileUpload.uploadPeriodico(periodico, tipo, stream);
+
+
+            String nomeDoArquivo = this.fileUpload.uploadPeriodico(curriculo, periodico, tipo, stream);
             this.periodico.setArquivo(nomeDoArquivo);
             periodicoRN.salvar(periodico);
             //Inicializa
@@ -204,12 +203,9 @@ public class CurriculoBean {
         }
 
     }
-    
-    
+
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
-  
-    
     public Livro getLivro() {
         return livro;
     }
@@ -221,6 +217,10 @@ public class CurriculoBean {
     public String salvarLivro() {
         livro.setCurriculoId(curriculo);
         curriculo.getLivroList().add(livro);
+        if (livro.getTitulo() == null || livro.getTitulo().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+            return null;
+        }
         if (livroRN.salvar(livro)) {
             curriculoRN.salvar(curriculo);
             BeanUtil.criarMensagemDeInformacao(
@@ -265,16 +265,16 @@ public class CurriculoBean {
         InputStream stream = null;
         try {
             stream = file.getInputstream();
-            
+
             String tipo = file.getContentType();
             if (tipo.equals("application/pdf")) {
                 tipo = "pdf";
-            }else if (tipo.equals("application/jpg")){
+            } else if (tipo.equals("application/jpg")) {
                 tipo = "jpg";
             }
-            
-            
-            String nomeDoArquivo = this.fileUpload.uploadLivro(livro, tipo, stream);
+
+
+            String nomeDoArquivo = this.fileUpload.uploadLivro(curriculo, livro, tipo, stream);
             this.livro.setArquivo(nomeDoArquivo);
             livroRN.salvar(livro);
             //Inicializa
