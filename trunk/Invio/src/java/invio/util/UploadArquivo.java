@@ -66,13 +66,13 @@ public class UploadArquivo {
     }
 
     public String uploadLivro(Curriculo curriculo, Livro livro, String tipo, InputStream stream) {
-        String nomeDoArquivo = livro.getTitulo() + "_" + livro.getId() + "." + tipo;
+        String nomeDoArquivo = livro.getId() + livro.getTitulo() + "_" + "." + tipo;
         upload(curriculo, ConfiguracaoUtil.TipoProducao.LIVROS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
 
     public String uploadPeriodico(Curriculo curriculo, Periodico periodico, String tipo, InputStream stream) {
-        String nomeDoArquivo = periodico.getTitulo() + "_" + periodico.getId() + "." + tipo;
+        String nomeDoArquivo = periodico.getId() + periodico.getTitulo() + "_" + "." + tipo;
         upload(curriculo, ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }

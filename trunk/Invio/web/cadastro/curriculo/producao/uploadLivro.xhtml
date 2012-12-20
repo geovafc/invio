@@ -10,22 +10,21 @@
         <h:form enctype="multipart/form-data">  
 
             <p:panel header="Comprovação de Livro">
-                
-                 <h:inputHidden 
-                id="ihLivro"
-                value="#{curriculoBean.livro}" 
-                converter="livroConversor"/>
+
+                <h:inputHidden 
+                    id="ihLivro"
+                    value="#{curriculoBean.livro}" 
+                    converter="livroConversor"/>
 
                 <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionLivro}"  
-                              mode="advanced"  
-                              update="messages" label="Carregar Arquivos" 
-                              auto="true"  
-                              sizeLimit="10000000"   
+                              cancelLabel="Cancelar" label="Escolher" mode="advanced"   
+                              update="messages"  
+                              sizeLimit="100000"   
                               allowTypes="/(\.|\/)(jpe?g|pdf)$/"/>  
 
                 <p:growl id="messages" showDetail="true"/>  
 
-            </p:panel>
+        </p:panel>
 
         </h:form>  
 

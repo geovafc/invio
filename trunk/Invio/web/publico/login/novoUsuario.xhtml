@@ -30,7 +30,7 @@
                         <h:outputText value="Nome: *"/>
                         <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
 
-                        
+
                         <h:outputText value="CPF: *"/>
                         <p:inputMask required="true" id="cpf" 
                                      value="#{usuarioBean.curriculo.cpf}" mask="999.999.999-99"/>
@@ -46,7 +46,9 @@
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
                         <h:outputText value="Senha: *" />  
-                        <p:password id="senha2" value="#{usuarioBean.login.senha}" /> 
+                        <p:password id="feedback" value="#{usuarioBean.login.senha}" 
+                                    weakLabel="Fraca" strongLabel="Forte" goodLabel="Bom" 
+                                    promptLabel="Entre com a senha" feedback="true" /> 
 
                         <p:commandButton 
                             ajax="false" value="Enviar" 

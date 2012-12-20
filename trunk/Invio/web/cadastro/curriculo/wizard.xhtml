@@ -43,7 +43,7 @@
                                 <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
                             </p:selectOneMenu>
                             <p:message id="erroGenero" for="genero"/>
-                            
+
                             <h:outputText value="CPF: *" />  
                             <p:inputMask id="cpf" required="true" label="Cpf"  
                                          value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
@@ -67,7 +67,7 @@
                             <p:message id="erroCurso" for="curso"/>
 
                         </h:panelGrid> 
-                    </p:panel>  
+                    </p:panel>                      
                 </p:tab>  
 
                 <p:tab id="address" title="Endereço">  
@@ -233,6 +233,7 @@
                         <p:commandButton value="Confimar" ajax="false" update="form"   
                                          actionListener="#{curriculoBean.salvarCurriculo()}" 
                                          action="listar.xhtml"/>  
+
                     </p:panel>  
                 </p:tab>
 
