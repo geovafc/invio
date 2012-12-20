@@ -7,7 +7,6 @@ package invio.util;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Periodico;
-import invio.util.ConfiguracaoUtil.TipoProducao;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
