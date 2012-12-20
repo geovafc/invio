@@ -170,9 +170,9 @@ public class CurriculoBean {
     public String excluirPeriodico() {
         System.out.println("Periodico: " + periodico);
         if (periodicoRN.remover(periodico)) {
-            BeanUtil.criarMensagemDeInformacao("Peridico excluído", "Periodico: " + periodico.getTitulo());
+            BeanUtil.criarMensagemDeInformacao("Periódico excluído", "Periódico: " + periodico.getTitulo());
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao excluir Periodico", "Periodico: " + periodico.getTitulo());
+            BeanUtil.criarMensagemDeErro("Erro ao excluir Periódico", "Periódico: " + periodico.getTitulo());
         }
 
         periodico = new Periodico();
@@ -184,7 +184,6 @@ public class CurriculoBean {
         InputStream stream = null;
         try {
             stream = file.getInputstream();
-
             String tipo = file.getContentType();
             if (tipo.equals("application/pdf")) {
                 tipo = "pdf";
@@ -201,7 +200,6 @@ public class CurriculoBean {
             this.fileUpload = new UploadArquivo();
         } catch (IOException ex) {
         }
-
     }
 
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
@@ -265,7 +263,6 @@ public class CurriculoBean {
         InputStream stream = null;
         try {
             stream = file.getInputstream();
-
             String tipo = file.getContentType();
             if (tipo.equals("application/pdf")) {
                 tipo = "pdf";
