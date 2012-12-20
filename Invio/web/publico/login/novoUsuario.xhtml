@@ -19,7 +19,7 @@
                     <br/>
                     <br/>
                     <h:panelGrid columns="2">
-
+                        
                         <h:outputText value="Perfil Acadêmico: *" />
                         <p:selectOneMenu required="true" id="perfilAcademico" value="#{usuarioBean.login.perfil}">  
                             <f:selectItem itemLabel="Selecione" itemValue="" />  
@@ -45,10 +45,14 @@
                         <h:outputText value="E-mail: *"/>
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
-                        <h:outputText value="Senha: *" />  
-                        <p:password id="feedback" value="#{usuarioBean.login.senha}" 
+                        <h:outputLabel for="senha1" value="Escolha uma senha: *" />  
+                        <p:password id="senha1" value="#{usuarioBean.login.senha}" match="pwd2" 
                                     weakLabel="Fraca" strongLabel="Forte" goodLabel="Bom" 
-                                    promptLabel="Entre com a senha" feedback="true" /> 
+                                    promptLabel="Entre com a senha" feedback="true" 
+                                    label="Senha 1" required="true"/>  
+
+                        <h:outputLabel for="senha2" value="Digite senha novamente: *" />  
+                        <p:password id="senha2" value="#{usuarioBean.login.senha}" label="Senha 2" required="true"/> 
 
                         <p:commandButton 
                             ajax="false" value="Enviar" 
