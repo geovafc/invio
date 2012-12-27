@@ -36,7 +36,7 @@
                         <p:inputMask id="anoPublicacao" required="false"  mask="9999" 
                                      value="#{curriculoBean.livro.ano}" />
 
-                        <h:outputLabel value="Capítulo : *" />  
+                        <h:outputLabel value="Capítulo : " />  
                         <p:inputText id="Capitulo" required="false"   
                                      value="#{curriculoBean.livro.capitulo}" />
 
@@ -88,7 +88,7 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    <p:column headerText="Título"
+                    <p:column headerText="Capítulo"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
@@ -116,20 +116,6 @@
                             <f:facet name="input">  
                                 <p:inputMask mask="9999" value="#{livro.ano}" style="width: 90%">
                                 </p:inputMask>
-                            </f:facet> 
-                        </p:cellEditor> 
-                    </p:column>
-
-                    <p:column headerText="Capítulo"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{livro.capitulo}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{livro.capitulo}" style="width: 90%"/>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>

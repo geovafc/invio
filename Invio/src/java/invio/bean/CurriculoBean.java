@@ -138,18 +138,31 @@ public class CurriculoBean {
     }
 
     public String salvarPeriodico() {
-        periodico.setCurriculoId(curriculo);
-        curriculo.getPeriodicoList().add(periodico);
-        if (periodicoRN.salvar(periodico)) {
-            curriculoRN.salvar(curriculo);
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
+
+        if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");
+            return null;
+        } else if (periodico.getAutor() == null || periodico.getAutor().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Autor.");
+            return null;
+        } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Ano Publicação.");
+            return null;
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
+
+            periodico.setCurriculoId(curriculo);
+            curriculo.getPeriodicoList().add(periodico);
+            if (periodicoRN.salvar(periodico)) {
+                curriculoRN.salvar(curriculo);
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
+            }
+
         }
         periodico = new Periodico();
-
         return null;
     }
 
@@ -213,20 +226,32 @@ public class CurriculoBean {
     }
 
     public String salvarLivro() {
-        livro.setCurriculoId(curriculo);
-        curriculo.getLivroList().add(livro);
+
         if (livro.getTitulo() == null || livro.getTitulo().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Título.");
             return null;
-        }
-        if (livroRN.salvar(livro)) {
-            curriculoRN.salvar(curriculo);
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
+        } else if (livro.getAutor() == null || livro.getAutor().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Autor.");
+            return null;
+        } else if (livro.getAno() == null || livro.getAno().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Ano Publicação.");
+            return null;
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+
+            livro.setCurriculoId(curriculo);
+            curriculo.getLivroList().add(livro);
+
+            if (livroRN.salvar(livro)) {
+                curriculoRN.salvar(curriculo);
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+            }
+
         }
+
         livro = new Livro();
 
         return null;
