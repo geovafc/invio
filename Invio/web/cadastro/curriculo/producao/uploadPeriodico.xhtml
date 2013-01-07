@@ -12,9 +12,10 @@
             <p:panel header="Comprovação de Periódico">
 
                 <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionPeriodico}"  
-                              cancelLabel="Cancelar" label="Escolher" mode="advanced"   
-                              update="messages"  
-                              sizeLimit="100000"   
+                              mode="advanced"  
+                              update="messages" label="Carregar Arquivo" 
+                              auto="true"  
+                              sizeLimit="10000000"   
                               allowTypes="/(\.|\/)(jpe?g|pdf)$/"/>  
 
                 <p:growl id="messages" showDetail="true"/>  
