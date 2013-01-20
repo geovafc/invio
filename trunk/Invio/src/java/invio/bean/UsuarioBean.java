@@ -117,9 +117,9 @@ public class UsuarioBean {
         }
 
         if (entrar == true) {
-            if (login.getCodigoConfimacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
+            if (login.getCodigoConfirmacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
                 pagina = "/publico/login/telaConfirmacao.xhtml";
-            } else if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())) {
+            } else if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
                 pagina = "/publico/indexHome.xhtml";
             } 
         }
@@ -149,7 +149,7 @@ public class UsuarioBean {
         if (salvou) {
 
             login.setCurriculoId(curriculo);
-            login.setCodigoConfimacaoTemp("");
+            login.setCodigoConfirmacaoTemp("");
             login.setCodigoConfirmacao("123");
             login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
             loginRN.salvar(login);
@@ -223,9 +223,9 @@ public class UsuarioBean {
 
     public String okCodigo() {
 
-        if (login.getCodigoConfimacaoTemp().equals(login.getCodigoConfirmacao())) {
+        if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
 
-            login.setCodigoConfimacaoTemp(login.getCodigoConfirmacao());
+            login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
 
             loginRN.salvar(login);
           

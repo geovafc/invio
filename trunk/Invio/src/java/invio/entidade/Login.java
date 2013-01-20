@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findById", query = "SELECT l FROM Login l WHERE l.id = :id"),
     @NamedQuery(name = "Login.findBySenha", query = "SELECT l FROM Login l WHERE l.senha = :senha"),
     @NamedQuery(name = "Login.findByCodigoConfirmacao", query = "SELECT l FROM Login l WHERE l.codigoConfirmacao = :codigoConfirmacao"),
-    @NamedQuery(name = "Login.findByCodigoConfimacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfimacaoTemp = :codigoConfimacaoTemp"),
+    @NamedQuery(name = "Login.findByCodigoConfirmacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfirmacaoTemp = :codigoConfirmacaoTemp"),
     @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao"),
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
     @NamedQuery(name = "Login.findByPerfil", query = "SELECT l FROM Login l WHERE l.perfil = :perfil")})
@@ -49,8 +49,8 @@ public class Login implements Serializable {
     private String senha;
     @Column(name = "codigoConfirmacao")
     private String codigoConfirmacao;
-    @Column(name = "codigoConfimacaoTemp")
-    private String codigoConfimacaoTemp;
+    @Column(name = "codigoConfirmacaoTemp")
+    private String codigoConfirmacaoTemp;
     @Column(name = "dtCriacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtCriacao;
@@ -102,12 +102,12 @@ public class Login implements Serializable {
         this.codigoConfirmacao = codigoConfirmacao;
     }
 
-    public String getCodigoConfimacaoTemp() {
-        return codigoConfimacaoTemp;
+    public String getCodigoConfirmacaoTemp() {
+        return codigoConfirmacaoTemp;
     }
 
-    public void setCodigoConfimacaoTemp(String codigoConfimacaoTemp) {
-        this.codigoConfimacaoTemp = codigoConfimacaoTemp;
+    public void setCodigoConfirmacaoTemp(String codigoConfirmacaoTemp) {
+        this.codigoConfirmacaoTemp = codigoConfirmacaoTemp;
     }
 
     public Date getDtCriacao() {
