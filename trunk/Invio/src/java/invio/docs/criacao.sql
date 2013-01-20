@@ -108,7 +108,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `senha` VARCHAR(45) NOT NULL ,
   `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
-  `codigoConfimacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
+  `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
   `dtCriacao` DATETIME NULL DEFAULT NULL ,
   `email` VARCHAR(200) NOT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
