@@ -49,10 +49,12 @@
                         <p:password id="pwd1" value="#{usuarioBean.login.senha}" match="pwd2" 
                                     weakLabel="Fraca" strongLabel="Forte" goodLabel="Bom" 
                                     promptLabel="Entre com a senha" feedback="true" 
-                                    label="Senha 1" required="true"/>  
+                                    label="Senhas não preenchida ou diferentes." required="true"
+                                    requiredMessage="Campos de Senhas não preenchidas ou incorretas."/>  
 
                         <h:outputLabel for="senha2" value="Digite senha novamente: *" />  
-                        <p:password id="pwd2" value="#{usuarioBean.login.senha}" label="Senha 2" required="true"/> 
+                        <p:password id="pwd2" value="#{usuarioBean.login.senha}" label="Senhas não preenchida ou diferentes." 
+                                    requiredMessage="" required="true" /> 
 
                         <p:commandButton 
                             ajax="false" value="Enviar" 
@@ -72,8 +74,6 @@
                 <p:commandButton 
                     ajax="false" value="Cancelar" action="loginInicio.xhtml"/>
             </div>
-
-
         </h:form>
 
     </ui:define>
