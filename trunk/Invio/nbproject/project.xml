@@ -35,19 +35,19 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.Commons-Loggin 1.1.classpath}</file>
+                    <file>${libs.Commons-Loggin_1.1.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.Commons-io 2.2.classpath}</file>
+                    <file>${libs.Commons-Fileupload_1.2.2.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.Commons-Math 1.0.classpath}</file>
+                    <file>${libs.Commons-Math_1.0.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.Commons-Fileupload 1.2.2.classpath}</file>
+                    <file>${libs.Commons-io_2.2.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
