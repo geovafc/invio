@@ -10,11 +10,8 @@ import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.rn.CurriculoRN;
 import invio.rn.LoginRN;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 

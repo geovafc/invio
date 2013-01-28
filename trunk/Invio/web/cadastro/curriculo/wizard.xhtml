@@ -7,6 +7,16 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <h:form>
+            <p:panel style="border-color: transparent; color: transparent; background: transparent">
+            <div align="left">
+
+                <p:commandButton 
+                    ajax="false" value="Cancelar" action="listar.xhtml"/>
+            </div>
+                
+            </p:panel>
+        </h:form>
 
         <h:form>
 
@@ -240,6 +250,7 @@
             </p:wizard>
 
         </h:form>
+
 
     </ui:define>
 

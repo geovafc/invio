@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package invio.entidade;
 
 import java.io.Serializable;
@@ -23,10 +19,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author Junior
- */
 @Entity
 @Table(name = "programa")
 @XmlRootElement
