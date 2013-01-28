@@ -8,6 +8,13 @@
     <ui:define name="content">
 
             <p:commandButton value="Voltar" action="periodicos.xhtml" />
+            
+            <h:inputHidden 
+                id="ihComprovacao"
+                value="#{curriculoBean.curriculo.id}" />
+         <h:inputHidden 
+                id="ihPeriodico"
+                value="#{curriculoBean.periodico.id}"/>
 
         <h:form enctype="multipart/form-data">  
 
