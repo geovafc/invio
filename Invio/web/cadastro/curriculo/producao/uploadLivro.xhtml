@@ -9,6 +9,13 @@
         
         <p:commandButton value="Voltar" action="livros.xhtml" />
         
+        <h:inputHidden 
+                id="ihComprovacao"
+                value="#{curriculoBean.curriculo.id}"/>
+         <h:inputHidden 
+                id="ihPeriodico"
+                value="#{curriculoBean.livro.id}" />
+        
         <h:form enctype="multipart/form-data">  
 
             <p:panel header="Comprovação de Livro">
