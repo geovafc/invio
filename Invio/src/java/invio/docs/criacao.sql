@@ -131,7 +131,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE  TABLE IF NOT EXISTS `invio`.`programa_area` (
   `programa` INT(11) NOT NULL ,
   `area` INT(11) NOT NULL ,
-  PRIMARY KEY (`programa`, `area`) ,
+  PRIMARY KEY (`area`, `programa`) ,
   INDEX `fk_Programa_has_area_area1` (`area` ASC) ,
   INDEX `fk_Programa_has_area_Programa1` (`programa` ASC) ,
   CONSTRAINT `fk_Programa_has_area_Programa1`

@@ -97,18 +97,14 @@ public class ProgramaBean {
     public SelectItem[] getInstituicoes() {
         return programaRN.getInstituicoes();
     }
-    
-    
     // CONTROLE DE AREA APARTIR DESSA LINHA
     // CONTROLE DE AREA APARTIR DESSA LINHA
-    
-    
     private DualListModel<Area> itens2;
     private List<Area> selecionadas;
     private ComparadorArea comparadorArea = new ComparadorArea();
 
     public DualListModel<Area> getItensAreas() {
-   
+
         selecionadas = programa.getAreaList();
 
         List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
@@ -117,7 +113,7 @@ public class ProgramaBean {
 
         if (selecionadas != null) {
             itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-        } else if (selecionadas == null){
+        } else if (selecionadas == null) {
             selecionadas = new ArrayList<Area>();
             itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
         }
@@ -131,20 +127,14 @@ public class ProgramaBean {
 
     public String salvarAreasPrograma() {
         List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
+
+        selecionadas = areasPrograma;
         
-        if (selecionadas.size()>0) {
-        areasPrograma.removeAll(selecionadas);    
-        }
-        
-        for (Area area : areasPrograma) {
-//            area.getProgramaList().add(programa);
-//            areaRN.salvar(area);
-            
-            //OBS: SEMPRE VERIFICAR SE ESTÁ SENDO ESTANCIADO A LISTA: programa.getAreaList()
-            //NA ENTIDADE PROGRAMA.
-            programa.getAreaList().add(area);
-            
-        }
+
+        //OBS: SEMPRE VERIFICAR SE ESTÁ SENDO ESTANCIADO A LISTA: programa.getAreaList()
+        //NA ENTIDADE PROGRAMA.
+
+        programa.setAreaList(selecionadas);
         programaRN.salvar(programa);
 
         return "/cadastro/programa/listar.xhtml";
