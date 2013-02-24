@@ -36,13 +36,7 @@ public class JavaMailRN {
         Map<String, String> map = new HashMap<String, String>();
         map.put(login.getEmail(), login.getCurriculoId().getNome());
         ajm.setToMailsUsers(map);
-//seta quatos anexos desejar
-        
-        /* ANEXAR ARQUIVOS
-        List<String> files = new ArrayList<String>();
-        files.add("C:\\images\\invio.png");
-        ajm.setFileMails(files);
-        */
+
         
         try {
             new ConfiguracaoJavaMail().senderMail(ajm);
