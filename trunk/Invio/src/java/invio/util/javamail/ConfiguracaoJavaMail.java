@@ -7,8 +7,6 @@ package invio.util.javamail;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -70,26 +68,9 @@ public class ConfiguracaoJavaMail {
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(mail.getBodyMail(), mail.getTypeTextMail());
 
-
-        // Monta a mensagem SMTP inserindo o conteudo, texto e anexos
+        // Monta a mensagem SMTP inserindo o conteudo, texto
         Multipart mps = new MimeMultipart();
 
-         /*
-          * ANEXAR ARQUIVOS
-         
-        for (int index = 0; index < mail.getFileMails().size(); index++) {
-// Cria um novo objeto para cada arquivo, e anexa o arquivo
-            MimeBodyPart attachFilePart = new MimeBodyPart();
-            FileDataSource fds = new FileDataSource(
-                    mail.getFileMails().get(index));
-            attachFilePart.setDataHandler(new DataHandler(fds));
-            attachFilePart.setFileName(fds.getName());
-//adiciona os anexos da mensagem
-            mps.addBodyPart(attachFilePart, index);
-        }
-        *
-        */
-        
 //adiciona o corpo texto da mensagem
         mps.addBodyPart(textPart);
 //adiciona a mensagem o conteúdo texto e anexo
