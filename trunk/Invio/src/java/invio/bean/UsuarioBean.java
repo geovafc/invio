@@ -4,14 +4,15 @@
  */
 package invio.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.rn.CurriculoRN;
+import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -25,10 +26,12 @@ public class UsuarioBean {
 
     LoginRN loginRN = new LoginRN();
     CurriculoRN curriculoRN = new CurriculoRN();
+    JavaMailRN javaMailRN = new JavaMailRN();
     List<Login> logins;
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
-
+    private String codigoConfirmacao = "EJR8T31W"; 
+            
     public UsuarioBean() {
     }
 
@@ -114,7 +117,7 @@ public class UsuarioBean {
         }
 
         if (entrar == true) {
-            if (login.getCodigoConfirmacaoTemp().equals("") && login.getCodigoConfirmacao().equals("123")) {
+            if (login.getCodigoConfirmacaoTemp().equals("") && login.getCodigoConfirmacao().equals(codigoConfirmacao)) {
                 pagina = "/publico/login/telaConfirmacao.xhtml";
             } else if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
                 pagina = "/publico/indexHome.xhtml";
@@ -123,6 +126,7 @@ public class UsuarioBean {
 
         return pagina;
     }
+    
 
     public void configurarSalvalCurricoLogin() {
         curriculo.setBairro("");
@@ -147,16 +151,22 @@ public class UsuarioBean {
 
             login.setCurriculoId(curriculo);
             login.setCodigoConfirmacaoTemp("");
-            login.setCodigoConfirmacao("123");
+            login.setCodigoConfirmacao(codigoConfirmacao);
             login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
-            loginRN.salvar(login);
-
-
+            
+            if (loginRN.salvar(login)) {
+            
+                javaMailRN.configurarEnviarEmail(login);
+                
             pagina2 = "/publico/login/loginInicio.xhtml";
             //login = null;
             BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                     "Quando for realizado o login será solicitado o código.");
             configurarLimparSessao();
+            
+            }
+            
+
         }
     }
     ArrayList<String> tiposPerfil;
