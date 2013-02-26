@@ -30,8 +30,8 @@ public class UsuarioBean {
     List<Login> logins;
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
-    private String codigoConfirmacao = "EJR8T31W"; 
-            
+    private String codigoConfirmacao = "EJR8T31W";
+
     public UsuarioBean() {
     }
 
@@ -121,12 +121,69 @@ public class UsuarioBean {
                 pagina = "/publico/login/telaConfirmacao.xhtml";
             } else if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
                 pagina = "/publico/indexHome.xhtml";
-            } 
+            }
         }
 
         return pagina;
     }
+    String cpfLogin = "";
+    String cpfLoginTemp = "";
+
+    public String getCpfLogin() {
+        return cpfLogin;
+    }
+
+    public void setCpfLogin(String cpfLogin) {
+        this.cpfLogin = cpfLogin;
+    }
+
+    public String getCpfLoginTemp() {
+        return cpfLoginTemp;
+    }
+
+    public void setCpfLoginTemp(String cpfLoginTemp) {
+        this.cpfLoginTemp = cpfLoginTemp;
+    }
     
+
+    public String recuperarSenha() {
+        
+        
+        logins = loginRN.obterTodos();
+        boolean loginEncontrado = false;
+        String pagina = "";
+        setCpfLoginTemp(getCpfLoginTemp());
+        for (Login loginTemp : logins) {
+
+            if (loginTemp.getEmail().equals(login.getEmail())) {
+
+                setCpfLogin(loginTemp.getCurriculoId().getCpf());
+                loginEncontrado = true;
+
+                if (loginEncontrado == true) {
+
+                    if (getCpfLoginTemp().equals(getCpfLogin())) {
+                        
+                        login=loginTemp;
+                        javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha", BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
+                        pagina = "/publico/login/loginInicio.xhtml";
+                        BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
+                        configurarLimparSessao();
+                    } else {
+                        BeanUtil.criarMensagemDeAviso("O CPF inserido não foi encontrado, ",
+                                "ele pode está incorreto.");
+                    }
+                }
+            }
+        }
+        if (loginEncontrado != true) {
+            pagina = "/publico/login/recuperarSenha.xhtml";
+            BeanUtil.criarMensagemDeAviso("O E-mail inserido não foi encontrado, ",
+                    "ele pode está incorreto.");
+        }
+
+        return pagina;
+    }
 
     public void configurarSalvalCurricoLogin() {
         curriculo.setBairro("");
@@ -153,19 +210,19 @@ public class UsuarioBean {
             login.setCodigoConfirmacaoTemp("");
             login.setCodigoConfirmacao(codigoConfirmacao);
             login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
-            
+
             if (loginRN.salvar(login)) {
-            
-                javaMailRN.configurarEnviarEmail(login);
-                
-            pagina2 = "/publico/login/loginInicio.xhtml";
-            //login = null;
-            BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                    "Quando for realizado o login será solicitado o código.");
-            configurarLimparSessao();
-            
+
+                javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
+
+                pagina2 = "/publico/login/loginInicio.xhtml";
+                //login = null;
+                BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
+                        "Quando for realizado o login será solicitado o código.");
+                configurarLimparSessao();
+
             }
-            
+
 
         }
     }
@@ -235,16 +292,16 @@ public class UsuarioBean {
             login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
 
             loginRN.salvar(login);
-          
+
             pagina3 = "/publico/indexHome.xhtml";
-        
+
 
         } else {
             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
             pagina3 = "/publico/login/telaConfirmacao.xhtml";
         }
 
-        
+
 
 
         return pagina3;
