@@ -165,7 +165,8 @@ public class UsuarioBean {
                     if (getCpfLoginTemp().equals(getCpfLogin())) {
                         
                         login=loginTemp;
-                        javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha", BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
+                        javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
+                                BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
                         pagina = "/publico/login/loginInicio.xhtml";
                         BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
                         configurarLimparSessao();
