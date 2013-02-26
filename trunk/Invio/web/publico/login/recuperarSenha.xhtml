@@ -8,7 +8,7 @@
     <ui:define name="content">
 
         <h:form id="formrecuperarSenha">
-            <p:messages/>
+            <p:messages showDetail="true" showSummary="true"/>
 
             <div align="center">
                 <p:panel>
@@ -18,14 +18,16 @@
                     <h:panelGrid id="gridrecuperarSenha"  style="width: 32%" columns="2">
 
                         <h:outputText  id="loginLabel" value="E-mail:"/>
-                        <p:inputText required="true" id="email"/>
+                        <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
 
                         <h:outputText id="cpfLabel" value="CPF:"/>
                         <p:inputMask id="cpf" required="true" label="Cpf"
-                                     value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99"/>
+                                     value="#{usuarioBean.cpfLoginTemp}" mask="999.999.999-99"/>
 
-                        <p:commandButton value="Enviar"/>
+                        <p:commandButton value="Enviar" 
+                                         ajax="false" 
+                                         action="#{usuarioBean.recuperarSenha()}"/>
                         <h:outputText value=""/>
                     </h:panelGrid>
 
