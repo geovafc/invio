@@ -211,7 +211,7 @@ public class CurriculoBean {
             //Inicializa
             this.periodico = new Periodico();
             this.fileUpload = new UploadArquivo();
-             BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: "+nomeDoArquivo);
+            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
         } catch (IOException ex) {
         }
     }
@@ -303,9 +303,22 @@ public class CurriculoBean {
             //Inicializa
             this.livro = new Livro();
             this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: "+nomeDoArquivo);
+            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
         } catch (IOException ex) {
         }
 
     }
+
+    public String voltarListaPeriodico() {
+
+        periodico = new Periodico();
+        return "/cadastro/curriculo/producao/periodicos.xhtml";
+    }
+    
+    public String voltarListaLivro() {
+
+        livro = new Livro();
+        return "/cadastro/curriculo/producao/livros.xhtml";
+    }
+    
 }
