@@ -32,6 +32,7 @@ public class JavaMailRN {
     public boolean configurarEnviarEmail(Login login,String tituloEmail, String textoEmail) {
         AtributosJavaMail ajm = new AtributosJavaMail();
 //configuracoes de envio
+        
         ajm.setSmtpHostMail("smtp.gmail.com");
         ajm.setSmtpPortMail("587");
         ajm.setSmtpAuth("true");
@@ -56,6 +57,7 @@ public class JavaMailRN {
             setFalhaAoEnviarEmail(true);
             e.printStackTrace();
         }
+        System.out.println("*Falha ao envia e-mail:: "+falhaAoEnviarEmail);
         return falhaAoEnviarEmail;
     }
 

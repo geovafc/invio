@@ -164,11 +164,22 @@ public class UsuarioBean {
                     if (getCpfLoginTemp().equals(getCpfLogin())) {
 
                         login = loginTemp;
-                        javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
+                        boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
                                 BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
-                        pagina = "/publico/login/loginInicio.xhtml";
-                        BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
-                        configurarLimparSessao();
+
+
+                        if (falhaAoEnviarEmail == true) {
+                            pagina = "/publico/login/loginInicio.xhtml";
+                            BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                                    "Não foi possível enviar o e-mail de recuperação de senha, tente mais tarde.");
+                            javaMailRN = new JavaMailRN();
+                        } else {
+                            pagina = "/publico/login/loginInicio.xhtml";
+                            BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
+                            configurarLimparSessao();
+
+                        }
+
                     } else {
                         BeanUtil.criarMensagemDeAviso("O CPF inserido não foi encontrado, ",
                                 "ele pode está incorreto.");
@@ -216,22 +227,24 @@ public class UsuarioBean {
                 boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
                 if (falhaAoEnviar == true) {
-                loginRN.remover(login);
-                curriculoRN.remover(curriculo);
-                pagina2 = "/publico/login/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ", 
-                        "Não foi possível concluir o cadastro, tente mais tarde.");
-                }else{
-                
-                pagina2 = "/publico/login/loginInicio.xhtml";
-                //login = null;
-                BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                        "Quando for realizado o login será solicitado o código.");
-                configurarLimparSessao();
-                    
+                    loginRN.remover(login);
+                    curriculoRN.remover(curriculo);
+                    pagina2 = "/publico/login/loginInicio.xhtml";
+                    BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                            "Não foi possível concluir o cadastro, tente mais tarde.");
+                    configurarLimparSessao();
+                    javaMailRN = new JavaMailRN();
+                } else {
+
+                    pagina2 = "/publico/login/loginInicio.xhtml";
+                    //login = null;
+                    BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
+                            "Quando for realizado o login será solicitado o código.");
+                    configurarLimparSessao();
+
                 }
 
-                
+
 
             }
 
