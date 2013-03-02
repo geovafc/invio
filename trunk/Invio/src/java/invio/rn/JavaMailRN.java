@@ -17,8 +17,19 @@ import javax.mail.MessagingException;
 
 
 public class JavaMailRN {
+    
+    private boolean falhaAoEnviarEmail = false;
 
-    public void configurarEnviarEmail(Login login,String tituloEmail, String textoEmail) {
+    public boolean isFalhaAoEnviarEmail() {
+        return falhaAoEnviarEmail;
+    }
+
+    public void setFalhaAoEnviarEmail(boolean falhaAoEnviarEmail) {
+        this.falhaAoEnviarEmail = falhaAoEnviarEmail;
+    }
+    
+    
+    public boolean configurarEnviarEmail(Login login,String tituloEmail, String textoEmail) {
         AtributosJavaMail ajm = new AtributosJavaMail();
 //configuracoes de envio
         ajm.setSmtpHostMail("smtp.gmail.com");
@@ -36,15 +47,16 @@ public class JavaMailRN {
         Map<String, String> map = new HashMap<String, String>();
         map.put(login.getEmail(), login.getCurriculoId().getNome());
         ajm.setToMailsUsers(map);
-
         
         try {
             new ConfiguracaoJavaMail().senderMail(ajm);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (MessagingException e) {
+            setFalhaAoEnviarEmail(true);
             e.printStackTrace();
         }
+        return falhaAoEnviarEmail;
     }
 
 }
