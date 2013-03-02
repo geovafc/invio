@@ -144,11 +144,10 @@ public class UsuarioBean {
     public void setCpfLoginTemp(String cpfLoginTemp) {
         this.cpfLoginTemp = cpfLoginTemp;
     }
-    
 
     public String recuperarSenha() {
-        
-        
+
+
         logins = loginRN.obterTodos();
         boolean loginEncontrado = false;
         String pagina = "";
@@ -163,8 +162,8 @@ public class UsuarioBean {
                 if (loginEncontrado == true) {
 
                     if (getCpfLoginTemp().equals(getCpfLogin())) {
-                        
-                        login=loginTemp;
+
+                        login = loginTemp;
                         javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
                                 BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
                         pagina = "/publico/login/loginInicio.xhtml";
@@ -214,13 +213,25 @@ public class UsuarioBean {
 
             if (loginRN.salvar(login)) {
 
-                javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
+                boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
+                if (falhaAoEnviar == true) {
+                loginRN.remover(login);
+                curriculoRN.remover(curriculo);
+                pagina2 = "/publico/login/loginInicio.xhtml";
+                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ", 
+                        "Não foi possível concluir o cadastro, tente mais tarde.");
+                }else{
+                
                 pagina2 = "/publico/login/loginInicio.xhtml";
                 //login = null;
                 BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                         "Quando for realizado o login será solicitado o código.");
                 configurarLimparSessao();
+                    
+                }
+
+                
 
             }
 
