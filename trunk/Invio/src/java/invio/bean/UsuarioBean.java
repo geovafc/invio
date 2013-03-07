@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package invio.bean;
 
 import invio.entidade.Curriculo;
@@ -16,10 +12,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Junior
- */
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
@@ -31,7 +23,7 @@ public class UsuarioBean {
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
-
+    
     public UsuarioBean() {
     }
 
@@ -52,7 +44,7 @@ public class UsuarioBean {
     }
 
     public String irRecuperarSenha() {
-
+        
         return "/publico/login/recuperarSenha.xhtml";
     }
 
