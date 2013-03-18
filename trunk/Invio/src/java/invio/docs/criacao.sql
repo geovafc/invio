@@ -211,6 +211,20 @@ CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `invio`.`qualis`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `issn` VARCHAR(45) NULL ,
+  `titulo` VARCHAR(350) NULL ,
+  `estrato` VARCHAR(45) NULL ,
+  `areaAvaliacao` VARCHAR(250) NULL ,
+  `status` VARCHAR(60) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
