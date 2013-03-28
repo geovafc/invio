@@ -215,13 +215,12 @@ ENGINE = InnoDB;
 -- Table `invio`.`qualis`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
+  `titulo` VARCHAR(255) NOT NULL ,
+  `areaAvaliacao` VARCHAR(255) NOT NULL ,
   `issn` VARCHAR(45) NULL ,
-  `titulo` VARCHAR(350) NULL ,
   `estrato` VARCHAR(45) NULL ,
-  `areaAvaliacao` VARCHAR(250) NULL ,
   `status` VARCHAR(60) NULL ,
-  PRIMARY KEY (`id`) )
+  PRIMARY KEY (`titulo`, `areaAvaliacao`) )
 ENGINE = InnoDB;
 
 
