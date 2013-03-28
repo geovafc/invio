@@ -5,9 +5,10 @@
 package invio.testesMain;
 
 import invio.entidade.Qualis;
-import invio.rn.PDFBoxRN;
-import invio.rn.PDFRegexRN;
-import invio.rn.QualisRN;
+import invio.entidade.QualisPK;
+import invio.rn.pdf.PDFBoxRN;
+import invio.rn.pdf.PDFRegexRN;
+import invio.rn.pdf.QualisRN;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
@@ -28,13 +29,21 @@ public class TestePDFboxRegex {
 
         QualisRN qualisRN = new QualisRN();
         Qualis qualis = new Qualis();
+        ArrayList<Qualis> osQualis = new ArrayList<Qualis>();
+        
+        QualisPK qualisPK = new QualisPK();
 
         String[] splitConteudoPDF = pdfBoxRn.getConteudoPDF(fileChooser.getSelectedFile().getPath()).split("\n");
-        ArrayList<Qualis> osQualis = new ArrayList<Qualis>();
+        
         for (int i = 0; i < splitConteudoPDF.length; i++) {
-            if (pdfRegexRn.procurarPadroesNaLinha(qualis, splitConteudoPDF[i])) {
+            if (pdfRegexRn.procurarPadroesNaLinha(qualis, qualisPK, splitConteudoPDF[i])) {
+                qualis.setQualisPK(qualisPK);
+                
                 osQualis.add(qualis);
+                
                 qualis = new Qualis();
+                qualisPK = new QualisPK();
+                qualisRN = new QualisRN();
             } else {
                 continue;
             }

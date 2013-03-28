@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package invio.rn;
+package invio.rn.pdf;
 
 import java.io.File;
 import java.io.FileInputStream;
