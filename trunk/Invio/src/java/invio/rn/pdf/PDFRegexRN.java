@@ -97,10 +97,10 @@ public class PDFRegexRN {
         Matcher matcherStatus = patternStatus.matcher(linha);
 
         boolean issnExiste = matcherIssn.find();
-        boolean cessouExiste = matcherCessou.find();
         boolean estratoABExiste = matcherEstratoAB.find();
         boolean estratoCExiste = matcherEstratoC.find();
         boolean statusExiste = matcherStatus.find();
+        boolean cessouExiste = matcherCessou.find();
         
         System.out.println("ISSN :" + issnExiste);
         System.out.println("CESSOU :" + cessouExiste);
