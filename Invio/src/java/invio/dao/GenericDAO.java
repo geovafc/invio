@@ -44,9 +44,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean criar(T o) {
         try {
-            this.iniciarTransacao();
+         //   this.iniciarTransacao();
             em.persist(o);
-            this.concluirTransacao();
+      //      this.concluirTransacao();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,9 +60,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean excluir(T o) {
         try {
-            this.iniciarTransacao();
+           // this.iniciarTransacao();
             em.remove(em.merge(o));
-            this.concluirTransacao();
+           // this.concluirTransacao();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,9 +76,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean alterar(T o) {
         try {
-            this.iniciarTransacao();
+          //  this.iniciarTransacao();
             em.merge(o);
-            this.concluirTransacao();
+          //  this.concluirTransacao();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
