@@ -138,8 +138,6 @@ public class UsuarioBean {
     }
 
     public String recuperarSenha() {
-
-
         logins = loginRN.obterTodos();
         boolean loginEncontrado = false;
         String pagina = "";

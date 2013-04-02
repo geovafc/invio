@@ -17,11 +17,22 @@ public class AreaRN {
     GenericDAO<Area> dao = new GenericDAO<Area>();
 
     public boolean salvar(Area a) {
-        if (a.getId() == null) {
-            return dao.criar(a);
-        } else {
-            return dao.alterar(a);
+
+        boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (a.getId() == null) {
+                if (dao.criar(a)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(a)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Area a) {

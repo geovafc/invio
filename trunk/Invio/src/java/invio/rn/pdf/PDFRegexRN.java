@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
  */
 public class PDFRegexRN {
 
+    //Aqui definimos os padrões que podem ser encontrados dentro do pdf
     Pattern patternIssn = Pattern.compile("(\\d\\d\\d\\d)-(\\d\\d\\d\\w\\s)");
     Pattern patternEstratoAB = Pattern.compile("\\s[A-B][1-5]\\s");
     Pattern patternEstratoC = Pattern.compile("\\sC\\s");
@@ -88,6 +89,7 @@ public class PDFRegexRN {
 
     public boolean procurarPadroesNaLinha(Qualis qualis, QualisPK qualisPK, String linha) {
 
+        //Aqui procuramos na linha os padrões que deifinimos anteriormente.
         Matcher matcherIssn = patternIssn.matcher(linha);
         Matcher matcherCessou = patternCessou.matcher(linha);
         Matcher matcherEstratoAB = patternEstratoAB.matcher(linha);

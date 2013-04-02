@@ -49,16 +49,16 @@ public class RapidoRN {
         Qualis qualis;
         QualisPK qualisPK;
 
-        for (String l : linhas) {
+        for (String linha : linhas) {
             if (!BEGIN) {
-                issnMatcher = patternIssn.matcher(l);
-                estratoABMatcher = patternEstratoAB.matcher(l);
-                estratoCMatcher = patternEstratoC.matcher(l);
+                issnMatcher = patternIssn.matcher(linha);
+                estratoABMatcher = patternEstratoAB.matcher(linha);
+                estratoCMatcher = patternEstratoC.matcher(linha);
                 BEGIN = issnMatcher.find() || estratoABMatcher.find() || estratoCMatcher.find();
             }
             if (BEGIN) {
-                statusMatcher = patternStatus.matcher(l);
-                registro.append(l);
+                statusMatcher = patternStatus.matcher(linha);
+                registro.append(linha); //
                 if (statusMatcher.find()) {
                     BEGIN = false;
                     //TODO Criar um objeto Qualis
