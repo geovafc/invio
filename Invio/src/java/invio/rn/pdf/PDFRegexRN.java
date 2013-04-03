@@ -21,10 +21,12 @@ public class PDFRegexRN {
     Pattern patternEstratoC = Pattern.compile("\\sC\\s");
     Pattern patternStatus = Pattern.compile("\\s(Em )?Atualiza[çd][ão][o]?");
     Pattern patternCessou = Pattern.compile("\\(Cessou\\s");
+    
     int fimTitulo = 0;
     int fimIssn = 0;
     int fimEstrato = 0;
     int inicioStatus = 0;
+    
     boolean padraoIssnExiste = false;
     boolean padraoCessou = false;
     boolean padraoEstratoExixte = false;
