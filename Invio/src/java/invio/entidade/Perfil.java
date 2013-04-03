@@ -5,47 +5,49 @@
 package invio.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Renan
  */
 @Entity
-@Table(name = "unidade")
+@Table(name = "perfil")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Unidade.findAll", query = "SELECT u FROM Unidade u"),
-    @NamedQuery(name = "Unidade.findById", query = "SELECT u FROM Unidade u WHERE u.id = :id"),
-    @NamedQuery(name = "Unidade.findByNome", query = "SELECT u FROM Unidade u WHERE u.nome = :nome")})
-public class Unidade implements Serializable {
+    @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p"),
+    @NamedQuery(name = "Perfil.findById", query = "SELECT p FROM Perfil p WHERE p.id = :id"),
+    @NamedQuery(name = "Perfil.findByDescricao", query = "SELECT p FROM Perfil p WHERE p.descricao = :descricao")})
+public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "nome")
-    private String nome;
-    @JoinColumn(name = "instituicao", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Instituicao instituicao;
+    @Column(name = "descricao")
+    private String descricao;
+    @JoinTable(name = "perfil_login", joinColumns = {
+        @JoinColumn(name = "perfil_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "login_id", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Login> loginList;
 
-    public Unidade() {
+    public Perfil() {
     }
 
-    public Unidade(Integer id) {
+    public Perfil(Integer id) {
         this.id = id;
     }
 
@@ -57,20 +59,21 @@ public class Unidade implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Instituicao getInstituicao() {
-        return instituicao;
+    @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
     }
 
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
 
     @Override
@@ -83,10 +86,10 @@ public class Unidade implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Unidade)) {
+        if (!(object instanceof Perfil)) {
             return false;
         }
-        Unidade other = (Unidade) object;
+        Perfil other = (Perfil) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +98,7 @@ public class Unidade implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Unidade[ id=" + id + " ]";
+        return "invio.entidade.Perfil[ id=" + id + " ]";
     }
     
 }

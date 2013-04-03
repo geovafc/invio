@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Junior
+ * @author Renan
  */
 @Embeddable
 public class QualisPK implements Serializable {
