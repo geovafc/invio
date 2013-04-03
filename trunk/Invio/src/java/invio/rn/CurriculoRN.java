@@ -17,11 +17,21 @@ public class CurriculoRN {
     GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
 
     public boolean salvar(Curriculo c) {
-        if (c.getId() == null) {
-            return dao.criar(c);
-        } else {
-            return dao.alterar(c);
+        boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (c.getId() == null) {
+                if (dao.criar(c)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(c)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Curriculo c) {

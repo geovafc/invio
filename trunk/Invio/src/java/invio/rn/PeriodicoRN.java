@@ -9,11 +9,21 @@ public class PeriodicoRN {
   
 
     public boolean salvar(Periodico periodico) {
-        if (periodico.getId() == null) {
-            return dao.criar(periodico);
-        } else {
-            return dao.alterar(periodico);
+        boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (periodico.getId() == null) {
+                if (dao.criar(periodico)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(periodico)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Periodico periodico) {

@@ -23,11 +23,21 @@ public class ProgramaRN {
     GenericDAO<Area> daoArea = new GenericDAO<Area>();
 
     public boolean salvar(Programa p) {
-        if (p.getId() == null) {
-            return dao.criar(p);
-        } else {
-            return dao.alterar(p);
+       boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (p.getId() == null) {
+                if (dao.criar(p)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(p)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Programa p) {

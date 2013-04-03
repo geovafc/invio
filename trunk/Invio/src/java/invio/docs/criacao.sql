@@ -112,7 +112,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `dtCriacao` DATETIME NULL DEFAULT NULL ,
   `email` VARCHAR(200) NOT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
-  `perfil` VARCHAR(45) NOT NULL ,
+  `ativo` BIT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_login_curriculo1`
@@ -221,6 +221,38 @@ CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
   `estrato` VARCHAR(45) NULL ,
   `status` VARCHAR(60) NULL ,
   PRIMARY KEY (`titulo`, `areaAvaliacao`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `invio`.`perfil`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
+  `id` INT NOT NULL ,
+  `descricao` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `invio`.`perfil_login`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`perfil_login` (
+  `perfil` INT NOT NULL ,
+  `login` INT(11) NOT NULL ,
+  PRIMARY KEY (`perfil`, `login`) ,
+  INDEX `fk_perfil_has_login_login1` (`login` ASC) ,
+  INDEX `fk_perfil_has_login_perfil1` (`perfil` ASC) ,
+  CONSTRAINT `fk_perfil_has_login_perfil1`
+    FOREIGN KEY (`perfil` )
+    REFERENCES `invio`.`perfil` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_perfil_has_login_login1`
+    FOREIGN KEY (`login` )
+    REFERENCES `invio`.`login` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

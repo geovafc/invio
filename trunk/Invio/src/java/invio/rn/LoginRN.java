@@ -17,11 +17,21 @@ public class LoginRN {
     GenericDAO<Login> dao = new GenericDAO<Login>();
 
     public boolean salvar(Login login) {
-        if (login.getId() == null) {
-            return dao.criar(login);
-        } else {
-            return dao.alterar(login);
+        boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (login.getId() == null) {
+                if (dao.criar(login)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(login)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Login login) {

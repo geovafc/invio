@@ -21,11 +21,21 @@ public class UnidadeRN {
    private List<Unidade> unidades;
     
     public boolean salvar(Unidade u) {
-        if (u.getId() == null) {
-            return dao.criar(u);
-        } else {
-            return dao.alterar(u);
+        boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (u.getId() == null) {
+                if (dao.criar(u)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(u)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Unidade u) {

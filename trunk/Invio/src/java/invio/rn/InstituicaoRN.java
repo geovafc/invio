@@ -18,11 +18,21 @@ public class InstituicaoRN {
   
 
     public boolean salvar(Instituicao i) {
-        if (i.getId() == null) {
-            return dao.criar(i);
-        } else {
-            return dao.alterar(i);
+       boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (i.getId() == null) {
+                if (dao.criar(i)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(i)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Instituicao i) {
