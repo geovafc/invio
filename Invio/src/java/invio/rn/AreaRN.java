@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Area;
 import java.util.List;
 
-/**
- *
- * @author Dir de Armas Marinha
- */
 public class AreaRN {
 
     GenericDAO<Area> dao = new GenericDAO<Area>();

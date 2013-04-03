@@ -39,16 +39,17 @@ public class Perfil implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @JoinTable(name = "perfil_login", joinColumns = {
-        @JoinColumn(name = "perfil_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "login_id", referencedColumnName = "id")})
+        @JoinColumn(name = "perfil", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "login", referencedColumnName = "id")})
     @ManyToMany
     private List<Login> loginList;
 
     public Perfil() {
     }
 
-    public Perfil(Integer id) {
+    public Perfil(Integer id, String descricao) {
         this.id = id;
+        this.descricao = descricao;
     }
 
     public Integer getId() {

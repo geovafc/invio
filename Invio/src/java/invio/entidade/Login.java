@@ -39,7 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByCodigoConfirmacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfirmacaoTemp = :codigoConfirmacaoTemp"),
     @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao"),
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
-    @NamedQuery(name = "Login.findByPerfil", query = "SELECT l FROM Login l WHERE l.perfil = :perfil"),
     @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -61,9 +60,6 @@ public class Login implements Serializable {
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @Column(name = "perfil")
-    private String perfil;
     @Column(name = "ativo")
     private Boolean ativo;
     @ManyToMany(mappedBy = "loginList")
@@ -79,11 +75,10 @@ public class Login implements Serializable {
         this.id = id;
     }
 
-    public Login(Integer id, String senha, String email, String perfil) {
+    public Login(Integer id, String senha, String email) {
         this.id = id;
         this.senha = senha;
         this.email = email;
-        this.perfil = perfil;
     }
 
     public Integer getId() {
@@ -132,14 +127,6 @@ public class Login implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
     }
 
     public Boolean getAtivo() {

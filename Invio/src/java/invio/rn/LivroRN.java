@@ -9,11 +9,21 @@ public class LivroRN {
   
 
     public boolean salvar(Livro livro) {
-        if (livro.getId() == null) {
-            return dao.criar(livro);
-        } else {
-            return dao.alterar(livro);
+       boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (livro.getId() == null) {
+                if (dao.criar(livro)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(livro)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
         }
+        return salvou;
     }
 
     public boolean remover(Livro livro) {
