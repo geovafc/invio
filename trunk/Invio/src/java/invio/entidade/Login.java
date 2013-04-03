@@ -6,6 +6,7 @@ package invio.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,10 +22,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author Renan
  */
 @Entity
 @Table(name = "login")
@@ -36,7 +39,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findByCodigoConfirmacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfirmacaoTemp = :codigoConfirmacaoTemp"),
     @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao"),
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
-    @NamedQuery(name = "Login.findByPerfil", query = "SELECT l FROM Login l WHERE l.perfil = :perfil")})
+    @NamedQuery(name = "Login.findByPerfil", query = "SELECT l FROM Login l WHERE l.perfil = :perfil"),
+    @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,6 +64,10 @@ public class Login implements Serializable {
     @Basic(optional = false)
     @Column(name = "perfil")
     private String perfil;
+    @Column(name = "ativo")
+    private Boolean ativo;
+    @ManyToMany(mappedBy = "loginList")
+    private List<Perfil> perfilList;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -132,6 +140,23 @@ public class Login implements Serializable {
 
     public void setPerfil(String perfil) {
         this.perfil = perfil;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    @XmlTransient
+    public List<Perfil> getPerfilList() {
+        return perfilList;
+    }
+
+    public void setPerfilList(List<Perfil> perfilList) {
+        this.perfilList = perfilList;
     }
 
     public Curriculo getCurriculoId() {
