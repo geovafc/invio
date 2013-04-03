@@ -7,36 +7,42 @@
 
     <ui:define name="content">
 
-        <h:form id="Login">
-            <p:messages showDetail="true" showSummary="true"/>
-            <div align="center">
+        <h:form id="Login" >
 
-                <p:panel id="panelLogin">
-                    <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
+            <form action="#{request.contextPath}/j_spring_security_check" method="post">
+                <h:panelGroup rendered="#{!empty param.login_error}">
+                    <span style="color: red">  * Erro ao efetuar o login</span>
                     <br/>
-                    <br/>
-                    <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
+                </h:panelGroup>
 
-                        <h:outputText id="loginLabel" value="E-mail:"/>
-                        <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
+                <p:messages showDetail="true" showSummary="true"/>
+                <div align="center">
 
-                        <h:outputText value="Senha: " />  
-                        <p:password id="senha1" value="#{usuarioBean.login.senha}" /> 
-                        
+                    <p:panel id="panelLogin">
+                        <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
+                        <br/>
+                        <br/>
+                        <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
 
-                    </h:panelGrid>
+                            <h:outputText id="loginLabel" value="E-mail:"/>
+                            <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
-                    <p:panel style ="border-color: transparent; 
-                             color: transparent; background: transparent " >
+                            <h:outputText value="Senha: " />  
+                            <p:password id="senha1" value="#{usuarioBean.login.senha}" /> 
 
-                        <div align="center">
-                            <p:commandButton ajax="false" value="Entrar" action="#{usuarioBean.entrar}"/>
-                        </div>
 
+                        </h:panelGrid>
+
+                        <p:panel style ="border-color: transparent; 
+                                 color: transparent; background: transparent " >
+
+                            <div align="center">
+                                <p:commandButton ajax="false" value="Entrar" action="#{usuarioBean.entrar}"/>
+                            </div>
+                        </p:panel>
                     </p:panel>
-                </p:panel>
-            </div>
-
+                </div>
+            </form>
         </h:form>
         <h:form>
             <div align="center">
@@ -59,10 +65,14 @@
                     <div id="fb-root"></div>
                     <script>
                         // Load the SDK Asynchronously
-                        (function(d){
+                        (function(d) {
                             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-                            if (d.getElementById(id)) {return;}
-                            js = d.createElement('script'); js.id = id; js.async = true;
+                            if (d.getElementById(id)) {
+                                return;
+                            }
+                            js = d.createElement('script');
+                            js.id = id;
+                            js.async = true;
                             js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
                             ref.parentNode.insertBefore(js, ref);
                         }(document));
