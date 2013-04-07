@@ -2,9 +2,11 @@ package invio.bean;
 
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
+import invio.entidade.Perfil;
 import invio.rn.CurriculoRN;
 import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
+import invio.rn.PerfilRN;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -16,10 +18,12 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class UsuarioBean {
 
+    PerfilRN perfilRN = new PerfilRN();
     LoginRN loginRN = new LoginRN();
     CurriculoRN curriculoRN = new CurriculoRN();
     JavaMailRN javaMailRN = new JavaMailRN();
     List<Login> logins;
+    Perfil perfil = new Perfil();
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
@@ -35,6 +39,14 @@ public class UsuarioBean {
         this.curriculo = curriculo;
     }
 
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    
     public Login getLogin() {
         return login;
     }
@@ -315,10 +327,6 @@ public class UsuarioBean {
             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
             pagina3 = "/publico/login/telaConfirmacao.xhtml";
         }
-
-
-
-
         return pagina3;
 
     }

@@ -6,8 +6,12 @@ package invio.rn.pdf;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Qualis;
+import java.sql.SQLException;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
+import org.hibernate.exception.NestableRuntimeException;
+import org.hibernate.util.JDBCExceptionReporter;
 
 /**
  *
@@ -41,34 +45,39 @@ public class QualisRN {
 //                        continue;
 //                    }
 //                } else {
-                if (qualis.getQualisPK()!=null) {
-                    
-                
+                if (qualis.getQualisPK() != null) {
+
+
                     try {
-                    confirmar = dao.alterar(qualis);    
+                        confirmar = dao.alterar(qualis);
                     } catch (Exception e) {
-                        System.out.println("EXCEPTION PEGA"); 
+                        System.out.println("EXCEPTION PEGA");
                         e.printStackTrace();
                         continue;
+                    } catch (Throwable t) {
+                        System.out.println("EXCEPTION PEGA");
+                        t.printStackTrace();
+                        continue;
                     }
-                    }
+
+                }
 //                }
                 if (!confirmar) {
                     continue;
-                } 
-                    i++;
-                    if (i > PARAR) {
-                        if (!dao.concluirTransacao()) {
-                            return registros;
-                        } else {
-                            System.out.println(registros + "Salvos!");
-                            registros += i;
-                        }
-                        if (!dao.iniciarTransacao()) {
-                            return registros;
-                        }
-                        i = 0;
+                }
+                i++;
+                if (i > PARAR) {
+                    if (!dao.concluirTransacao()) {
+                        return registros;
+                    } else {
+                        System.out.println(registros + "Salvos!");
+                        registros += i;
                     }
+                    if (!dao.iniciarTransacao()) {
+                        return registros;
+                    }
+                    i = 0;
+                }
 
             }
             return registros;
