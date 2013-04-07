@@ -30,10 +30,11 @@ public class RapidoRN {
 
         
         Pattern patternIssn = Pattern.compile("(\\d\\d\\d\\d)-(\\d\\d\\d\\w\\s)");
+        Pattern patternIssnErrado = Pattern.compile("ISSN");
         Pattern patternEstratoAB = Pattern.compile("\\s[A-B][1-5]\\s");
         Pattern patternEstratoC = Pattern.compile("\\sC\\s");
         Pattern patternStatus = Pattern.compile("\\s(Em )?Atualiza[çd][ão][o]?");
-        Pattern patternCessou = Pattern.compile("\\(Cessou\\s");
+        Pattern patternCessou = Pattern.compile("Cessou");
 
         Matcher issnMatcher;
         Matcher estratoABMatcher;
@@ -41,9 +42,11 @@ public class RapidoRN {
         Matcher statusMatcher;
 
         Matcher issnMatcherResgistro;
+        Matcher issnErradoMatcherResgistro;
         Matcher estratoABMatcherResgistro;
         Matcher estratoCMatcherResgistro;
         Matcher statusMatcherResgistro;
+        Matcher cessouMatcherResgistro;
 
         int fimIssn = 0;
         int inicioEstrato = 0;
@@ -65,11 +68,15 @@ public class RapidoRN {
         QualisPK qualisPK;
 
         for (String linha : linhas) {
-            if (BEGIN == false) {
+            if (BEGIN == false) { //Sempre iniciará de primeira Begin é falso.
 
+                //Pesquisando os patterns nas LINHAS e adicionando a variavel.
                 issnMatcher = patternIssn.matcher(linha);
+                issnMatcher.find();
                 estratoABMatcher = patternEstratoAB.matcher(linha);
+                estratoABMatcher.find();
                 estratoCMatcher = patternEstratoC.matcher(linha);
+                estratoCMatcher.find();
 
                 //BEGIN = issnMatcher.find() || estratoABMatcher.find() || estratoCMatcher.find();
                 if (issnMatcher.find()) {
@@ -79,62 +86,72 @@ public class RapidoRN {
                 else if (estratoABMatcher.find() || estratoCMatcher.find()) {
                     BEGIN = true;
                 }
-
-
             }
 
             if (BEGIN == true) {
 
+                //A partir daqui já achei ISSN ou estrato e pequiso o padrão final (Status) da minha linha.
                 statusMatcher = patternStatus.matcher(linha);
-                statusExiste = statusMatcher.find();
+                //statusExiste = statusMatcher.find();
                 registro.append(linha);
-                System.out.println("passei aqui, registro:" + registro);
+                System.out.println("passei aqui, registro:" + registro); //Apenas um teste
 
-                if (statusExiste) {
+                if (statusMatcher.find()) {
 
                     
-
+                    //Addd tudo ao registro.
                     issnMatcherResgistro = patternIssn.matcher(registro);
                     issnMatcherResgistro.find();
+                    issnErradoMatcherResgistro = patternIssnErrado.matcher(registro);
+                    issnErradoMatcherResgistro.find();
                     estratoABMatcherResgistro = patternEstratoAB.matcher(registro);
                     estratoABMatcherResgistro.find();
                     estratoCMatcherResgistro = patternEstratoC.matcher(registro);
                     estratoCMatcherResgistro.find();
                     statusMatcherResgistro = patternIssn.matcher(registro);
                     statusMatcherResgistro.find();
-                    issnExiste = issnMatcherResgistro.find();
-                    estratoABExiste = estratoABMatcherResgistro.find();
-                    estratoCExiste = estratoCMatcherResgistro.find();
+                    cessouMatcherResgistro = patternCessou.matcher(registro);
+                    cessouMatcherResgistro.find();
+                    //issnExiste = issnMatcherResgistro.find();
+                    //estratoABExiste = estratoABMatcherResgistro.find();
+                    //estratoCExiste = estratoCMatcherResgistro.find();
                     
                     status = statusMatcherResgistro.group();
 
-                    if (issnExiste == true) {
+                    if (!cessouMatcherResgistro.find() || !issnErradoMatcherResgistro.find()) {
+                        
+                    if (issnMatcherResgistro.find()) {
                         
                         issn = issnMatcherResgistro.group();
 
-                        if (estratoABExiste) {
+                        if (estratoABMatcherResgistro.find()) {
                             estrato = estratoABMatcherResgistro.group();
 
                             titulo = registro.substring(issnMatcherResgistro.end(), estratoABMatcherResgistro.start());
                             area = linha.substring(estratoABMatcherResgistro.end(), statusMatcherResgistro.start());
 
-                        } else if (estratoCExiste) {
+                        } else if (estratoCMatcherResgistro.find()) {
 
                             estrato = estratoCMatcherResgistro.group();
 
                             titulo = registro.substring(issnMatcherResgistro.end(), estratoCMatcherResgistro.start());
                             area = linha.substring(estratoCMatcherResgistro.end(), statusMatcherResgistro.start());
                         }
-                    } else if (estratoABExiste == true || estratoCExiste == true) {
+                    } else if (estratoABMatcherResgistro.find() == true || estratoCMatcherResgistro.find() == true) {
 
-                        if (estratoABExiste) {
+                        if (estratoABMatcherResgistro.find()) {
                             titulo = registro.substring(0, estratoABMatcherResgistro.start());
                             area = linha.substring(estratoABMatcherResgistro.end(), statusMatcherResgistro.start());
-                        } else if (estratoCExiste) {
+                        } else if (estratoCMatcherResgistro.find()) {
                             titulo = registro.substring(0, estratoCMatcherResgistro.start());
                             area = linha.substring(estratoCMatcherResgistro.end(), statusMatcherResgistro.start());
                         }
 
+                    }
+                       
+                    } else {
+                        System.out.println("Registro ignorado pois Cessou estava presente, registro: " +registro);
+                    }
                     }
 
                     //TODO Criar um objeto Qualis
@@ -152,8 +169,7 @@ public class RapidoRN {
                 }
             }
 
+        return resposta;
         }
 
-        return resposta;
     }
-}
