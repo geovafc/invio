@@ -45,6 +45,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Records of `curriculo`
+-- -----------------------------------------------------
+BEGIN;
+INSERT INTO `curriculo` VALUES ('1', '00000000000', 'Invio', '', 'Av. Presidente Tancredo Neves', '', '', 'terra-firme', 'Belem', 'Para', 'Brasil', '', '', 'sistema.invio@gmail.com', '000000', 'nenhum', '', 'male');
+COMMIT;
 
 -- -----------------------------------------------------
 -- Table `invio`.`instituicao`
@@ -124,6 +130,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Records of `login`
+-- -----------------------------------------------------
+BEGIN;
+INSERT INTO `login` VALUES ('1', 'pibic2012', 'EJR8T31W', 'EJR8T31W', '2013-04-08 00:00:00', 'sistema.invio@gmail.com', 'curriculo_id', 'true');
+COMMIT;
 
 -- -----------------------------------------------------
 -- Table `invio`.`programa_area`
@@ -233,6 +245,13 @@ CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Records of `perfil`
+-- -----------------------------------------------------
+BEGIN;
+INSERT INTO `perfil` VALUES ('1', 'ROLE_MASTER');
+COMMIT;
+
 
 -- -----------------------------------------------------
 -- Table `invio`.`perfil_login`
@@ -255,7 +274,12 @@ CREATE  TABLE IF NOT EXISTS `invio`.`perfil_login` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+-- -----------------------------------------------------
+-- Records of `perfil_login`
+-- -----------------------------------------------------
+BEGIN;
+INSERT INTO `perfil_login` VALUES ('1', '1');
+COMMIT;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
