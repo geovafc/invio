@@ -8,6 +8,7 @@ import invio.dao.GenericDAO;
 import invio.entidade.Qualis;
 import java.sql.SQLException;
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.hibernate.exception.NestableRuntimeException;
