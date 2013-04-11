@@ -2,7 +2,7 @@ package invio.testesMain;
 
 import invio.rn.pdf.PDFBoxRN;
 import invio.rn.pdf.QualisRN;
-import invio.rn.pdf.RapidoRN;
+import invio.rn.pdf.PDFBoxRegexRN;
 import javax.swing.JFileChooser;
 
 public class TestePDFBoxRegex2 {
@@ -16,7 +16,7 @@ public class TestePDFBoxRegex2 {
 
         String[] splitConteudoPDF = pdfBoxRn.getConteudoPDF(fileChooser.getSelectedFile().getPath()).split("\n");
 
-        RapidoRN rapidoRN = new RapidoRN();
+        PDFBoxRegexRN rapidoRN = new PDFBoxRegexRN();
 
         QualisRN qualisRN = new QualisRN();
         
