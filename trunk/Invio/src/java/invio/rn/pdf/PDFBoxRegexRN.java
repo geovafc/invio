@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  *
  * @author Junior
  */
-public class RapidoRN {
+public class PDFBoxRegexRN {
 
     private List<Qualis> osQualis;
 
