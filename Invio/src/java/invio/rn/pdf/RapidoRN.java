@@ -93,7 +93,6 @@ public class RapidoRN {
                     estratoCExiste = false;
                 }
                 if (issnExiste) {
-                    System.out.println("ISSN: " + issnMatcher.group());
                     BEGIN = true;
                 } else if (estratoABExiste || estratoCExiste) {
                     BEGIN = true;
@@ -107,7 +106,6 @@ public class RapidoRN {
                 //statusExiste = statusMatcher.find();
                 registro.append(linha);
                 registro.append(" ");
-                System.out.println("passei aqui, registro:" + registro); //Apenas um teste
 
                 if (statusMatcher.find()) {
 
@@ -215,7 +213,7 @@ public class RapidoRN {
                 qualis.setIssn(issn);
                 qualis.setStatus(status);
                 resposta.add(qualis);
-                System.out.println("Registro: " + registro);
+                System.out.println("Registro Tratado: " + registro);
                 registro = new StringBuilder();
 
             }

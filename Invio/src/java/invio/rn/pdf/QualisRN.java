@@ -7,6 +7,8 @@ package invio.rn.pdf;
 import invio.dao.GenericDAO;
 import invio.entidade.Qualis;
 import java.util.List;
+import javax.persistence.EntityExistsException;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -32,13 +34,27 @@ public class QualisRN {
         if (dao.iniciarTransacao()) {
 
             for (int j = 0; j < osQualis.size(); j++) {
-                Qualis qualis = osQualis.get(i);
-                
+                Qualis qualis = osQualis.get(j);
+
                 if (qualis.getQualisPK() != null) {
 
                     try {
                         confirmar = dao.alterar(qualis);
-                    } catch (Exception e) {
+                    }
+                    catch(EntityExistsException e){
+                        System.out.println("Já existe um está chave primária"); 
+                         e.printStackTrace();
+                        System.out.println("- Registro: " + qualis.getIssn() + " " + qualis.getQualisPK().getTitulo()
+                            + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
+                            + " " + qualis.getStatus()+"\n I:"+i);
+                    }catch(ConstraintViolationException e){
+                        System.out.println("Já existe um está chave primária, erro: ConstraintViolationException"); 
+                         e.printStackTrace();
+                        System.out.println("- Registro: " + qualis.getIssn() + " " + qualis.getQualisPK().getTitulo()
+                            + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
+                            + " " + qualis.getStatus()+"\n I:"+i);
+                    }
+                    catch (Exception e) {
                         System.out.println("EXCEPTION PEGA");
                         e.printStackTrace();
                         continue;
@@ -51,18 +67,30 @@ public class QualisRN {
                 }
                 if (!confirmar) {
                     continue;
-                }else{
-                i++;    
+                } else {
+                    System.out.println("Registro Salvo: " + qualis.getIssn() + " " + qualis.getQualisPK().getTitulo()
+                            + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
+                            + " " + qualis.getStatus());
+                    i++;
                 }
-                
-                if (i > PARAR || j>=osQualis.size()) {
+
+                if (i > PARAR || j >= osQualis.size()) {
+                    
+                    
                     if (!dao.concluirTransacao()) {
+                        System.out.println("Não foi possível concluir Transação");
+                        
+                        System.out.println("- Registro: " + qualis.getIssn() + " " + qualis.getQualisPK().getTitulo()
+                            + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
+                            + " " + qualis.getStatus());
+                        
                         return registros;
                     } else {
-                        System.out.println(registros + "Salvos!");
                         registros += i;
+                        System.out.println(registros + "SALVOS!!");
                     }
                     if (!dao.iniciarTransacao()) {
+                        System.out.println("Não foi possível iniciar Transação");
                         return registros;
                     }
                     i = 0;
