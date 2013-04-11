@@ -51,8 +51,10 @@ public class QualisRN {
                 }
                 if (!confirmar) {
                     continue;
+                }else{
+                i++;    
                 }
-                i++;
+                
                 if (i > PARAR || j>=osQualis.size()) {
                     if (!dao.concluirTransacao()) {
                         return registros;
