@@ -1,8 +1,10 @@
 package invio.dao;
 
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import org.hibernate.exception.ConstraintViolationException;
 
 public class GenericDAO<T> implements InterfaceDAO<T> {
 
@@ -44,10 +46,24 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean criar(T o) {
         try {
-         //   this.iniciarTransacao();
+            //   this.iniciarTransacao();
             em.persist(o);
-      //      this.concluirTransacao();
+            //      this.concluirTransacao();
             return true;
+        } catch (EntityExistsException e) {
+            System.out.println("Id Já existe, Classe : " + o.getClass().getName());
+            e.printStackTrace();
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
+            return false;
+        } catch (ConstraintViolationException e) {
+            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
+            e.printStackTrace();
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             if (em.isOpen()) {
@@ -60,9 +76,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean excluir(T o) {
         try {
-           // this.iniciarTransacao();
+            // this.iniciarTransacao();
             em.remove(em.merge(o));
-           // this.concluirTransacao();
+            // this.concluirTransacao();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,10 +92,24 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean alterar(T o) {
         try {
-          //  this.iniciarTransacao();
+            //  this.iniciarTransacao();
             em.merge(o);
-          //  this.concluirTransacao();
+            //  this.concluirTransacao();
             return true;
+        } catch (EntityExistsException e) {
+            System.out.println("Id Já existe, Classe : " + o.getClass().getName());
+            e.printStackTrace();
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
+            return false;
+        } catch (ConstraintViolationException e) {
+            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
+            e.printStackTrace();
+            if (em.isOpen()) {
+                em.getTransaction().rollback();
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             if (em.isOpen()) {

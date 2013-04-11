@@ -6,13 +6,7 @@ package invio.rn.pdf;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Qualis;
-import java.sql.SQLException;
 import java.util.List;
-import javax.persistence.EntityExistsException;
-import org.hibernate.HibernateException;
-import org.hibernate.JDBCException;
-import org.hibernate.exception.NestableRuntimeException;
-import org.hibernate.util.JDBCExceptionReporter;
 
 /**
  *
@@ -36,18 +30,11 @@ public class QualisRN {
         int i = 0;
         final int PARAR = 100;
         if (dao.iniciarTransacao()) {
-            for (Qualis qualis : osQualis) {
-//                if (qualis.getQualisPK() != null) {
-//                    try {
-//                    confirmar = dao.criar(qualis);     
-//                    } catch (Exception e) {
-//                        System.out.println("EXCEPTION PEGA");
-//                        e.printStackTrace();
-//                        continue;
-//                    }
-//                } else {
-                if (qualis.getQualisPK() != null) {
 
+            for (int j = 0; j < osQualis.size(); j++) {
+                Qualis qualis = osQualis.get(i);
+                
+                if (qualis.getQualisPK() != null) {
 
                     try {
                         confirmar = dao.alterar(qualis);
@@ -56,18 +43,17 @@ public class QualisRN {
                         e.printStackTrace();
                         continue;
                     } catch (Throwable t) {
-                        System.out.println("EXCEPTION PEGA");
+                        System.out.println("Throwable/EXCEPTION PEGA");
                         t.printStackTrace();
                         continue;
                     }
 
                 }
-//                }
                 if (!confirmar) {
                     continue;
                 }
                 i++;
-                if (i > PARAR) {
+                if (i > PARAR || j>=osQualis.size()) {
                     if (!dao.concluirTransacao()) {
                         return registros;
                     } else {

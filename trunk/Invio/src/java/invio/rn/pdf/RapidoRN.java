@@ -19,16 +19,13 @@ public class RapidoRN {
 
     private List<Qualis> osQualis;
 
-//    public RapidoRN(String[] linhas) {
-//        osQualis = criar(linhas);
-//    }
     public List<Qualis> criar(String[] linhas) {
         ArrayList<Qualis> resposta = new ArrayList<Qualis>();
 
         boolean BEGIN = false;
         StringBuilder registro = new StringBuilder();
 
-        
+
         Pattern patternIssn = Pattern.compile("(\\d\\d\\d\\d)-(\\d\\d\\d\\w\\s)");
         Pattern patternIssnErrado = Pattern.compile("ISSN");
         Pattern patternEstratoAB = Pattern.compile("\\s[A-B][1-5]\\s");
@@ -57,6 +54,11 @@ public class RapidoRN {
         boolean estratoABExiste;
         boolean estratoCExiste;
         boolean statusExiste;
+        boolean issnErradoExiste;
+        boolean cessouExiste;
+        boolean issnResgistroExiste;
+        boolean estratoABResgistroExiste;
+        boolean estratoCResgistroExiste;
 
         String issn = null;
         String titulo = null;
@@ -72,18 +74,28 @@ public class RapidoRN {
 
                 //Pesquisando os patterns nas LINHAS e adicionando a variavel.
                 issnMatcher = patternIssn.matcher(linha);
-                issnMatcher.find();
-                estratoABMatcher = patternEstratoAB.matcher(linha);
-                estratoABMatcher.find();
-                estratoCMatcher = patternEstratoC.matcher(linha);
-                estratoCMatcher.find();
-
-                //BEGIN = issnMatcher.find() || estratoABMatcher.find() || estratoCMatcher.find();
                 if (issnMatcher.find()) {
-                    System.out.println("ISSN: "+issnMatcher.group());
-                    BEGIN = true;
+                    issnExiste = true;
+                } else {
+                    issnExiste = false;
                 }
-                else if (estratoABMatcher.find() || estratoCMatcher.find()) {
+
+                estratoABMatcher = patternEstratoAB.matcher(linha);
+                if (estratoABMatcher.find()) {
+                    estratoABExiste = true;
+                } else {
+                    estratoABExiste = false;
+                }
+                estratoCMatcher = patternEstratoC.matcher(linha);
+                if (estratoCMatcher.find()) {
+                    estratoCExiste = true;
+                } else {
+                    estratoCExiste = false;
+                }
+                if (issnExiste) {
+                    System.out.println("ISSN: " + issnMatcher.group());
+                    BEGIN = true;
+                } else if (estratoABExiste || estratoCExiste) {
                     BEGIN = true;
                 }
             }
@@ -94,82 +106,121 @@ public class RapidoRN {
                 statusMatcher = patternStatus.matcher(linha);
                 //statusExiste = statusMatcher.find();
                 registro.append(linha);
+                registro.append(" ");
                 System.out.println("passei aqui, registro:" + registro); //Apenas um teste
 
                 if (statusMatcher.find()) {
 
-                    
+
                     //Addd tudo ao registro.
                     issnMatcherResgistro = patternIssn.matcher(registro);
-                    issnMatcherResgistro.find();
+                    if (issnMatcherResgistro.find()) {
+                        issnResgistroExiste = true;
+                    } else {
+                        issnResgistroExiste = false;
+                    }
                     issnErradoMatcherResgistro = patternIssnErrado.matcher(registro);
-                    issnErradoMatcherResgistro.find();
+                    if (issnErradoMatcherResgistro.find()) {
+                        issnErradoExiste = true;
+                    } else {
+                        issnErradoExiste = false;
+                    }
                     estratoABMatcherResgistro = patternEstratoAB.matcher(registro);
-                    estratoABMatcherResgistro.find();
+                    if (estratoABMatcherResgistro.find()) {
+                        estratoABResgistroExiste = true;
+                    } else {
+                        estratoABResgistroExiste = false;
+                    }
                     estratoCMatcherResgistro = patternEstratoC.matcher(registro);
-                    estratoCMatcherResgistro.find();
-                    statusMatcherResgistro = patternIssn.matcher(registro);
+                    if (estratoCMatcherResgistro.find()) {
+                        estratoCResgistroExiste = true;
+                    } else {
+                        estratoCResgistroExiste = false;
+                    }
+                    statusMatcherResgistro = patternStatus.matcher(registro);
                     statusMatcherResgistro.find();
                     cessouMatcherResgistro = patternCessou.matcher(registro);
-                    cessouMatcherResgistro.find();
-                    //issnExiste = issnMatcherResgistro.find();
-                    //estratoABExiste = estratoABMatcherResgistro.find();
-                    //estratoCExiste = estratoCMatcherResgistro.find();
-                    
+                    if (cessouMatcherResgistro.find()) {
+                        cessouExiste = true;
+                    } else {
+                        cessouExiste = false;
+                    }
                     status = statusMatcherResgistro.group();
 
-                    if (!cessouMatcherResgistro.find() || !issnErradoMatcherResgistro.find()) {
-                        
-                    if (issnMatcherResgistro.find()) {
-                        
-                        issn = issnMatcherResgistro.group();
+                    if (!cessouExiste || !issnErradoExiste) {
 
-                        if (estratoABMatcherResgistro.find()) {
-                            estrato = estratoABMatcherResgistro.group();
+                        if (issnResgistroExiste) {
 
-                            titulo = registro.substring(issnMatcherResgistro.end(), estratoABMatcherResgistro.start());
-                            area = linha.substring(estratoABMatcherResgistro.end(), statusMatcherResgistro.start());
+                            issn = issnMatcherResgistro.group();
 
-                        } else if (estratoCMatcherResgistro.find()) {
+                            if (estratoABResgistroExiste) {
+                                estrato = estratoABMatcherResgistro.group();
+                                try {
+                                    titulo = registro.substring(issnMatcherResgistro.end(), estratoABMatcherResgistro.start());
+                                    area = linha.substring(estratoABMatcherResgistro.end(), statusMatcherResgistro.start());
+                                } catch (java.lang.StringIndexOutOfBoundsException e) {
+                                    System.out.println("Ocorreu um erro ao tentar obter por substring \nERRO: " + e);
+                                    System.out.println("Titulo - " + titulo);
+                                    System.out.println("Area - " + area);
+                                }
 
-                            estrato = estratoCMatcherResgistro.group();
+                            } else if (estratoCResgistroExiste) {
 
-                            titulo = registro.substring(issnMatcherResgistro.end(), estratoCMatcherResgistro.start());
-                            area = linha.substring(estratoCMatcherResgistro.end(), statusMatcherResgistro.start());
+                                estrato = estratoCMatcherResgistro.group();
+                                try {
+                                    titulo = registro.substring(issnMatcherResgistro.end(), estratoCMatcherResgistro.start());
+                                    area = linha.substring(estratoCMatcherResgistro.end(), statusMatcherResgistro.start());
+                                } catch (java.lang.StringIndexOutOfBoundsException e) {
+                                    System.out.println("Ocorreu um erro ao tentar obter por substring \nERRO: " + e);
+                                    System.out.println("Titulo - " + titulo);
+                                    System.out.println("Area - " + area);
+                                }
+                            }
+                        } else if (estratoABResgistroExiste == true || estratoCResgistroExiste == true) {
+
+                            if (estratoABResgistroExiste) {
+
+                                try {
+                                    titulo = registro.substring(0, estratoABMatcherResgistro.start());
+                                    area = linha.substring(estratoABMatcherResgistro.end(), statusMatcherResgistro.start());
+                                } catch (java.lang.StringIndexOutOfBoundsException e) {
+                                    System.out.println("Ocorreu um erro ao tentar obter por substring \nERRO: " + e);
+                                    System.out.println("Titulo - " + titulo);
+                                    System.out.println("Area - " + area);
+                                }
+                            } else if (estratoCResgistroExiste) {
+                                try {
+                                    titulo = registro.substring(0, estratoCMatcherResgistro.start());
+                                    area = linha.substring(estratoCMatcherResgistro.end(), statusMatcherResgistro.start());
+                                } catch (java.lang.StringIndexOutOfBoundsException e) {
+                                    System.out.println("Ocorreu um erro ao tentar obter por substring \nERRO: " + e);
+                                    System.out.println("Titulo - " + titulo);
+                                    System.out.println("Area - " + area);
+                                }
+                            }
+
                         }
-                    } else if (estratoABMatcherResgistro.find() == true || estratoCMatcherResgistro.find() == true) {
 
-                        if (estratoABMatcherResgistro.find()) {
-                            titulo = registro.substring(0, estratoABMatcherResgistro.start());
-                            area = linha.substring(estratoABMatcherResgistro.end(), statusMatcherResgistro.start());
-                        } else if (estratoCMatcherResgistro.find()) {
-                            titulo = registro.substring(0, estratoCMatcherResgistro.start());
-                            area = linha.substring(estratoCMatcherResgistro.end(), statusMatcherResgistro.start());
-                        }
-
-                    }
-                       
                     } else {
-                        System.out.println("Registro ignorado pois Cessou estava presente, registro: " +registro);
+                        System.out.println("Registro ignorado pois Cessou estava presente, registro: " + registro);
                     }
-                    }
-
-                    //TODO Criar um objeto Qualis
-                    BEGIN = false;
-                    qualis = new Qualis(titulo, area);
-                    qualisPK = new QualisPK(titulo, area);
-                    qualis.setQualisPK(qualisPK);
-                    qualis.setEstrato(estrato);
-                    qualis.setIssn(issn);
-                    qualis.setStatus(status);
-                    resposta.add(qualis);
-                    System.out.println("Registro: " + registro);
-                    registro = new StringBuilder();
-
                 }
-            }
 
-        return resposta;
+                // Criar um novo objeto Qualis
+                BEGIN = false;
+                qualis = new Qualis(titulo, area);
+                qualisPK = new QualisPK(titulo, area);
+                qualis.setQualisPK(qualisPK);
+                qualis.setEstrato(estrato);
+                qualis.setIssn(issn);
+                qualis.setStatus(status);
+                resposta.add(qualis);
+                System.out.println("Registro: " + registro);
+                registro = new StringBuilder();
+
+            }
         }
 
+        return resposta;
     }
+}
