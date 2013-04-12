@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Renan
+ * @author Junior
  */
 @Embeddable
 public class QualisPK implements Serializable {
@@ -21,13 +21,17 @@ public class QualisPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "areaAvaliacao")
     private String areaAvaliacao;
+    @Basic(optional = false)
+    @Column(name = "issn")
+    private String issn;
 
     public QualisPK() {
     }
 
-    public QualisPK(String titulo, String areaAvaliacao) {
+    public QualisPK(String titulo, String areaAvaliacao, String issn) {
         this.titulo = titulo;
         this.areaAvaliacao = areaAvaliacao;
+        this.issn = issn;
     }
 
     public String getTitulo() {
@@ -46,11 +50,20 @@ public class QualisPK implements Serializable {
         this.areaAvaliacao = areaAvaliacao;
     }
 
+    public String getIssn() {
+        return issn;
+    }
+
+    public void setIssn(String issn) {
+        this.issn = issn;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (titulo != null ? titulo.hashCode() : 0);
         hash += (areaAvaliacao != null ? areaAvaliacao.hashCode() : 0);
+        hash += (issn != null ? issn.hashCode() : 0);
         return hash;
     }
 
@@ -67,12 +80,15 @@ public class QualisPK implements Serializable {
         if ((this.areaAvaliacao == null && other.areaAvaliacao != null) || (this.areaAvaliacao != null && !this.areaAvaliacao.equals(other.areaAvaliacao))) {
             return false;
         }
+        if ((this.issn == null && other.issn != null) || (this.issn != null && !this.issn.equals(other.issn))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "invio.entidade.QualisPK[ titulo=" + titulo + ", areaAvaliacao=" + areaAvaliacao + " ]";
+        return "invio.entidade.QualisPK[ titulo=" + titulo + ", areaAvaliacao=" + areaAvaliacao + ", issn=" + issn + " ]";
     }
     
 }

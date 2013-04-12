@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Renan
+ * @author Junior
  */
 @Entity
 @Table(name = "perfil")
@@ -47,9 +47,8 @@ public class Perfil implements Serializable {
     public Perfil() {
     }
 
-    public Perfil(Integer id, String descricao) {
+    public Perfil(Integer id) {
         this.id = id;
-        this.descricao = descricao;
     }
 
     public Integer getId() {

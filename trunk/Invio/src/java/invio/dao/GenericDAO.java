@@ -29,16 +29,15 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
         try {
             em.getTransaction().commit();
             return true;
-        } catch (EntityExistsException e) {
-            System.out.println("Já existe um está chave primária");
-            e.printStackTrace();
-
-            return false;
         } catch (ConstraintViolationException e) {
             System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
             e.printStackTrace();
             return false;
-        } catch (Exception e) {
+        }catch (EntityExistsException e) {
+            System.out.println("Já existe um está chave primária");
+            e.printStackTrace();
+            return false;
+        }  catch (Exception e) {
             return false;
         }
     }
