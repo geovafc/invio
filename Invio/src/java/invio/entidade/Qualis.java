@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Renan
+ * @author Junior
  */
 @Entity
 @Table(name = "qualis")
@@ -24,15 +24,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Qualis.findAll", query = "SELECT q FROM Qualis q"),
     @NamedQuery(name = "Qualis.findByTitulo", query = "SELECT q FROM Qualis q WHERE q.qualisPK.titulo = :titulo"),
     @NamedQuery(name = "Qualis.findByAreaAvaliacao", query = "SELECT q FROM Qualis q WHERE q.qualisPK.areaAvaliacao = :areaAvaliacao"),
-    @NamedQuery(name = "Qualis.findByIssn", query = "SELECT q FROM Qualis q WHERE q.issn = :issn"),
+    @NamedQuery(name = "Qualis.findByIssn", query = "SELECT q FROM Qualis q WHERE q.qualisPK.issn = :issn"),
     @NamedQuery(name = "Qualis.findByEstrato", query = "SELECT q FROM Qualis q WHERE q.estrato = :estrato"),
     @NamedQuery(name = "Qualis.findByStatus", query = "SELECT q FROM Qualis q WHERE q.status = :status")})
 public class Qualis implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected QualisPK qualisPK;
-    @Column(name = "issn")
-    private String issn;
     @Column(name = "estrato")
     private String estrato;
     @Column(name = "status")
@@ -45,8 +43,8 @@ public class Qualis implements Serializable {
         this.qualisPK = qualisPK;
     }
 
-    public Qualis(String titulo, String areaAvaliacao) {
-        this.qualisPK = new QualisPK(titulo, areaAvaliacao);
+    public Qualis(String titulo, String areaAvaliacao, String issn) {
+        this.qualisPK = new QualisPK(titulo, areaAvaliacao, issn);
     }
 
     public QualisPK getQualisPK() {
@@ -55,14 +53,6 @@ public class Qualis implements Serializable {
 
     public void setQualisPK(QualisPK qualisPK) {
         this.qualisPK = qualisPK;
-    }
-
-    public String getIssn() {
-        return issn;
-    }
-
-    public void setIssn(String issn) {
-        this.issn = issn;
     }
 
     public String getEstrato() {
