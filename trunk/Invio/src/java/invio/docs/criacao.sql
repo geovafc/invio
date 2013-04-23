@@ -7,16 +7,79 @@ CREATE SCHEMA IF NOT EXISTS `invio` DEFAULT CHARACTER SET utf8 ;
 USE `invio` ;
 
 -- -----------------------------------------------------
--- Table `invio`.`area`
+-- Table `invio`.`perfil`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`area` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `nome` VARCHAR(200) NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
+  `id` INT NOT NULL ,
+  `descricao` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Records of `perfil`
+-- -----------------------------------------------------
+ BEGIN;
+ INSERT INTO `perfil` VALUES ('1', 'ROLE_MASTER');
+ COMMIT;
+
+
+-- -----------------------------------------------------
+-- Table `invio`.`perfil_login`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`perfil_login` (
+  `perfil` INT NOT NULL ,
+  `login` INT(11) NOT NULL ,
+  PRIMARY KEY (`perfil`, `login`) ,
+  INDEX `fk_perfil_has_login_login1` (`login` ASC) ,
+  INDEX `fk_perfil_has_login_perfil1` (`perfil` ASC) ,
+  CONSTRAINT `fk_perfil_has_login_perfil1`
+    FOREIGN KEY (`perfil` )
+    REFERENCES `invio`.`perfil` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_perfil_has_login_login1`
+    FOREIGN KEY (`login` )
+    REFERENCES `invio`.`login` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Records of `perfil_login`
+-- -----------------------------------------------------
+ BEGIN;
+ INSERT INTO `perfil_login` VALUES ('1', '1');
+ COMMIT;
+ 
+ -- -----------------------------------------------------
+-- Table `invio`.`login`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`login` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `senha` VARCHAR(45) NOT NULL ,
+  `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
+  `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
+  `dtCriacao` DATETIME NULL DEFAULT NULL ,
+  `email` VARCHAR(200) NOT NULL ,
+  `curriculo_id` INT(11) NOT NULL ,
+  `ativo` VARCHAR(10) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
+  CONSTRAINT `fk_login_curriculo1`
+    FOREIGN KEY (`curriculo_id` )
+    REFERENCES `invio`.`curriculo` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Records of `login`
+-- -----------------------------------------------------
+ BEGIN;
+ INSERT INTO `login` VALUES ('1', 'pibic2012', 'EJR8T31W', 'EJR8T31W', '2013-04-08 00:00:00', 'sistema.invio@gmail.com', '1', 'true');
+ COMMIT;
 
 -- -----------------------------------------------------
 -- Table `invio`.`curriculo`
@@ -48,9 +111,21 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Records of `curriculo`
 -- -----------------------------------------------------
-BEGIN;
-INSERT INTO `curriculo` VALUES ('1', '00000000000', 'Invio', '', 'Av. Presidente Tancredo Neves', '', '', 'terra-firme', 'Belem', 'Para', 'Brasil', '', '', 'sistema.invio@gmail.com', '000000', 'nenhum', '', 'male');
-COMMIT;
+ BEGIN;
+ INSERT INTO `curriculo` VALUES ('1', '00000000000', 'Invio', '2013-04-08', 'Av. Presidente Tancredo Neves', '', '', 'terra-firme', 'Belem', 'Para', 'Brasil', '', '', 'sistema.invio@gmail.com', '000000', 'nenhum', '', 'male');
+ COMMIT;
+
+-- -----------------------------------------------------
+-- Table `invio`.`area`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`area` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nome` VARCHAR(200) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
 
 -- -----------------------------------------------------
 -- Table `invio`.`instituicao`
@@ -105,37 +180,6 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo_programa` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `invio`.`login`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`login` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `senha` VARCHAR(45) NOT NULL ,
-  `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
-  `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
-  `dtCriacao` DATETIME NULL DEFAULT NULL ,
-  `email` VARCHAR(200) NOT NULL ,
-  `curriculo_id` INT(11) NOT NULL ,
-  `ativo` BIT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
-  CONSTRAINT `fk_login_curriculo1`
-    FOREIGN KEY (`curriculo_id` )
-    REFERENCES `invio`.`curriculo` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
--- -----------------------------------------------------
--- Records of `login`
--- -----------------------------------------------------
-BEGIN;
-INSERT INTO `login` VALUES ('1', 'pibic2012', 'EJR8T31W', 'EJR8T31W', '2013-04-08 00:00:00', 'sistema.invio@gmail.com', 'curriculo_id', 'true');
-COMMIT;
 
 -- -----------------------------------------------------
 -- Table `invio`.`programa_area`
@@ -229,57 +273,12 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
   `titulo` VARCHAR(255) NOT NULL ,
   `areaAvaliacao` VARCHAR(255) NOT NULL ,
-  `issn` VARCHAR(45) NULL ,
+  `issn` VARCHAR(45) NOT NULL ,
   `estrato` VARCHAR(45) NULL ,
   `status` VARCHAR(60) NULL ,
-  PRIMARY KEY (`titulo`, `areaAvaliacao`) )
+  PRIMARY KEY (`titulo`, `areaAvaliacao`, `issn`) )
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `invio`.`perfil`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
-  `id` INT NOT NULL ,
-  `descricao` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Records of `perfil`
--- -----------------------------------------------------
-BEGIN;
-INSERT INTO `perfil` VALUES ('1', 'ROLE_MASTER');
-COMMIT;
-
-
--- -----------------------------------------------------
--- Table `invio`.`perfil_login`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`perfil_login` (
-  `perfil` INT NOT NULL ,
-  `login` INT(11) NOT NULL ,
-  PRIMARY KEY (`perfil`, `login`) ,
-  INDEX `fk_perfil_has_login_login1` (`login` ASC) ,
-  INDEX `fk_perfil_has_login_perfil1` (`perfil` ASC) ,
-  CONSTRAINT `fk_perfil_has_login_perfil1`
-    FOREIGN KEY (`perfil` )
-    REFERENCES `invio`.`perfil` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_perfil_has_login_login1`
-    FOREIGN KEY (`login` )
-    REFERENCES `invio`.`login` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Records of `perfil_login`
--- -----------------------------------------------------
-BEGIN;
-INSERT INTO `perfil_login` VALUES ('1', '1');
-COMMIT;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
