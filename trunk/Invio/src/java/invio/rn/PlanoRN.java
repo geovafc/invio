@@ -5,6 +5,8 @@
 package invio.rn;
 
 import invio.dao.GenericDAO;
+import invio.dao.PlanoDAO;
+import invio.entidade.Curriculo;
 import invio.entidade.Plano;
 import java.util.List;
 
@@ -15,10 +17,10 @@ import java.util.List;
 public class PlanoRN {
 
     GenericDAO<Plano> dao = new GenericDAO<Plano>();
-  
+    PlanoDAO pdao = new PlanoDAO();
 
     public boolean salvar(Plano i) {
-       boolean salvou = false;
+        boolean salvou = false;
 
         if (dao.iniciarTransacao()) {
             if (i.getId() == null) {
@@ -46,7 +48,8 @@ public class PlanoRN {
     public List<Plano> obterTodos() {
         return dao.obterTodos(Plano.class);
     }
-    
-    
 
+    public List<Plano> obterTodosDecrescente(Curriculo c) {
+        return pdao.obterPlanoDecrescente(c);
+    }
 }
