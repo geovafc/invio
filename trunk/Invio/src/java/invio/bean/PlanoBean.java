@@ -1,15 +1,27 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package invio.bean;
 
 import invio.entidade.Plano;
-import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Renan
+ * @author Dir de Armas Marinha
  */
+@ManagedBean
+@RequestScoped
 public class PlanoBean {
-    
+
+    /**
+     * Creates a new instance of PlanoBean
+     */
+    public PlanoBean() {
+    }
     private Plano plano = new Plano();
     private List<Plano> planos;
 
@@ -28,25 +40,17 @@ public class PlanoBean {
     public void setPlanos(List<Plano> planos) {
         this.planos = planos;
     }
-    
-    
-    
-    
-    public void salvar(){
-        
+
+    public void salvar() {
     }
-    
-    public void excluir(){
-        
+
+    public void excluir() {
     }
-    
-    public List<Plano> listar(){
+
+    public List<Plano> listar() {
         return planos;
     }
-    
-    public void salvarCurriculo(){
-        
+
+    public void salvarCurriculo() {
     }
-    
-    
 }
