@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,7 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "perfil")
@@ -38,10 +36,7 @@ public class Perfil implements Serializable {
     private Integer id;
     @Column(name = "descricao")
     private String descricao;
-    @JoinTable(name = "perfil_login", joinColumns = {
-        @JoinColumn(name = "perfil", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "login", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "perfilList")
     private List<Login> loginList;
 
     public Perfil() {

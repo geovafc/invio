@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Junior
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "curriculo")
@@ -106,6 +106,8 @@ public class Curriculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "genero")
     private String genero;
+    @ManyToMany(mappedBy = "curriculoList")
+    private List<Plano> planoList;
     @JoinTable(name = "curriculo_programa", joinColumns = {
         @JoinColumn(name = "curriculo", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "programa", referencedColumnName = "id")})
@@ -282,6 +284,15 @@ public class Curriculo implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    @XmlTransient
+    public List<Plano> getPlanoList() {
+        return planoList;
+    }
+
+    public void setPlanoList(List<Plano> planoList) {
+        this.planoList = planoList;
     }
 
     @XmlTransient
