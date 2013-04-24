@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/templatePadrao.xhtml">
+
+            <ui:define name="content">
+
+                <p:growl showDetail="true" showSummary="false"/>
+
+                <p:tabView id="tabView" effect="fade" activeIndex="#{propriedadeTabViewBean.tabAtual}">
+                    <p:ajax event="tabChange" listener="#{propriedadeTabViewBean.onTabChange}"/> 
+                    <p:tab id="tab1" title="Plano">
+                        <h:form >
+                            <h:panelGrid columns="6" cellpadding="">
+                                <h:outputText value="Título: *" />  
+                                <p:inputText id="nomePropriedade" required="true" label="Nome"  
+                                             value="#{propriedadeTabViewBean.propriedade.nome}" />
+
+                                <h:outputText value="Resumo: *" />  
+                                <p:inputText id="inscricaoEstadual" required="true" label="inscricaoEstadual"  
+                                             value="#{propriedadeTabViewBean.propriedade.inscricaoEstadual}" />
+
+                                <h:outputText value="Data: " />  
+                                <p:inputMask id="cnpj" required="true" label="Cnpj"
+                                             mask="99.999.999/9999-99"
+                                             value="#{propriedadeTabViewBean.propriedade.cnpj}" />
+
+                                <h:outputText value="Edital: *" />  
+                                <p:inputText id="logradouro" required="true" label="Logradouro"  
+                                             value="#{propriedadeTabViewBean.propriedade.logradouro}" />
+
+                                <p:commandButton value="Limpar" type="reset"/>  
+                                <p:commandButton id="btnadd" value="Salvar"
+                                                 ajax="false"
+                                                 action="#{propriedadeTabViewBean.salvarPropriedade()}"
+                                                 update=":propriedadeTabela"/>
+                                <h:outputText value=""/>
+                            </h:panelGrid>
+
+                        </h:form>
+                    </p:tab>
+
+                    <p:tab id="tab2" title="Orientação">
+                        <h:form>
+                            <h:panelGrid columns="6" columnClasses="label, value"> 
+
+                                <h:outputText value="Curriculos: *" />  
+                                <p:inputText id="nomeArea" required="true" label="Nome"  
+                                             value="#{propriedadeTabViewBean.area.nome}" />  
+
+                            </h:panelGrid>
+
+                            <br/>
+
+                        </h:form>
+                    </p:tab>
+
+                    <p:tab id="tab3" title="Upload" >
+                        <h:form>
+                            <h:panelGrid columns="6" columnClasses="label, value">
+
+                                <h:outputText value="Selecionar Arquivo: *" />  
+                                <p:inputText id="brinco" required="false" label="Brinco"  
+                                             value="#{propriedadeTabViewBean.animal.brinco}" />  
+                            </h:panelGrid>  
+                        </h:form>
+                    </p:tab>
+
+                </p:tabView>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
