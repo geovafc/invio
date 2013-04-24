@@ -20,21 +20,31 @@
                         <h:form >
                             <h:panelGrid columns="6" cellpadding="">
                                 <h:outputText value="Título: *" />  
-                                <p:inputText id="nomePropriedade" required="true" label="Nome"  
+                                <p:inputText id="nomePropriedade" required="true" label="titulo"  
                                              value="#{propriedadeTabViewBean.propriedade.nome}" />
 
                                 <h:outputText value="Resumo: *" />  
-                                <p:inputText id="inscricaoEstadual" required="true" label="inscricaoEstadual"  
-                                             value="#{propriedadeTabViewBean.propriedade.inscricaoEstadual}" />
+                                <p:inputTextarea id="inscricaoEstadual" required="true" label="resumo"  
+                                                 value="#{propriedadeTabViewBean.propriedade.inscricaoEstadual}"/>
 
                                 <h:outputText value="Data: " />  
-                                <p:inputMask id="cnpj" required="true" label="Cnpj"
-                                             mask="99.999.999/9999-99"
+                                <p:inputMask id="cnpj" required="true" label="data"
+                                             mask="99/99/9999"
                                              value="#{propriedadeTabViewBean.propriedade.cnpj}" />
 
+
                                 <h:outputText value="Edital: *" />  
-                                <p:inputText id="logradouro" required="true" label="Logradouro"  
-                                             value="#{propriedadeTabViewBean.propriedade.logradouro}" />
+                                <p:selectOneMenu 
+                                    id="editalSelect" 
+                                    label="#{planoBean}"
+                                    value="#{programaBean.programa.instituicao}"
+                                    style="width: 200px">
+
+                                    <f:selectItems value="#{programaBean.instituicoes}"/>
+                                    <f:converter converterId="instituicaoConversor"/>
+
+                                </p:selectOneMenu> 
+
 
                                 <p:commandButton value="Limpar" type="reset"/>  
                                 <p:commandButton id="btnadd" value="Salvar"
@@ -52,8 +62,16 @@
                             <h:panelGrid columns="6" columnClasses="label, value"> 
 
                                 <h:outputText value="Curriculos: *" />  
-                                <p:inputText id="nomeArea" required="true" label="Nome"  
-                                             value="#{propriedadeTabViewBean.area.nome}" />  
+                                <p:selectOneMenu 
+                                    id="editalSelect" 
+                                    label="#{planoBean}"
+                                    value="#{programaBean.programa.instituicao}"
+                                    style="width: 200px">
+
+                                    <f:selectItems value="#{programaBean.instituicoes}"/>
+                                    <f:converter converterId="instituicaoConversor"/>
+
+                                </p:selectOneMenu>  
 
                             </h:panelGrid>
 
