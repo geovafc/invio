@@ -5,6 +5,7 @@
 package invio.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,11 +15,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,13 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Dir de Armas Marinha
  */
 @Entity
-@Table(name = "programa")
+@Table(name = "plano")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Programa.findAll", query = "SELECT p FROM Programa p"),
-    @NamedQuery(name = "Programa.findById", query = "SELECT p FROM Programa p WHERE p.id = :id"),
-    @NamedQuery(name = "Programa.findByNome", query = "SELECT p FROM Programa p WHERE p.nome = :nome")})
-public class Programa implements Serializable {
+    @NamedQuery(name = "Plano.findAll", query = "SELECT p FROM Plano p"),
+    @NamedQuery(name = "Plano.findById", query = "SELECT p FROM Plano p WHERE p.id = :id"),
+    @NamedQuery(name = "Plano.findByTitulo", query = "SELECT p FROM Plano p WHERE p.titulo = :titulo"),
+    @NamedQuery(name = "Plano.findByData", query = "SELECT p FROM Plano p WHERE p.data = :data")})
+public class Plano implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,29 +46,33 @@ public class Programa implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nome")
-    private String nome;
-    @JoinTable(name = "programa_area", joinColumns = {
-        @JoinColumn(name = "programa", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "area", referencedColumnName = "id")})
+    @Column(name = "titulo")
+    private String titulo;
+    @Lob
+    @Column(name = "resumo")
+    private String resumo;
+    @Column(name = "data")
+    @Temporal(TemporalType.DATE)
+    private Date data;
+    @JoinTable(name = "plano_curriculo", joinColumns = {
+        @JoinColumn(name = "plano_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "curriculo_id", referencedColumnName = "id")})
     @ManyToMany
-    private List<Area> areaList;
-    @ManyToMany(mappedBy = "programaList")
     private List<Curriculo> curriculoList;
-    @JoinColumn(name = "instituicao", referencedColumnName = "id")
+    @JoinColumn(name = "edital", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Instituicao instituicao;
+    private Edital edital;
 
-    public Programa() {
+    public Plano() {
     }
 
-    public Programa(Integer id) {
+    public Plano(Integer id) {
         this.id = id;
     }
 
-    public Programa(Integer id, String nome) {
+    public Plano(Integer id, String titulo) {
         this.id = id;
-        this.nome = nome;
+        this.titulo = titulo;
     }
 
     public Integer getId() {
@@ -74,21 +83,28 @@ public class Programa implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    @XmlTransient
-    public List<Area> getAreaList() {
-        return areaList;
+    public String getResumo() {
+        return resumo;
     }
 
-    public void setAreaList(List<Area> areaList) {
-        this.areaList = areaList;
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     @XmlTransient
@@ -100,12 +116,12 @@ public class Programa implements Serializable {
         this.curriculoList = curriculoList;
     }
 
-    public Instituicao getInstituicao() {
-        return instituicao;
+    public Edital getEdital() {
+        return edital;
     }
 
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
+    public void setEdital(Edital edital) {
+        this.edital = edital;
     }
 
     @Override
@@ -118,10 +134,10 @@ public class Programa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Programa)) {
+        if (!(object instanceof Plano)) {
             return false;
         }
-        Programa other = (Programa) object;
+        Plano other = (Plano) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -130,7 +146,7 @@ public class Programa implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Programa[ id=" + id + " ]";
+        return "invio.entidade.Plano[ id=" + id + " ]";
     }
     
 }
