@@ -53,4 +53,8 @@ public class PlanoBean {
 
     public void salvarCurriculo() {
     }
+    
+    public void novo(){
+        
+    }
 }
