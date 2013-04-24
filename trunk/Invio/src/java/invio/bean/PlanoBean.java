@@ -27,15 +27,7 @@ public class PlanoBean {
     }
     private Plano plano = new Plano();
     private List<Plano> planos;
-    private UploadedFile arquivo;
 
-    public UploadedFile getArquivo() {
-        return arquivo;
-    }
-
-    public void setArquivo(UploadedFile arquivo) {
-        this.arquivo = arquivo;
-    }
     
     
     
@@ -73,10 +65,5 @@ public class PlanoBean {
         
     }
     
-    public void upload(){
-        if(arquivo != null) {  
-            FacesMessage msg = new FacesMessage("Succesful", arquivo.getFileName() + " is uploaded.");  
-            FacesContext.getCurrentInstance().addMessage(null, msg);  
-        }  
-    }  
+   
     }
