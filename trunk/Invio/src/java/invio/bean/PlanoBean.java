@@ -6,8 +6,11 @@ package invio.bean;
 
 import invio.entidade.Plano;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -24,7 +27,18 @@ public class PlanoBean {
     }
     private Plano plano = new Plano();
     private List<Plano> planos;
+    private UploadedFile arquivo;
 
+    public UploadedFile getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(UploadedFile arquivo) {
+        this.arquivo = arquivo;
+    }
+    
+    
+    
     public Plano getPlano() {
         return plano;
     }
@@ -54,7 +68,15 @@ public class PlanoBean {
     public void salvarCurriculo() {
     }
     
-    public void novo(){
+    public String novo(){
+        return "/cadastro/plano/form.xhtml";
         
     }
-}
+    
+    public void upload(){
+        if(arquivo != null) {  
+            FacesMessage msg = new FacesMessage("Succesful", arquivo.getFileName() + " is uploaded.");  
+            FacesContext.getCurrentInstance().addMessage(null, msg);  
+        }  
+    }  
+    }
