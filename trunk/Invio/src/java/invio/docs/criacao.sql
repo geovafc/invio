@@ -180,6 +180,8 @@ CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `pagina` VARCHAR(45) NULL ,
   `curriculo_id` INT(11) NOT NULL ,
   `arquivo` VARCHAR(300) NULL ,
+  `estrato` INT NULL ,
+  `avaliacao` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_producao_curriculo1` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_producao_curriculo1`
@@ -228,7 +230,7 @@ ENGINE = InnoDB;
 -- Table `invio`.`perfil`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
+  `id` INT NOT NULL ,
   `descricao` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
