@@ -4,7 +4,9 @@
  */
 package invio.bean;
 
+import invio.entidade.Edital;
 import invio.entidade.Plano;
+import invio.rn.PlanoRN;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -25,12 +27,11 @@ public class PlanoBean {
      */
     public PlanoBean() {
     }
+    private PlanoRN planoRN;
     private Plano plano = new Plano();
+    private Edital edital;
     private List<Plano> planos;
 
-    
-    
-    
     public Plano getPlano() {
         return plano;
     }
@@ -59,11 +60,9 @@ public class PlanoBean {
 
     public void salvarCurriculo() {
     }
-    
-    public String novo(){
+
+    public String novo() {
         return "/cadastro/plano/form.xhtml";
-        
+
     }
-    
-   
-    }
+}
