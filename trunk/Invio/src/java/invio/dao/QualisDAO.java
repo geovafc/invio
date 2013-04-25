@@ -26,5 +26,5 @@ public class QualisDAO extends GenericDAO<Qualis> {
 
         return resultado;
 
-    }
+    }    
 }

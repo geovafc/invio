@@ -4,7 +4,8 @@
  */
 package invio.rn.pdf;
 
-import invio.dao.GenericDAO;
+
+import invio.dao.QualisDAO;
 import invio.entidade.Qualis;
 import java.util.List;
 import javax.persistence.EntityExistsException;
@@ -16,7 +17,7 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class QualisRN {
 
-    GenericDAO<Qualis> dao = new GenericDAO<Qualis>();
+    QualisDAO dao = new QualisDAO();
 
     public boolean salvar(Qualis qualis) {
         if (qualis.getQualisPK() == null) {
