@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Renan
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "periodico")
@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Periodico.findByRevista", query = "SELECT p FROM Periodico p WHERE p.revista = :revista"),
     @NamedQuery(name = "Periodico.findByVolume", query = "SELECT p FROM Periodico p WHERE p.volume = :volume"),
     @NamedQuery(name = "Periodico.findByPagina", query = "SELECT p FROM Periodico p WHERE p.pagina = :pagina"),
-    @NamedQuery(name = "Periodico.findByArquivo", query = "SELECT p FROM Periodico p WHERE p.arquivo = :arquivo")})
+    @NamedQuery(name = "Periodico.findByArquivo", query = "SELECT p FROM Periodico p WHERE p.arquivo = :arquivo"),
+    @NamedQuery(name = "Periodico.findByEstrato", query = "SELECT p FROM Periodico p WHERE p.estrato = :estrato"),
+    @NamedQuery(name = "Periodico.findByAvaliacao", query = "SELECT p FROM Periodico p WHERE p.avaliacao = :avaliacao")})
 public class Periodico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +58,10 @@ public class Periodico implements Serializable {
     private String pagina;
     @Column(name = "arquivo")
     private String arquivo;
+    @Column(name = "estrato")
+    private Integer estrato;
+    @Column(name = "avaliacao")
+    private String avaliacao;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -129,6 +135,22 @@ public class Periodico implements Serializable {
 
     public void setArquivo(String arquivo) {
         this.arquivo = arquivo;
+    }
+
+    public Integer getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(Integer estrato) {
+        this.estrato = estrato;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
     public Curriculo getCurriculoId() {
