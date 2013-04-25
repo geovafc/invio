@@ -51,7 +51,12 @@ public class PlanoBean {
         this.planos = planos;
     }
 
-    public void salvar() {
+    public String salvar() {
+        if (planoRN.salvar(plano)) {
+            BeanUtil.criarMensagemDeInformacao("Operação realizada com sucesso",
+                    "O plano " + plano.getTitulo() + " foi gravado com sucesso.");
+        }
+        return "listar.xhtml";
     }
 
     public void excluir() {
