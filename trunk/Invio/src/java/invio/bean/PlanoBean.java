@@ -55,6 +55,8 @@ public class PlanoBean {
         if (planoRN.salvar(plano)) {
             BeanUtil.criarMensagemDeInformacao("Operação realizada com sucesso",
                     "O plano " + plano.getTitulo() + " foi gravado com sucesso.");
+        }else{
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o plano", "Plano: " + plano.getTitulo());
         }
         return "listar.xhtml";
     }
