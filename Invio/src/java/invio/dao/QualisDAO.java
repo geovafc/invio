@@ -16,7 +16,7 @@ public class QualisDAO extends GenericDAO<Qualis> {
     public String obterEstrato(String titulo, String area) {
 
 
-        String query = "SELECT q.estrado FROM qualis WHERE q.titulo = titulo AND q.areaAvaliacao = area";
+        String query = "SELECT q.estrato FROM qualis q WHERE q.titulo = titulo AND q.areaAvaliacao = area";
         Query q = getEntityManager().createQuery(query);
 
         q.setParameter("titulo", titulo);
