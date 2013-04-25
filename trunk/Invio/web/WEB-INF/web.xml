@@ -37,7 +37,7 @@
     <welcome-file-list>
         <welcome-file>faces/publico/login/loginInicio.xhtml</welcome-file>
     </welcome-file-list>
-     <!-- Spring security -->
+<!--      Spring security 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -49,5 +49,5 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- Fim spring security -->
+     Fim spring security -->
 </web-app>
