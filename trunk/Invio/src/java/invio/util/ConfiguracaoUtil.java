@@ -15,7 +15,7 @@ import java.util.Properties;
  */
 public class ConfiguracaoUtil {
 
-    public enum TipoProducao {PERIODICOS, LIVROS, ORIENTACOES};
+    public enum TipoProducao {PERIODICOS, LIVROS, ORIENTACOES, PLANOS};
     
     private static Properties abrir(File arquivo) {
         if (arquivo == null) {
@@ -47,6 +47,10 @@ public class ConfiguracaoUtil {
             case ORIENTACOES:
                 resposta = propriedades.getProperty("pasta.orientacoes");
                 break;
+            case PLANOS:
+                resposta = propriedades.getProperty("pasta.planos");
+                break;
+                
         }
         return resposta;
     }
