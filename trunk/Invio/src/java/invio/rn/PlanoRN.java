@@ -50,6 +50,8 @@ public class PlanoRN {
     }
 
     public List<Plano> obterTodosDecrescente(Curriculo c) {
-        return pdao.obterPlanoDecrescente(c);
+        
+        return c.getPlanoList();
+//        return pdao.obterPlanoDecrescente(c);
     }
 }
