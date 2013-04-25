@@ -64,13 +64,19 @@ public class UploadArquivo {
         return context.getRealPath("/cadastro/curriculo/producao");
     }
 
-    public String uploadLivro(Curriculo curriculo, Livro livro, String tipo, InputStream stream) {
+    public String uploadLivro(Curriculo curriculo, 
+            Livro livro, 
+            String tipo, 
+            InputStream stream) {
         String nomeDoArquivo = livro.getId() + livro.getTitulo()+"."+ tipo;
         upload(curriculo, ConfiguracaoUtil.TipoProducao.LIVROS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
 
-    public String uploadPeriodico(Curriculo curriculo, Periodico periodico, String tipo, InputStream stream) {
+    public String uploadPeriodico(Curriculo curriculo, 
+            Periodico periodico, 
+            String tipo, 
+            InputStream stream) {
         String nomeDoArquivo = periodico.getId() + periodico.getTitulo()+"."+ tipo;
         upload(curriculo, ConfiguracaoUtil.TipoProducao.PERIODICOS, nomeDoArquivo, stream);
         return nomeDoArquivo;
