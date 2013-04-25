@@ -61,7 +61,14 @@ public class PlanoBean {
         return "listar.xhtml";
     }
 
-    public void excluir() {
+    public String excluir() {
+        System.out.println("Excluir Plano "+plano);
+        if (planoRN.remover(plano)) {
+            BeanUtil.criarMensagemDeInformacao("Área excluída", "Área: " + plano.getTitulo());
+        }else{
+            BeanUtil.criarMensagemDeErro("Erro ao excluir plano","Plnao: "+plano.getTitulo());
+        }
+        return "listar.xhtml";
     }
 
     public List<Plano> listar() {
