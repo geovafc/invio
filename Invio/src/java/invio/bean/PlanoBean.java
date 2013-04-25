@@ -41,6 +41,9 @@ public class PlanoBean {
     }
 
     public List<Plano> getPlanos() {
+        if (planos == null) {
+            planos = planoRN.obterTodos();
+        }
         return planos;
     }
 
