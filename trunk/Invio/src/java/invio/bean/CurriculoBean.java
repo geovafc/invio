@@ -356,4 +356,20 @@ public class CurriculoBean {
         livro = new Livro();
         return "/cadastro/curriculo/producao/livros.xhtml";
     }
+
+    public String altualizarValidacao() {
+
+        List<Periodico> periodicos = curriculo.getPeriodicoList();
+        List<Livro> livros = curriculo.getLivroList();
+
+        for (Periodico periodicoAtual : periodicos) {
+            periodicoRN.salvar(periodicoAtual);
+        }
+
+        for (Livro livroAtual : livros) {
+            livroRN.salvar(livroAtual);
+        }
+
+        return "/cadastro/curriculo/";
+    }
 }
