@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:body>
         <h:form style="width: 95%"> 
-            
+
             <p:menu style="width:97%">  
                 <p:submenu style="width: 100%" label="Usuários">  
 
@@ -34,12 +34,19 @@
                     <p:menuitem value="Currículo"  ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
                                 action="/cadastro/curriculo/listar.xhtml"/>  
-                </p:submenu>                  
-                <p:submenu style="width: 100%" label="Submissão">  
-                    <p:menuitem value="Arquivo"   ajax="false" 
+
+                    <p:menuitem value="Avaliar Produção"  ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
-                                action="/submissao/uploadFile.xhtml"/>
-                </p:submenu>  
+                                action="/cadastro/curriculo/listar.xhtml"/>  
+                    </p:submenu>      
+                
+                
+                
+                <!--                <p:submenu style="width: 100%" label="Submissão">  
+                                    <p:menuitem value="Arquivo"   ajax="false" 
+                                                icon="ui-icon-arrowrefresh-1-w"
+                                                action="/submissao/uploadFile.xhtml"/>
+                                </p:submenu>-->
 
                 <p:submenu style="width: 100%" label="Logout" >  
 

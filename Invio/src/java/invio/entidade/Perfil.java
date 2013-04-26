@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Perfil.findById", query = "SELECT p FROM Perfil p WHERE p.id = :id"),
     @NamedQuery(name = "Perfil.findByDescricao", query = "SELECT p FROM Perfil p WHERE p.descricao = :descricao")})
 public class Perfil implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +53,11 @@ public class Perfil implements Serializable {
 
     public Perfil(Integer id) {
         this.id = id;
+    }
+
+    public Perfil(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
     }
 
     public Integer getId() {
@@ -103,5 +109,4 @@ public class Perfil implements Serializable {
     public String toString() {
         return "invio.entidade.Perfil[ id=" + id + " ]";
     }
-    
 }

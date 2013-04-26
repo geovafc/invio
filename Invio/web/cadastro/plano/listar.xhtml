@@ -8,7 +8,7 @@
 
     <ui:define name="content">
 
-        <h:form id="listarPropriedade">
+        <h:form id="listarPlano">
 
             <p:panel header="Lista de Planos">
                 <p:growl showDetail="true" showSummary="true"/>
@@ -30,7 +30,7 @@
 
                     
                     <p:column headerText="Data" filterBy="#{planoBean.plano.data}" >  
-                        <h:outputText value="#{propriedade.cnpj}" />  
+                        <h:outputText value="#{planoBean.plano.data}" />  
                     </p:column>  
                     
                     <p:column headerText="Resumo" filterBy="#{planoBean.plano.resumo}" >  

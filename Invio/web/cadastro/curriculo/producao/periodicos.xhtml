@@ -157,6 +157,34 @@
                         </p:cellEditor> 
                     </p:column>
 
+                    <p:column headerText="Estrato"
+                              style="max-width: 95px;min-width: 95px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line"> 
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{periodico.estrato}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{periodico.estrato}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
+
+                    <p:column headerText="Situação"
+                              style="max-width: 95px;min-width: 95px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line"> 
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{periodico.avaliacao}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{periodico.avaliacao}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
+
                     <p:column headerText="Editar" style="width:38px">  
                         <p:rowEditor />  
                     </p:column>
