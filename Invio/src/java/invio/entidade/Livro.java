@@ -50,6 +50,8 @@ public class Livro implements Serializable {
     private String ano;
     @Column(name = "arquivo")
     private String arquivo;
+    @Column(name = "estrato")
+    private Integer estrato;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
@@ -140,6 +142,14 @@ public class Livro implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Livro[ id=" + id + " ]";
+    }
+
+    public Integer getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(Integer estrato) {
+        this.estrato = estrato;
     }
     
 }
