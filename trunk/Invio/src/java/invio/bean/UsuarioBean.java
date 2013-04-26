@@ -31,14 +31,6 @@ public class UsuarioBean {
     public UsuarioBean() {
     }
 
-    public Curriculo getCurriculo() {
-        return curriculo;
-    }
-
-    public void setCurriculo(Curriculo curriculo) {
-        this.curriculo = curriculo;
-    }
-
     public Perfil getPerfil() {
         return perfil;
     }
@@ -47,6 +39,14 @@ public class UsuarioBean {
         this.perfil = perfil;
     }
     
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
+    }
+
     public Login getLogin() {
         return login;
     }
