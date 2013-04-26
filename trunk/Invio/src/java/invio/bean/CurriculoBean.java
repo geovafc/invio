@@ -283,7 +283,7 @@ public class CurriculoBean {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Ano Publicação.");
             return null;
         } else {
-
+            livro.setEstrato(100);
             livro.setCurriculoId(curriculo);
             curriculo.getLivroList().add(livro);
 
