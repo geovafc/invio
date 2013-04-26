@@ -25,7 +25,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `cpf` VARCHAR(50) NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
-  `dtNascimento` DATE NULL ,
+  `dtNascimento` DATE NULL DEFAULT NULL ,
   `logradouro` VARCHAR(100) NOT NULL ,
   `numero_end` VARCHAR(50) NULL DEFAULT NULL ,
   `cep` VARCHAR(10) NULL DEFAULT NULL ,
@@ -112,7 +112,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `dtCriacao` DATETIME NULL DEFAULT NULL ,
   `email` VARCHAR(200) NOT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
-  `ativo` BIT NULL ,
+  `ativo` BIT NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_login_curriculo1`
@@ -172,16 +172,16 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `titulo` VARCHAR(100) NULL ,
-  `autor` VARCHAR(150) NULL ,
-  `ano` VARCHAR(50) NULL ,
-  `revista` VARCHAR(150) NULL ,
-  `volume` VARCHAR(45) NULL ,
-  `pagina` VARCHAR(45) NULL ,
+  `titulo` VARCHAR(100) NULL DEFAULT NULL ,
+  `autor` VARCHAR(150) NULL DEFAULT NULL ,
+  `ano` VARCHAR(50) NULL DEFAULT NULL ,
+  `revista` VARCHAR(150) NULL DEFAULT NULL ,
+  `volume` VARCHAR(45) NULL DEFAULT NULL ,
+  `pagina` VARCHAR(45) NULL DEFAULT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
-  `arquivo` VARCHAR(300) NULL ,
-  `estrato` INT NULL ,
-  `avaliacao` VARCHAR(45) NULL ,
+  `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
+  `estrato` INT NULL DEFAULT NULL ,
+  `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_producao_curriculo1` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_producao_curriculo1`
@@ -197,13 +197,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `titulo` VARCHAR(150) NULL ,
-  `capitulo` VARCHAR(45) NULL ,
-  `autor` VARCHAR(150) NULL ,
-  `ano` VARCHAR(50) NULL ,
-  `estrato` INT NULL ,
+  `titulo` VARCHAR(150) NULL DEFAULT NULL ,
+  `capitulo` VARCHAR(45) NULL DEFAULT NULL ,
+  `autor` VARCHAR(150) NULL DEFAULT NULL ,
+  `ano` VARCHAR(50) NULL DEFAULT NULL ,
+  `estrato` INT NULL DEFAULT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
-  `arquivo` VARCHAR(300) NULL ,
+  `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
+  `avaliacao` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_livro_curriculo1` (`curriculo_id` ASC) ,
   CONSTRAINT `fk_livro_curriculo1`
@@ -221,8 +222,8 @@ CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
   `titulo` VARCHAR(255) NOT NULL ,
   `areaAvaliacao` VARCHAR(255) NOT NULL ,
   `issn` VARCHAR(45) NOT NULL ,
-  `estrato` VARCHAR(45) NULL ,
-  `status` VARCHAR(60) NULL ,
+  `estrato` VARCHAR(45) NULL DEFAULT NULL ,
+  `status` VARCHAR(60) NULL DEFAULT NULL ,
   PRIMARY KEY (`titulo`, `areaAvaliacao`, `issn`) )
 ENGINE = InnoDB;
 
@@ -232,7 +233,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
   `id` INT NOT NULL ,
-  `descricao` VARCHAR(45) NULL ,
+  `descricao` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -264,12 +265,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`edital` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `titulo` VARCHAR(255) NULL ,
+  `titulo` VARCHAR(255) NULL DEFAULT NULL ,
   `numero` INT NOT NULL ,
   `ano` INT NOT NULL ,
   `resumo` TEXT NOT NULL ,
-  `data_inicial` DATE NULL ,
-  `data_final` DATE NULL ,
+  `data_inicial` DATE NULL DEFAULT NULL ,
+  `data_final` DATE NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -280,8 +281,8 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `invio`.`plano` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(255) NOT NULL ,
-  `resumo` TEXT NULL ,
-  `data` DATE NULL ,
+  `resumo` TEXT NULL DEFAULT NULL ,
+  `data` DATE NULL DEFAULT NULL ,
   `edital` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_plano_edital1` (`edital` ASC) ,
