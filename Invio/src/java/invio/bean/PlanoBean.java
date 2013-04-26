@@ -4,15 +4,14 @@
  */
 package invio.bean;
 
+import invio.entidade.Curriculo;
 import invio.entidade.Edital;
 import invio.entidade.Plano;
 import invio.rn.PlanoRN;
+import invio.util.UploadArquivo;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -31,6 +30,16 @@ public class PlanoBean {
     private Plano plano = new Plano();
     private Edital edital;
     private List<Plano> planos;
+    private UploadArquivo fileUpload = new UploadArquivo();
+    private Curriculo curriculo = new Curriculo();
+
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
+    }
 
     public Plano getPlano() {
         return plano;
@@ -55,18 +64,18 @@ public class PlanoBean {
         if (planoRN.salvar(plano)) {
             BeanUtil.criarMensagemDeInformacao("Operação realizada com sucesso",
                     "O plano " + plano.getTitulo() + " foi gravado com sucesso.");
-        }else{
+        } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o plano", "Plano: " + plano.getTitulo());
         }
         return "listar.xhtml";
     }
 
     public String excluirPlano() {
-        System.out.println("Excluir Plano "+plano);
+        System.out.println("Excluir Plano " + plano);
         if (planoRN.remover(plano)) {
             BeanUtil.criarMensagemDeInformacao("Área excluída", "Área: " + plano.getTitulo());
-        }else{
-            BeanUtil.criarMensagemDeErro("Erro ao excluir plano","Plnao: "+plano.getTitulo());
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao excluir plano", "Plnao: " + plano.getTitulo());
         }
         return "listar.xhtml";
     }
