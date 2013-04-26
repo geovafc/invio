@@ -26,6 +26,8 @@ public class CurriculoBean {
 
     private CurriculoRN curriculoRN = new CurriculoRN();
     private List<Curriculo> curriculos;
+    private List<Curriculo> curriculosDesc;
+
     private Curriculo curriculo;
     private Login login;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
@@ -44,12 +46,19 @@ public class CurriculoBean {
 
     public CurriculoBean() {
     }
-
+    
     public List<Curriculo> getCurriculos() {
-        //    if (instituicoes == null) {
         curriculos = curriculoRN.obterTodos();
-        //  }
         return curriculos;
+    }
+    
+    public List<Curriculo> getCurriculosDesc() {
+        curriculos = curriculoRN.obterTodosDesc();
+        return curriculosDesc;
+    }
+
+    public void setCurriculosDesc(List<Curriculo> curriculosDesc) {
+        this.curriculosDesc = curriculosDesc;
     }
 
     public Plano getPlano() {
