@@ -157,6 +157,10 @@
                         </p:cellEditor> 
                     </p:column>
 
+                    <p:column headerText="Produção" filterBy="#{periodico.estrato}" >  
+                        <h:outputText value="#{periodico.estrato}" />  
+                    </p:column>  
+
                     <p:column headerText="Editar" style="width:38px">  
                         <p:rowEditor />  
                     </p:column>
