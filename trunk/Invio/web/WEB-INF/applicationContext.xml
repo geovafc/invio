@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	 
+    <http>
+ 
+        <intercept-url pattern="/faces/cadastro/area/**" access="ROLE_MASTER, ROLE_ADMINISTRACAO" />
+        <intercept-url pattern="/faces/cadastro/curriculo/**" access="ROLE_MASTER, ROLE_ADMINISTRACAO, ROLE_DOCENTE ,ROLE_DISCENTE" />
+        <intercept-url pattern="/faces/cadastro/instituicao/**" access="ROLE_MASTER, ROLE_ADMINISTRACAO" />
+        <intercept-url pattern="/faces/cadastro/programa/**" access="ROLE_MASTER, ROLE_ADMINISTRACAO" />
+     
+        <form-login login-page="/faces/publico/login/loginInicio.xhtml" always-use-default-target = "true"
+                default-target-url = "/faces/publico/indexHome.xhtml"
+                authentication-failure-url = "/faces/publico/login/loginInicio.xhtml?login_error=1"/>
+        <logout/>
+    </http>
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <beans:property name="url" value="jdbc:mysql://localhost:3306/invio" />
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <beans:property name="username" value="inviousr" />
+        <beans:property name="password" value="inviousr" />
+    </beans:bean>
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+	                users-by-username-query="SELECT email, senha, 'true' as enable FROM login WHERE login=?"
+	                authorities-by-username-query="SELECT up.email, p.descricao 
+                                                        FROM perfil_login up INNER JOIN perfil p ON p.id = up.perfil 
+                                                        WHERE login=?"
+	            />
+        </authentication-provider>
+    </authentication-manager>
+	 
+</beans:beans>
