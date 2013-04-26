@@ -4,9 +4,11 @@ import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.entidade.Periodico;
+import invio.entidade.Plano;
 import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
 import invio.rn.PeriodicoRN;
+import invio.rn.PlanoRN;
 import invio.util.UploadArquivo;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +33,9 @@ public class CurriculoBean {
     private Periodico periodico = new Periodico();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
     private LivroRN livroRN = new LivroRN();
+    private PlanoRN planoRN = new PlanoRN();
     private Livro livro = new Livro();
+    private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
 
     public CurriculoBean(List<Curriculo> curriculos) {
@@ -46,6 +50,14 @@ public class CurriculoBean {
         curriculos = curriculoRN.obterTodos();
         //  }
         return curriculos;
+    }
+
+    public Plano getPlano() {
+        return plano;
+    }
+
+    public void setPlano(Plano plano) {
+        this.plano = plano;
     }
 
     public Integer getIdLogin() {
@@ -216,6 +228,30 @@ public class CurriculoBean {
         }
     }
 
+    public void uploadActionPlano(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        InputStream stream = null;
+        try {
+            stream = file.getInputstream();
+            String tipo = file.getContentType();
+            if (tipo.equals("application/pdf")) {
+                tipo = "pdf";
+            } else if (tipo.equals("application/jpg")) {
+                tipo = "jpg";
+            }
+
+
+            String nomeDoArquivo = this.fileUpload.uploadPlano(curriculo, plano, tipo, stream);
+            this.plano.setTitulo(nomeDoArquivo);
+            planoRN.salvar(plano);
+            //Inicializa
+            this.plano = new Plano();
+            this.fileUpload = new UploadArquivo();
+            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
+        } catch (IOException ex) {
+        }
+    }
+
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     public Livro getLivro() {
@@ -314,11 +350,10 @@ public class CurriculoBean {
         periodico = new Periodico();
         return "/cadastro/curriculo/producao/periodicos.xhtml";
     }
-    
+
     public String voltarListaLivro() {
 
         livro = new Livro();
         return "/cadastro/curriculo/producao/livros.xhtml";
     }
-    
 }
