@@ -55,6 +55,8 @@ public class Livro implements Serializable {
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculoId;
+    @Column(name = "avaliacao")
+    private String avaliacao;
 
     public Livro() {
     }
@@ -150,6 +152,14 @@ public class Livro implements Serializable {
 
     public void setEstrato(Integer estrato) {
         this.estrato = estrato;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
     }
     
 }
