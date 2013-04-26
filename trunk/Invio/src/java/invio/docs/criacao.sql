@@ -201,6 +201,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
   `capitulo` VARCHAR(45) NULL ,
   `autor` VARCHAR(150) NULL ,
   `ano` VARCHAR(50) NULL ,
+  `estrato` INT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
   `arquivo` VARCHAR(300) NULL ,
   PRIMARY KEY (`id`) ,
