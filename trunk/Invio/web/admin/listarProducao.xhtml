@@ -13,45 +13,67 @@
             <p:panel header="Listar Produções">
                 <p:growl showDetail="true" showSummary="true"/>
 
-                <p:dataTable id="listaPeriodicos" var="p" value="#{curriculoBean.curriculo.periodicoList}" emptyMessage="Sem registro para a exibição.">
-                    
-                    <!--                paginator="true" rows="6"  
-                                        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                        rowsPerPageTemplate="5,10,15">               -->
+                <p:dataTable id="listaPeriodicos"
+                             var="periodico" value="#{curriculoBean.curriculo.periodicoList}" 
+                             emptyMessage="Sem registro para a exibição.">
 
-                    <p:column headerText="Título" > <h:outputLabel value="#{p.titulo}" /> </p:column>  
-                    <p:column headerText="Revista" > <h:outputLabel value="#{p.revista}" /> </p:column>  
-                    <p:column headerText="Pontuação" > <h:outputLabel value="#{p.estrato}" />  </p:column>  
+                    <p:column headerText="Título" > 
+                        <h:outputLabel value="#{periodico.titulo}" 
+                                       /> </p:column>  
+                    <p:column headerText="Revista" > 
+                        <h:outputLabel value="#{periodico.revista}" />
+                    </p:column>  
+                    <p:column headerText="Pontuação" > 
+                        <h:outputLabel value="#{periodico.estrato}" />  
+                    </p:column> 
+
                     <p:column headerText="Avaliação" style="width:25%">
-                        
                         <p:selectOneMenu value="#{producoes.avaliacao}">  
                             <f:selectItem itemLabel="-" itemValue="" />  
                             <f:selectItem itemLabel="Sim" itemValue="Sim" />  
                             <f:selectItem itemLabel="Não" itemValue="Nao" />  
                         </p:selectOneMenu>  
-                        
                     </p:column>  
                 </p:dataTable>
 
             </p:panel>
 
             <p:panel>
-
-                <p:dataTable id="listaLivros" var="l" value="#{curriculoBean.curriculo.livroList}" emptyMessage="Sem registros para a exibição">
+                <p:dataTable id="listaLivros"
+                             var="livro" value="#{curriculoBean.curriculo.livroList}" 
+                             emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="Livros"></f:facet>
 
-                    <p:column headerText="Titulo"> <h:outputLabel value="#{l.titulo}"/> </p:column>
-                    <p:column headerText="Capítulo"> <h:outputLabel value="#{l.capitulo}"/> </p:column>
-                    <p:column headerText="Autor"> <h:outputLabel value="#{l.titulo}"/> </p:column>
-                    <p:column headerText="Ano"> <h:outputLabel value="#{l.ano}"/> </p:column>
-                    <p:column headerText="Arquivo"> <h:outputLabel value="#{l.titulo}"/> </p:column>
+                    <p:column headerText="Titulo">
+                        <h:outputLabel value="#{livro.titulo}"/> 
+                    </p:column>
+                    <p:column headerText="Capítulo"> 
+                        <h:outputLabel value="#{livro.capitulo}"/> 
+                    </p:column>
+                    <p:column headerText="Autor"> 
+                        <h:outputLabel value="#{livro.titulo}"/> 
+                    </p:column>
+                    <p:column headerText="Ano"> 
+                        <h:outputLabel value="#{livro.ano}"/> 
+                    </p:column>
+                    <p:column headerText="Arquivo">
+                        <h:outputLabel value="#{livro.titulo}"/>
+                    </p:column>
 
                 </p:dataTable>
 
             </p:panel>
-
+            
+            <h:panelGroup>
+                
+                <h:panelGrid columns="2">
+                <h:outputText  value="Total de Pontos:"/>   
+                <h:inputText disabled="true" value="#{curriculoBean}"/>   
+                </h:panelGrid>
+                
             <p:commandButton value="Salvar" action="#{curriculoBean.altualizarValidacao()}" />
+            </h:panelGroup>
 
         </h:form>
 

@@ -54,7 +54,7 @@ public class CurriculoRN {
         return dao.obterTodos(Curriculo.class);
     }
 
-   public List<Curriculo> obterTodosDesc() {
+    public List<Curriculo> obterTodosDesc() {
         List<Curriculo> obterTodosDesc = new ArrayList<Curriculo>();
 
         List<CurriculoPts> mapa = new ArrayList<CurriculoPts>();
@@ -71,28 +71,25 @@ public class CurriculoRN {
             for (Livro livro : curriculo.getLivroList()) {
                 totalL += livro.getEstrato();
             }
-            CurriculoPts cpts = new CurriculoPts(curriculo, totalP+totalL);
+            CurriculoPts cpts = new CurriculoPts(curriculo, totalP + totalL);
             mapa.add(cpts);
 
         }
-        
+
         Collections.sort(mapa);
-        
-        
+
+
         for (CurriculoPts curriculoPts : mapa) {
             obterTodosDesc.add(curriculoPts.getC());
         }
-        
-        
+
+
         return obterTodosDesc;
     }
-    
-    
-    
 }
 
-
 class CurriculoPts implements Comparable<CurriculoPts> {
+
     private Curriculo c;
     private Integer pts;
 
@@ -100,6 +97,7 @@ class CurriculoPts implements Comparable<CurriculoPts> {
         this.c = c;
         this.pts = pts;
     }
+
     public Curriculo getC() {
         return c;
     }
@@ -127,5 +125,31 @@ class CurriculoPts implements Comparable<CurriculoPts> {
         return 0;
     }
 
-  
+    public int calcularPontosProducao(Curriculo curriculo) {
+        int total = 0;
+
+        List<Livro> livros = curriculo.getLivroList();
+        List<Periodico> periodicos = curriculo.getPeriodicoList();
+
+        for (Periodico periodico : periodicos) {
+            if (!periodico.getAvaliacao().trim().equals("")
+                    && !periodico.getAvaliacao().trim().equals("Nao")
+                    && periodico.getAvaliacao() != null) {
+
+                total = total + periodico.getEstrato();
+            }
+        }
+
+        for (Livro livro : livros) {
+            if (!livro.getAvaliacao().trim().equals("")
+                    && !livro.getAvaliacao().trim().equals("Nao")
+                    && livro.getAvaliacao() != null) {
+                
+                total = total + livro.getEstrato();
+            }
+        }
+
+        return total;
+
+    }
 }
