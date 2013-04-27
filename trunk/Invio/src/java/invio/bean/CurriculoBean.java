@@ -147,7 +147,7 @@ public class CurriculoBean {
         curriculo = new Curriculo();
         return "/cadastro/curriculo/wizard.xhtml";
     }
-
+    
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     public Periodico getPeriodico() {
@@ -366,7 +366,7 @@ public class CurriculoBean {
         return "/cadastro/curriculo/producao/livros.xhtml";
     }
 
-    public String altualizarValidacao() {
+    public String atualizarValidacao() {
 
         List<Periodico> periodicos = curriculo.getPeriodicoList();
         List<Livro> livros = curriculo.getLivroList();
