@@ -27,7 +27,16 @@ public class UsuarioBean {
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
-    
+    private String permissao;
+
+    public String getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
+    }
+
     public UsuarioBean() {
     }
 
@@ -38,7 +47,7 @@ public class UsuarioBean {
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
-    
+
     public Curriculo getCurriculo() {
         return curriculo;
     }
@@ -56,7 +65,7 @@ public class UsuarioBean {
     }
 
     public String irRecuperarSenha() {
-        
+
         return "/publico/login/recuperarSenha.xhtml";
     }
 
@@ -215,6 +224,8 @@ public class UsuarioBean {
         String emailLogin = login.getEmail();
         curriculo.setEmail(emailLogin);
 
+
+
         boolean salvou = curriculoRN.salvar(curriculo);
 
         if (salvou) {
@@ -223,6 +234,18 @@ public class UsuarioBean {
             login.setCodigoConfirmacaoTemp("");
             login.setCodigoConfirmacao(codigoConfirmacao);
             login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
+
+            List<Perfil> perfis = new PerfilRN().obterTodos();
+            login.setPerfilList(new ArrayList<Perfil>());
+            if (permissao.equals("ROLE_DOCENTE")) {
+                login.getPerfilList().add(perfis.get(0));
+            } else if (permissao.equals("ROLE_DISCENTE")) {
+                login.getPerfilList().add(perfis.get(1));
+            } else if (permissao.equals("ROLE_MASTER")) {
+                login.getPerfilList().add(perfis.get(2));
+            } else if (permissao.equals("ROLE_ADMINISTRACAO")) {
+                login.getPerfilList().add(perfis.get(3));
+            }
 
             if (loginRN.salvar(login)) {
 
