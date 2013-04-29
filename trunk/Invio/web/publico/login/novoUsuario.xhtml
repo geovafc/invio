@@ -20,7 +20,7 @@
                     <h:panelGrid columns="2">
                         
                         <h:outputText value="Perfil Acadêmico: *" />
-                        <p:selectOneMenu required="true" id="perfil" value="#{usuarioBean.perfil.descricao}">  
+                        <p:selectOneMenu required="true" id="perfil" value="#{usuarioBean.permissao}">  
                             <f:selectItem itemLabel="Selecione" itemValue="" />  
                             <f:selectItem itemLabel="Discente" itemValue="ROLE_DISCENTE" />  
                             <f:selectItem itemLabel="Docente" itemValue="ROLE_DOCENTE" />  
