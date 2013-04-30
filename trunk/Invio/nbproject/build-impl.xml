@@ -979,13 +979,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.themes-primefaces.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.MySQLDriver.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.hibernate-persistence.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.hibernate-support.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.Spring Security 3.0.5.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.javamail-1.4.6.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.pdfbox-1.7.1.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.hibernate-support.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.spring-framework.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.Spring Security 3.0.5.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.PrimeFaces_3.4.1.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.spring-framework300.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.Commons-Loggin 1.1.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.Commons-Fileupload 1.2.2.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.Commons-io 2.2.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
@@ -999,13 +997,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.themes-primefaces.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.MySQLDriver.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.hibernate-persistence.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.hibernate-support.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.Spring Security 3.0.5.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.javamail-1.4.6.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.pdfbox-1.7.1.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.hibernate-support.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.spring-framework.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.Spring Security 3.0.5.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.PrimeFaces_3.4.1.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.spring-framework300.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.Commons-Loggin 1.1.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.Commons-Fileupload 1.2.2.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.Commons-io 2.2.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
