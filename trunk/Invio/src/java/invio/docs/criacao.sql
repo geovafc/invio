@@ -232,7 +232,7 @@ ENGINE = InnoDB;
 -- Table `invio`.`perfil`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `descricao` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
