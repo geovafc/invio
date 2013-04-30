@@ -28,12 +28,7 @@
 	                users-by-username-query="SELECT email, senha, 'true' as enable FROM login WHERE senha=?"
 	                authorities-by-username-query="SELECT up.email, p.descricao 
                                                         FROM perfil_login up INNER JOIN perfil p ON p.id = up.perfil 
-                                                        WHERE email=?"
-
-<!--                                                        "SELECT login,descricao 
-                                                        FROM perfil_login INNER JOIN perfil ON perfil.id = perfil_login.perfil 
-                                                        WHERE email=?"-->
-	            />
+                                                        WHERE email=?"/>
         </authentication-provider>
     </authentication-manager>
 	 
