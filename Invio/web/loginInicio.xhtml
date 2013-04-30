@@ -6,31 +6,23 @@
     <h:head>
         <h:outputStylesheet name="style.css" library="css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Bem vindo ao Invio!</title>
+        <title>Invio</title>
     </h:head>
     <h:body>
         <div id="bg">
             <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="600">
                 <center>
-                    <h:outputText value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
+                    <h:outputText value="Usuario ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
                 </center>
-                <form action="j_spring_security_check" method="post">
+                <form action="#{request.contextPath}/j_spring_security_check" method="post">
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel for="j_username" value="Email: *" /> 
                         <h:inputText id="j_username" required="true" size="26"/>
                         <h:outputLabel for="j_password" value="Senha: * " />
-                        <h:inputSecret id="j_password" required="true" size="26"
-                                       />
-                        <h:commandButton value="Login"/>
+                        <h:inputSecret id="j_password" required="true" size="26"/>
+<!--                        <h:commandButton value="Entrar"/>-->
                     </h:panelGrid>
-                </form>
-                <form action="j_spring_security_check" method="post">
-                    <h:commandButton value="Entrar como visitante">
-                        <h:inputHidden id="j_username"
-                                       value="visitante"/>
-                        <h:inputHidden id="j_password"
-                                       value="visitante"/>
-                    </h:commandButton>
+                        <input type="submit" value="Entrar"/>
                 </form>
             </p:dialog>
         </div>
