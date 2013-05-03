@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        
+        <ui:composition template="./../../../template/templatePadrao.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+
+                    <h:outputText value="Programas: "/>
+                    <p:selectOneMenu 
+                        id="programaSelect" 
+                        label="#{curriculoBean.programa.nome}"
+                        value="#{curriculoBean.programa}"
+                        style="width: 200px">
+
+                        <f:selectItems value="#{programaBean.programas}"/>
+                        <f:converter converterId="programaConversor"/>
+
+                    </p:selectOneMenu>
+                    
+                    <p:commandButton value="Adicionar" action="#{curriculoBean.salvarProgramaCurriculo()}"
+                                     update="programasTabela"/>
+                    <p:dataTable id="programasTabela" 
+                                 value="#{curriculoBean.curriculo.programaList}" var="programa"
+                                 emptyMessage="Sem registro para a exibição."
+                                 paginator="true" rows="5" 
+                                 rowsPerPageTemplate="5,10,15"
+                                 >
+                        <p:column headerText="Programa" style="width:38px">  
+                            <h:outputText value="#{programa.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

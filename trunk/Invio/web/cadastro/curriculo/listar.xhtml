@@ -7,7 +7,6 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-
         <h:form id="form">
 
             <p:panel header="Lista de Currículos">
@@ -68,6 +67,15 @@
                                 ajax="false"
                                 action="/cadastro/curriculo/producao/livros.xhtml"
                                 value="Livros">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>      
+                            
+                            <p:commandButton 
+                                ajax="false"
+                                action="/cadastro/curriculo/programa/selecionar.xhtml"
+                                value="Programas">  
                                 <f:setPropertyActionListener 
                                     value="#{curriculo}" 
                                     target="#{curriculoBean.curriculo}" />  

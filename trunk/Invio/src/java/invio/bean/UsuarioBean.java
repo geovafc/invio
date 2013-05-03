@@ -8,15 +8,25 @@ import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
 import invio.rn.PerfilRN;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 
 @ManagedBean
 @SessionScoped
-public class UsuarioBean {
+public class UsuarioBean implements UserDetailsService {
 
     PerfilRN perfilRN = new PerfilRN();
     LoginRN loginRN = new LoginRN();
@@ -28,6 +38,8 @@ public class UsuarioBean {
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
     private String permissao;
+    
+    private Login usuarioLogado = new Login();
 
     public String getPermissao() {
         return permissao;
@@ -71,13 +83,13 @@ public class UsuarioBean {
 
     public String logoutSair() {
         configurarLimparSessao();
-        return "/publico/login/loginInicio.xhtml";
+        return "/loginInicio.xhtml";
     }
 
     public String cancelarTelaConfirmacao() {
 
         configurarLimparSessao();
-        return "/publico/login/loginInicio.xhtml";
+        return "/loginInicio.xhtml";
     }
 
     public void configurarLimparSessao() {
@@ -233,19 +245,13 @@ public class UsuarioBean {
             login.setCurriculoId(curriculo);
             login.setCodigoConfirmacaoTemp("");
             login.setCodigoConfirmacao(codigoConfirmacao);
-            login.setDtCriacao(null);// RECEBER DATA ATUAL DO BANCO DE DADOS
+            login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
+            login.setAtivo(true);
 
-            List<Perfil> perfis = new PerfilRN().obterTodos();
-            login.setPerfilList(new ArrayList<Perfil>());
-            if (permissao.equals("ROLE_DOCENTE")) {
-                login.getPerfilList().add(perfis.get(0));
-            } else if (permissao.equals("ROLE_DISCENTE")) {
-                login.getPerfilList().add(perfis.get(1));
-            } else if (permissao.equals("ROLE_MASTER")) {
-                login.getPerfilList().add(perfis.get(2));
-            } else if (permissao.equals("ROLE_ADMINISTRACAO")) {
-                login.getPerfilList().add(perfis.get(3));
-            }
+            List<Perfil> perfis = new ArrayList<Perfil>();
+            perfis.add(perfilRN.obter(permissao));
+            login.setPerfilList(perfis);
+
 
             if (loginRN.salvar(login)) {
 
@@ -254,7 +260,7 @@ public class UsuarioBean {
                 if (falhaAoEnviar == true) {
                     loginRN.remover(login);
                     curriculoRN.remover(curriculo);
-                    pagina2 = "/publico/login/loginInicio.xhtml";
+                    pagina2 = "/loginInicio.xhtml";
                     BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
                             "Não foi possível concluir o cadastro, tente mais tarde.");
                     configurarLimparSessao();
@@ -266,14 +272,8 @@ public class UsuarioBean {
                     BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                             "Quando for realizado o login será solicitado o código.");
                     configurarLimparSessao();
-
                 }
-
-
-
             }
-
-
         }
     }
     ArrayList<String> tiposPerfil;
@@ -290,6 +290,7 @@ public class UsuarioBean {
         tiposPerfil.add("Discente");
         tiposPerfil.add("Docente");
         tiposPerfil.add("Administrador");
+        tiposPerfil.add("Master");
         return tiposPerfil;
     }
     String pagina2 = "";
@@ -299,35 +300,55 @@ public class UsuarioBean {
         this.emailJaCadastrado = emailJaCadastrado;
     }
 
+    public String salvar2() {
+        System.out.println("passei aqui");
+        if (!loginRN.existe(login.getEmail())) {
+            if (!javaMailRN.configurarEnviarEmail(login, "Confirmação de registro "
+                    + "de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login))) {
+                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                        "Não foi possível concluir o cadastro, tente mais tarde.");
+                return "";
+            } else {
+                List<Perfil> perfis = new ArrayList<Perfil>();
+                perfis.add(perfilRN.obter(permissao));
+                login.setPerfilList(perfis);
+                if (!loginRN.salvar(login)) {
+                    BeanUtil.criarMensagemDeErro("Ocorreu um erro ao salvar login", "Ocorreu um erro ao salvar login");
+
+                } else {
+                    if (!curriculoRN.salvar(curriculo)) {
+                        BeanUtil.criarMensagemDeErro("Ocorreu um erro ao salvar curriculo", "Ocorreu um erro ao salvar curriculo");
+                    }
+                }
+
+
+            }
+            BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
+                    "Quando for realizado o login será solicitado o código.");
+            return "/loginInicio.xhtml";
+        } else {
+            BeanUtil.criarMensagemDeAviso("Email já existe!", "Email já existe");
+            return "";
+        }
+
+
+
+    }
+
     public String salvar() {
 
-        logins = loginRN.obterTodos();
 
-        if (logins.size() > 0) {
+        if (loginRN.existe(login.getEmail())) {
 
-            for (Login loginTemp2 : logins) {
+            configurarLimparSessao();
 
-                if (login.getEmail().equals(loginTemp2.getEmail())) {
-                    setEmailJaCadastrado(true);
-                }
-            }
-
-            if (emailJaCadastrado == true) {
-
-                configurarLimparSessao();
-
-                pagina2 = "/publico/login/novoUsuario.xhtml";
-                BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
-                        "");
-            } else {
-
-                configurarSalvalCurricoLogin();
-
-            }
-
+            pagina2 = "/publico/login/novoUsuario.xhtml";
+            BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
+                    "");
         } else {
 
             configurarSalvalCurricoLogin();
+
         }
 
         configurarLimparSessao();
@@ -340,6 +361,7 @@ public class UsuarioBean {
         if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
 
             login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
+            
 
             loginRN.salvar(login);
 
@@ -353,4 +375,43 @@ public class UsuarioBean {
         return pagina3;
 
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException, DataAccessException {
+        if (string.isEmpty()) {
+            throw new UsernameNotFoundException(string);
+        }
+        Login temp = loginRN.obter(string);
+        List<GrantedAuthority> papeis = new ArrayList<GrantedAuthority>();
+        for (Perfil p : temp.getPerfilList()) {
+            papeis.add(new GrantedAuthorityImpl(p.getDescricao()));
+        }
+        return new User(temp.getEmail(), temp.getSenha(), temp.getAtivo(), true, true, true, papeis);
+
+
+    }
+
+    public Login getUsuarioLogado() {
+        FacesContext f = FacesContext.getCurrentInstance();
+        ExternalContext e = f.getExternalContext();
+        usuarioLogado = loginRN.obter(e.getRemoteUser());
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(Login usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+    
+    public boolean isMaster(){
+        System.out.println("lista de perfis "+getUsuarioLogado().getPerfilList().size());
+        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
+            System.out.println(temp.getDescricao());
+            if(temp.getDescricao().equals("ROLE_MASTER")){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
 }

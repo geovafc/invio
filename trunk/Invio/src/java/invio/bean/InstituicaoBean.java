@@ -18,6 +18,7 @@ public class InstituicaoBean {
     private UnidadeRN unidadeRN = new UnidadeRN();
     private Unidade unidade; //= new Unidade();
     private List<Unidade> unidades;
+    
 
     public InstituicaoBean(List<Instituicao> instituicoes, Unidade unidade) {
         this.instituicoes = instituicoes;

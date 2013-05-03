@@ -13,18 +13,18 @@
             <p:panel header="Listar Produções">
                 <p:growl showDetail="true" showSummary="true"/>
 
-                <p:dataTable id="listaPeriodicos"
-                             var="periodico" value="#{curriculoBean.curriculo.periodicoList}" 
+                <p:dataTable id="listaPeriodicosA"
+                             var="lperiodico" value="#{curriculoBean.curriculo.periodicoList}" 
                              emptyMessage="Sem registro para a exibição.">
 
                     <p:column headerText="Título" > 
-                        <h:outputLabel value="#{periodico.titulo}" 
+                        <h:outputLabel value="#{lperiodico.titulo}" 
                                        /> </p:column>  
                     <p:column headerText="Revista" > 
-                        <h:outputLabel value="#{periodico.revista}" />
+                        <h:outputLabel value="#{lperiodico.revista}" />
                     </p:column>  
                     <p:column headerText="Pontuação" > 
-                        <h:outputLabel value="#{periodico.estrato}" />  
+                        <h:outputLabel value="#{lperiodico.estrato}" />  
                     </p:column> 
 
                     <p:column headerText="Avaliação" style="width:25%">
@@ -40,25 +40,25 @@
 
             <p:panel>
                 <p:dataTable id="listaLivros"
-                             var="livro" value="#{curriculoBean.curriculo.livroList}" 
+                             var="lislivro" value="#{curriculoBean.curriculo.livroList}" 
                              emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="Livros"></f:facet>
 
                     <p:column headerText="Titulo">
-                        <h:outputLabel value="#{livro.titulo}"/> 
+                        <h:outputLabel value="#{lislivro.titulo}"/> 
                     </p:column>
                     <p:column headerText="Capítulo"> 
-                        <h:outputLabel value="#{livro.capitulo}"/> 
+                        <h:outputLabel value="#{lislivro.capitulo}"/> 
                     </p:column>
                     <p:column headerText="Autor"> 
-                        <h:outputLabel value="#{livro.titulo}"/> 
+                        <h:outputLabel value="#{lislivro.titulo}"/> 
                     </p:column>
                     <p:column headerText="Ano"> 
-                        <h:outputLabel value="#{livro.ano}"/> 
+                        <h:outputLabel value="#{lislivro.ano}"/> 
                     </p:column>
                     <p:column headerText="Arquivo">
-                        <h:outputLabel value="#{livro.titulo}"/>
+                        <h:outputLabel value="#{lislivro.titulo}"/>
                     </p:column>
 
                 </p:dataTable>
@@ -72,7 +72,7 @@
                 <h:inputText disabled="true" value="#{curriculoBean}"/>   
                 </h:panelGrid>
                 
-            <p:commandButton value="Salvar" action="#{curriculoBean.altualizarValidacao()}" />
+            <p:commandButton value="Salvar" action="#{curriculoBean.altualizarPontos()}" />
             </h:panelGroup>
 
         </h:form>

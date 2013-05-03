@@ -5,13 +5,16 @@ import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
+import invio.entidade.Programa;
 import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
 import invio.rn.PeriodicoRN;
 import invio.rn.PlanoRN;
+import invio.rn.pdf.QualisRN;
 import invio.util.UploadArquivo;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -24,10 +27,10 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class CurriculoBean {
 
+    
     private CurriculoRN curriculoRN = new CurriculoRN();
     private List<Curriculo> curriculos;
     private List<Curriculo> curriculosDesc;
-
     private Curriculo curriculo;
     private Login login;
     private static Logger logger = Logger.getLogger(Curriculo.class.getName());
@@ -39,6 +42,9 @@ public class CurriculoBean {
     private Livro livro = new Livro();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
+    private UsuarioBean usuarioBean = new UsuarioBean();
+    private QualisRN qualisRN = new QualisRN();
+    private Programa programa = new Programa();
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -46,12 +52,18 @@ public class CurriculoBean {
 
     public CurriculoBean() {
     }
-    
+
     public List<Curriculo> getCurriculos() {
-        curriculos = curriculoRN.obterTodos();
+        if (usuarioBean.isMaster()) {
+            curriculos = curriculoRN.obterTodos();
+        } else {
+            List<Curriculo> cs = new ArrayList<Curriculo>();
+            cs.add(usuarioBean.getUsuarioLogado().getCurriculoId());
+            curriculos = cs;
+        }
         return curriculos;
     }
-    
+
     public List<Curriculo> getCurriculosDesc() {
         curriculos = curriculoRN.obterTodosDesc();
         return curriculosDesc;
@@ -138,16 +150,14 @@ public class CurriculoBean {
 
     public String irListarCurriculos() {
         curriculo = null;
-
         return "/cadastro/curriculo/listar.xhtml";
     }
 
     public String novoFormularioCurriculo() {
-
         curriculo = new Curriculo();
         return "/cadastro/curriculo/wizard.xhtml";
     }
-    
+
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     public Periodico getPeriodico() {
@@ -159,7 +169,6 @@ public class CurriculoBean {
     }
 
     public String salvarPeriodico() {
-
         if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");
             return null;
@@ -172,8 +181,14 @@ public class CurriculoBean {
         } else {
 
             periodico.setCurriculoId(curriculo);
-            curriculo.getPeriodicoList().add(periodico);
+
+//            curriculo.getPeriodicoList().add(periodico);
             if (periodicoRN.salvar(periodico)) {
+                List<Periodico> ps = curriculo.getPeriodicoList();
+                if (ps == null) {
+                    ps = new ArrayList<Periodico>();
+                    ps.add(periodico);
+                }
                 curriculoRN.salvar(curriculo);
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
@@ -181,7 +196,6 @@ public class CurriculoBean {
             } else {
                 BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
             }
-
         }
         periodico = new Periodico();
         return null;
@@ -208,7 +222,6 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir Periódico", "Periódico: " + periodico.getTitulo());
         }
-
         periodico = new Periodico();
         return "periodicos.xhtml";
     }
@@ -381,4 +394,28 @@ public class CurriculoBean {
 
         return "/cadastro/curriculo/";
     }
+
+    public List<String> complete(String query) {
+        List<String> results = qualisRN.obterTodosTitulos(query);
+        return results;
+    }
+
+    public List<String> completeArea(String query) {
+        List<String> results = qualisRN.obterTodosTitulosArea(query);
+        return results;
+    }
+
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
+
+    public void salvarProgramaCurriculo() {
+        curriculo.getProgramaList().add(programa);
+        curriculoRN.salvar(curriculo);
+    }
+
 }

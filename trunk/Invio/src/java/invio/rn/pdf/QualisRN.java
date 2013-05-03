@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package invio.rn.pdf;
 
 
@@ -118,10 +114,20 @@ public class QualisRN {
     public List<Qualis> obterTodos() {
         return dao.obterTodos(Qualis.class);
     }
+    
+    public List<String> obterTodosTitulos(String query) {
+        return dao.obterTodosTitulos(query);
+    }
+    
+    public List<String> obterTodosTitulosArea(String query) {
+        return dao.obterTodosTitulosArea(query);
+    }
 
     public int obterEstrato(String titulo, String area) {
         String estrato = dao.obterEstrato(titulo, area);
 
+        estrato = estrato.trim();
+        System.out.println("estrato"+estrato);
         
         if(estrato.equalsIgnoreCase("A1")){
             return 100;

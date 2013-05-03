@@ -13,10 +13,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-/**
- *
- * @author Dir de Armas Marinha
- */
 @ManagedBean
 @RequestScoped
 public class PlanoBean {
