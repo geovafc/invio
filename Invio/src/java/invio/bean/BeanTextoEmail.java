@@ -6,10 +6,6 @@ package invio.bean;
 
 import invio.entidade.Login;
 
-/**
- *
- * @author Junior
- */
 public class BeanTextoEmail {
 
     public static String getTextoEmailCodigoConfirmacao(Login login) {

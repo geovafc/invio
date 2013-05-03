@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="../../template/templatePadrao.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
 
@@ -16,9 +17,11 @@
             <p:growl/>
 
             <h:panelGrid columns="3">
-
+                
+                <f:view encoding="ISO-8859-1">
                 <h:outputText value="Nome: "/>
                 <h:inputText id="instituicaoNome" value="#{instituicaoBean.instituicao.nome}"/>
+                </f:view>
                 <h:message for="instituicaoNome"/>
 
                 <h:outputText value="Sigla: "/>

@@ -1,6 +1,6 @@
 package invio.rn;
 
-import invio.dao.GenericDAO;
+import invio.dao.PerfilDAO;
 import invio.entidade.Perfil;
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PerfilRN {
 
-    GenericDAO<Perfil> dao = new GenericDAO<Perfil>();
+    PerfilDAO dao = new PerfilDAO();
 
     public boolean salvar(Perfil perfil) {
         boolean salvou = false;
@@ -36,6 +36,10 @@ public class PerfilRN {
 
     public Perfil obter(Integer id) {
         return dao.obter(Perfil.class, id);
+    }
+    
+    public Perfil obter(String descricao) {
+        return dao.obter(descricao);
     }
     
     public List<Perfil> obterTodos (){

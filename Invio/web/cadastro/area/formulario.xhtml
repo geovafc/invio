@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="../../template/templatePadrao.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
 
@@ -15,10 +16,13 @@
 
             <h:panelGrid columns="3">
 
-                <h:outputText value="Nome: "/>
-                <h:inputText id="areaNome" value="#{areaBean.area.nome}"/>
-                <h:message for="areaNome"/>
 
+                <h:outputText value="Nome: "/>
+
+                <f:view encoding="ISO-8859-1">
+                    <p:autoComplete id="areaNome" scrollHeight="100" value="#{areaBean.area.nome}"   
+                                    completeMethod="#{curriculoBean.completeArea}"/>
+                </f:view>
 
             </h:panelGrid>
 

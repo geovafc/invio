@@ -1,30 +1,87 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <h:outputStylesheet name="style.css" library="css"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Invio</title>
-    </h:head>
-    <h:body>
-        <div id="bg">
-            <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="600">
-                <center>
-                    <h:outputText value="Usuario ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
-                </center>
-                <form action="#{request.contextPath}/j_spring_security_check" method="post">
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel for="j_username" value="Email: *" /> 
-                        <h:inputText id="j_username" required="true" size="26"/>
-                        <h:outputLabel for="j_password" value="Senha: * " />
-                        <h:inputSecret id="j_password" required="true" size="26"/>
-<!--                        <h:commandButton value="Entrar"/>-->
-                    </h:panelGrid>
-                        <input type="submit" value="Entrar"/>
-                </form>
-            </p:dialog>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+
+            <form action="#{request.contextPath}/j_spring_security_check" method="post">
+                <h:panelGroup rendered="#{!empty param.login_error}">
+                    <span style="color: red">  * Erro ao efetuar o login</span>
+                    <br/>
+                </h:panelGroup>
+
+                <p:messages showDetail="true" showSummary="true"/>
+                <div align="center">
+
+                    <p:panel id="panelLogin">
+                        <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
+                        <br/>
+                        <br/>
+                        <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
+
+                            <h:outputText id="loginLabel" value="E-mail:"/>
+                            <p:inputText required="true" id="j_username"/>
+
+                            <h:outputText value="Senha: " />  
+                            <p:password required="true" id="j_password" /> 
+
+
+                        </h:panelGrid>
+
+                        <p:panel style ="border-color: transparent; 
+                                 color: transparent; background: transparent " >
+
+                            <div align="center">
+                                <h:commandButton  value="Entrar" />
+                            </div>
+                        </p:panel>
+                    </p:panel>
+                </div>
+            </form>
+        <h:form>
+            <div align="center">
+                <p:commandLink value="Esqueceu sua senha?" ajax="false" 
+                               action="#{usuarioBean.irRecuperarSenha()}"/>
+            </div>
+            <br/>
+            <div align="center">
+                <p:commandButton value="Criar uma conta" ajax="false" 
+                                 action="#{usuarioBean.irNovoUsuario()}" 
+                                 update="form"/>
+            </div>
+
+        </h:form>
+        <br/>
+        <div align="center">
+            <html>
+                <body>
+
+                    <div id="fb-root"></div>
+                    <script>
+                        // Load the SDK Asynchronously
+                        (function(d) {
+                            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                            if (d.getElementById(id)) {
+                                return;
+                            }
+                            js = d.createElement('script');
+                            js.id = id;
+                            js.async = true;
+                            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                            ref.parentNode.insertBefore(js, ref);
+                        }(document));
+                    </script>
+
+                    <div class="fb-like"></div>
+
+                </body>
+            </html>
         </div>
-    </h:body>
-</html>
+
+    </ui:define>
+
+</ui:composition>

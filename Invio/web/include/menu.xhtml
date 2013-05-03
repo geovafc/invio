@@ -7,13 +7,13 @@
         <h:form style="width: 95%"> 
 
             <p:menu style="width:97%">  
+
                 <p:submenu style="width: 100%" label="Usuários">  
 
                     <p:menuitem 
                         value="Listar Usuários"  ajax="false"
                         icon="ui-icon-arrowrefresh-1-w" 
                         action="/cadastro/login/listaUsuarios.xhtml"/>  
-
                 </p:submenu>
                 <p:submenu style="width: 100%" label="Cadastros">  
 
@@ -38,10 +38,14 @@
                     <p:menuitem value="Avaliar Produção"  ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
                                 action="/admin/listarCurriculoAv.xhtml"/>  
-                    </p:submenu>      
-                
-                
-                
+                    
+                    <p:menuitem value="Plano de Trabalho"  ajax="false"
+                                icon="ui-icon-arrowrefresh-1-w"
+                                action="/cadastro/plano/listar.xhtml"/>  
+                </p:submenu>      
+
+
+
                 <!--                <p:submenu style="width: 100%" label="Submissão">  
                                     <p:menuitem value="Arquivo"   ajax="false" 
                                                 icon="ui-icon-arrowrefresh-1-w"
@@ -51,10 +55,16 @@
                 <p:submenu style="width: 100%" label="Logout" >  
 
                     <p:menuitem id="misair" ajax="false">
-                        <h:commandButton 
-                            id="btlogout"
-                            action="#{usuarioBean.logoutSair()}"
-                            image="/resources/imagem/sair.png"/>
+                        <!--                        <h:commandButton 
+                                                    id="btlogout"
+                                                    action="# {usuarioBean.logoutSair()}"
+                                                    image="/resources/imagem/sair.png"/>-->
+
+                        <a onclick=
+                           "document.location = '#{request.contextPath}/j_spring_security_logout'" 
+                           title="Sair">
+                            <h:graphicImage library="imagem" name="sair.png"/>
+                        </a>
                     </p:menuitem>
 
                 </p:submenu>  

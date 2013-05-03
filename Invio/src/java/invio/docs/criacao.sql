@@ -115,6 +115,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `ativo` BIT NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   CONSTRAINT `fk_login_curriculo1`
     FOREIGN KEY (`curriculo_id` )
     REFERENCES `invio`.`curriculo` (`id` )

@@ -37,6 +37,7 @@
     <welcome-file-list>
         <welcome-file>/publico/indexHome.xhtml</welcome-file>
     </welcome-file-list>
+    
     <!--    Spring security -->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>

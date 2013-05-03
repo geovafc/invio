@@ -7,7 +7,6 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
-
         <ui:composition template="./../../template/templatePadrao.xhtml">
 
             <ui:define name="content">
@@ -18,6 +17,7 @@
                     <p:ajax event="tabChange" listener="#{propriedadeTabViewBean.onTabChange}"/> 
                     <p:tab id="tab1" title="Plano">
                         <h:form >
+                            
                             <h:panelGrid columns="6" cellpadding="">
                                 <h:outputText value="Título: *" />  
                                 <p:inputText id="nomePropriedade" required="true" label="titulo"  

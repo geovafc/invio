@@ -7,9 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-
         <p:panel header="Lista de Periódicos">
-
             <h:inputHidden 
                 id="ihInstituicao"
                 value="#{curriculoBean.curriculo}" 
@@ -38,8 +36,13 @@
                                       id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Revista : " />  
-                        <p:inputText id="Revista" required="false"   
-                                     value="#{curriculoBean.periodico.revista}" />  
+                        
+                        <f:view encoding="ISO-8859-1">
+                            
+                        
+                        <p:autoComplete id="Revista" dropdown="true" scrollHeight="100" value="#{curriculoBean.periodico.revista}"   
+                                        completeMethod="#{curriculoBean.complete}"/>
+                        </f:view>
 
                         <h:outputLabel value="Volume : " for="volume"/> 
                         <p:inputText id="Volume" required="false"   
@@ -157,7 +160,7 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    <p:column headerText="Produção" filterBy="#{periodico.estrato}" >  
+                    <p:column headerText="Produção" >  
                         <h:outputText value="#{periodico.estrato}" />  
                     </p:column>  
 

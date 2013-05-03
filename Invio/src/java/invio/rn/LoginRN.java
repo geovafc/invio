@@ -1,10 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package invio.rn;
 
-import invio.dao.GenericDAO;
+import invio.dao.LoginDAO;
 import invio.entidade.Login;
 import java.util.List;
 
@@ -14,7 +10,7 @@ import java.util.List;
  */
 public class LoginRN {
 
-    GenericDAO<Login> dao = new GenericDAO<Login>();
+    LoginDAO dao = new LoginDAO();
 
     public boolean salvar(Login login) {
         boolean salvou = false;
@@ -40,6 +36,14 @@ public class LoginRN {
 
     public Login obter(Integer id) {
         return dao.obter(Login.class, id);
+    }
+    
+    public Login obter(String email) {
+        return dao.obter(email);
+    }
+    
+    public boolean existe(String email) {
+        return dao.existe(email);
     }
 
     public List<Login> obterTodos() {

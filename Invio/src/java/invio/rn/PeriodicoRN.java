@@ -2,6 +2,7 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Area;
+import invio.entidade.Curriculo;
 import invio.entidade.Periodico;
 import invio.entidade.Programa;
 import invio.rn.pdf.QualisRN;
@@ -9,17 +10,25 @@ import java.util.List;
 
 public class PeriodicoRN {
 
-    GenericDAO<Periodico> dao = new GenericDAO<Periodico>();
-    QualisRN qualisRN = new QualisRN();
+    private GenericDAO<Periodico> dao = new GenericDAO<Periodico>();
+    private QualisRN qualisRN = new QualisRN();
+    private GenericDAO<Curriculo> curriculoDAO = new GenericDAO<Curriculo>();
+    
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
 
         int pt = 0;
 
-        for (Programa temp : periodico.getCurriculoId().getProgramaList()) {
+        
+        Curriculo curriculoDoPeriodico = curriculoDAO.obter(Curriculo.class, periodico.getCurriculoId().getId());
+        
+        List<Programa> programasDoCurr = curriculoDoPeriodico.getProgramaList();
+        
+        for (Programa temp : programasDoCurr) {
             for (Area areaTemp : temp.getAreaList()) {
                 int ptTemp = qualisRN.obterEstrato(periodico.getRevista(), areaTemp.getNome());
+                System.out.println("ptTemp"+ptTemp);
                 if (ptTemp >= pt) {
                     pt = ptTemp;
                 }

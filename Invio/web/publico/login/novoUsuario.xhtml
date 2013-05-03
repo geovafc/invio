@@ -26,8 +26,10 @@
                             <f:selectItem itemLabel="Docente" itemValue="ROLE_DOCENTE" />  
                         </p:selectOneMenu>
 
+                        <f:view encoding="ISO-8859-1">
                         <h:outputText value="Nome: *"/>
                         <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
+                        </f:view>
 
 
                         <h:outputText value="CPF: *"/>

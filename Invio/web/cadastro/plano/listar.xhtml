@@ -24,26 +24,21 @@
                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     rowsPerPageTemplate="5,10,15">
 
-                    <p:column headerText="Título" filterBy="#{planoBean.plano.titulo}" >  
-                        <h:outputText value="#{planoBean.plano.titulo}" />  
+                    <p:column headerText="Título" filterBy="#{plano.titulo}" >  
+                        <h:outputText value="#{plano.titulo}" />  
                     </p:column>  
 
                     
-                    <p:column headerText="Data" filterBy="#{planoBean.plano.data}" >  
-                        <h:outputText value="#{planoBean.plano.data}" />  
+                    <p:column headerText="Data" filterBy="#{plano.data}" >  
+                        <h:outputText value="#{plano.data}" />  
                     </p:column>  
                     
-                    <p:column headerText="Resumo" filterBy="#{planoBean.plano.resumo}" >  
-                        <h:outputText value="#{planoBean.plano.resumo}" />  
+                    <p:column headerText="Resumo" filterBy="#{plano.resumo}" >  
+                        <h:outputText value="#{plano.resumo}" />  
                     </p:column>  
-                    
                     
                     </p:dataTable>
-                    
             </p:panel>
-
         </h:form>
-
     </ui:define>
-
 </ui:composition>

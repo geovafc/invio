@@ -10,10 +10,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-/**
- *
- * @author Junior
- */
 @ManagedBean
 @RequestScoped
 public class AreaBean {
