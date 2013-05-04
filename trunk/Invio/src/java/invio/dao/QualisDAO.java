@@ -14,7 +14,7 @@ public class QualisDAO extends GenericDAO<Qualis> {
         System.out.println("titulo" + titulo);
         System.out.println("area" + area);
 
-        String query = "SELECT q.estrato FROM qualis q WHERE q.titulo = :titulo AND q.areaAvaliacao = :area";
+        String query = "SELECT DISTINCT q.estrato FROM qualis q WHERE q.titulo = :titulo AND q.areaAvaliacao = :area";
         Query q = getEntityManager().createNativeQuery(query);
 
         q.setParameter("titulo", titulo);
@@ -31,7 +31,7 @@ public class QualisDAO extends GenericDAO<Qualis> {
     }
 
     public List<String> obterTodosTitulos(String palavra) {
-        String query = "SELECT q.titulo FROM qualis q WHERE q.titulo like '" + palavra + "%'";
+        String query = "SELECT DISTINCT q.titulo FROM qualis q WHERE q.titulo like '" + palavra + "%'";
         Query q = getEntityManager().createNativeQuery(query);
 
         List<String> resultado = (List<String>) q.getResultList();
@@ -40,7 +40,7 @@ public class QualisDAO extends GenericDAO<Qualis> {
     }
 
     public List<String> obterTodosTitulosArea(String palavra) {
-        String query = "SELECT q.areaAvaliacao FROM qualis q WHERE q.areaAvaliacao like '" + palavra + "%'";
+        String query = "SELECT DISTINCT q.areaAvaliacao FROM qualis q WHERE q.areaAvaliacao like '" + palavra + "%'";
         Query q = getEntityManager().createNativeQuery(query);
 
         List<String> resultado = (List<String>) q.getResultList();
