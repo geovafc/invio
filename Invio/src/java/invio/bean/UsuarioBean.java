@@ -23,7 +23,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-
 @ManagedBean
 @SessionScoped
 public class UsuarioBean implements UserDetailsService {
@@ -38,7 +37,6 @@ public class UsuarioBean implements UserDetailsService {
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
     private String permissao;
-    
     private Login usuarioLogado = new Login();
 
     public String getPermissao() {
@@ -236,8 +234,6 @@ public class UsuarioBean implements UserDetailsService {
         String emailLogin = login.getEmail();
         curriculo.setEmail(emailLogin);
 
-
-
         boolean salvou = curriculoRN.salvar(curriculo);
 
         if (salvou) {
@@ -301,7 +297,6 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public String salvar2() {
-        System.out.println("passei aqui");
         if (!loginRN.existe(login.getEmail())) {
             if (!javaMailRN.configurarEnviarEmail(login, "Confirmação de registro "
                     + "de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login))) {
@@ -321,7 +316,6 @@ public class UsuarioBean implements UserDetailsService {
                     }
                 }
 
-
             }
             BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                     "Quando for realizado o login será solicitado o código.");
@@ -330,27 +324,17 @@ public class UsuarioBean implements UserDetailsService {
             BeanUtil.criarMensagemDeAviso("Email já existe!", "Email já existe");
             return "";
         }
-
-
-
     }
 
     public String salvar() {
-
-
         if (loginRN.existe(login.getEmail())) {
-
             configurarLimparSessao();
-
             pagina2 = "/publico/login/novoUsuario.xhtml";
             BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
                     "");
         } else {
-
             configurarSalvalCurricoLogin();
-
         }
-
         configurarLimparSessao();
         return pagina2;
     }
@@ -361,7 +345,7 @@ public class UsuarioBean implements UserDetailsService {
         if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
 
             login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
-            
+
 
             loginRN.salvar(login);
 
@@ -401,17 +385,15 @@ public class UsuarioBean implements UserDetailsService {
     public void setUsuarioLogado(Login usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
     }
-    
-    public boolean isMaster(){
-        System.out.println("lista de perfis "+getUsuarioLogado().getPerfilList().size());
+
+    public boolean isMaster() {
+        System.out.println("lista de perfis " + getUsuarioLogado().getPerfilList().size());
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
             System.out.println(temp.getDescricao());
-            if(temp.getDescricao().equals("ROLE_MASTER")){
+            if (temp.getDescricao().equals("ROLE_MASTER")) {
                 return true;
             }
         }
         return false;
     }
-    
-    
 }

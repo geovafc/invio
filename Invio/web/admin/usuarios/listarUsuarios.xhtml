@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="../../template/templatePadrao.xhtml"
+                template="./../../template/templatePadrao.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -9,14 +9,14 @@
     <ui:define name="content">
         <h:form id="form">
 
-            <p:panel header="Lista de Currículos">
+            <p:panel header="Lista de Usuários">
                 <p:growl showDetail="true" showSummary="true"/>
 
                 <p:commandButton value="Novo" ajax="false" action="#{curriculoBean.novoFormularioCurriculo()}"/>
 
 
                 <p:dataTable 
-                    id="dtCurriculo"
+                    id="dtUsuario"
                     var="curriculo" value="#{curriculoBean.curriculos}"
                     emptyMessage="Sem registro para a exibição."
                     paginator="true" rows="6"  
@@ -31,48 +31,21 @@
                     <p:column headerText="Operações">  
                         <div align="center">
                             <p:commandButton 
-                                action="wizard.xhtml"
-                                value="Editar"
+                                action="editarPermissoes.xhtml"
+                                value="Permissões"
                                 ajax="false">  
+                            </p:commandButton>  
+
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluir.xhtml"
+                                value="Excluir">  
                                 <f:setPropertyActionListener 
                                     value="#{curriculo}" 
                                     target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>  
-
+                            </p:commandButton> 
                         </div>
                     </p:column> 
-
-                    <p:column headerText="Incluir">
-                        <div align="center">
-                            <p:commandButton 
-                                ajax="false"
-                                action="/cadastro/curriculo/producao/periodicos.xhtml"
-                                value="Periódicos">  
-                                <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
-                                    target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>  
-
-                            <p:commandButton 
-                                ajax="false"
-                                action="/cadastro/curriculo/producao/livros.xhtml"
-                                value="Livros">  
-                                <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
-                                    target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>      
-                            
-                            <p:commandButton 
-                                ajax="false"
-                                action="/cadastro/curriculo/programa/selecionar.xhtml"
-                                value="Programas">  
-                                <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
-                                    target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>      
-
-                        </div>
-                    </p:column>
 
                 </p:dataTable>
             </p:panel>
