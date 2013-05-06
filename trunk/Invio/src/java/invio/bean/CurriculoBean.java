@@ -116,7 +116,7 @@ public class CurriculoBean {
         }
         return "listar.xhtml";
     }
-
+    
     public String excluirCurriculo() {
         System.out.println("Curriculo " + curriculo);
         if (curriculoRN.remover(curriculo)) {
@@ -124,7 +124,7 @@ public class CurriculoBean {
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir o curriculo", "Curriculo: " + curriculo.getNome());
         }
-        return "listar.xhtml";
+        return "listarUsuarios.xhtml";
     }
 
     public boolean isSkip() {
@@ -151,6 +151,11 @@ public class CurriculoBean {
     public String irListarCurriculos() {
         curriculo = null;
         return "/cadastro/curriculo/listar.xhtml";
+    }
+    
+    public String irListarUsuarios() {
+        curriculo = null;
+        return "/admin/usuarios/listarUsuarios.xhtml";
     }
 
     public String novoFormularioCurriculo() {
