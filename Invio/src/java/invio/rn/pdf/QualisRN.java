@@ -116,15 +116,15 @@ public class QualisRN {
     }
     
     public List<String> obterTodosTitulos(String query) {
-        return dao.obterTodosTitulos(query);
+        return dao.obterTodosTitulos(query, 20);
     }
     
     public List<String> obterTodosTitulosArea(String query) {
-        return dao.obterTodosTitulosArea(query);
+        return dao.obterTodosTitulosArea(query, 20);
     }
 
     public int obterEstrato(String titulo, String area) {
-        String estrato = dao.obterEstrato(titulo, area);
+        String estrato = dao.obterEstrato(titulo, area, 20);
 
         estrato = estrato.trim();
         System.out.println("estrato"+estrato);
