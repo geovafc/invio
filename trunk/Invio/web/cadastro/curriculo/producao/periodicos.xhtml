@@ -40,7 +40,7 @@
                         <f:view encoding="ISO-8859-1">
                             
                         
-                        <p:autoComplete id="Revista" dropdown="true" scrollHeight="100" value="#{curriculoBean.periodico.revista}"   
+                        <p:autoComplete id="Revista" scrollHeight="100" value="#{curriculoBean.periodico.revista}"   
                                         completeMethod="#{curriculoBean.complete}"/>
                         </f:view>
 
@@ -160,7 +160,7 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    <p:column headerText="Produção" >  
+                    <p:column headerText="Pontuação" >  
                         <h:outputText value="#{periodico.estrato}" />  
                     </p:column>  
 

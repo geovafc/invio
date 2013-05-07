@@ -339,6 +339,19 @@ public class UsuarioBean implements UserDetailsService {
         return pagina2;
     }
     String pagina3 = "";
+    
+    public String alterarPermissao() {
+        if (loginRN.existe(login.getEmail())) {
+            pagina2 = "/publico/login/novoUsuario.xhtml";
+            BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
+                    "");
+        } else {
+            configurarSalvalCurricoLogin();
+        }
+        configurarLimparSessao();
+        return pagina2;
+    }
+//    String pagina3 = "";
 
     public String okCodigo() {
 

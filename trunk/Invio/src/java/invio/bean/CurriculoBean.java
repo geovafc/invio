@@ -402,6 +402,7 @@ public class CurriculoBean {
 
     public List<String> complete(String query) {
         List<String> results = qualisRN.obterTodosTitulos(query);
+        
         return results;
     }
 
