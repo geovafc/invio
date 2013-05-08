@@ -13,18 +13,13 @@
             <ui:define name="content">
                 <h:form>
 
-                    <h:outputText value="Programas: "/>
-                    <p:selectOneMenu 
-                        id="programaSelect" 
-                        label="#{curriculoBean.programa.nome}"
-                        value="#{curriculoBean.programa}"
-                        style="width: 200px">
+                    <h:outputText value="Programas: " />  
+                    <p:selectOneMenu value="#{curriculoBean.programa.nome}" effect="fade" converter="programaConversor">  
+                        <f:selectItem itemLabel="Selecione" itemValue="" />  
+                        <f:selectItems value="#{programaBean.programas}" var="nome" itemLabel="#{curriculoBean.programa.nome}" 
+                                       itemValue="#{nome}"/>  
+                    </p:selectOneMenu>  
 
-                        <f:selectItems value="#{programaBean.programas}"/>
-                        <f:converter converterId="programaConversor"/>
-
-                    </p:selectOneMenu>
-                    
                     <p:commandButton value="Adicionar" action="#{curriculoBean.salvarProgramaCurriculo()}"
                                      update="programasTabela"/>
                     <p:dataTable id="programasTabela" 
