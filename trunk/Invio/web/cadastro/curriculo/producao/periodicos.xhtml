@@ -36,10 +36,7 @@
                                       id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Revista : " />  
-                        
                         <f:view encoding="ISO-8859-1">
-                            
-                        
                         <p:autoComplete id="Revista" scrollHeight="100" value="#{curriculoBean.periodico.revista}"   
                                         completeMethod="#{curriculoBean.complete}"/>
                         </f:view>
@@ -56,7 +53,7 @@
                         <p:commandButton id="btn_add" value="Adicionar"
                                          ajax="false"
                                          action="#{curriculoBean.salvarPeriodico()}"
-                                         update=":periodicosTabela"/>
+                                         update="periodicosTabela"/>
 
                     </h:panelGrid>  
                 </p:panel>  
@@ -67,8 +64,7 @@
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
-                             editable="true"
-                             >
+                             editable="true">
 
                     <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarPeriodico(periodico)}" update="periodicosTabela" />  
 
@@ -160,8 +156,18 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    <p:column headerText="Pontuação" >  
-                        <h:outputText value="#{periodico.estrato}" />  
+                    <p:column headerText="Pontuação"
+                              style="max-width: 95px;min-width: 95px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line">
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{periodico.estrato}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{periodico.estrato}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor>
                     </p:column>  
 
                     <p:column headerText="Editar" style="width:38px">  
@@ -186,7 +192,6 @@
                     <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">  
-
                         <p:commandLink value="Comprovação" ajax="false" update="periodicosTabela"
                                        action="uploadPeriodico.xhtml">  
                             <f:setPropertyActionListener 
