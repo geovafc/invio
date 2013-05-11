@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author fabio
  */
 @Entity
 @Table(name = "periodico")
@@ -38,6 +38,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Periodico.findByEstrato", query = "SELECT p FROM Periodico p WHERE p.estrato = :estrato"),
     @NamedQuery(name = "Periodico.findByAvaliacao", query = "SELECT p FROM Periodico p WHERE p.avaliacao = :avaliacao")})
 public class Periodico implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "autores")
+    private String autores;
+    @Basic(optional = false)
+    @Column(name = "paginainicial")
+    private int paginainicial;
+    @Basic(optional = false)
+    @Column(name = "paginafinal")
+    private int paginafinal;
+    @Column(name = "link")
+    private String link;
+    @Column(name = "doi")
+    private String doi;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,9 +75,9 @@ public class Periodico implements Serializable {
     private Integer estrato;
     @Column(name = "avaliacao")
     private String avaliacao;
-    @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
+    @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Curriculo curriculoId;
+    private Curriculo curriculo;
 
     public Periodico() {
     }
@@ -153,12 +166,12 @@ public class Periodico implements Serializable {
         this.avaliacao = avaliacao;
     }
 
-    public Curriculo getCurriculoId() {
-        return curriculoId;
+    public Curriculo getCurriculo() {
+        return curriculo;
     }
 
-    public void setCurriculoId(Curriculo curriculoId) {
-        this.curriculoId = curriculoId;
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
     }
 
     @Override
@@ -184,6 +197,46 @@ public class Periodico implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Periodico[ id=" + id + " ]";
+    }
+
+    public String getAutores() {
+        return autores;
+    }
+
+    public void setAutores(String autores) {
+        this.autores = autores;
+    }
+
+    public int getPaginainicial() {
+        return paginainicial;
+    }
+
+    public void setPaginainicial(int paginainicial) {
+        this.paginainicial = paginainicial;
+    }
+
+    public int getPaginafinal() {
+        return paginafinal;
+    }
+
+    public void setPaginafinal(int paginafinal) {
+        this.paginafinal = paginafinal;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public void setDoi(String doi) {
+        this.doi = doi;
     }
     
 }

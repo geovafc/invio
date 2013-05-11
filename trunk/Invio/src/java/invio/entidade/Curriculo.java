@@ -15,8 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Renan
+ * @author fabio
  */
 @Entity
 @Table(name = "curriculo")
@@ -108,15 +108,18 @@ public class Curriculo implements Serializable {
     private String genero;
     @ManyToMany(mappedBy = "curriculoList")
     private List<Plano> planoList;
-    @JoinTable(name = "curriculo_programa", joinColumns = {
-        @JoinColumn(name = "curriculo", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "programa", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Programa> programaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Orientacao> orientacaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Livro> livroList;
+    @JoinColumn(name = "instituicao", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Instituicao instituicao;
+    @JoinColumn(name = "area", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Area area;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
     private List<Login> loginList;
 
@@ -296,15 +299,6 @@ public class Curriculo implements Serializable {
     }
 
     @XmlTransient
-    public List<Programa> getProgramaList() {
-        return programaList;
-    }
-
-    public void setProgramaList(List<Programa> programaList) {
-        this.programaList = programaList;
-    }
-
-    @XmlTransient
     public List<Periodico> getPeriodicoList() {
         return periodicoList;
     }
@@ -314,12 +308,37 @@ public class Curriculo implements Serializable {
     }
 
     @XmlTransient
+    public List<Orientacao> getOrientacaoList() {
+        return orientacaoList;
+    }
+
+    public void setOrientacaoList(List<Orientacao> orientacaoList) {
+        this.orientacaoList = orientacaoList;
+    }
+
+    @XmlTransient
     public List<Livro> getLivroList() {
         return livroList;
     }
 
     public void setLivroList(List<Livro> livroList) {
         this.livroList = livroList;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     @XmlTransient

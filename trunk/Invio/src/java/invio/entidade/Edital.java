@@ -14,7 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Renan
+ * @author fabio
  */
 @Entity
 @Table(name = "edital")
@@ -37,8 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Edital.findByTitulo", query = "SELECT e FROM Edital e WHERE e.titulo = :titulo"),
     @NamedQuery(name = "Edital.findByNumero", query = "SELECT e FROM Edital e WHERE e.numero = :numero"),
     @NamedQuery(name = "Edital.findByAno", query = "SELECT e FROM Edital e WHERE e.ano = :ano"),
-    @NamedQuery(name = "Edital.findByDataInicial", query = "SELECT e FROM Edital e WHERE e.dataInicial = :dataInicial"),
-    @NamedQuery(name = "Edital.findByDataFinal", query = "SELECT e FROM Edital e WHERE e.dataFinal = :dataFinal")})
+    @NamedQuery(name = "Edital.findByDatainicial", query = "SELECT e FROM Edital e WHERE e.datainicial = :datainicial"),
+    @NamedQuery(name = "Edital.findByDatafinal", query = "SELECT e FROM Edital e WHERE e.datafinal = :datafinal")})
 public class Edital implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,12 +60,17 @@ public class Edital implements Serializable {
     @Lob
     @Column(name = "resumo")
     private String resumo;
-    @Column(name = "data_inicial")
-    @Temporal(TemporalType.DATE)
-    private Date dataInicial;
-    @Column(name = "data_final")
-    @Temporal(TemporalType.DATE)
-    private Date dataFinal;
+    @Basic(optional = false)
+    @Column(name = "datainicial")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datainicial;
+    @Basic(optional = false)
+    @Column(name = "datafinal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datafinal;
+    @JoinColumn(name = "instituicao", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Instituicao instituicao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "edital")
     private List<Plano> planoList;
 
@@ -74,11 +81,13 @@ public class Edital implements Serializable {
         this.id = id;
     }
 
-    public Edital(Integer id, int numero, int ano, String resumo) {
+    public Edital(Integer id, int numero, int ano, String resumo, Date datainicial, Date datafinal) {
         this.id = id;
         this.numero = numero;
         this.ano = ano;
         this.resumo = resumo;
+        this.datainicial = datainicial;
+        this.datafinal = datafinal;
     }
 
     public Integer getId() {
@@ -121,20 +130,28 @@ public class Edital implements Serializable {
         this.resumo = resumo;
     }
 
-    public Date getDataInicial() {
-        return dataInicial;
+    public Date getDatainicial() {
+        return datainicial;
     }
 
-    public void setDataInicial(Date dataInicial) {
-        this.dataInicial = dataInicial;
+    public void setDatainicial(Date datainicial) {
+        this.datainicial = datainicial;
     }
 
-    public Date getDataFinal() {
-        return dataFinal;
+    public Date getDatafinal() {
+        return datafinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
-        this.dataFinal = dataFinal;
+    public void setDatafinal(Date datafinal) {
+        this.datafinal = datafinal;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 
     @XmlTransient

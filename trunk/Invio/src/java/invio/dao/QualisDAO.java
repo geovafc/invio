@@ -14,7 +14,8 @@ public class QualisDAO extends GenericDAO<Qualis> {
         System.out.println("titulo" + titulo);
         System.out.println("area" + area);
 
-        String query = "SELECT q.estrato FROM qualis q WHERE q.titulo = :titulo AND q.areaAvaliacao = :area";
+        String query = "SELECT q.estrato FROM qualis q "
+                + "WHERE q.titulo = :titulo AND q.areaAvaliacao = :area";
         Query q = getEntityManager().createNativeQuery(query);
                 q.setMaxResults(maxResultados);
         q.setParameter("titulo", titulo);
@@ -29,7 +30,8 @@ public class QualisDAO extends GenericDAO<Qualis> {
     }
 
     public List<String> obterTodosTitulos(String palavra, int maxResultados) {
-        String query = "SELECT q.titulo FROM qualis q WHERE q.titulo like '" + palavra + "%'";
+        String query = "SELECT q.titulo FROM qualis q "
+                + "WHERE q.titulo like '%" + palavra + "%'"; //Acrescetei o % antes da palavra
         Query q = getEntityManager().createNativeQuery(query);
                 q.setMaxResults(maxResultados);
         List<String> resultado = (List<String>) q.getResultList();
@@ -38,7 +40,8 @@ public class QualisDAO extends GenericDAO<Qualis> {
     }
 
     public List<String> obterTodosTitulosArea(String palavra,int maxResultados) {
-        String query = "SELECT q.areaAvaliacao FROM qualis q WHERE q.areaAvaliacao like '" + palavra + "%'";
+        String query = "SELECT distinct q.areaAvaliacao FROM qualis q "
+                + "WHERE q.areaAvaliacao like '%" + palavra + "%'";
         Query q = getEntityManager().createNativeQuery(query);
                q.setMaxResults(maxResultados);
                

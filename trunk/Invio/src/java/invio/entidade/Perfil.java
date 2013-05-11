@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package invio.entidade;
 
 import java.io.Serializable;
@@ -8,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Renan
+ * @author fabio
  */
 @Entity
 @Table(name = "perfil")
@@ -27,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Perfil.findById", query = "SELECT p FROM Perfil p WHERE p.id = :id"),
     @NamedQuery(name = "Perfil.findByDescricao", query = "SELECT p FROM Perfil p WHERE p.descricao = :descricao")})
 public class Perfil implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +41,10 @@ public class Perfil implements Serializable {
     private Integer id;
     @Column(name = "descricao")
     private String descricao;
-    @ManyToMany(mappedBy = "perfilList")
+    @JoinTable(name = "perfil_login", joinColumns = {
+        @JoinColumn(name = "perfil", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "login", referencedColumnName = "id")})
+    @ManyToMany
     private List<Login> loginList;
 
     public Perfil() {
@@ -44,11 +52,6 @@ public class Perfil implements Serializable {
 
     public Perfil(Integer id) {
         this.id = id;
-    }
-
-    public Perfil(Integer id, String descricao) {
-        this.id = id;
-        this.descricao = descricao;
     }
 
     public Integer getId() {
@@ -100,4 +103,5 @@ public class Perfil implements Serializable {
     public String toString() {
         return "invio.entidade.Perfil[ id=" + id + " ]";
     }
+    
 }

@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package invio.entidade;
 
 import java.io.Serializable;
@@ -10,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -23,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Renan
+ * @author fabio
  */
 @Entity
 @Table(name = "login")
@@ -59,10 +62,7 @@ public class Login implements Serializable {
     private String email;
     @Column(name = "ativo")
     private Boolean ativo;
-    @JoinTable(name = "perfil_login", joinColumns = {
-        @JoinColumn(name = "login", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "perfil", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "loginList")
     private List<Perfil> perfilList;
     @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
