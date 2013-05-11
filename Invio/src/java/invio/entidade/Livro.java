@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Renan
+ * @author fabio
  */
 @Entity
 @Table(name = "livro")
@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Livro.findByCapitulo", query = "SELECT l FROM Livro l WHERE l.capitulo = :capitulo"),
     @NamedQuery(name = "Livro.findByAutor", query = "SELECT l FROM Livro l WHERE l.autor = :autor"),
     @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano"),
-    @NamedQuery(name = "Livro.findByArquivo", query = "SELECT l FROM Livro l WHERE l.arquivo = :arquivo")})
+    @NamedQuery(name = "Livro.findByEstrato", query = "SELECT l FROM Livro l WHERE l.estrato = :estrato"),
+    @NamedQuery(name = "Livro.findByArquivo", query = "SELECT l FROM Livro l WHERE l.arquivo = :arquivo"),
+    @NamedQuery(name = "Livro.findByAvaliacao", query = "SELECT l FROM Livro l WHERE l.avaliacao = :avaliacao")})
 public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,15 +50,15 @@ public class Livro implements Serializable {
     private String autor;
     @Column(name = "ano")
     private String ano;
-    @Column(name = "arquivo")
-    private String arquivo;
     @Column(name = "estrato")
     private Integer estrato;
-    @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Curriculo curriculoId;
+    @Column(name = "arquivo")
+    private String arquivo;
     @Column(name = "avaliacao")
     private String avaliacao;
+    @JoinColumn(name = "curriculo", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Curriculo curriculo;
 
     public Livro() {
     }
@@ -105,6 +107,14 @@ public class Livro implements Serializable {
         this.ano = ano;
     }
 
+    public Integer getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(Integer estrato) {
+        this.estrato = estrato;
+    }
+
     public String getArquivo() {
         return arquivo;
     }
@@ -113,12 +123,20 @@ public class Livro implements Serializable {
         this.arquivo = arquivo;
     }
 
-    public Curriculo getCurriculoId() {
-        return curriculoId;
+    public String getAvaliacao() {
+        return avaliacao;
     }
 
-    public void setCurriculoId(Curriculo curriculoId) {
-        this.curriculoId = curriculoId;
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
     }
 
     @Override
@@ -144,22 +162,6 @@ public class Livro implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Livro[ id=" + id + " ]";
-    }
-
-    public Integer getEstrato() {
-        return estrato;
-    }
-
-    public void setEstrato(Integer estrato) {
-        this.estrato = estrato;
-    }
-
-    public String getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(String avaliacao) {
-        this.avaliacao = avaliacao;
     }
     
 }

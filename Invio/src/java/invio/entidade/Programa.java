@@ -5,7 +5,6 @@
 package invio.entidade;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,18 +12,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Renan
+ * @author fabio
  */
 @Entity
 @Table(name = "programa")
@@ -43,13 +39,9 @@ public class Programa implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @JoinTable(name = "programa_area", joinColumns = {
-        @JoinColumn(name = "programa", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "area", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Area> areaList;
-    @ManyToMany(mappedBy = "programaList")
-    private List<Curriculo> curriculoList;
+    @JoinColumn(name = "area", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Area area;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instituicao instituicao;
@@ -82,22 +74,12 @@ public class Programa implements Serializable {
         this.nome = nome;
     }
 
-    @XmlTransient
-    public List<Area> getAreaList() {
-        return areaList;
+    public Area getArea() {
+        return area;
     }
 
-    public void setAreaList(List<Area> areaList) {
-        this.areaList = areaList;
-    }
-
-    @XmlTransient
-    public List<Curriculo> getCurriculoList() {
-        return curriculoList;
-    }
-
-    public void setCurriculoList(List<Curriculo> curriculoList) {
-        this.curriculoList = curriculoList;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     public Instituicao getInstituicao() {
