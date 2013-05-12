@@ -45,9 +45,21 @@
                         <p:inputText id="Volume" required="false"   
                                      value="#{curriculoBean.periodico.volume}" />  
 
-                        <h:outputLabel value="Página : " for="pagina"/>  
-                        <p:inputText id="Pagina" required="false" size="2"   
-                                     value="#{curriculoBean.periodico.pagina}" />  
+                        <h:outputLabel value="Página Incial: " for="paginaI"/>  
+                        <p:inputText id="PaginaI" required="false" size="2"   
+                                     value="#{curriculoBean.periodico.paginainicial}" />  
+                        
+                        <h:outputLabel value="Página Final: " for="paginaF"/>  
+                        <p:inputText id="PaginaF" required="false" size="2"   
+                                     value="#{curriculoBean.periodico.paginafinal}" />  
+                        
+                        <h:outputLabel value="DOI: " for="doi"/>  
+                        <p:inputText id="Doi" required="false"
+                                     value="#{curriculoBean.periodico.doi}" />  
+                        
+                        <h:outputLabel value="Link: " for="link"/>  
+                        <p:inputText id="Link" required="false"
+                                     value="#{curriculoBean.periodico.link}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Adicionar"

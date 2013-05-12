@@ -9,7 +9,7 @@ import invio.entidade.Login;
 public class BeanTextoEmail {
 
     public static String getTextoEmailCodigoConfirmacao(Login login) {
-        return "Olá " + login.getCurriculoId().getNome() + "," + "\n\n"
+        return "Olá " + login.getEmail() + "," + "\n\n"
                 + "Sua solicitação de cadastro foi registrada com sucesso em nosso sistema.\n"
                 + "Para concluir o processo, insira o código de confirmação abaixo quando for exigido.\n\n"
                 + "Código de Confirmação: " + login.getCodigoConfirmacao() + "\n\n\n"
@@ -20,7 +20,7 @@ public class BeanTextoEmail {
     }
 
     public static String getTextoEmailRecuperacaoSenha(Login login, String senha) {
-        return "Olá " + login.getCurriculoId().getNome() + "," + "\n\n"
+        return "Olá " + login.getEmail() + "," + "\n\n"
                 + "Recebemos sua solicitação de recuperação de senha de acesso. \n\n"
                 + "Sua senha é: " + senha + "\n\n"
                 + "Se você não fez essa solicitação ao sistema Invio, por favor desconsidere esse e-mail.\n\n"

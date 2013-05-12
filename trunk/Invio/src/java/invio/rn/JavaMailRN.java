@@ -46,7 +46,7 @@ public class JavaMailRN {
         ajm.setTypeTextMail(AtributosJavaMail.TYPE_TEXT_PLAIN);
 //sete quantos destinatarios desejar
         Map<String, String> map = new HashMap<String, String>();
-        map.put(login.getEmail(), login.getCurriculoId().getNome());
+        map.put(login.getEmail(), login.getEmail());
         ajm.setToMailsUsers(map);
         
         try {
