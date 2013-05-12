@@ -8,14 +8,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabio
+ * @author SORANSO
  */
 @Entity
 @Table(name = "login")
@@ -64,9 +63,6 @@ public class Login implements Serializable {
     private Boolean ativo;
     @ManyToMany(mappedBy = "loginList")
     private List<Perfil> perfilList;
-    @JoinColumn(name = "curriculo_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Curriculo curriculoId;
 
     public Login() {
     }
@@ -144,14 +140,6 @@ public class Login implements Serializable {
 
     public void setPerfilList(List<Perfil> perfilList) {
         this.perfilList = perfilList;
-    }
-
-    public Curriculo getCurriculoId() {
-        return curriculoId;
-    }
-
-    public void setCurriculoId(Curriculo curriculoId) {
-        this.curriculoId = curriculoId;
     }
 
     @Override

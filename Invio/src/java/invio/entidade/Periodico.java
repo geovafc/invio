@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author fabio
+ * @author SORANSO
  */
 @Entity
 @Table(name = "periodico")
@@ -29,52 +29,54 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Periodico.findAll", query = "SELECT p FROM Periodico p"),
     @NamedQuery(name = "Periodico.findById", query = "SELECT p FROM Periodico p WHERE p.id = :id"),
     @NamedQuery(name = "Periodico.findByTitulo", query = "SELECT p FROM Periodico p WHERE p.titulo = :titulo"),
-    @NamedQuery(name = "Periodico.findByAutor", query = "SELECT p FROM Periodico p WHERE p.autor = :autor"),
+    @NamedQuery(name = "Periodico.findByAutores", query = "SELECT p FROM Periodico p WHERE p.autores = :autores"),
     @NamedQuery(name = "Periodico.findByAno", query = "SELECT p FROM Periodico p WHERE p.ano = :ano"),
     @NamedQuery(name = "Periodico.findByRevista", query = "SELECT p FROM Periodico p WHERE p.revista = :revista"),
     @NamedQuery(name = "Periodico.findByVolume", query = "SELECT p FROM Periodico p WHERE p.volume = :volume"),
-    @NamedQuery(name = "Periodico.findByPagina", query = "SELECT p FROM Periodico p WHERE p.pagina = :pagina"),
+    @NamedQuery(name = "Periodico.findByPaginainicial", query = "SELECT p FROM Periodico p WHERE p.paginainicial = :paginainicial"),
+    @NamedQuery(name = "Periodico.findByPaginafinal", query = "SELECT p FROM Periodico p WHERE p.paginafinal = :paginafinal"),
     @NamedQuery(name = "Periodico.findByArquivo", query = "SELECT p FROM Periodico p WHERE p.arquivo = :arquivo"),
     @NamedQuery(name = "Periodico.findByEstrato", query = "SELECT p FROM Periodico p WHERE p.estrato = :estrato"),
-    @NamedQuery(name = "Periodico.findByAvaliacao", query = "SELECT p FROM Periodico p WHERE p.avaliacao = :avaliacao")})
+    @NamedQuery(name = "Periodico.findByAvaliacao", query = "SELECT p FROM Periodico p WHERE p.avaliacao = :avaliacao"),
+    @NamedQuery(name = "Periodico.findByLink", query = "SELECT p FROM Periodico p WHERE p.link = :link"),
+    @NamedQuery(name = "Periodico.findByDoi", query = "SELECT p FROM Periodico p WHERE p.doi = :doi")})
 public class Periodico implements Serializable {
-    @Basic(optional = false)
-    @Column(name = "autores")
-    private String autores;
-    @Basic(optional = false)
-    @Column(name = "paginainicial")
-    private int paginainicial;
-    @Basic(optional = false)
-    @Column(name = "paginafinal")
-    private int paginafinal;
-    @Column(name = "link")
-    private String link;
-    @Column(name = "doi")
-    private String doi;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
     @Column(name = "titulo")
     private String titulo;
-    @Column(name = "autor")
-    private String autor;
+    @Basic(optional = false)
+    @Column(name = "autores")
+    private String autores;
+    @Basic(optional = false)
     @Column(name = "ano")
     private String ano;
+    @Basic(optional = false)
     @Column(name = "revista")
     private String revista;
     @Column(name = "volume")
     private String volume;
-    @Column(name = "pagina")
-    private String pagina;
+    @Basic(optional = false)
+    @Column(name = "paginainicial")
+    private int paginainicial;
+    @Basic(optional = false)
+    @Column(name = "paginafinal")
+    private int paginafinal;
     @Column(name = "arquivo")
     private String arquivo;
     @Column(name = "estrato")
     private Integer estrato;
     @Column(name = "avaliacao")
     private String avaliacao;
+    @Column(name = "link")
+    private String link;
+    @Column(name = "doi")
+    private String doi;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculo;
@@ -84,6 +86,16 @@ public class Periodico implements Serializable {
 
     public Periodico(Integer id) {
         this.id = id;
+    }
+
+    public Periodico(Integer id, String titulo, String autores, String ano, String revista, int paginainicial, int paginafinal) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autores = autores;
+        this.ano = ano;
+        this.revista = revista;
+        this.paginainicial = paginainicial;
+        this.paginafinal = paginafinal;
     }
 
     public Integer getId() {
@@ -102,12 +114,12 @@ public class Periodico implements Serializable {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getAutores() {
+        return autores;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setAutores(String autores) {
+        this.autores = autores;
     }
 
     public String getAno() {
@@ -134,12 +146,20 @@ public class Periodico implements Serializable {
         this.volume = volume;
     }
 
-    public String getPagina() {
-        return pagina;
+    public int getPaginainicial() {
+        return paginainicial;
     }
 
-    public void setPagina(String pagina) {
-        this.pagina = pagina;
+    public void setPaginainicial(int paginainicial) {
+        this.paginainicial = paginainicial;
+    }
+
+    public int getPaginafinal() {
+        return paginafinal;
+    }
+
+    public void setPaginafinal(int paginafinal) {
+        this.paginafinal = paginafinal;
     }
 
     public String getArquivo() {
@@ -164,6 +184,22 @@ public class Periodico implements Serializable {
 
     public void setAvaliacao(String avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public void setDoi(String doi) {
+        this.doi = doi;
     }
 
     public Curriculo getCurriculo() {
@@ -197,46 +233,6 @@ public class Periodico implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Periodico[ id=" + id + " ]";
-    }
-
-    public String getAutores() {
-        return autores;
-    }
-
-    public void setAutores(String autores) {
-        this.autores = autores;
-    }
-
-    public int getPaginainicial() {
-        return paginainicial;
-    }
-
-    public void setPaginainicial(int paginainicial) {
-        this.paginainicial = paginainicial;
-    }
-
-    public int getPaginafinal() {
-        return paginafinal;
-    }
-
-    public void setPaginafinal(int paginafinal) {
-        this.paginafinal = paginafinal;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getDoi() {
-        return doi;
-    }
-
-    public void setDoi(String doi) {
-        this.doi = doi;
     }
     
 }

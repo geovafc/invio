@@ -1,6 +1,6 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 DROP SCHEMA IF EXISTS `invio` ;
 CREATE SCHEMA IF NOT EXISTS `invio` DEFAULT CHARACTER SET utf8 ;
@@ -9,8 +9,6 @@ USE `invio` ;
 -- -----------------------------------------------------
 -- Table `invio`.`area`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`area` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`area` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(200) NOT NULL ,
@@ -23,8 +21,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`instituicao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`instituicao` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`instituicao` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(200) NOT NULL ,
@@ -38,26 +34,24 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`curriculo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`curriculo` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `cpf` VARCHAR(50) NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,
-  `dtNascimento` DATE NULL DEFAULT NULL ,
+  `dtNascimento` DATE NULL ,
   `logradouro` VARCHAR(100) NOT NULL ,
-  `numero_end` VARCHAR(50) NULL DEFAULT NULL ,
-  `cep` VARCHAR(10) NULL DEFAULT NULL ,
+  `numero_end` VARCHAR(50) NULL ,
+  `cep` VARCHAR(10) NULL ,
   `bairro` VARCHAR(100) NOT NULL ,
   `cidade` VARCHAR(100) NOT NULL ,
   `estado` VARCHAR(100) NOT NULL ,
   `pais` VARCHAR(100) NOT NULL ,
-  `telefone` VARCHAR(20) NULL DEFAULT NULL ,
-  `celular` VARCHAR(20) NULL DEFAULT NULL ,
+  `telefone` VARCHAR(20) NULL ,
+  `celular` VARCHAR(20) NULL ,
   `email` VARCHAR(150) NOT NULL ,
   `matricula` VARCHAR(20) NOT NULL ,
   `lattes` VARCHAR(200) NOT NULL ,
-  `curso` VARCHAR(200) NULL DEFAULT NULL ,
+  `curso` VARCHAR(200) NULL ,
   `genero` VARCHAR(45) NOT NULL ,
   `area` INT(11) NOT NULL ,
   `instituicao` INT(11) NOT NULL ,
@@ -82,8 +76,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`programa`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`programa` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`programa` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(500) NOT NULL ,
@@ -110,8 +102,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`login`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`login` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `senha` VARCHAR(45) NOT NULL ,
@@ -119,16 +109,9 @@ CREATE  TABLE IF NOT EXISTS `invio`.`login` (
   `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
   `dtCriacao` DATETIME NULL DEFAULT NULL ,
   `email` VARCHAR(200) NOT NULL ,
-  `curriculo_id` INT(11) NOT NULL ,
   `ativo` BIT NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_login_curriculo1_idx` (`curriculo_id` ASC) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
-  CONSTRAINT `fk_login_curriculo1`
-    FOREIGN KEY (`curriculo_id` )
-    REFERENCES `invio`.`curriculo` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
@@ -137,8 +120,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`unidade`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`unidade` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`unidade` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(150) NULL DEFAULT NULL ,
@@ -158,8 +139,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`periodico`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`periodico` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(200) NOT NULL ,
@@ -173,8 +152,8 @@ CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
   `estrato` INT NULL DEFAULT NULL ,
   `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
-  `link` VARCHAR(300) NULL ,
-  `doi` VARCHAR(20) NULL ,
+  `link` VARCHAR(300) NULL DEFAULT NULL ,
+  `doi` VARCHAR(20) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_producao_curriculo1` (`curriculo` ASC) ,
   CONSTRAINT `fk_producao_curriculo1`
@@ -188,8 +167,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`livro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`livro` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(150) NULL DEFAULT NULL ,
@@ -199,7 +176,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
   `estrato` INT NULL DEFAULT NULL ,
   `curriculo` INT(11) NOT NULL ,
   `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
-  `avaliacao` VARCHAR(45) NULL ,
+  `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_livro_curriculo1` (`curriculo` ASC) ,
   CONSTRAINT `fk_livro_curriculo1`
@@ -213,8 +190,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`qualis`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`qualis` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
   `titulo` VARCHAR(255) NOT NULL ,
   `areaAvaliacao` VARCHAR(255) NOT NULL ,
@@ -228,8 +203,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`perfil`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`perfil` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `descricao` VARCHAR(45) NULL DEFAULT NULL ,
@@ -240,8 +213,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`perfil_login`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`perfil_login` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil_login` (
   `perfil` INT NOT NULL ,
   `login` INT(11) NOT NULL ,
@@ -264,8 +235,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`edital`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`edital` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`edital` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(255) NULL DEFAULT NULL ,
@@ -288,8 +257,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`plano`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`plano` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`plano` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(255) NOT NULL ,
@@ -309,8 +276,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`plano_curriculo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`plano_curriculo` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`plano_curriculo` (
   `plano_id` INT NOT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
@@ -333,8 +298,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`Orientacao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invio`.`Orientacao` ;
-
 CREATE  TABLE IF NOT EXISTS `invio`.`Orientacao` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `aluno` VARCHAR(100) NOT NULL ,
@@ -349,6 +312,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`Orientacao` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `invio` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

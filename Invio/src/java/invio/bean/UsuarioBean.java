@@ -177,7 +177,7 @@ public class UsuarioBean implements UserDetailsService {
 
             if (loginTemp.getEmail().equals(login.getEmail())) {
 
-                setCpfLogin(loginTemp.getCurriculoId().getCpf());
+//                setCpfLogin(loginTemp.getCurriculoId().getCpf());
                 loginEncontrado = true;
 
                 if (loginEncontrado == true) {
@@ -217,58 +217,39 @@ public class UsuarioBean implements UserDetailsService {
         return pagina;
     }
 
-    public void configurarSalvalCurricoLogin() {
-        curriculo.setBairro("");
-        curriculo.setCelular("");
-        curriculo.setCep("");
-        curriculo.setCidade("");
-        curriculo.setCurso("");
-        curriculo.setEstado("");
-        curriculo.setLattes("");
-        curriculo.setLogradouro("");
-        curriculo.setMatricula("");
-        curriculo.setNumeroEnd("");
-        curriculo.setPais("");
-        curriculo.setTelefone("");
-        curriculo.setDtNascimento(null);
-        String emailLogin = login.getEmail();
-        curriculo.setEmail(emailLogin);
+    public void configurarSalvarLogin() {
 
-        boolean salvou = curriculoRN.salvar(curriculo);
+        login.setCodigoConfirmacaoTemp("");
+        login.setCodigoConfirmacao(codigoConfirmacao);
+        login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
+        login.setAtivo(true);
 
-        if (salvou) {
+        List<Perfil> perfis = new ArrayList<Perfil>();
+        perfil = perfilRN.obter(permissao);
+        perfis.add(perfil);
+        perfil.getLoginList().add(login);
 
-            login.setCurriculoId(curriculo);
-            login.setCodigoConfirmacaoTemp("");
-            login.setCodigoConfirmacao(codigoConfirmacao);
-            login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
-            login.setAtivo(true);
+        login.setPerfilList(perfis);
 
-            List<Perfil> perfis = new ArrayList<Perfil>();
-            perfis.add(perfilRN.obter(permissao));
-            login.setPerfilList(perfis);
+        if (loginRN.salvar(login)) {
+            perfilRN.salvar(perfil);
+            
+            boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
+            if (falhaAoEnviar == true) {
+                loginRN.remover(login);
+                pagina2 = "/loginInicio.xhtml";
+                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                        "Não foi possível concluir o cadastro, tente mais tarde.");
+                configurarLimparSessao();
+                javaMailRN = new JavaMailRN();
+            } else {
 
-            if (loginRN.salvar(login)) {
-
-                boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
-
-                if (falhaAoEnviar == true) {
-                    loginRN.remover(login);
-                    curriculoRN.remover(curriculo);
-                    pagina2 = "/loginInicio.xhtml";
-                    BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                            "Não foi possível concluir o cadastro, tente mais tarde.");
-                    configurarLimparSessao();
-                    javaMailRN = new JavaMailRN();
-                } else {
-
-                    pagina2 = "/publico/login/loginInicio.xhtml";
-                    //login = null;
-                    BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                            "Quando for realizado o login será solicitado o código.");
-                    configurarLimparSessao();
-                }
+                pagina2 = "/publico/login/loginInicio.xhtml";
+                //login = null;
+                BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
+                        "Quando for realizado o login será solicitado o código.");
+                configurarLimparSessao();
             }
         }
     }
@@ -333,20 +314,20 @@ public class UsuarioBean implements UserDetailsService {
             BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
                     "");
         } else {
-            configurarSalvalCurricoLogin();
+            configurarSalvarLogin();
         }
         configurarLimparSessao();
         return pagina2;
     }
     String pagina3 = "";
-    
+
     public String alterarPermissao() {
         if (loginRN.existe(login.getEmail())) {
             pagina2 = "/publico/login/novoUsuario.xhtml";
             BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
                     "");
         } else {
-            configurarSalvalCurricoLogin();
+            configurarSalvarLogin();
         }
         configurarLimparSessao();
         return pagina2;
