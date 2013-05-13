@@ -32,6 +32,24 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `invio`.`login`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`login` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `senha` VARCHAR(45) NOT NULL ,
+  `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
+  `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
+  `dtCriacao` DATETIME NULL DEFAULT NULL ,
+  `email` VARCHAR(200) NOT NULL ,
+  `ativo` BIT NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `invio`.`curriculo`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
@@ -55,9 +73,11 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `genero` VARCHAR(45) NOT NULL ,
   `area` INT(11) NOT NULL ,
   `instituicao` INT(11) NOT NULL ,
+  `login` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_curriculo_area1` (`area` ASC) ,
   INDEX `fk_curriculo_instituicao1` (`instituicao` ASC) ,
+  INDEX `fk_curriculo_login1_idx` (`login` ASC) ,
   CONSTRAINT `fk_curriculo_area1`
     FOREIGN KEY (`area` )
     REFERENCES `invio`.`area` (`id` )
@@ -66,6 +86,11 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   CONSTRAINT `fk_curriculo_instituicao1`
     FOREIGN KEY (`instituicao` )
     REFERENCES `invio`.`instituicao` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_curriculo_login1`
+    FOREIGN KEY (`login` )
+    REFERENCES `invio`.`login` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -94,24 +119,6 @@ CREATE  TABLE IF NOT EXISTS `invio`.`programa` (
     REFERENCES `invio`.`area` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `invio`.`login`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`login` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `senha` VARCHAR(45) NOT NULL ,
-  `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
-  `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
-  `dtCriacao` DATETIME NULL DEFAULT NULL ,
-  `email` VARCHAR(200) NOT NULL ,
-  `ativo` BIT NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;

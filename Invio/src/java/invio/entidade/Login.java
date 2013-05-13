@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
     @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo")})
 public class Login implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
+    private List<Curriculo> curriculoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -165,6 +168,15 @@ public class Login implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Login[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Curriculo> getCurriculoList() {
+        return curriculoList;
+    }
+
+    public void setCurriculoList(List<Curriculo> curriculoList) {
+        this.curriculoList = curriculoList;
     }
     
 }
