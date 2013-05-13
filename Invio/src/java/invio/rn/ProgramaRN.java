@@ -11,6 +11,7 @@ import invio.entidade.Programa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.model.SelectItem;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,6 +22,7 @@ public class ProgramaRN {
     GenericDAO<Programa> dao = new GenericDAO<Programa>();
     GenericDAO<Instituicao> daoInstituicao = new GenericDAO<Instituicao>();
     GenericDAO<Area> daoArea = new GenericDAO<Area>();
+    AreaRN areaRN = new AreaRN();
 
     public boolean salvar(Programa p) {
        boolean salvou = false;
@@ -84,19 +86,24 @@ public class ProgramaRN {
         return areasSelecionadas;
     }
 
-    public List<Area> obterItensNaoSelecionados(Programa programa) {
+//    public List<Area> obterItensNaoSelecionados(Programa programa) {
+//
+//        List<Area> areas = daoArea.obterTodos(Area.class);
+//
+//        List<Area> selecionadas = programa.getAreaList();
+//
+//        if(selecionadas != null){
+//            areas.removeAll(selecionadas);
+//        }
+//
+//        return areas;
+//    }
 
-        List<Area> areas = daoArea.obterTodos(Area.class);
-
-        List<Area> selecionadas = programa.getAreaList();
-
-        if(selecionadas != null){
-            areas.removeAll(selecionadas);
-        }
-
-        return areas;
+     public List<Area> completeArea(String digitacao) {
+        return areaRN.buscarAreasPorCriterio(digitacao);
     }
-
+    
+    
     public List<Area> obterAreas() {
         return daoArea.obterTodos(Area.class);
     }

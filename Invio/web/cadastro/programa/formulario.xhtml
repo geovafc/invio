@@ -34,6 +34,16 @@
                 
                 </p:selectOneMenu>
                 <h:message for="instituicaoSelect"/>
+                
+                <h:outputText value="Área: "/>
+                <p:autoComplete id="completeArea" scrollHeight="100" 
+                                var="area"
+                                value="#{programaBean.area}"
+                                converter="areaConversor"
+                                itemValue="#{area}"
+                                itemLabel="#{area.nome}"
+                                completeMethod="#{programaBean.completeArea}"/>
+                <h:message for="completeArea"/>
 
             </h:panelGrid>
 

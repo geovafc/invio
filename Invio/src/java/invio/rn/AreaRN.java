@@ -1,5 +1,6 @@
 package invio.rn;
 
+import invio.dao.AreaDAO;
 import invio.dao.GenericDAO;
 import invio.entidade.Area;
 import java.util.List;
@@ -7,6 +8,11 @@ import java.util.List;
 public class AreaRN {
 
     GenericDAO<Area> dao = new GenericDAO<Area>();
+    AreaDAO areaDAO = new AreaDAO();
+    
+    public List<Area> buscarAreasPorCriterio(String digitacao){
+    return areaDAO.obterAreaPorCriterio(digitacao);
+    }
 
     public boolean salvar(Area a) {
 
