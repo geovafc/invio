@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author SORANSO
+ * @author soranso
  */
 @Entity
 @Table(name = "curriculo")
@@ -54,9 +54,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso"),
     @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero")})
 public class Curriculo implements Serializable {
-    @JoinColumn(name = "login", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Login login;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -114,9 +111,12 @@ public class Curriculo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
-    private List<Orientacao> orientacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Livro> livroList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Orientacao> orientacaoList;
+    @JoinColumn(name = "login", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Login login;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instituicao instituicao;
@@ -309,6 +309,15 @@ public class Curriculo implements Serializable {
     }
 
     @XmlTransient
+    public List<Livro> getLivroList() {
+        return livroList;
+    }
+
+    public void setLivroList(List<Livro> livroList) {
+        this.livroList = livroList;
+    }
+
+    @XmlTransient
     public List<Orientacao> getOrientacaoList() {
         return orientacaoList;
     }
@@ -317,13 +326,12 @@ public class Curriculo implements Serializable {
         this.orientacaoList = orientacaoList;
     }
 
-    @XmlTransient
-    public List<Livro> getLivroList() {
-        return livroList;
+    public Login getLogin() {
+        return login;
     }
 
-    public void setLivroList(List<Livro> livroList) {
-        this.livroList = livroList;
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
     public Instituicao getInstituicao() {
@@ -365,14 +373,6 @@ public class Curriculo implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Curriculo[ id=" + id + " ]";
-    }
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
     }
     
 }

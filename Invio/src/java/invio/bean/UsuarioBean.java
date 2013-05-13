@@ -126,14 +126,14 @@ public class UsuarioBean implements UserDetailsService {
                 }
             }
             if (loginEncontrado != true) {
-                pagina = "/publico/login/loginInicio.xhtml";
+                pagina = "/loginInicio.xhtml";
                 //login = null;
                 BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
                         "");
             }
         } else {
             setEntrar(false);
-            pagina = "/publico/login/loginInicio.xhtml";
+            pagina = "/loginInicio.xhtml";
             //login = null;
             BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
                     "");
@@ -190,12 +190,12 @@ public class UsuarioBean implements UserDetailsService {
 
 
                         if (falhaAoEnviarEmail == true) {
-                            pagina = "/publico/login/loginInicio.xhtml";
+                            pagina = "/loginInicio.xhtml";
                             BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
                                     "Não foi possível enviar o e-mail de recuperação de senha, tente mais tarde.");
                             javaMailRN = new JavaMailRN();
                         } else {
-                            pagina = "/publico/login/loginInicio.xhtml";
+                            pagina = "/loginInicio.xhtml";
                             BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
                             configurarLimparSessao();
 
@@ -245,7 +245,7 @@ public class UsuarioBean implements UserDetailsService {
                 javaMailRN = new JavaMailRN();
             } else {
 
-                pagina2 = "/publico/login/loginInicio.xhtml";
+                pagina2 = "/loginInicio.xhtml";
                 //login = null;
                 BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
                         "Quando for realizado o login será solicitado o código.");
