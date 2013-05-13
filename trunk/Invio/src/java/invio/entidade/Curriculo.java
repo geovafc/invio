@@ -54,6 +54,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso"),
     @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero")})
 public class Curriculo implements Serializable {
+    @JoinColumn(name = "login", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Login login;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -362,6 +365,14 @@ public class Curriculo implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Curriculo[ id=" + id + " ]";
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
     }
     
 }
