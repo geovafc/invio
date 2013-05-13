@@ -9,14 +9,11 @@ import invio.entidade.Programa;
 import invio.rn.AreaRN;
 import invio.rn.ProgramaRN;
 import invio.util.ComparadorArea;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import org.primefaces.model.DualListModel;
-
 
 /**
  *
@@ -32,17 +29,8 @@ public class ProgramaBean {
     private ProgramaRN programaRN = new ProgramaRN();
     private AreaRN areaRN = new AreaRN();
     private List<Programa> programas;
-    private List<Area> areas;
+    private Area area = new Area();
     private Programa programa = new Programa();
-
-    public List<Area> getAreas() {
-        areas = programaRN.obterAreas();
-        return areas;
-    }
-
-    public void setAreas(List<Area> areas) {
-        this.areas = areas;
-    }
 
     public ProgramaBean() {
     }
@@ -66,6 +54,12 @@ public class ProgramaBean {
     public void setPrograma(Programa programa) {
         this.programa = programa;
     }
+    
+     public List<Area> completeArea(String digitacao) {
+        List<Area> results = programaRN.completeArea(digitacao);
+        return results;
+    }
+    
 
     public String irAreasPrograma() {
         System.out.println("PROGRAMA - AREA :" + programa);
@@ -73,10 +67,12 @@ public class ProgramaBean {
     }
 
     public String salvar() {
+        programa.setArea(area);
         if (programaRN.salvar(programa)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "O programa " + programa.getNome() + " foi salvo com sucesso.");
+           area = new Area();
         }
         return "listar.xhtml";
     }
@@ -104,40 +100,47 @@ public class ProgramaBean {
     private List<Area> selecionadas;
     private ComparadorArea comparadorArea = new ComparadorArea();
 
-    public DualListModel<Area> getItensAreas() {
-
-        selecionadas = programa.getAreaList();
-
-        List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
-
-        Collections.sort(naoSelecionada, comparadorArea);
-
-        if (selecionadas != null) {
-            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-        } else if (selecionadas == null) {
-            selecionadas = new ArrayList<Area>();
-            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-        }
-
-        return itens2;
-    }
-
+//    public DualListModel<Area> getItensAreas() {
+//
+//        selecionadas = programa.getAreaList();
+//
+//        List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
+//
+//        Collections.sort(naoSelecionada, comparadorArea);
+//
+//        if (selecionadas != null) {
+//            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
+//        } else if (selecionadas == null) {
+//            selecionadas = new ArrayList<Area>();
+//            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
+//        }
+//
+//        return itens2;
+//    }
     public void setItensAreas(DualListModel<Area> itens) {
         this.itens2 = itens;
     }
 
-    public String salvarAreasPrograma() {
-        List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
-
-        selecionadas = areasPrograma;
-        
-
-        //OBS: SEMPRE VERIFICAR SE ESTÁ SENDO ESTANCIADO A LISTA: programa.getAreaList()
-        //NA ENTIDADE PROGRAMA.
-
-        programa.setAreaList(selecionadas);
-        programaRN.salvar(programa);
-
-        return "/cadastro/programa/listar.xhtml";
+//    public String salvarAreasPrograma() {
+//        List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
+//
+//        selecionadas = areasPrograma;
+//        
+//
+//        //OBS: SEMPRE VERIFICAR SE ESTÁ SENDO ESTANCIADO A LISTA: programa.getAreaList()
+//        //NA ENTIDADE PROGRAMA.
+//
+//        programa.setAreaList(selecionadas);
+//        programaRN.salvar(programa);
+//
+//        return "/cadastro/programa/listar.xhtml";
+//    }
+    public Area getArea() {
+        return area;
     }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
 }

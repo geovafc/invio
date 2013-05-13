@@ -381,9 +381,7 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public boolean isMaster() {
-        System.out.println("lista de perfis " + getUsuarioLogado().getPerfilList().size());
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            System.out.println(temp.getDescricao());
             if (temp.getDescricao().equals("ROLE_MASTER")) {
                 return true;
             }
