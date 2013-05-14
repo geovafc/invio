@@ -54,12 +54,15 @@ public class ProgramaBean {
     public void setPrograma(Programa programa) {
         this.programa = programa;
     }
-    
-     public List<Area> completeArea(String digitacao) {
+
+    public List<Area> completeArea(String digitacao) {
         List<Area> results = programaRN.completeArea(digitacao);
         return results;
     }
-    
+
+    public List<Area> getAreas() {
+        return programaRN.obterAreas();
+    }
 
     public String irAreasPrograma() {
         System.out.println("PROGRAMA - AREA :" + programa);
@@ -72,7 +75,7 @@ public class ProgramaBean {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "O programa " + programa.getNome() + " foi salvo com sucesso.");
-           area = new Area();
+            area = new Area();
         }
         return "listar.xhtml";
     }
@@ -142,5 +145,4 @@ public class ProgramaBean {
     public void setArea(Area area) {
         this.area = area;
     }
-
 }

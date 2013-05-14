@@ -32,6 +32,10 @@
                         <h:outputText value="#{programa.instituicao.nome}" />  
                     </p:column>
 
+                    <p:column headerText="Área" filterBy="#{programa.area.nome}" >  
+                        <h:outputText value="#{programa.area.nome}" />  
+                    </p:column>
+
                     <p:column headerText="Operações">  
                         <div align="center">
                             <p:commandButton 
@@ -55,7 +59,7 @@
                         </div>
                     </p:column> 
 
-                  
+
                 </p:dataTable>
 
             </p:panel>
