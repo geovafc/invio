@@ -7,15 +7,15 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        
+
         <h:form>
             <p:panel style="border-color: transparent; color: transparent; background: transparent">
-            <div align="left">
+                <div align="left">
 
-                <p:commandButton 
-                    ajax="false" value="Cancelar" action="listar.xhtml"/>
-            </div>
-                
+                    <p:commandButton 
+                        ajax="false" value="Cancelar" action="listar.xhtml"/>
+                </div>
+
             </p:panel>
         </h:form>
 
@@ -126,25 +126,20 @@
                     </p:panel>  
                 </p:tab>  
 
-                <p:tab id="contact" title="Contato">  
-                    <p:panel header="Infomações para Contato" style="height: 420px">  
 
-                        <h:panelGrid columns="3" columnClasses="label, value">  
-                            <h:outputText value="Email: *" />  
-                            <p:inputText id="email" required="true" label="Email"  
-                                         value="#{curriculoBean.curriculo.email}" />  
-                            <p:message id="erroEmail" for="email"/>
+                <p:tab id="areaCurriculo" title="Área">  
+                    <p:panel header="Área do Currículo" style="height: 420px">  
+                        <h:panelGrid columns="2" columnClasses="label, value">  
 
-                            <h:outputText value="Telefone: " />  
-                            <p:inputMask id="telefone" required="false" 
-                                         value="#{curriculoBean.curriculo.telefone}" mask="(99) 9999-9999"/> 
-                            <p:message id="erroTelefone" for="telefone"/>    
-
-                            <h:outputText value="Celular: " />  
-                            <p:inputMask id="celular" required="false" 
-                                         value="#{curriculoBean.curriculo.celular}" mask="(99) 9999-9999"/>  
-                            <p:message id="erroCelular" for="celular"/>
-
+                            <h:outputText value="Selecione a área: " /> 
+                                <p:selectOneListbox id="scrollAreaCurriculo" 
+                                                    value="#{programaBean.area}" 
+                                                    converter="areaConversor" 
+                                                    style="height:200px">  
+                                    <f:selectItems value="#{programaBean.areas}" 
+                                                   var="area" itemLabel="#{area.nome}" 
+                                                   itemValue="#{nome}" />  
+                                </p:selectOneListbox> 
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  

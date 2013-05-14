@@ -28,22 +28,19 @@
                     label="#{programaBean.programa.instituicao.nome}"
                     value="#{programaBean.programa.instituicao}"
                     style="width: 200px">
-                    
                     <f:selectItems value="#{programaBean.instituicoes}"/>
                     <f:converter converterId="instituicaoConversor"/>
-                
+
                 </p:selectOneMenu>
                 <h:message for="instituicaoSelect"/>
-                
-                <h:outputText value="Área: "/>
-                <p:autoComplete id="completeArea" scrollHeight="100" 
-                                var="area"
-                                value="#{programaBean.area}"
-                                converter="areaConversor"
-                                itemValue="#{area}"
-                                itemLabel="#{area.nome}"
-                                completeMethod="#{programaBean.completeArea}"/>
-                <h:message for="completeArea"/>
+
+                <h:outputText value="Área: " />  
+                <p:selectOneMenu value="#{programaBean.area}" effect="fade" 
+                                 converter="areaConversor">  
+                    <f:selectItem itemLabel="Selecione a área" itemValue="#{area}" />  
+                    <f:selectItems value="#{programaBean.areas}" var="area" 
+                                   itemLabel="#{area.nome}" itemValue="#{nome}"/>  
+                </p:selectOneMenu>
 
             </h:panelGrid>
 
