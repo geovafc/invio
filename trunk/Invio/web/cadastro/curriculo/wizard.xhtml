@@ -8,7 +8,7 @@
 
     <ui:define name="content">
 
-        <h:form>
+        <h:form >
             <p:panel style="border-color: transparent; color: transparent; background: transparent">
                 <div align="left">
 
@@ -19,7 +19,7 @@
             </p:panel>
         </h:form>
 
-        <h:form>
+        <h:form id="formCurriculo">
 
             <p:growl id="growl" sticky="true" showDetail="true"/>  
 
@@ -27,6 +27,7 @@
                            value="#{curriculoBean.curriculo.id}"/>
 
             <p:wizard widgetVar="wiz" 
+                      id="wizardCurriculo"
                       flowListener="#{curriculoBean.onFlowProcess}"
                       nextLabel="Próximo" backLabel="Anterior" >
 
@@ -41,6 +42,11 @@
                             <p:inputText id="nome" required="true" label="Nome"  
                                          value="#{curriculoBean.curriculo.nome}" />
                             <p:message id="erroNome" for="nome"/>
+                            
+                            <h:outputText value="Email: *" />  
+                            <p:inputText id="email" required="true" label="Nome"  
+                                         value="#{curriculoBean.curriculo.email}" />
+                            <p:message id="erroEmail" for="email"/>
 
                             <h:outputText value="Data de Nascimento: *" />
                             <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" 
@@ -132,14 +138,32 @@
                         <h:panelGrid columns="2" columnClasses="label, value">  
 
                             <h:outputText value="Selecione a área: " /> 
-                                <p:selectOneListbox id="scrollAreaCurriculo" 
-                                                    value="#{programaBean.area}" 
-                                                    converter="areaConversor" 
-                                                    style="height:200px">  
-                                    <f:selectItems value="#{programaBean.areas}" 
-                                                   var="area" itemLabel="#{area.nome}" 
-                                                   itemValue="#{nome}" />  
-                                </p:selectOneListbox> 
+                            <p:selectOneListbox  id="scrollAreaCurriculo" 
+                                                value="#{curriculoBean.programa.area}" 
+                                                converter="areaConversor" 
+                                                style="width: 300px;height:200px"> 
+                                <f:selectItems value="#{programaBean.areas}" 
+                                               var="area" itemLabel="#{area.nome}" 
+                                               itemValue="#{nome}" />  
+                                <f:selectItem itemLabel="OUTRO" itemValue="#{curriculoBean.areaOutra}"/>
+                                <p:ajax event="change" 
+                                        listener="#{curriculoBean.exibirTabOutroArea}"
+                                        update=":formCurriculo:wizardCurriculo"
+                                        />
+                            </p:selectOneListbox> 
+                        </h:panelGrid>  
+                    </p:panel>  
+                </p:tab>  
+
+                <p:tab id="areaCurriculoOutro" title="Outra Área" 
+                       rendered="#{curriculoBean.exibirOutroArea==true}">  
+                    <p:panel header="Área do Currículo" style="height: 420px">  
+                        <h:panelGrid columns="3" columnClasses="label, value">  
+
+                            <f:view encoding="ISO-8859-1">
+                                <h:outputText value="Digite sua área: *"/>
+                                <p:inputText id="curriculoAreaOutra" value="#{curriculoBean.curriculo.area}"/>
+                            </f:view>
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>  
@@ -166,6 +190,11 @@
                             <h:inputText  styleClass="outputLabel"  
                                           disabled="true"
                                           value="#{curriculoBean.curriculo.cpf}"/>  
+                         
+                            <h:outputText value="Email: " />  
+                            <h:inputText  styleClass="outputLabel"  
+                                          disabled="true"
+                                          value="#{curriculoBean.curriculo.email}"/>  
 
                             <h:outputText value="Matricula: " />  
                             <h:inputText styleClass="outputLabel"  
@@ -231,6 +260,11 @@
                             <h:inputText styleClass="outputLabel"
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.celular}" />  
+                            
+                            <h:outputText value="Área de Atuação: " />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.area}" />  
 
                             <h:outputText />  
                             <h:outputText />  

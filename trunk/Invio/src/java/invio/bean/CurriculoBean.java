@@ -1,5 +1,6 @@
 package invio.bean;
 
+import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
@@ -27,7 +28,6 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class CurriculoBean {
 
-    
     private CurriculoRN curriculoRN = new CurriculoRN();
     private List<Curriculo> curriculos;
     private List<Curriculo> curriculosDesc;
@@ -45,6 +45,9 @@ public class CurriculoBean {
     private UsuarioBean usuarioBean = new UsuarioBean();
     private QualisRN qualisRN = new QualisRN();
     private Programa programa = new Programa();
+    private Area areaOutra = new Area();
+    private boolean exibirOutroArea;
+    
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -81,6 +84,14 @@ public class CurriculoBean {
         this.plano = plano;
     }
 
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
     public Integer getIdLogin() {
 
         return login.getId();
@@ -90,13 +101,13 @@ public class CurriculoBean {
         this.curriculos = curriculos;
     }
 
-    public Curriculo getCurriculo() {
-        if (curriculo != null) {
-            return curriculo;
-        } else {
-            return (Curriculo) BeanUtil.lerDaSessao("curriculo");
-        }
-    }
+//    public Curriculo getCurriculo() {
+//        if (curriculo != null) {
+//            return curriculo;
+//        } else {
+//            return (Curriculo) BeanUtil.lerDaSessao("curriculo");
+//        }
+//    }
 
     public void setCurriculo(Curriculo curriculo) {
         if (BeanUtil.lerDaSessao("curriculo") == null) {
@@ -106,23 +117,24 @@ public class CurriculoBean {
     }
 
     public String salvarCurriculo() {
-        if (curriculoRN.salvar(curriculo)) {
+
+        if (curriculoRN.salvar(getCurriculo())) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
-                    "O curriculo de " + curriculo.getNome() + " foi gravado com sucesso.");
+                    "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
 
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + curriculo.getNome());
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
         }
         return "listar.xhtml";
     }
-    
+
     public String excluirCurriculo() {
-        System.out.println("Curriculo " + curriculo);
-        if (curriculoRN.remover(curriculo)) {
-            BeanUtil.criarMensagemDeInformacao("Curriculo excluído", "Curriculo: " + curriculo.getNome());
+        System.out.println("Curriculo " + getCurriculo());
+        if (curriculoRN.remover(getCurriculo())) {
+            BeanUtil.criarMensagemDeInformacao("Curriculo excluído", "Curriculo: " + getCurriculo().getNome());
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao excluir o curriculo", "Curriculo: " + curriculo.getNome());
+            BeanUtil.criarMensagemDeErro("Erro ao excluir o curriculo", "Curriculo: " + getCurriculo().getNome());
         }
         return "listarUsuarios.xhtml";
     }
@@ -149,17 +161,23 @@ public class CurriculoBean {
     }
 
     public String irListarCurriculos() {
-        curriculo = null;
+        setCurriculo(null);
         return "/cadastro/curriculo/listar.xhtml";
     }
-    
+
     public String irListarUsuarios() {
-        curriculo = null;
+        setCurriculo(null);
         return "/admin/usuarios/listarUsuarios.xhtml";
     }
 
     public String novoFormularioCurriculo() {
-        curriculo = new Curriculo();
+        setCurriculo(new Curriculo());
+        
+        UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
+        String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
+        
+        curriculo.setEmail(email);
+        
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
@@ -185,16 +203,16 @@ public class CurriculoBean {
             return null;
         } else {
 
-            periodico.setCurriculoId(curriculo);
+            periodico.setCurriculoId(getCurriculo());
 
 //            curriculo.getPeriodicoList().add(periodico);
             if (periodicoRN.salvar(periodico)) {
-                List<Periodico> ps = curriculo.getPeriodicoList();
+                List<Periodico> ps = getCurriculo().getPeriodicoList();
                 if (ps == null) {
                     ps = new ArrayList<Periodico>();
                     ps.add(periodico);
                 }
-                curriculoRN.salvar(curriculo);
+                curriculoRN.salvar(getCurriculo());
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
                         "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
@@ -244,7 +262,7 @@ public class CurriculoBean {
             }
 
 
-            String nomeDoArquivo = this.fileUpload.uploadPeriodico(curriculo, periodico, tipo, stream);
+            String nomeDoArquivo = this.fileUpload.uploadPeriodico(getCurriculo(), periodico, tipo, stream);
             this.periodico.setArquivo(nomeDoArquivo);
             periodicoRN.salvar(periodico);
             //Inicializa
@@ -268,7 +286,7 @@ public class CurriculoBean {
             }
 
 
-            String nomeDoArquivo = this.fileUpload.uploadPlano(curriculo, plano, tipo, stream);
+            String nomeDoArquivo = this.fileUpload.uploadPlano(getCurriculo(), plano, tipo, stream);
             this.plano.setTitulo(nomeDoArquivo);
             planoRN.salvar(plano);
             //Inicializa
@@ -302,11 +320,11 @@ public class CurriculoBean {
             return null;
         } else {
             livro.setEstrato(100);
-            livro.setCurriculoId(curriculo);
-            curriculo.getLivroList().add(livro);
+            livro.setCurriculoId(getCurriculo());
+            getCurriculo().getLivroList().add(livro);
 
             if (livroRN.salvar(livro)) {
-                curriculoRN.salvar(curriculo);
+                curriculoRN.salvar(getCurriculo());
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
                         "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
@@ -360,7 +378,7 @@ public class CurriculoBean {
             }
 
 
-            String nomeDoArquivo = this.fileUpload.uploadLivro(curriculo, livro, tipo, stream);
+            String nomeDoArquivo = this.fileUpload.uploadLivro(getCurriculo(), livro, tipo, stream);
             this.livro.setArquivo(nomeDoArquivo);
             livroRN.salvar(livro);
             //Inicializa
@@ -386,8 +404,8 @@ public class CurriculoBean {
 
     public String atualizarValidacao() {
 
-        List<Periodico> periodicos = curriculo.getPeriodicoList();
-        List<Livro> livros = curriculo.getLivroList();
+        List<Periodico> periodicos = getCurriculo().getPeriodicoList();
+        List<Livro> livros = getCurriculo().getLivroList();
 
         for (Periodico periodicoAtual : periodicos) {
             periodicoRN.salvar(periodicoAtual);
@@ -402,7 +420,7 @@ public class CurriculoBean {
 
     public List<String> complete(String query) {
         List<String> results = qualisRN.obterTodosTitulos(query);
-        
+
         return results;
     }
 
@@ -420,8 +438,55 @@ public class CurriculoBean {
     }
 
     public void salvarProgramaCurriculo() {
-        curriculo.getProgramaList().add(programa);
-        curriculoRN.salvar(curriculo);
+        getCurriculo().getProgramaList().add(programa);
+        curriculoRN.salvar(getCurriculo());
+    }
+    
+    /**
+     * @return the curriculo
+     */
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+    
+    public void exibirTabOutroArea(){
+        if (curriculo != null) {
+            if (curriculo.getArea().equals(areaOutra)) {
+                setExibirOutroArea(true);
+                
+            }else{
+                setExibirOutroArea(false);
+            }
+            
+        }
+        
     }
 
+    /**
+     * @return the exibirOutroArea
+     */
+    public boolean isExibirOutroArea() {
+        return exibirOutroArea;
+    }
+
+    /**
+     * @param exibirOutroArea the exibirOutroArea to set
+     */
+    public void setExibirOutroArea(boolean exibirOutroArea) {
+        this.exibirOutroArea = exibirOutroArea;
+    }
+
+    /**
+     * @return the areaOutra
+     */
+    public Area getAreaOutra() {
+        return areaOutra;
+    }
+
+    /**
+     * @param areaOutra the areaOutra to set
+     */
+    public void setAreaOutra(Area areaOutra) {
+        this.areaOutra = areaOutra;
+    }
 }
