@@ -365,8 +365,6 @@ public class UsuarioBean implements UserDetailsService {
             papeis.add(new GrantedAuthorityImpl(p.getDescricao()));
         }
         return new User(temp.getEmail(), temp.getSenha(), temp.getAtivo(), true, true, true, papeis);
-
-
     }
 
     public Login getUsuarioLogado() {

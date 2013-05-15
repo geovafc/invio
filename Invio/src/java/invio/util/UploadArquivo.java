@@ -6,6 +6,7 @@ package invio.util;
 
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
+import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
 import java.io.File;
@@ -91,6 +92,15 @@ public class UploadArquivo {
         upload(curriculo, ConfiguracaoUtil.TipoProducao.PLANOS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
+    
+//    public String uploadOrientacao(Curriculo curriculo, 
+//            Orientacao orientacao, 
+//            String tipo, 
+//            InputStream stream) {
+//        String nomeDoArquivo = orientacao.getId() + orientacao.getAluno()+"."+ tipo;
+//        upload(curriculo, ConfiguracaoUtil.TipoProducao.ORIENTACOES, nomeDoArquivo, stream);
+//        return nomeDoArquivo;
+//    }
 
     private void upload(Curriculo curriculo,
             ConfiguracaoUtil.TipoProducao tipo,

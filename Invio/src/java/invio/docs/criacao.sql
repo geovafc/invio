@@ -65,9 +65,10 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `estado` VARCHAR(100) NOT NULL ,
   `pais` VARCHAR(100) NOT NULL ,
   `telefone` VARCHAR(20) NULL ,
-  `celular` VARCHAR(20) NULL ,
+  `celular` VARCHAR(20) NOT NULL ,
   `email` VARCHAR(150) NOT NULL ,
   `matricula` VARCHAR(20) NOT NULL ,
+  `grupo_pesq` VARCHAR(200) NULL ,
   `lattes` VARCHAR(200) NOT NULL ,
   `curso` VARCHAR(200) NULL ,
   `genero` VARCHAR(45) NOT NULL ,
@@ -155,12 +156,12 @@ CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `volume` VARCHAR(45) NULL DEFAULT NULL ,
   `paginainicial` INT NOT NULL ,
   `paginafinal` INT NOT NULL ,
-  `curriculo` INT(11) NOT NULL ,
   `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
   `estrato` INT NULL DEFAULT NULL ,
   `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
   `link` VARCHAR(300) NULL DEFAULT NULL ,
   `doi` VARCHAR(20) NULL DEFAULT NULL ,
+  `curriculo` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_producao_curriculo1` (`curriculo` ASC) ,
   CONSTRAINT `fk_producao_curriculo1`
@@ -303,12 +304,16 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `invio`.`Orientacao`
+-- Table `invio`.`orientacao`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`Orientacao` (
+CREATE  TABLE IF NOT EXISTS `invio`.`orientacao` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `aluno` VARCHAR(100) NOT NULL ,
-  `tipo` CHAR(2) NOT NULL DEFAULT 'IC' COMMENT 'IC - Iniciação Científica | ES - Estágio | TC - TCC | ME - Mestrado | DR - Doutorado' ,
+  `p_inicial` DATE NOT NULL ,
+  `p_final` DATE NOT NULL ,
+  `tipo_orientacao` CHAR(2) NOT NULL DEFAULT 'IC' COMMENT 'IC - Iniciação Científica | ES - Especialização | TC - TCC | ME - Mestrado | DR - Doutorado | BD - Bolsista DTI | TD - Tese de Doutorado | DM - Dissertação de Mestrado' ,
+  `tipo_bolsa` VARCHAR(100) NOT NULL ,
+  `estrato` INT NULL ,
   `curriculo` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_Orientacao_curriculo1` (`curriculo` ASC) ,
