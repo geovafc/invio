@@ -1,7 +1,6 @@
 package invio.rn;
 
 import invio.dao.GenericDAO;
-import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Periodico;
 import invio.entidade.Programa;
@@ -17,24 +16,17 @@ public class PeriodicoRN {
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
-
         int pt = 0;
-
-        
-        Curriculo curriculoDoPeriodico = curriculoDAO.obter(Curriculo.class, periodico.getCurriculoId().getId());
-        
-        List<Programa> programasDoCurr = curriculoDoPeriodico.getProgramaList();
+        Curriculo curriculoDoPeriodico = curriculoDAO.obter(Curriculo.class, periodico.getCurriculo().getId());
+        List<Programa> programasDoCurr = curriculoDoPeriodico.getArea().getProgramaList();
         
         for (Programa temp : programasDoCurr) {
-            for (Area areaTemp : temp.getAreaList()) {
-                int ptTemp = qualisRN.obterEstrato(periodico.getRevista(), areaTemp.getNome());
+                int ptTemp = qualisRN.obterEstrato(periodico.getRevista(), temp.getArea().getNome());
                 System.out.println("ptTemp"+ptTemp);
                 if (ptTemp >= pt) {
                     pt = ptTemp;
                 }
-            }
         }
-        
         periodico.setEstrato(pt);
         
         

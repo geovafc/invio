@@ -4,11 +4,13 @@ import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
+import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
 import invio.entidade.Programa;
 import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
+import invio.rn.OrientacaoRN;
 import invio.rn.PeriodicoRN;
 import invio.rn.PlanoRN;
 import invio.rn.pdf.QualisRN;
@@ -37,9 +39,11 @@ public class CurriculoBean {
     private boolean skip;
     private Periodico periodico = new Periodico();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
-    private LivroRN livroRN = new LivroRN();
-    private PlanoRN planoRN = new PlanoRN();
     private Livro livro = new Livro();
+    private LivroRN livroRN = new LivroRN();
+    private Orientacao orientacao = new Orientacao();
+    private OrientacaoRN orientacaoRN = new OrientacaoRN();
+    private PlanoRN planoRN = new PlanoRN();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
     private UsuarioBean usuarioBean = new UsuarioBean();
@@ -47,7 +51,6 @@ public class CurriculoBean {
     private Programa programa = new Programa();
     private Area areaOutra = new Area();
     private boolean exibirOutroArea;
-    
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -108,7 +111,6 @@ public class CurriculoBean {
 //            return (Curriculo) BeanUtil.lerDaSessao("curriculo");
 //        }
 //    }
-
     public void setCurriculo(Curriculo curriculo) {
         if (BeanUtil.lerDaSessao("curriculo") == null) {
             BeanUtil.colocarNaSessao("curriculo", curriculo);
@@ -172,12 +174,12 @@ public class CurriculoBean {
 
     public String novoFormularioCurriculo() {
         setCurriculo(new Curriculo());
-        
+
         UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
         String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
-        
+
         curriculo.setEmail(email);
-        
+
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
@@ -195,7 +197,7 @@ public class CurriculoBean {
         if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");
             return null;
-        } else if (periodico.getAutor() == null || periodico.getAutor().trim().equals("")) {
+        } else if (periodico.getAutores() == null || periodico.getAutores().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Autor.");
             return null;
         } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
@@ -203,7 +205,7 @@ public class CurriculoBean {
             return null;
         } else {
 
-            periodico.setCurriculoId(getCurriculo());
+            periodico.setCurriculo(getCurriculo());
 
 //            curriculo.getPeriodicoList().add(periodico);
             if (periodicoRN.salvar(periodico)) {
@@ -284,8 +286,6 @@ public class CurriculoBean {
             } else if (tipo.equals("application/jpg")) {
                 tipo = "jpg";
             }
-
-
             String nomeDoArquivo = this.fileUpload.uploadPlano(getCurriculo(), plano, tipo, stream);
             this.plano.setTitulo(nomeDoArquivo);
             planoRN.salvar(plano);
@@ -295,6 +295,12 @@ public class CurriculoBean {
             BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
         } catch (IOException ex) {
         }
+    }
+
+    public String voltarListaPeriodico() {
+
+        periodico = new Periodico();
+        return "/cadastro/curriculo/producao/periodicos.xhtml";
     }
 
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
@@ -320,7 +326,7 @@ public class CurriculoBean {
             return null;
         } else {
             livro.setEstrato(100);
-            livro.setCurriculoId(getCurriculo());
+            livro.setCurriculo(getCurriculo());
             getCurriculo().getLivroList().add(livro);
 
             if (livroRN.salvar(livro)) {
@@ -376,8 +382,6 @@ public class CurriculoBean {
             } else if (tipo.equals("application/jpg")) {
                 tipo = "jpg";
             }
-
-
             String nomeDoArquivo = this.fileUpload.uploadLivro(getCurriculo(), livro, tipo, stream);
             this.livro.setArquivo(nomeDoArquivo);
             livroRN.salvar(livro);
@@ -390,12 +394,6 @@ public class CurriculoBean {
 
     }
 
-    public String voltarListaPeriodico() {
-
-        periodico = new Periodico();
-        return "/cadastro/curriculo/producao/periodicos.xhtml";
-    }
-
     public String voltarListaLivro() {
 
         livro = new Livro();
@@ -406,6 +404,7 @@ public class CurriculoBean {
 
         List<Periodico> periodicos = getCurriculo().getPeriodicoList();
         List<Livro> livros = getCurriculo().getLivroList();
+        List<Orientacao> orientacoes = getCurriculo().getOrientacaoList();
 
         for (Periodico periodicoAtual : periodicos) {
             periodicoRN.salvar(periodicoAtual);
@@ -415,9 +414,105 @@ public class CurriculoBean {
             livroRN.salvar(livroAtual);
         }
 
+        for (Orientacao orientacaoAtual : orientacoes) {
+            orientacaoRN.salvar(orientacaoAtual);
+        }
+
         return "/cadastro/curriculo/";
     }
 
+    //CONTROLE DE ORIENTACAO A PARTIR DESTA LINHA
+    //CONTROLE DE ORIENTACAO A PARTIR DESTA LINHA
+    public Orientacao getOrientacao() {
+        return orientacao;
+    }
+
+    public void setOrientacao(Orientacao orientacao) {
+        this.orientacao = orientacao;
+    }
+
+    public String salvarOrientacao() {
+        if (orientacao.getAluno() == null || orientacao.getAluno().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o Orientação.", "Preencha o campo Bolsista.");
+            return null;
+        } else if (orientacao.getTipoOrientacao()== null || orientacao.getTipoOrientacao().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o Tipo de Orientação.", "Preencha o campo Tipo de Orientação.");
+            return null;
+        } else if (orientacao.getTipoBolsa()== null || orientacao.getTipoBolsa().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o Tipo de Bolsa.", "Preencha o campo Tipo de Bolsa.");
+            return null;
+        } else {
+            orientacao.setCurriculo(getCurriculo());
+
+//            curriculo.getPeriodicoList().add(periodico);
+            if (orientacaoRN.salvar(orientacao)) {
+                List<Orientacao> lo = getCurriculo().getOrientacaoList();
+                if (lo == null) {
+                    lo = new ArrayList<Orientacao>();
+                    lo.add(orientacao);
+                }
+                curriculoRN.salvar(getCurriculo());
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "A orientação do bolsista " + orientacao.getAluno() + " foi salva com sucesso.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro ao salvar a orientação", "Orientação: " + orientacao.getAluno());
+            }
+        }
+        orientacao = new Orientacao();
+        return null;
+    }
+
+    public String salvarEditarOrientacao(Orientacao orientacaoTemp) {
+
+        if (orientacaoRN.salvar(orientacaoTemp)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "A orientação do bolsista " + orientacaoTemp.getAluno() + " foi salva com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a orientação", "Orientação: " + orientacaoTemp.getAluno());
+        }
+        orientacao = new Orientacao();
+
+        return null;
+    }
+
+    public String excluirOrientacao() {
+        System.out.println("Orientação: " + orientacao);
+        if (orientacaoRN.remover(orientacao)) {
+            BeanUtil.criarMensagemDeInformacao("Orientação excluída", "Orientação do bolsista: " + orientacao.getAluno());
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao excluir Orientação", "Orientação: " + orientacao.getAluno());
+        }
+        orientacao = new Orientacao();
+        return "orientacoes.xhtml";
+    }
+
+    //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
+    //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
+//    public void uploadActionOrientacao(FileUploadEvent event) {
+//        UploadedFile file = event.getFile();
+//        InputStream stream = null;
+//        try {
+//            stream = file.getInputstream();
+//            String tipo = file.getContentType();
+//            if (tipo.equals("application/pdf")) {
+//                tipo = "pdf";
+//            } else if (tipo.equals("application/jpg")) {
+//                tipo = "jpg";
+//            }
+//
+//
+//            String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
+//            this.orientacao.setArquivo(nomeDoArquivo);
+//            orientacaoRN.salvar(orientacao);
+//            //Inicializa
+//            this.orientacao = new Orientacao();
+//            this.fileUpload = new UploadArquivo();
+//            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
+//        } catch (IOException ex) {
+//        }
+//    }
     public List<String> complete(String query) {
         List<String> results = qualisRN.obterTodosTitulos(query);
 
@@ -438,28 +533,25 @@ public class CurriculoBean {
     }
 
     public void salvarProgramaCurriculo() {
-        getCurriculo().getProgramaList().add(programa);
+        getCurriculo().getArea().getProgramaList().add(programa);
         curriculoRN.salvar(getCurriculo());
     }
-    
+
     /**
      * @return the curriculo
      */
     public Curriculo getCurriculo() {
         return curriculo;
     }
-    
-    public void exibirTabOutroArea(){
+
+    public void exibirTabOutroArea() {
         if (curriculo != null) {
             if (curriculo.getArea().equals(areaOutra)) {
                 setExibirOutroArea(true);
-                
-            }else{
+            } else {
                 setExibirOutroArea(false);
             }
-            
         }
-        
     }
 
     /**

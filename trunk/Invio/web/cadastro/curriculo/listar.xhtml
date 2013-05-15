@@ -64,6 +64,15 @@
                             
                             <p:commandButton 
                                 ajax="false"
+                                action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"
+                                value="Orientações">  
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />  
+                            </p:commandButton>      
+                            
+                            <p:commandButton 
+                                ajax="false"
                                 action="/cadastro/curriculo/programa/selecionar.xhtml"
                                 value="Programas">  
                                 <f:setPropertyActionListener 

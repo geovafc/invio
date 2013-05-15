@@ -50,6 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByCelular", query = "SELECT c FROM Curriculo c WHERE c.celular = :celular"),
     @NamedQuery(name = "Curriculo.findByEmail", query = "SELECT c FROM Curriculo c WHERE c.email = :email"),
     @NamedQuery(name = "Curriculo.findByMatricula", query = "SELECT c FROM Curriculo c WHERE c.matricula = :matricula"),
+    @NamedQuery(name = "Curriculo.findByGrupoPesq", query = "SELECT c FROM Curriculo c WHERE c.grupoPesq = :grupoPesq"),
     @NamedQuery(name = "Curriculo.findByLattes", query = "SELECT c FROM Curriculo c WHERE c.lattes = :lattes"),
     @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso"),
     @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero")})
@@ -90,6 +91,7 @@ public class Curriculo implements Serializable {
     private String pais;
     @Column(name = "telefone")
     private String telefone;
+    @Basic(optional = false)
     @Column(name = "celular")
     private String celular;
     @Basic(optional = false)
@@ -98,6 +100,8 @@ public class Curriculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "matricula")
     private String matricula;
+    @Column(name = "grupo_pesq")
+    private String grupoPesq;
     @Basic(optional = false)
     @Column(name = "lattes")
     private String lattes;
@@ -111,9 +115,9 @@ public class Curriculo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
-    private List<Livro> livroList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Orientacao> orientacaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Livro> livroList;
     @JoinColumn(name = "login", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Login login;
@@ -131,7 +135,7 @@ public class Curriculo implements Serializable {
         this.id = id;
     }
 
-    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String email, String matricula, String lattes, String genero) {
+    public Curriculo(Integer id, String cpf, String nome, String logradouro, String bairro, String cidade, String estado, String pais, String celular, String email, String matricula, String lattes, String genero) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -140,6 +144,7 @@ public class Curriculo implements Serializable {
         this.cidade = cidade;
         this.estado = estado;
         this.pais = pais;
+        this.celular = celular;
         this.email = email;
         this.matricula = matricula;
         this.lattes = lattes;
@@ -266,6 +271,14 @@ public class Curriculo implements Serializable {
         this.matricula = matricula;
     }
 
+    public String getGrupoPesq() {
+        return grupoPesq;
+    }
+
+    public void setGrupoPesq(String grupoPesq) {
+        this.grupoPesq = grupoPesq;
+    }
+
     public String getLattes() {
         return lattes;
     }
@@ -309,21 +322,21 @@ public class Curriculo implements Serializable {
     }
 
     @XmlTransient
-    public List<Livro> getLivroList() {
-        return livroList;
-    }
-
-    public void setLivroList(List<Livro> livroList) {
-        this.livroList = livroList;
-    }
-
-    @XmlTransient
     public List<Orientacao> getOrientacaoList() {
         return orientacaoList;
     }
 
     public void setOrientacaoList(List<Orientacao> orientacaoList) {
         this.orientacaoList = orientacaoList;
+    }
+
+    @XmlTransient
+    public List<Livro> getLivroList() {
+        return livroList;
+    }
+
+    public void setLivroList(List<Livro> livroList) {
+        this.livroList = livroList;
     }
 
     public Login getLogin() {

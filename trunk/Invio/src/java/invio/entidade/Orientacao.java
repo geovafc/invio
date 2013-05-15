@@ -5,6 +5,7 @@
 package invio.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -23,13 +26,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author soranso
  */
 @Entity
-@Table(name = "Orientacao")
+@Table(name = "orientacao")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Orientacao.findAll", query = "SELECT o FROM Orientacao o"),
     @NamedQuery(name = "Orientacao.findById", query = "SELECT o FROM Orientacao o WHERE o.id = :id"),
     @NamedQuery(name = "Orientacao.findByAluno", query = "SELECT o FROM Orientacao o WHERE o.aluno = :aluno"),
-    @NamedQuery(name = "Orientacao.findByTipo", query = "SELECT o FROM Orientacao o WHERE o.tipo = :tipo")})
+    @NamedQuery(name = "Orientacao.findByPInicial", query = "SELECT o FROM Orientacao o WHERE o.pInicial = :pInicial"),
+    @NamedQuery(name = "Orientacao.findByPFinal", query = "SELECT o FROM Orientacao o WHERE o.pFinal = :pFinal"),
+    @NamedQuery(name = "Orientacao.findByTipoOrientacao", query = "SELECT o FROM Orientacao o WHERE o.tipoOrientacao = :tipoOrientacao"),
+    @NamedQuery(name = "Orientacao.findByTipoBolsa", query = "SELECT o FROM Orientacao o WHERE o.tipoBolsa = :tipoBolsa"),
+    @NamedQuery(name = "Orientacao.findByEstrato", query = "SELECT o FROM Orientacao o WHERE o.estrato = :estrato")})
 public class Orientacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,8 +48,21 @@ public class Orientacao implements Serializable {
     @Column(name = "aluno")
     private String aluno;
     @Basic(optional = false)
-    @Column(name = "tipo")
-    private String tipo;
+    @Column(name = "p_inicial")
+    @Temporal(TemporalType.DATE)
+    private Date pInicial;
+    @Basic(optional = false)
+    @Column(name = "p_final")
+    @Temporal(TemporalType.DATE)
+    private Date pFinal;
+    @Basic(optional = false)
+    @Column(name = "tipo_orientacao")
+    private String tipoOrientacao;
+    @Basic(optional = false)
+    @Column(name = "tipo_bolsa")
+    private String tipoBolsa;
+    @Column(name = "estrato")
+    private Integer estrato;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculo;
@@ -54,10 +74,13 @@ public class Orientacao implements Serializable {
         this.id = id;
     }
 
-    public Orientacao(Integer id, String aluno, String tipo) {
+    public Orientacao(Integer id, String aluno, Date pInicial, Date pFinal, String tipoOrientacao, String tipoBolsa) {
         this.id = id;
         this.aluno = aluno;
-        this.tipo = tipo;
+        this.pInicial = pInicial;
+        this.pFinal = pFinal;
+        this.tipoOrientacao = tipoOrientacao;
+        this.tipoBolsa = tipoBolsa;
     }
 
     public Integer getId() {
@@ -76,12 +99,44 @@ public class Orientacao implements Serializable {
         this.aluno = aluno;
     }
 
-    public String getTipo() {
-        return tipo;
+    public Date getPInicial() {
+        return pInicial;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setPInicial(Date pInicial) {
+        this.pInicial = pInicial;
+    }
+
+    public Date getPFinal() {
+        return pFinal;
+    }
+
+    public void setPFinal(Date pFinal) {
+        this.pFinal = pFinal;
+    }
+
+    public String getTipoOrientacao() {
+        return tipoOrientacao;
+    }
+
+    public void setTipoOrientacao(String tipoOrientacao) {
+        this.tipoOrientacao = tipoOrientacao;
+    }
+
+    public String getTipoBolsa() {
+        return tipoBolsa;
+    }
+
+    public void setTipoBolsa(String tipoBolsa) {
+        this.tipoBolsa = tipoBolsa;
+    }
+
+    public Integer getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(Integer estrato) {
+        this.estrato = estrato;
     }
 
     public Curriculo getCurriculo() {
