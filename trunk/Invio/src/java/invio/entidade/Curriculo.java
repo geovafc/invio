@@ -122,7 +122,7 @@ public class Curriculo implements Serializable {
     @ManyToOne(optional = false)
     private Login login;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Instituicao instituicao;
     @JoinColumn(name = "area", referencedColumnName = "id")
     @ManyToOne(optional = false)

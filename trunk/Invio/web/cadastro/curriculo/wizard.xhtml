@@ -11,11 +11,9 @@
         <h:form >
             <p:panel style="border-color: transparent; color: transparent; background: transparent">
                 <div align="left">
-
                     <p:commandButton 
                         ajax="false" value="Cancelar" action="listar.xhtml"/>
                 </div>
-
             </p:panel>
         </h:form>
 
@@ -59,7 +57,7 @@
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
                             <h:outputText value="Sexo: *"/>
-                            <p:selectOneMenu id="genero" required="true" value="#{usuarioBean.curriculo.genero}">  
+                            <p:selectOneMenu id="genero" required="true" value="#{curriculoBean.curriculo.genero}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
                                 <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
@@ -157,13 +155,13 @@
                                     itemValue="#{area}"/>
                                 <f:selectItem 
                                     itemLabel="OUTRO" 
-                                    itemValue="null"/>
+                                    itemValue=""/>
                             </p:selectOneListbox> 
                         </h:panelGrid>  
                     </p:panel>  
                 </p:tab>
 
-                <p:tab id="areaCurriculoOutro" title="Outra Área" >
+                <p:tab id="areaOutroCurriculo" title="Outra Área" >
                     <p:panel header="Área do Currículo" style="height: 420px">  
                         <h:panelGrid columns="3" columnClasses="label, value">  
 
@@ -179,7 +177,7 @@
                 </p:tab>  
 
                 <p:tab id="confirm" title="Confirmação">  
-                    <p:panel header="Confirmação" style="height: 420px">  
+                    <p:panel  header="Confirmação" style="height: 420px">  
 
                         <h:panelGrid id="confirmation" columns="6" cellspacing="5" cellpadding="4" >  
 
@@ -187,6 +185,11 @@
                             <h:inputText styleClass="outputLabel"
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.nome}" />  
+                            
+                            <h:outputText value="Gênero: " />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.genero}" />  
 
                             <h:outputText value="Data de Nascimento: " />  
                             <h:inputText
@@ -278,15 +281,9 @@
                         <p:commandButton value="Confimar" ajax="false" update="form"   
                                          actionListener="#{curriculoBean.salvarCurriculo()}" 
                                          action="listar.xhtml"/>  
-
                     </p:panel>  
                 </p:tab>
-
             </p:wizard>
-
         </h:form>
-
-
     </ui:define>
-
 </ui:composition>

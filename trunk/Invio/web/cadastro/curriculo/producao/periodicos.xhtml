@@ -28,7 +28,7 @@
 
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="false"   
-                                     value="#{curriculoBean.periodico.autor}" />  
+                                     value="#{curriculoBean.periodico.autores}" />  
 
 
                         <h:outputLabel value="Ano Publicação : *"/>  
@@ -101,10 +101,10 @@
                               min-height: 12px; white-space: pre-line"> 
                         <p:cellEditor>
                             <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.autor}"/> 
+                                <h:outputLabel value="#{periodico.autores}"/> 
                             </f:facet>  
                             <f:facet name="input">  
-                                <p:inputText value="#{periodico.autor}" style="width: 90%"/>
+                                <p:inputText value="#{periodico.autores}" style="width: 90%"/>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>

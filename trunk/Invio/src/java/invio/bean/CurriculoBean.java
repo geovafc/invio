@@ -121,7 +121,7 @@ public class CurriculoBean {
 
     public String salvarCurriculo() {
 
-        if (curriculoRN.salvar(getCurriculo())) {
+        if (curriculoRN.salvar(curriculo)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
@@ -151,7 +151,7 @@ public class CurriculoBean {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        if (event.getOldStep().equals("areaCurriculo")
+        if (event.getNewStep().equals("areaOutroCurriculo")
                 && curriculo.getArea() != null) {
             return "confirm";
         } else {
@@ -178,7 +178,8 @@ public class CurriculoBean {
 
         UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
         String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
-
+        
+        curriculo.setLogin(usuarioBeanTemp.getUsuarioLogado());
         curriculo.setEmail(email);
 
         return "/cadastro/curriculo/wizard.xhtml";
