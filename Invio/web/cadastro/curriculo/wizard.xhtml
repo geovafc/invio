@@ -35,18 +35,23 @@
 
                     <p:panel header="Dados Pessoais" style="height: 420px">  
 
-
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
                                          value="#{curriculoBean.curriculo.nome}" />
                             <p:message id="erroNome" for="nome"/>
-                            
+
                             <h:outputText value="Email: *" />  
                             <p:inputText id="email" required="true" label="Nome"  
                                          value="#{curriculoBean.curriculo.email}" />
                             <p:message id="erroEmail" for="email"/>
+
+                            <h:outputText value="Celular: *" />  
+                            <p:inputMask id="celular" required="true" 
+                                         mask="(99)9999-9999" label="Celular"  
+                                         value="#{curriculoBean.curriculo.celular}" />
+                            <p:message id="erroCelular" for="celular"/>
 
                             <h:outputText value="Data de Nascimento: *" />
                             <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" 
@@ -76,9 +81,13 @@
                                          value="#{curriculoBean.curriculo.lattes}" /> 
                             <p:message id="erroLatte" for="lattes"/>
 
+                            <h:outputText value="Grupo de Pesquisa: *" />  
+                            <p:inputText id="grupoPesq" required="true" label="GrupoPesq"  
+                                         value="#{curriculoBean.curriculo.grupoPesq}" /> 
+                            <p:message id="erroGrupoPesq" for="grupoPesq"/>
+
 
                             <h:outputText value="Curso: *"/>
-
                             <p:inputText id="curso" required="true" label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso"/>
@@ -132,37 +141,38 @@
                     </p:panel>  
                 </p:tab>  
 
-
                 <p:tab id="areaCurriculo" title="Área">  
                     <p:panel header="Área do Currículo" style="height: 420px">  
-                        <h:panelGrid columns="2" columnClasses="label, value">  
+                        <h:panelGrid columns="1" columnClasses="label, value">  
 
                             <h:outputText value="Selecione a área: " /> 
                             <p:selectOneListbox  id="scrollAreaCurriculo" 
-                                                value="#{curriculoBean.programa.area}" 
-                                                converter="areaConversor" 
-                                                style="width: 300px;height:200px"> 
-                                <f:selectItems value="#{programaBean.areas}" 
-                                               var="area" itemLabel="#{area.nome}" 
-                                               itemValue="#{nome}" />  
-                                <f:selectItem itemLabel="OUTRO" itemValue="#{curriculoBean.areaOutra}"/>
-                                <p:ajax event="change" 
-                                        listener="#{curriculoBean.exibirTabOutroArea}"
-                                        update=":formCurriculo:wizardCurriculo"
-                                        />
+                                                 value="#{curriculoBean.curriculo.area}" 
+                                                 converter="areaConversor" 
+                                                 style="width: 300px;height:200px"> 
+                                <f:selectItems 
+                                    value="#{curriculoBean.areas}" 
+                                    var="area" 
+                                    itemLabel="#{area.nome}" 
+                                    itemValue="#{area}"/>
+                                <f:selectItem 
+                                    itemLabel="OUTRO" 
+                                    itemValue="null"/>
                             </p:selectOneListbox> 
                         </h:panelGrid>  
                     </p:panel>  
-                </p:tab>  
+                </p:tab>
 
-                <p:tab id="areaCurriculoOutro" title="Outra Área" 
-                       rendered="#{curriculoBean.exibirOutroArea==true}">  
+                <p:tab id="areaCurriculoOutro" title="Outra Área" >
                     <p:panel header="Área do Currículo" style="height: 420px">  
                         <h:panelGrid columns="3" columnClasses="label, value">  
 
                             <f:view encoding="ISO-8859-1">
                                 <h:outputText value="Digite sua área: *"/>
-                                <p:inputText id="curriculoAreaOutra" value="#{curriculoBean.curriculo.area}"/>
+                                <p:autoComplete 
+                                    id="curriculoAreaOutra"
+                                    completeMethod="#{curriculoBean.completeArea}"
+                                    value="#{curriculoBean.curriculo.area}"/>
                             </f:view>
                         </h:panelGrid>  
                     </p:panel>  
@@ -190,11 +200,16 @@
                             <h:inputText  styleClass="outputLabel"  
                                           disabled="true"
                                           value="#{curriculoBean.curriculo.cpf}"/>  
-                         
+
                             <h:outputText value="Email: " />  
                             <h:inputText  styleClass="outputLabel"  
                                           disabled="true"
                                           value="#{curriculoBean.curriculo.email}"/>  
+
+                            <h:outputText value="Celular " />  
+                            <h:inputText  styleClass="outputLabel"  
+                                          disabled="true"
+                                          value="#{curriculoBean.curriculo.celular}"/>  
 
                             <h:outputText value="Matricula: " />  
                             <h:inputText styleClass="outputLabel"  
@@ -205,6 +220,11 @@
                             <h:inputText styleClass="outputLabel" 
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.lattes}" />  
+
+                            <h:outputText value="Grupo de Pesquisa: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.grupoPesq}" />  
 
                             <h:outputText value="Curso: " />  
                             <h:inputText styleClass="outputLabel"  
@@ -244,27 +264,12 @@
                             <h:outputText value="País: " />  
                             <h:inputText styleClass="outputLabel" 
                                          disabled="true"
-                                         value="#{curriculoBean.curriculo.pais}" />  
+                                         value="#{curriculoBean.curriculo.pais}" />
 
-                            <h:outputText value="Email: " />  
-                            <h:inputText styleClass="outputLabel"
-                                         disabled="true"
-                                         value="#{curriculoBean.curriculo.email}" />  
-
-                            <h:outputText value="Telefone: " />  
-                            <h:inputText styleClass="outputLabel" 
-                                         disabled="true"
-                                         value="#{curriculoBean.curriculo.telefone}" />  
-
-                            <h:outputText value="Celular: " />  
-                            <h:inputText styleClass="outputLabel"
-                                         disabled="true"
-                                         value="#{curriculoBean.curriculo.celular}" />  
-                            
                             <h:outputText value="Área de Atuação: " />  
                             <h:inputText styleClass="outputLabel"
                                          disabled="true"
-                                         value="#{curriculoBean.curriculo.area}" />  
+                                         value="#{curriculoBean.curriculo.area.nome}" />  
 
                             <h:outputText />  
                             <h:outputText />  
