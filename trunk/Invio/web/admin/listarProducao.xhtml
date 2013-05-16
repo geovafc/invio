@@ -16,6 +16,8 @@
                 <p:dataTable id="listaPeriodicosA"
                              var="lperiodico" value="#{curriculoBean.curriculo.periodicoList}" 
                              emptyMessage="Sem registro para a exibição.">
+                    
+                     <f:facet name="Peródicos"></f:facet>
 
                     <p:column headerText="Título" > 
                         <h:outputLabel value="#{lperiodico.titulo}" 
@@ -28,10 +30,16 @@
                     </p:column> 
 
                     <p:column headerText="Avaliação" style="width:25%">
-                        <p:selectOneMenu value="#{producoes.avaliacao}">  
-                            <f:selectItem itemLabel="-" itemValue="" />  
-                            <f:selectItem itemLabel="Sim" itemValue="Sim" />  
-                            <f:selectItem itemLabel="Não" itemValue="Nao" />  
+                        <p:selectOneMenu value="#{lperiodico.estrato}">  
+                            <f:selectItem itemLabel="#{lperiodico.estrato}" itemValue="#{lperiodico.estrato}" />  
+                            <f:selectItem itemLabel="A1 - 100" itemValue="100" />  
+                            <f:selectItem itemLabel="A2 - 80" itemValue="80" />  
+                            <f:selectItem itemLabel="B1 - 60" itemValue="60" />  
+                            <f:selectItem itemLabel="B2 - 50" itemValue="50" />  
+                            <f:selectItem itemLabel="B3 - 30" itemValue="30" />  
+                            <f:selectItem itemLabel="B4 - 20" itemValue="20" />  
+                            <f:selectItem itemLabel="B5 - 10" itemValue="10" />  
+                            <f:selectItem itemLabel="C - 5" itemValue="5" />  
                         </p:selectOneMenu>  
                     </p:column>  
                 </p:dataTable>
@@ -58,21 +66,69 @@
                         <h:outputLabel value="#{lislivro.ano}"/> 
                     </p:column>
                     <p:column headerText="Arquivo">
-                        <h:outputLabel value="#{lislivro.titulo}"/>
+                        <h:outputLabel value="#{lislivro.arquivo}"/>
                     </p:column>
+                    <p:column headerText="Avaliação" style="width:25%">
+                        <p:selectOneMenu value="#{lperiodico.estrato}">  
+                            <f:selectItem itemLabel="#{lperiodico.estrato}" itemValue="#{lperiodico.estrato}" />  
+                            <f:selectItem itemLabel="Autor de Livros - 30" itemValue="30" />  
+                            <f:selectItem itemLabel="Autor de capítulos - 20" itemValue="20" />  
+                            <f:selectItem itemLabel="Editos de Livros - 10" itemValue="10" />  
+                        </p:selectOneMenu>  
+                    </p:column> 
 
                 </p:dataTable>
 
             </p:panel>
             
+              <p:panel>
+                <p:dataTable id="listaOrientacao"
+                             var="lisorientacao" value="#{curriculoBean.curriculo.orientacaoList}" 
+                             emptyMessage="Sem registros para a exibição">
+
+                    <f:facet name="Orientações"></f:facet>
+                    
+                    <p:column headerText="Tipo Orientação">
+                        <h:outputLabel value="#{lisorientacao.tipoOrientacao}"/>
+                    </p:column>
+                    <p:column headerText="Aluno">
+                        <h:outputLabel value="#{lisorientacao.aluno}"/> 
+                    </p:column>
+                    <p:column headerText="Início"> 
+                        <h:outputLabel value="#{lisorientacao.PInicial}"/> 
+                    </p:column>
+                    <p:column headerText="Fim"> 
+                        <h:outputLabel value="#{lisorientacao.PFinal}"/> 
+                    </p:column>
+                    <p:column headerText="Tipo de Bolsa"> 
+                        <h:outputLabel value="#{lisorientacao.tipoBolsa}"/> 
+                    </p:column>
+                    <p:column headerText="Avaliação" style="width:25%">
+                        <p:selectOneMenu value="#{lisorientacao.estrato}">  
+                            <f:selectItem itemLabel="#{lisorientacao.estrato}" itemValue="#{lisorientacao.estrato}" />  
+                            <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" />  
+                            <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="4" />  
+                            <f:selectItem itemLabel="Especialização (Orientação)" itemValue="2" />  
+                            <f:selectItem itemLabel="Iniciação Científica (Orientação)" itemValue="2" />  
+                            <f:selectItem itemLabel="TCC (Orientação)" itemValue="2" />  
+                            <f:selectItem itemLabel="Bolsista DTI (Orientação)" itemValue="2" />  
+                            <f:selectItem itemLabel="Tese de Doutorado (Coorientação)" itemValue="4" />  
+                            <f:selectItem itemLabel="Dissertação de Mestrado (Coorientação)" itemValue="2" />
+                        </p:selectOneMenu>  
+                    </p:column> 
+
+                </p:dataTable>
+
+            </p:panel>
+
             <h:panelGroup>
-                
+
                 <h:panelGrid columns="2">
-                <h:outputText  value="Total de Pontos:"/>   
-                <h:inputText disabled="true" value="#{curriculoBean}"/>   
+                    <h:outputText  value="Total de Pontos:"/>   
+                    <h:inputText disabled="true" value="#{curriculoBean}"/>   
                 </h:panelGrid>
-                
-            <p:commandButton value="Salvar" action="#{curriculoBean.altualizarPontos()}" />
+
+                <p:commandButton value="Salvar" action="#{curriculoBean.altualizarPontos()}" />
             </h:panelGroup>
 
         </h:form>

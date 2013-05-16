@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano"),
     @NamedQuery(name = "Livro.findByEstrato", query = "SELECT l FROM Livro l WHERE l.estrato = :estrato"),
     @NamedQuery(name = "Livro.findByArquivo", query = "SELECT l FROM Livro l WHERE l.arquivo = :arquivo"),
-    @NamedQuery(name = "Livro.findByAvaliacao", query = "SELECT l FROM Livro l WHERE l.avaliacao = :avaliacao")})
+    @NamedQuery(name = "Livro.findByAvaliacao", query = "SELECT l FROM Livro l WHERE l.avaliacao = :avaliacao"),
+    @NamedQuery(name = "Livro.findByTipoLivro", query = "SELECT l FROM Livro l WHERE l.tipoLivro = :tipoLivro")})
 public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +57,9 @@ public class Livro implements Serializable {
     private String arquivo;
     @Column(name = "avaliacao")
     private String avaliacao;
+    @Basic(optional = false)
+    @Column(name = "tipoLivro")
+    private int tipoLivro;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculo;
@@ -65,6 +69,11 @@ public class Livro implements Serializable {
 
     public Livro(Integer id) {
         this.id = id;
+    }
+
+    public Livro(Integer id, int tipoLivro) {
+        this.id = id;
+        this.tipoLivro = tipoLivro;
     }
 
     public Integer getId() {
@@ -129,6 +138,14 @@ public class Livro implements Serializable {
 
     public void setAvaliacao(String avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    public int getTipoLivro() {
+        return tipoLivro;
+    }
+
+    public void setTipoLivro(int tipoLivro) {
+        this.tipoLivro = tipoLivro;
     }
 
     public Curriculo getCurriculo() {

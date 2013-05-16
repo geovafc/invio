@@ -63,9 +63,7 @@ public class CurriculoBean {
         if (usuarioBean.isMaster()) {
             curriculos = curriculoRN.obterTodos();
         } else {
-            List<Curriculo> cs = new ArrayList<Curriculo>();
-            cs.add(usuarioBean.getUsuarioLogado().getCurriculoId());
-            curriculos = cs;
+            curriculos = curriculoRN.obterCurriculoLogin(usuarioBean.getUsuarioLogado());
         }
         return curriculos;
     }
@@ -314,18 +312,13 @@ public class CurriculoBean {
     }
 
     public String salvarLivro() {
-
-        if (livro.getTitulo() == null || livro.getTitulo().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Título.");
-            return null;
-        } else if (livro.getAutor() == null || livro.getAutor().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Autor.");
-            return null;
-        } else if (livro.getAno() == null || livro.getAno().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro.", "Preencha o campo Ano Publicação.");
-            return null;
+        
+        if (livro.getTipoLivro() == 30 && livro.getCapitulo() == null){
+            livro.setEstrato(30);
+        } else if (livro.getTipoLivro() == 10) {
+            livro.setEstrato(10);
         } else {
-            livro.setEstrato(100);
+            livro.setEstrato(20);
             livro.setCurriculo(getCurriculo());
             getCurriculo().getLivroList().add(livro);
 
@@ -337,11 +330,8 @@ public class CurriculoBean {
             } else {
                 BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
             }
-
         }
-
         livro = new Livro();
-
         return null;
     }
 
@@ -435,10 +425,7 @@ public class CurriculoBean {
         if (orientacao.getAluno() == null || orientacao.getAluno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Orientação.", "Preencha o campo Bolsista.");
             return null;
-        } else if (orientacao.getTipoOrientacao()== null || orientacao.getTipoOrientacao().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Tipo de Orientação.", "Preencha o campo Tipo de Orientação.");
-            return null;
-        } else if (orientacao.getTipoBolsa()== null || orientacao.getTipoBolsa().trim().equals("")) {
+        } else if (orientacao.getTipoBolsa() == null || orientacao.getTipoBolsa().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Tipo de Bolsa.", "Preencha o campo Tipo de Bolsa.");
             return null;
         } else {

@@ -185,6 +185,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
   `curriculo` INT(11) NOT NULL ,
   `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
   `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
+  `tipoLivro` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_livro_curriculo1` (`curriculo` ASC) ,
   CONSTRAINT `fk_livro_curriculo1`
@@ -311,7 +312,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`orientacao` (
   `aluno` VARCHAR(100) NOT NULL ,
   `p_inicial` DATE NOT NULL ,
   `p_final` DATE NOT NULL ,
-  `tipo_orientacao` CHAR(2) NOT NULL DEFAULT 'IC' COMMENT 'IC - Iniciação Científica | ES - Especialização | TC - TCC | ME - Mestrado | DR - Doutorado | BD - Bolsista DTI | TD - Tese de Doutorado | DM - Dissertação de Mestrado' ,
+  `tipo_orientacao` INT NOT NULL DEFAULT 2 COMMENT 'IC - Iniciação Científica | ES - Especialização | TC - TCC | ME - Mestrado | DR - Doutorado | BD - Bolsista DTI | TD - Tese de Doutorado | DM - Dissertação de Mestrado' ,
   `tipo_bolsa` VARCHAR(100) NOT NULL ,
   `estrato` INT NULL ,
   `curriculo` INT(11) NOT NULL ,

@@ -4,17 +4,15 @@
  */
 package invio.rn;
 
+import invio.dao.CurriculoDAO;
 import invio.dao.GenericDAO;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
+import invio.entidade.Login;
 import invio.entidade.Periodico;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -23,6 +21,7 @@ import java.util.Set;
 public class CurriculoRN {
 
     GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
+    CurriculoDAO curriculoDAO = new CurriculoDAO();
 
     public boolean salvar(Curriculo c) {
         boolean salvou = false;
@@ -52,6 +51,11 @@ public class CurriculoRN {
 
     public List<Curriculo> obterTodos() {
         return dao.obterTodos(Curriculo.class);
+    }
+
+    //Aqui se obtém uma lista de Curriculo usuário por Login (Se Master ou não)
+    public List<Curriculo> obterCurriculoLogin(Login login) {
+        return curriculoDAO.findCurriculoByUsuario(login);
     }
 
     public List<Curriculo> obterTodosDesc() {
@@ -144,7 +148,7 @@ class CurriculoPts implements Comparable<CurriculoPts> {
             if (!livro.getAvaliacao().trim().equals("")
                     && !livro.getAvaliacao().trim().equals("Nao")
                     && livro.getAvaliacao() != null) {
-                
+
                 total = total + livro.getEstrato();
             }
         }
