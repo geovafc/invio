@@ -4,8 +4,10 @@
  */
 package invio.rn;
 
+import invio.dao.AreaDAO;
 import invio.dao.CurriculoDAO;
 import invio.dao.GenericDAO;
+import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
@@ -22,6 +24,7 @@ public class CurriculoRN {
 
     GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
     CurriculoDAO curriculoDAO = new CurriculoDAO();
+    GenericDAO<Area> daoArea = new GenericDAO<Area>();
 
     public boolean salvar(Curriculo c) {
         boolean salvou = false;
@@ -39,6 +42,10 @@ public class CurriculoRN {
             dao.concluirTransacao();
         }
         return salvou;
+    }
+
+    public List<Area> obterAreas() {
+        return daoArea.obterTodos(Area.class);
     }
 
     public boolean remover(Curriculo c) {
@@ -154,6 +161,5 @@ class CurriculoPts implements Comparable<CurriculoPts> {
         }
 
         return total;
-
     }
 }

@@ -8,6 +8,7 @@ import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
 import invio.entidade.Programa;
+import invio.rn.AreaRN;
 import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
 import invio.rn.OrientacaoRN;
@@ -50,6 +51,8 @@ public class CurriculoBean {
     private QualisRN qualisRN = new QualisRN();
     private Programa programa = new Programa();
     private Area areaOutra = new Area();
+    private AreaRN areaRN = new AreaRN();
+    private Area area = new Area();
     private boolean exibirOutroArea;
 
     public CurriculoBean(List<Curriculo> curriculos) {
@@ -148,16 +151,16 @@ public class CurriculoBean {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        logger.info("Current wizard step:" + event.getOldStep());
-        logger.info("Next step:" + event.getNewStep());
-        if (skip) {
-            skip = false;
+        if (event.getOldStep().equals("areaCurriculo")
+                && curriculo.getArea() != null) {
             return "confirm";
         } else {
             return event.getNewStep();
-
         }
+    }
 
+    public List<Area> getAreas() {
+        return curriculoRN.obterAreas();
     }
 
     public String irListarCurriculos() {
@@ -179,6 +182,12 @@ public class CurriculoBean {
         curriculo.setEmail(email);
 
         return "/cadastro/curriculo/wizard.xhtml";
+    }
+
+    public String altualizarPontos() {
+
+        return null;
+
     }
 
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
@@ -312,8 +321,8 @@ public class CurriculoBean {
     }
 
     public String salvarLivro() {
-        
-        if (livro.getTipoLivro() == 30 && livro.getCapitulo() == null){
+
+        if (livro.getTipoLivro() == 30 && livro.getCapitulo() == null) {
             livro.setEstrato(30);
         } else if (livro.getTipoLivro() == 10) {
             livro.setEstrato(10);
