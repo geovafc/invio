@@ -73,7 +73,7 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `curso` VARCHAR(200) NULL ,
   `genero` VARCHAR(45) NOT NULL ,
   `area` INT(11) NOT NULL ,
-  `instituicao` INT(11) NOT NULL ,
+  `instituicao` INT(11) NULL ,
   `login` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_curriculo_area1` (`area` ASC) ,

@@ -49,7 +49,7 @@ public class Instituicao implements Serializable {
     private List<Programa> programaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Edital> editalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
+    @OneToMany(mappedBy = "instituicao")
     private List<Curriculo> curriculoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Unidade> unidadeList;
