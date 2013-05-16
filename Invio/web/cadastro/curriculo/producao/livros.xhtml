@@ -22,6 +22,12 @@
                 <p:panel header="Novo Livro">  
                     <h:panelGrid columns="4" id="grid" cellspacing="4">  
 
+                        <h:outputText value="Tipo: " />  
+                        <p:selectOneRadio id="tipo" value="#{curriculoBean.livro.tipoLivro}">  
+                            <f:selectItem itemLabel="Autor" itemValue="30" />  
+                            <f:selectItem itemLabel="Editor" itemValue="10" />  
+                        </p:selectOneRadio>  
+
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
                                      value="#{curriculoBean.livro.titulo}" required="false"/>  

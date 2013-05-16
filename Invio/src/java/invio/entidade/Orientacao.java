@@ -57,7 +57,7 @@ public class Orientacao implements Serializable {
     private Date pFinal;
     @Basic(optional = false)
     @Column(name = "tipo_orientacao")
-    private String tipoOrientacao;
+    private int tipoOrientacao;
     @Basic(optional = false)
     @Column(name = "tipo_bolsa")
     private String tipoBolsa;
@@ -74,7 +74,7 @@ public class Orientacao implements Serializable {
         this.id = id;
     }
 
-    public Orientacao(Integer id, String aluno, Date pInicial, Date pFinal, String tipoOrientacao, String tipoBolsa) {
+    public Orientacao(Integer id, String aluno, Date pInicial, Date pFinal, int tipoOrientacao, String tipoBolsa) {
         this.id = id;
         this.aluno = aluno;
         this.pInicial = pInicial;
@@ -115,11 +115,11 @@ public class Orientacao implements Serializable {
         this.pFinal = pFinal;
     }
 
-    public String getTipoOrientacao() {
+    public int getTipoOrientacao() {
         return tipoOrientacao;
     }
 
-    public void setTipoOrientacao(String tipoOrientacao) {
+    public void setTipoOrientacao(int tipoOrientacao) {
         this.tipoOrientacao = tipoOrientacao;
     }
 

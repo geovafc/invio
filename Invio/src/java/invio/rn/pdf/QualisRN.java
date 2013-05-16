@@ -155,7 +155,5 @@ public class QualisRN {
         }
         
         return 0;
-            
-      
     }
 }
