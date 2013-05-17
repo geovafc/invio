@@ -179,36 +179,36 @@ public class CurriculoBean {
 
         UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
         String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
-        
+
         curriculo.setLogin(usuarioBeanTemp.getUsuarioLogado());
         curriculo.setEmail(email);
 
         return "/cadastro/curriculo/wizard.xhtml";
     }
-    
+
     public String altualizarPontos() {
         if (curriculo != null) {
-          
+
             totalPontos = 0;
-            
+
             List<Livro> livros = curriculo.getLivroList();
             List<Periodico> periodicos = curriculo.getPeriodicoList();
             List<Orientacao> orientacoes = curriculo.getOrientacaoList();
-            
+
             for (Livro livroTemp : livros) {
-                totalPontos = totalPontos+livroTemp.getEstrato();
+                totalPontos = totalPontos + livroTemp.getEstrato();
             }
-            
-            for (Periodico periodicoTemp  : periodicos) {
-                totalPontos = totalPontos+periodicoTemp.getEstrato();
-                
+
+            for (Periodico periodicoTemp : periodicos) {
+                totalPontos = totalPontos + periodicoTemp.getEstrato();
+
             }
-            
+
             for (Orientacao orientacaoTemp : orientacoes) {
-                
-                totalPontos = totalPontos+orientacaoTemp.getEstrato();
+
+                totalPontos = totalPontos + orientacaoTemp.getEstrato();
             }
-            
+
         }
         return "/admin/listarProducao.xhtml";
 
@@ -221,7 +221,7 @@ public class CurriculoBean {
     public void setTotalPontos(Integer totalPontos) {
         this.totalPontos = totalPontos;
     }
-    
+
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     public Periodico getPeriodico() {
@@ -353,24 +353,24 @@ public class CurriculoBean {
     }
 
     public String salvarLivro() {
-
-        if (livro.getTipoLivro() == 30 && livro.getCapitulo() == null) {
+        if (livro.getTipoLivro() == 30 && livro.getCapitulo().equals("")) {
             livro.setEstrato(30);
+        } else if (livro.getTipoLivro() == 30 && livro.getCapitulo() != null) {
+            livro.setEstrato(20);
         } else if (livro.getTipoLivro() == 10) {
             livro.setEstrato(10);
-        } else {
-            livro.setEstrato(20);
-            livro.setCurriculo(getCurriculo());
-            getCurriculo().getLivroList().add(livro);
+        }
 
-            if (livroRN.salvar(livro)) {
-                curriculoRN.salvar(getCurriculo());
-                BeanUtil.criarMensagemDeInformacao(
-                        "Operação realizada com sucesso",
-                        "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
-            } else {
-                BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
-            }
+        livro.setCurriculo(getCurriculo());
+        getCurriculo().getLivroList().add(livro);
+
+        if (livroRN.salvar(livro)) {
+            curriculoRN.salvar(getCurriculo());
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
         }
         livro = new Livro();
         return null;
@@ -463,6 +463,13 @@ public class CurriculoBean {
     }
 
     public String salvarOrientacao() {
+        if (orientacao.getTipoOrientacao() == 8) {
+            orientacao.setEstrato(8);
+        } else if (orientacao.getTipoOrientacao() == 4) {
+            orientacao.setEstrato(4);
+        } else {
+            orientacao.setEstrato(2);
+        }
         if (orientacao.getAluno() == null || orientacao.getAluno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Orientação.", "Preencha o campo Bolsista.");
             return null;
