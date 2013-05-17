@@ -61,7 +61,7 @@
                              rowsPerPageTemplate="5,10,15"
                              editable="true"
                              >
-                    <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarLivro(livro)}" update="livrosTabela" />  
+                    <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarLivro(Livro)}" update="livrosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 
@@ -96,7 +96,6 @@
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-
                         <p:cellEditor>
                             <f:facet name="output">  
                                 <h:outputLabel value="#{livro.capitulo}"/> 
@@ -149,8 +148,7 @@
 
                         <p:commandLink value="Excluir"
                                        ajax="false"
-                                       action="/cadastro/curriculo/producao/excluirLivro.xhtml"
-                                       >
+                                       action="/cadastro/curriculo/producao/excluirLivro.xhtml">
                             <f:setPropertyActionListener 
                                 value="#{livro}" 
                                 target="#{curriculoBean.livro}" />

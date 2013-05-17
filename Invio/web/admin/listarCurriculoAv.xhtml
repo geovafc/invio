@@ -28,11 +28,11 @@
                     <p:column headerText="Operações">  
                         <div align="center">
                             <p:commandButton 
-                                action="listarProducao.xhtml"
+                                action="#{curriculoBean.altualizarPontos()}"
                                 value="Produções"
-                                ajax="false">  
+                                >  
                                 <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
+                                    value="#{acurriculo}" 
                                     target="#{curriculoBean.curriculo}" />  
                             </p:commandButton>  
                         </div>

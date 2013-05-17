@@ -54,6 +54,7 @@ public class CurriculoBean {
     private AreaRN areaRN = new AreaRN();
     private Area area = new Area();
     private boolean exibirOutroArea;
+    private Integer totalPontos;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -184,13 +185,43 @@ public class CurriculoBean {
 
         return "/cadastro/curriculo/wizard.xhtml";
     }
-
+    
     public String altualizarPontos() {
-
-        return null;
+        if (curriculo != null) {
+          
+            totalPontos = 0;
+            
+            List<Livro> livros = curriculo.getLivroList();
+            List<Periodico> periodicos = curriculo.getPeriodicoList();
+            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
+            
+            for (Livro livroTemp : livros) {
+                totalPontos = totalPontos+livroTemp.getEstrato();
+            }
+            
+            for (Periodico periodicoTemp  : periodicos) {
+                totalPontos = totalPontos+periodicoTemp.getEstrato();
+                
+            }
+            
+            for (Orientacao orientacaoTemp : orientacoes) {
+                
+                totalPontos = totalPontos+orientacaoTemp.getEstrato();
+            }
+            
+        }
+        return "/admin/listarProducao.xhtml";
 
     }
 
+    public Integer getTotalPontos() {
+        return totalPontos;
+    }
+
+    public void setTotalPontos(Integer totalPontos) {
+        this.totalPontos = totalPontos;
+    }
+    
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
     public Periodico getPeriodico() {
@@ -215,7 +246,7 @@ public class CurriculoBean {
 
             periodico.setCurriculo(getCurriculo());
 
-//            curriculo.getPeriodicoList().add(periodico);
+            curriculo.getPeriodicoList().add(periodico);
             if (periodicoRN.salvar(periodico)) {
                 List<Periodico> ps = getCurriculo().getPeriodicoList();
                 if (ps == null) {
@@ -400,14 +431,14 @@ public class CurriculoBean {
         return "/cadastro/curriculo/producao/livros.xhtml";
     }
 
-    public String atualizarValidacao() {
+    public String salvarFCO() {
 
         List<Periodico> periodicos = getCurriculo().getPeriodicoList();
         List<Livro> livros = getCurriculo().getLivroList();
         List<Orientacao> orientacoes = getCurriculo().getOrientacaoList();
 
         for (Periodico periodicoAtual : periodicos) {
-            periodicoRN.salvar(periodicoAtual);
+            periodicoRN.salvarPAtual(periodicoAtual);
         }
 
         for (Livro livroAtual : livros) {
@@ -418,7 +449,7 @@ public class CurriculoBean {
             orientacaoRN.salvar(orientacaoAtual);
         }
 
-        return "/cadastro/curriculo/";
+        return "/admin/listarCurriculoAv.xhtml";
     }
 
     //CONTROLE DE ORIENTACAO A PARTIR DESTA LINHA
@@ -441,7 +472,7 @@ public class CurriculoBean {
         } else {
             orientacao.setCurriculo(getCurriculo());
 
-//            curriculo.getPeriodicoList().add(periodico);
+            curriculo.getOrientacaoList().add(orientacao);
             if (orientacaoRN.salvar(orientacao)) {
                 List<Orientacao> lo = getCurriculo().getOrientacaoList();
                 if (lo == null) {
