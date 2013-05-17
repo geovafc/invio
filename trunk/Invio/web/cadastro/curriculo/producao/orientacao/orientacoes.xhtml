@@ -20,11 +20,10 @@
                 <p:messages showDetail="true" showSummary="true"/>  
 
                 <p:panel header="Nova Orientação">  
-
                     <h:panelGrid columns="6" id="grid" cellspacing="4">  
-                        
+
                         <h:outputText value="Tipo de Orientação: *" />
-                        <p:selectOneMenu required="true" id="tBolsa" value="#{curriculoBean.orientacao.tipoOrientacao}">  
+                        <p:selectOneMenu required="true" id="tOrientacao" value="#{curriculoBean.orientacao.tipoOrientacao}">  
                             <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" />  
                             <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="4" />  
                             <f:selectItem itemLabel="Especialização (Orientação)" itemValue="2" />  
@@ -34,20 +33,19 @@
                             <f:selectItem itemLabel="Tese de Doutorado (Coorientação)" itemValue="4" />  
                             <f:selectItem itemLabel="Dissertação de Mestrado (Coorientação)" itemValue="2" />  
                         </p:selectOneMenu>
-                        
+
                         <h:outputLabel value="Nome Bolsista : *"/> 
                         <p:inputText id="Bolsista"   
                                      value="#{curriculoBean.orientacao.aluno}" required="true"/>  
 
-                        <h:outputLabel value="Período Inicial : *" />  
-                        <p:inputText id="periodoInicial" required="true"   
-                                     value="#{curriculoBean.orientacao.PInicial}" />  
+                        <h:outputText value="Período Inicial : *" />
+                        <p:calendar value="#{curriculoBean.orientacao.PInicial}" 
+                                    navigator="true" pattern="dd/MM/yyyy" id="periodoInicial" required="true"/> 
 
+                        <h:outputText value="Período Final: *"/>
+                        <p:calendar value="#{curriculoBean.orientacao.PFinal}" 
+                                    navigator="true" pattern="dd/MM/yyyy" id="periodoFinal" required="true"/> 
 
-                        <h:outputLabel value="Período Final : *"/>  
-                        <p:inputText value="#{curriculoBean.orientacao.PInicial}"
-                                     id="periodoFinal" required="true"/>
-                        
                         <h:outputText value="Tipo de Bolsa: *" />
                         <p:selectOneMenu required="true" id="tBolsa" value="#{curriculoBean.orientacao.tipoBolsa}">  
                             <f:selectItem itemLabel="PIBIC/UFRA-AF" itemValue="UFRA-AF" />  
@@ -61,7 +59,7 @@
                         <p:commandButton id="btn_add" value="Adicionar"
                                          ajax="false"
                                          action="#{curriculoBean.salvarOrientacao()}"
-                                         update="orientacoesTabela"/>
+                                         update=":orientacoesTabela"/>
 
                     </h:panelGrid>  
                 </p:panel>  
@@ -80,7 +78,6 @@
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-
                         <p:cellEditor>
                             <f:facet name="output">  
                                 <h:outputLabel value="#{orientacao.aluno}"/> 
@@ -125,10 +122,10 @@
                               min-height: 12px; white-space: pre-line"> 
                         <p:cellEditor>
                             <f:facet name="output">  
-                                <h:outputLabel value="#{orientacao.tipo}"/> 
+                                <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
                             </f:facet>  
                             <f:facet name="input">  
-                                <p:inputText value="#{orientacao.tipo}" style="width: 90%"/>
+                                <p:inputText value="#{orientacao.tipoBolsa}" style="width: 90%"/>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>

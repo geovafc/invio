@@ -15,7 +15,7 @@
 
             <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />
 
-            <h:form id="Periodico">  
+            <h:form id="periodico">  
 
                 <p:messages showDetail="true" showSummary="true"/>  
 
@@ -65,7 +65,7 @@
                         <p:commandButton id="btn_add" value="Adicionar"
                                          ajax="false"
                                          action="#{curriculoBean.salvarPeriodico()}"
-                                         update="periodicosTabela"/>
+                                         update=":periodico:periodicosTabela"/>
 
                     </h:panelGrid>  
                 </p:panel>  

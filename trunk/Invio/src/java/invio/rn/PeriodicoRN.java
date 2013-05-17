@@ -2,6 +2,7 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Curriculo;
+import invio.entidade.Livro;
 import invio.entidade.Periodico;
 import invio.entidade.Programa;
 import invio.rn.pdf.QualisRN;
@@ -13,6 +14,23 @@ public class PeriodicoRN {
     private QualisRN qualisRN = new QualisRN();
     private GenericDAO<Curriculo> curriculoDAO = new GenericDAO<Curriculo>();
     
+    public boolean salvarPAtual(Periodico periodico) {
+       boolean salvou = false;
+
+        if (dao.iniciarTransacao()) {
+            if (periodico.getId() == null) {
+                if (dao.criar(periodico)) {
+                    salvou = true;
+                }
+            } else {
+                if (dao.alterar(periodico)) {
+                    salvou = true;
+                }
+            }
+            dao.concluirTransacao();
+        }
+        return salvou;
+    }
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;

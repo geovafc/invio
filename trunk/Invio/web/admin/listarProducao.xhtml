@@ -10,14 +10,16 @@
 
         <h:form id="form">
 
-            <p:panel header="Listar Produções">
+            <p:panel id="panelPeriodico">
                 <p:growl showDetail="true" showSummary="true"/>
 
                 <p:dataTable id="listaPeriodicosA"
                              var="lperiodico" value="#{curriculoBean.curriculo.periodicoList}" 
                              emptyMessage="Sem registro para a exibição.">
                     
-                     <f:facet name="Peródicos"></f:facet>
+                     <f:facet name="header">
+                         Periodicos
+                     </f:facet>
 
                     <p:column headerText="Título" > 
                         <h:outputLabel value="#{lperiodico.titulo}" 
@@ -31,7 +33,6 @@
 
                     <p:column headerText="Avaliação" style="width:25%">
                         <p:selectOneMenu value="#{lperiodico.estrato}">  
-                            <f:selectItem itemLabel="#{lperiodico.estrato}" itemValue="#{lperiodico.estrato}" />  
                             <f:selectItem itemLabel="A1 - 100" itemValue="100" />  
                             <f:selectItem itemLabel="A2 - 80" itemValue="80" />  
                             <f:selectItem itemLabel="B1 - 60" itemValue="60" />  
@@ -40,18 +41,22 @@
                             <f:selectItem itemLabel="B4 - 20" itemValue="20" />  
                             <f:selectItem itemLabel="B5 - 10" itemValue="10" />  
                             <f:selectItem itemLabel="C - 5" itemValue="5" />  
+                            <f:selectItem itemLabel="SQ" itemValue="0" />  
+                            <p:ajax event="change" update=":form:panelPeriodico"/>
                         </p:selectOneMenu>  
                     </p:column>  
                 </p:dataTable>
 
             </p:panel>
 
-            <p:panel>
+            <p:panel id="panelLivro">
                 <p:dataTable id="listaLivros"
                              var="lislivro" value="#{curriculoBean.curriculo.livroList}" 
                              emptyMessage="Sem registros para a exibição">
 
-                    <f:facet name="Livros"></f:facet>
+                   <f:facet name="header">
+                         Livros
+                     </f:facet>
 
                     <p:column headerText="Titulo">
                         <h:outputLabel value="#{lislivro.titulo}"/> 
@@ -60,7 +65,7 @@
                         <h:outputLabel value="#{lislivro.capitulo}"/> 
                     </p:column>
                     <p:column headerText="Autor"> 
-                        <h:outputLabel value="#{lislivro.titulo}"/> 
+                        <h:outputLabel value="#{lislivro.autor}"/> 
                     </p:column>
                     <p:column headerText="Ano"> 
                         <h:outputLabel value="#{lislivro.ano}"/> 
@@ -68,12 +73,15 @@
                     <p:column headerText="Arquivo">
                         <h:outputLabel value="#{lislivro.arquivo}"/>
                     </p:column>
+                    <p:column headerText="Pontuação">
+                        <h:outputLabel value="#{lislivro.estrato}"/>
+                    </p:column>
                     <p:column headerText="Avaliação" style="width:25%">
-                        <p:selectOneMenu value="#{lperiodico.estrato}">  
-                            <f:selectItem itemLabel="#{lperiodico.estrato}" itemValue="#{lperiodico.estrato}" />  
+                        <p:selectOneMenu id="selctLivro" value="#{lislivro.estrato}">  
                             <f:selectItem itemLabel="Autor de Livros - 30" itemValue="30" />  
                             <f:selectItem itemLabel="Autor de capítulos - 20" itemValue="20" />  
-                            <f:selectItem itemLabel="Editos de Livros - 10" itemValue="10" />  
+                            <f:selectItem itemLabel="Editos de Livros - 10" itemValue="10" />
+                            <p:ajax event="change" update=":form:panelLivro"/>
                         </p:selectOneMenu>  
                     </p:column> 
 
@@ -81,12 +89,14 @@
 
             </p:panel>
             
-              <p:panel>
+            <p:panel id="panelOrientacao">
                 <p:dataTable id="listaOrientacao"
                              var="lisorientacao" value="#{curriculoBean.curriculo.orientacaoList}" 
                              emptyMessage="Sem registros para a exibição">
 
-                    <f:facet name="Orientações"></f:facet>
+                   <f:facet name="header">
+                         Orientações
+                     </f:facet>
                     
                     <p:column headerText="Tipo Orientação">
                         <h:outputLabel value="#{lisorientacao.tipoOrientacao}"/>
@@ -103,9 +113,11 @@
                     <p:column headerText="Tipo de Bolsa"> 
                         <h:outputLabel value="#{lisorientacao.tipoBolsa}"/> 
                     </p:column>
+                    <p:column headerText="Pontuação"> 
+                        <h:outputLabel value="#{lisorientacao.estrato}"/> 
+                    </p:column>
                     <p:column headerText="Avaliação" style="width:25%">
                         <p:selectOneMenu value="#{lisorientacao.estrato}">  
-                            <f:selectItem itemLabel="#{lisorientacao.estrato}" itemValue="#{lisorientacao.estrato}" />  
                             <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" />  
                             <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="4" />  
                             <f:selectItem itemLabel="Especialização (Orientação)" itemValue="2" />  
@@ -114,6 +126,7 @@
                             <f:selectItem itemLabel="Bolsista DTI (Orientação)" itemValue="2" />  
                             <f:selectItem itemLabel="Tese de Doutorado (Coorientação)" itemValue="4" />  
                             <f:selectItem itemLabel="Dissertação de Mestrado (Coorientação)" itemValue="2" />
+                            <p:ajax event="change" update=":form:panelOrientacao"/>
                         </p:selectOneMenu>  
                     </p:column> 
 
@@ -121,16 +134,17 @@
 
             </p:panel>
 
-            <h:panelGroup>
-
-                <h:panelGrid columns="2">
+            <h:panelGroup id="gridTotal">
                     <h:outputText  value="Total de Pontos:"/>   
-                    <h:inputText disabled="true" value="#{curriculoBean}"/>   
-                </h:panelGrid>
+                    <h:inputText disabled="true" value="#{curriculoBean.totalPontos}"/>   
 
-                <p:commandButton value="Salvar" action="#{curriculoBean.altualizarPontos()}" />
+                <p:commandButton value="Calcular FCO" 
+                                 update=":form:gridTotal"
+                                 action="#{curriculoBean.altualizarPontos()}" />
             </h:panelGroup>
-
+            <br/>
+            <p:commandButton value="Salvar" action="#{curriculoBean.salvarFCO()}"/> 
+            
         </h:form>
 
     </ui:define>
