@@ -56,7 +56,6 @@ public class AreaBean {
     }
 
     public String excluir() {
-        System.out.println("Area " + area);
         if (areaRN.remover(area)) {
             BeanUtil.criarMensagemDeInformacao("Área excluída", "Área: " + area.getNome());
         } else {
