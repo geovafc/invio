@@ -20,8 +20,8 @@
                 <p:messages showDetail="true" showSummary="true"/>  
 
                 <p:panel header="Novo Periódico">  
-
-                    <h:panelGrid columns="6" id="grid" cellspacing="4">  
+                    <h:panelGrid columns="6" id="grid" cellspacing="4"> 
+                        
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
                                      value="#{curriculoBean.periodico.titulo}" required="false"/>  
@@ -57,9 +57,9 @@
                         <p:inputText id="Doi" required="false"
                                      value="#{curriculoBean.periodico.doi}" />  
                         
-                        <h:outputLabel value="Link: " for="link"/>  
-                        <p:inputText id="Link" required="false"
-                                     value="#{curriculoBean.periodico.link}" />  
+                        <h:outputLabel value="JCR: " for="jcr"/>  
+                        <p:inputText id="Jcr" required="false"
+                                     value="#{curriculoBean.periodico.jcr}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Adicionar"
@@ -154,7 +154,7 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    <p:column headerText="Página"
+                    <p:column headerText="Página Inicial"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
@@ -164,6 +164,34 @@
                             </f:facet>  
                             <f:facet name="input">  
                                 <p:inputText value="#{periodico.paginainicial}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
+                    
+                    <p:column headerText="Página Final"
+                              style="max-width: 95px;min-width: 95px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line"> 
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{periodico.paginafinal}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{periodico.paginafinal}" style="width: 90%"/>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
+                    
+                    <p:column headerText="JCR"
+                              style="max-width: 95px;min-width: 95px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line"> 
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{periodico.jcr}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{periodico.jcr}" style="width: 90%"/>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
@@ -192,8 +220,7 @@
 
                         <p:commandLink value="Excluir"
                                        ajax="false"
-                                       action="/cadastro/curriculo/producao/excluirPeriodico.xhtml"
-                                       >
+                                       action="/cadastro/curriculo/producao/excluirPeriodico.xhtml">
                             <f:setPropertyActionListener 
                                 value="#{periodico}" 
                                 target="#{curriculoBean.periodico}" />

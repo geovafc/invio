@@ -53,7 +53,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByGrupoPesq", query = "SELECT c FROM Curriculo c WHERE c.grupoPesq = :grupoPesq"),
     @NamedQuery(name = "Curriculo.findByLattes", query = "SELECT c FROM Curriculo c WHERE c.lattes = :lattes"),
     @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso"),
-    @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero")})
+    @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero"),
+    @NamedQuery(name = "Curriculo.findByInstitutoCampi", query = "SELECT c FROM Curriculo c WHERE c.institutoCampi = :institutoCampi"),
+    @NamedQuery(name = "Curriculo.findByFco", query = "SELECT c FROM Curriculo c WHERE c.fco = :fco")})
 public class Curriculo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,6 +112,10 @@ public class Curriculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "genero")
     private String genero;
+    @Column(name = "instituto_campi")
+    private String institutoCampi;
+    @Column(name = "fco")
+    private Integer fco;
     @ManyToMany(mappedBy = "curriculoList")
     private List<Plano> planoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
@@ -301,6 +307,22 @@ public class Curriculo implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getInstitutoCampi() {
+        return institutoCampi;
+    }
+
+    public void setInstitutoCampi(String institutoCampi) {
+        this.institutoCampi = institutoCampi;
+    }
+
+    public Integer getFco() {
+        return fco;
+    }
+
+    public void setFco(Integer fco) {
+        this.fco = fco;
     }
 
     @XmlTransient

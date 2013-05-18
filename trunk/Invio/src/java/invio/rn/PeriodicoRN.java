@@ -2,7 +2,6 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Curriculo;
-import invio.entidade.Livro;
 import invio.entidade.Periodico;
 import invio.entidade.Programa;
 import invio.rn.pdf.QualisRN;

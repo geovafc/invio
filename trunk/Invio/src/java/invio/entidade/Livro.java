@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Livro.findByAutor", query = "SELECT l FROM Livro l WHERE l.autor = :autor"),
     @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano"),
     @NamedQuery(name = "Livro.findByEstrato", query = "SELECT l FROM Livro l WHERE l.estrato = :estrato"),
+    @NamedQuery(name = "Livro.findByIsbn", query = "SELECT l FROM Livro l WHERE l.isbn = :isbn"),
     @NamedQuery(name = "Livro.findByArquivo", query = "SELECT l FROM Livro l WHERE l.arquivo = :arquivo"),
     @NamedQuery(name = "Livro.findByAvaliacao", query = "SELECT l FROM Livro l WHERE l.avaliacao = :avaliacao"),
     @NamedQuery(name = "Livro.findByTipoLivro", query = "SELECT l FROM Livro l WHERE l.tipoLivro = :tipoLivro")})
@@ -53,6 +54,8 @@ public class Livro implements Serializable {
     private String ano;
     @Column(name = "estrato")
     private Integer estrato;
+    @Column(name = "isbn")
+    private String isbn;
     @Column(name = "arquivo")
     private String arquivo;
     @Column(name = "avaliacao")
@@ -122,6 +125,14 @@ public class Livro implements Serializable {
 
     public void setEstrato(Integer estrato) {
         this.estrato = estrato;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getArquivo() {

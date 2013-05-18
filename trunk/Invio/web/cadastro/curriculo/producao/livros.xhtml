@@ -43,6 +43,10 @@
                         <h:outputLabel value="Capítulo : " />  
                         <p:inputText id="Capitulo" required="false"   
                                      value="#{curriculoBean.livro.capitulo}" />
+                        
+                        <h:outputLabel value="ISBN : " />  
+                        <p:inputText id="Isbn" required="false"   
+                                     value="#{curriculoBean.livro.isbn}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Adicionar"
@@ -119,6 +123,20 @@
                             <f:facet name="input">  
                                 <p:inputMask mask="9999" value="#{livro.ano}" style="width: 90%">
                                 </p:inputMask>
+                            </f:facet> 
+                        </p:cellEditor> 
+                    </p:column>
+                    
+                     <p:column headerText="ISBN"
+                              style="max-width: 110px;min-width: 110px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line">
+                        <p:cellEditor>
+                            <f:facet name="output">  
+                                <h:outputLabel value="#{livro.isbn}"/> 
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{livro.isbn}" style="width: 90%"/>
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
