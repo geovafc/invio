@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Periodico.findByArquivo", query = "SELECT p FROM Periodico p WHERE p.arquivo = :arquivo"),
     @NamedQuery(name = "Periodico.findByEstrato", query = "SELECT p FROM Periodico p WHERE p.estrato = :estrato"),
     @NamedQuery(name = "Periodico.findByAvaliacao", query = "SELECT p FROM Periodico p WHERE p.avaliacao = :avaliacao"),
-    @NamedQuery(name = "Periodico.findByLink", query = "SELECT p FROM Periodico p WHERE p.link = :link"),
+    @NamedQuery(name = "Periodico.findByJcr", query = "SELECT p FROM Periodico p WHERE p.jcr = :jcr"),
     @NamedQuery(name = "Periodico.findByDoi", query = "SELECT p FROM Periodico p WHERE p.doi = :doi")})
 public class Periodico implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -73,8 +73,8 @@ public class Periodico implements Serializable {
     private Integer estrato;
     @Column(name = "avaliacao")
     private String avaliacao;
-    @Column(name = "link")
-    private String link;
+    @Column(name = "jcr")
+    private String jcr;
     @Column(name = "doi")
     private String doi;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
@@ -186,12 +186,12 @@ public class Periodico implements Serializable {
         this.avaliacao = avaliacao;
     }
 
-    public String getLink() {
-        return link;
+    public String getJcr() {
+        return jcr;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setJcr(String jcr) {
+        this.jcr = jcr;
     }
 
     public String getDoi() {

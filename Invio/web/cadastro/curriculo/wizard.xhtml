@@ -89,6 +89,11 @@
                             <p:inputText id="curso" required="true" label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso"/>
+                            
+                            <h:outputText value="Instituto/Campi: *"/>
+                            <p:inputText id="instituto" required="true" label="instituto"  
+                                         value="#{curriculoBean.curriculo.institutoCampi}" />
+                            <p:message id="erroInstituto" for="instituto"/>
 
                         </h:panelGrid> 
                     </p:panel>                      
@@ -233,6 +238,11 @@
                             <h:inputText styleClass="outputLabel"  
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.curso}" />  
+                            
+                            <h:outputText value="Instituto/Campi: " />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.institutoCampi}" />  
 
                             <h:outputText value="Logradouro: " />  
                             <h:inputText styleClass="outputLabel" 
