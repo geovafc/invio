@@ -19,7 +19,9 @@
             <h:panelGrid columns="3">
 
                 <h:outputText value="Nome: "/>
-                <h:inputText id="programaNome" value="#{programaBean.programa.nome}"/>
+                <f:view encoding="ISO-8859-1">
+                <h:inputText style="width: 400px" id="programaNome" value="#{programaBean.programa.nome}"/>
+                </f:view>
                 <h:message for="programaNome"/>
 
                 <h:outputText value="Instituição: "/>
@@ -27,7 +29,7 @@
                     id="instituicaoSelect" 
                     label="#{programaBean.programa.instituicao.nome}"
                     value="#{programaBean.programa.instituicao}"
-                    style="width: 200px">
+                    style="width: 400px">
                     <f:selectItems value="#{programaBean.instituicoes}"/>
                     <f:converter converterId="instituicaoConversor"/>
 
@@ -35,9 +37,9 @@
                 <h:message for="instituicaoSelect"/>
 
                 <h:outputText value="Área: " />  
-                <p:selectOneMenu value="#{programaBean.area}" effect="fade" 
+                <p:selectOneMenu value="#{programaBean.area}" effect="fade"
+                                 style="width: 400px"
                                  converter="areaConversor">  
-                    <f:selectItem itemLabel="Selecione a área" itemValue="#{area}" />  
                     <f:selectItems value="#{programaBean.areas}" var="area" 
                                    itemLabel="#{area.nome}" itemValue="#{nome}"/>  
                 </p:selectOneMenu>

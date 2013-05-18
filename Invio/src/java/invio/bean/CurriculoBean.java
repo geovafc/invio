@@ -155,9 +155,10 @@ public class CurriculoBean {
         if (event.getNewStep().equals("areaOutroCurriculo")
                 && curriculo.getArea() != null) {
             return "confirm";
-        } else {
-            return event.getNewStep();
+        } else if (event.getNewStep().equals("confirm")) {
+            return "confirm";
         }
+        return event.getNewStep();
     }
 
     public List<Area> getAreas() {

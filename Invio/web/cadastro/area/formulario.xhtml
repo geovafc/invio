@@ -8,22 +8,18 @@
 
     <ui:define name="content">
 
-        <h:form>
+        <h:form id="formArea">
 
             <h:inputHidden 
                 id="objArea"
                 value="#{areaBean.area.id}"/>
 
-            <h:panelGrid columns="3">
-
-
+            <h:panelGrid id="areaGrid" columns="3">
                 <h:outputText value="Nome: "/>
-
                 <f:view encoding="ISO-8859-1">
                     <p:autoComplete id="areaNome" scrollHeight="100" value="#{areaBean.area.nome}"   
                                     completeMethod="#{curriculoBean.completeArea}"/>
                 </f:view>
-
             </h:panelGrid>
 
             <p:commandButton 

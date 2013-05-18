@@ -84,9 +84,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean excluir(T o) {
         try {
-            // this.iniciarTransacao();
+            this.iniciarTransacao();
             em.remove(em.merge(o));
-            // this.concluirTransacao();
+            this.concluirTransacao();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

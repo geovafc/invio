@@ -75,7 +75,6 @@ public class InstituicaoBean {
     }
 
     public String excluirInstituicao() {
-        System.out.println("Instituição " + instituicao);
         if (instituicaoRN.remover(instituicao)) {
             BeanUtil.criarMensagemDeInformacao("Instituição excluída", "Instituição: " + instituicao.getNome());
         } else {
