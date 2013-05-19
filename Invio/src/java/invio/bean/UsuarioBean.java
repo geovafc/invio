@@ -15,7 +15,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.User;
@@ -355,7 +354,7 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
         if (string.isEmpty()) {
             throw new UsernameNotFoundException(string);
         }
