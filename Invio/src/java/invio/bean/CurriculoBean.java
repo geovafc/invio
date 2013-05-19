@@ -152,13 +152,15 @@ public class CurriculoBean {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        if (event.getNewStep().equals("areaOutroCurriculo")
+        if (event.getOldStep().equals("areaCurriculo")
                 && curriculo.getArea() != null) {
             return "confirm";
-        } else if (event.getNewStep().equals("confirm")) {
+        } else if (event.getOldStep().equals("areaOutroCurriculo")
+                && curriculo.getArea() != null) {
             return "confirm";
+        } else {
+            return event.getNewStep();
         }
-        return event.getNewStep();
     }
 
     public List<Area> getAreas() {
