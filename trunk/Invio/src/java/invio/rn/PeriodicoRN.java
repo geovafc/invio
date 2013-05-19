@@ -35,9 +35,9 @@ public class PeriodicoRN {
         boolean salvou = false;
         int pt = 0;
         Curriculo curriculoDoPeriodico = curriculoDAO.obter(Curriculo.class, periodico.getCurriculo().getId());
-        List<Programa> programasDoCurr = curriculoDoPeriodico.getArea().getProgramaList();
+        List<Curriculo> curriculoArea = curriculoDoPeriodico.getArea().getCurriculoList();
         
-        for (Programa temp : programasDoCurr) {
+        for (Curriculo temp : curriculoArea) {
                 int ptTemp = qualisRN.obterEstrato(periodico.getRevista(), temp.getArea().getNome());
                 System.out.println("ptTemp"+ptTemp);
                 if (ptTemp >= pt) {
