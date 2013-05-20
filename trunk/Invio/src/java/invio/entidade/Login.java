@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author soranso
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "login")
@@ -43,9 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
     @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo")})
 public class Login implements Serializable {
-    @JoinColumn(name = "curriculo", referencedColumnName = "id")
-    @ManyToOne
-    private Curriculo curriculo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,8 +64,9 @@ public class Login implements Serializable {
     private Boolean ativo;
     @ManyToMany(mappedBy = "loginList")
     private List<Perfil> perfilList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
-    private List<Curriculo> curriculoList;
+    @JoinColumn(name = "curriculo", referencedColumnName = "id")
+    @ManyToOne
+    private Curriculo curriculo;
 
     public Login() {
     }
@@ -150,13 +146,12 @@ public class Login implements Serializable {
         this.perfilList = perfilList;
     }
 
-    @XmlTransient
-    public List<Curriculo> getCurriculoList() {
-        return curriculoList;
+    public Curriculo getCurriculo() {
+        return curriculo;
     }
 
-    public void setCurriculoList(List<Curriculo> curriculoList) {
-        this.curriculoList = curriculoList;
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
     }
 
     @Override
@@ -182,14 +177,6 @@ public class Login implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Login[ id=" + id + " ]";
-    }
-
-    public Curriculo getCurriculo() {
-        return curriculo;
-    }
-
-    public void setCurriculo(Curriculo curriculo) {
-        this.curriculo = curriculo;
     }
     
 }

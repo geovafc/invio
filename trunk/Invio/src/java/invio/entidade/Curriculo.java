@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author soranso
+ * @author Dir de Armas Marinha
  */
 @Entity
 @Table(name = "curriculo")
@@ -55,14 +55,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByCurso", query = "SELECT c FROM Curriculo c WHERE c.curso = :curso"),
     @NamedQuery(name = "Curriculo.findByGenero", query = "SELECT c FROM Curriculo c WHERE c.genero = :genero"),
     @NamedQuery(name = "Curriculo.findByInstitutoCampi", query = "SELECT c FROM Curriculo c WHERE c.institutoCampi = :institutoCampi"),
-    @NamedQuery(name = "Curriculo.findByFco", query = "SELECT c FROM Curriculo c WHERE c.fco = :fco")})
+    @NamedQuery(name = "Curriculo.findByFco", query = "SELECT c FROM Curriculo c WHERE c.fco = :fco"),
+    @NamedQuery(name = "Curriculo.findByExtrato", query = "SELECT c FROM Curriculo c WHERE c.extrato = :extrato"),
+    @NamedQuery(name = "Curriculo.findByTitulacao", query = "SELECT c FROM Curriculo c WHERE c.titulacao = :titulacao")})
 public class Curriculo implements Serializable {
-    @Column(name = "extrato")
-    private Integer extrato;
-    @Column(name = "titulacao")
-    private String titulacao;
-    @OneToMany(mappedBy = "curriculo")
-    private List<Login> loginList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,23 +118,26 @@ public class Curriculo implements Serializable {
     private String institutoCampi;
     @Column(name = "fco")
     private Integer fco;
+    @Column(name = "extrato")
+    private Integer extrato;
+    @Column(name = "titulacao")
+    private String titulacao;
     @ManyToMany(mappedBy = "curriculoList")
     private List<Plano> planoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Orientacao> orientacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
-    private List<Livro> livroList;
-    @JoinColumn(name = "login", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Login login;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne
     private Instituicao instituicao;
     @JoinColumn(name = "area", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Area area;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Livro> livroList;
+    @OneToMany(mappedBy = "curriculo")
+    private List<Login> loginList;
 
     public Curriculo() {
     }
@@ -331,6 +330,22 @@ public class Curriculo implements Serializable {
         this.fco = fco;
     }
 
+    public Integer getExtrato() {
+        return extrato;
+    }
+
+    public void setExtrato(Integer extrato) {
+        this.extrato = extrato;
+    }
+
+    public String getTitulacao() {
+        return titulacao;
+    }
+
+    public void setTitulacao(String titulacao) {
+        this.titulacao = titulacao;
+    }
+
     @XmlTransient
     public List<Plano> getPlanoList() {
         return planoList;
@@ -358,23 +373,6 @@ public class Curriculo implements Serializable {
         this.orientacaoList = orientacaoList;
     }
 
-    @XmlTransient
-    public List<Livro> getLivroList() {
-        return livroList;
-    }
-
-    public void setLivroList(List<Livro> livroList) {
-        this.livroList = livroList;
-    }
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-
     public Instituicao getInstituicao() {
         return instituicao;
     }
@@ -389,6 +387,24 @@ public class Curriculo implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    @XmlTransient
+    public List<Livro> getLivroList() {
+        return livroList;
+    }
+
+    public void setLivroList(List<Livro> livroList) {
+        this.livroList = livroList;
+    }
+
+    @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
 
     @Override
@@ -414,31 +430,6 @@ public class Curriculo implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Curriculo[ id=" + id + " ]";
-    }
-
-    public Integer getExtrato() {
-        return extrato;
-    }
-
-    public void setExtrato(Integer extrato) {
-        this.extrato = extrato;
-    }
-
-    public String getTitulacao() {
-        return titulacao;
-    }
-
-    public void setTitulacao(String titulacao) {
-        this.titulacao = titulacao;
-    }
-
-    @XmlTransient
-    public List<Login> getLoginList() {
-        return loginList;
-    }
-
-    public void setLoginList(List<Login> loginList) {
-        this.loginList = loginList;
     }
     
 }
