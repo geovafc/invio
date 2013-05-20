@@ -20,7 +20,7 @@
                     <h:panelGrid columns="2">
                         
                         <h:outputText value="Perfil Acadêmico: *" />
-                        <p:selectOneMenu required="true" id="perfil" value="#{usuarioBean.permissao}">  
+                        <p:selectOneMenu style="width: 125px" required="true" id="perfil" value="#{usuarioBean.permissao}">  
                             <f:selectItem itemLabel="Selecione" itemValue="" />  
                             <f:selectItem itemLabel="Discente" itemValue="ROLE_DISCENTE" />  
                             <f:selectItem itemLabel="Docente" itemValue="ROLE_DOCENTE" />  
@@ -37,7 +37,9 @@
                                      value="#{usuarioBean.curriculo.cpf}" mask="999.999.999-99"/>
 
                         <h:outputText value="Sexo: *"/>
-                        <p:selectOneMenu id="curriculoGenero" required="true" value="#{usuarioBean.curriculo.genero}">  
+                        <p:selectOneMenu style="width: 125px"
+                            id="curriculoGenero" required="true" 
+                            value="#{usuarioBean.curriculo.genero}">  
                             <f:selectItem itemLabel="Selecione" itemValue="" />  
                             <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
                             <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
