@@ -249,7 +249,7 @@ public class CurriculoBean {
     public void setPeriodico(Periodico periodico) {
         this.periodico = periodico;
     }
-
+    
     public String salvarPeriodico() {
         if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");

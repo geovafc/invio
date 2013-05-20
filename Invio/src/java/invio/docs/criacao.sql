@@ -9,6 +9,8 @@ USE `invio` ;
 -- -----------------------------------------------------
 -- Table `invio`.`area`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`area` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`area` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(200) NOT NULL ,
@@ -21,6 +23,8 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`instituicao`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`instituicao` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`instituicao` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(200) NOT NULL ,
@@ -32,26 +36,10 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `invio`.`login`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `invio`.`login` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `senha` VARCHAR(45) NOT NULL ,
-  `codigoConfirmacao` VARCHAR(100) NULL DEFAULT NULL ,
-  `codigoConfirmacaoTemp` VARCHAR(100) NULL DEFAULT NULL ,
-  `dtCriacao` DATETIME NULL DEFAULT NULL ,
-  `email` VARCHAR(200) NOT NULL ,
-  `ativo` BIT NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `invio`.`curriculo`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`curriculo` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `cpf` VARCHAR(50) NOT NULL ,
@@ -76,11 +64,11 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   `fco` INT NULL ,
   `area` INT(11) NOT NULL ,
   `instituicao` INT(11) NULL ,
-  `login` INT(11) NOT NULL ,
+  `extrato` INT NULL COMMENT '30 para mestre e 50 para doutor' ,
+  `titulacao` VARCHAR(45) NULL COMMENT 'Graduado / Especialista / Mestrado / Doutorado' ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_curriculo_area1` (`area` ASC) ,
   INDEX `fk_curriculo_instituicao1` (`instituicao` ASC) ,
-  INDEX `fk_curriculo_login1_idx` (`login` ASC) ,
   CONSTRAINT `fk_curriculo_area1`
     FOREIGN KEY (`area` )
     REFERENCES `invio`.`area` (`id` )
@@ -89,11 +77,6 @@ CREATE  TABLE IF NOT EXISTS `invio`.`curriculo` (
   CONSTRAINT `fk_curriculo_instituicao1`
     FOREIGN KEY (`instituicao` )
     REFERENCES `invio`.`instituicao` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_curriculo_login1`
-    FOREIGN KEY (`login` )
-    REFERENCES `invio`.`login` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -104,6 +87,8 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`programa`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`programa` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`programa` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `nome` VARCHAR(500) NOT NULL ,
@@ -128,11 +113,40 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `invio`.`login`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`login` ;
+
+CREATE  TABLE IF NOT EXISTS `invio`.`login` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `senha` VARCHAR(45) NOT NULL ,
+  `codigoConfirmacao` VARCHAR(100) NULL ,
+  `codigoConfirmacaoTemp` VARCHAR(100) NULL ,
+  `dtCriacao` DATETIME NULL ,
+  `email` VARCHAR(200) NOT NULL ,
+  `ativo` TINYINT(1) NULL ,
+  `curriculo` INT(11) NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
+  INDEX `fk_login_curriculo1_idx` (`curriculo` ASC) ,
+  CONSTRAINT `fk_login_curriculo1`
+    FOREIGN KEY (`curriculo` )
+    REFERENCES `invio`.`curriculo` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `invio`.`unidade`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`unidade` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`unidade` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `nome` VARCHAR(150) NULL DEFAULT NULL ,
+  `nome` VARCHAR(150) NULL ,
   `instituicao` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_unidade_instituicao1` (`instituicao` ASC) ,
@@ -149,20 +163,22 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `invio`.`periodico`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`periodico` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`periodico` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(200) NOT NULL ,
   `autores` VARCHAR(200) NOT NULL ,
   `ano` CHAR(4) NOT NULL ,
   `revista` VARCHAR(200) NOT NULL ,
-  `volume` VARCHAR(45) NULL DEFAULT NULL ,
+  `volume` VARCHAR(45) NULL ,
   `paginainicial` INT NOT NULL ,
   `paginafinal` INT NOT NULL ,
-  `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
-  `estrato` INT NULL DEFAULT NULL ,
-  `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
-  `jcr` VARCHAR(200) NULL DEFAULT NULL ,
-  `doi` VARCHAR(20) NULL DEFAULT NULL ,
+  `arquivo` VARCHAR(300) NULL ,
+  `estrato` INT NULL ,
+  `avaliacao` VARCHAR(45) NULL ,
+  `jcr` VARCHAR(200) NULL ,
+  `doi` VARCHAR(20) NULL ,
   `curriculo` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_producao_curriculo1` (`curriculo` ASC) ,
@@ -177,16 +193,18 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`livro`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`livro` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`livro` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `titulo` VARCHAR(150) NULL DEFAULT NULL ,
-  `capitulo` VARCHAR(45) NULL DEFAULT NULL ,
-  `autor` VARCHAR(150) NULL DEFAULT NULL ,
-  `ano` VARCHAR(50) NULL DEFAULT NULL ,
-  `estrato` INT NULL DEFAULT NULL ,
+  `titulo` VARCHAR(150) NULL ,
+  `capitulo` VARCHAR(45) NULL ,
+  `autor` VARCHAR(150) NULL ,
+  `ano` VARCHAR(50) NULL ,
+  `estrato` INT NULL ,
   `isbn` VARCHAR(45) NULL ,
-  `arquivo` VARCHAR(300) NULL DEFAULT NULL ,
-  `avaliacao` VARCHAR(45) NULL DEFAULT NULL ,
+  `arquivo` VARCHAR(300) NULL ,
+  `avaliacao` VARCHAR(45) NULL ,
   `tipoLivro` INT NOT NULL ,
   `curriculo` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -202,6 +220,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`qualis`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`qualis` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`qualis` (
   `titulo` VARCHAR(255) NOT NULL ,
   `areaAvaliacao` VARCHAR(255) NOT NULL ,
@@ -215,9 +235,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`perfil`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`perfil` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `descricao` VARCHAR(45) NULL DEFAULT NULL ,
+  `descricao` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -225,6 +247,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`perfil_login`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`perfil_login` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`perfil_login` (
   `perfil` INT NOT NULL ,
   `login` INT(11) NOT NULL ,
@@ -247,9 +271,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`edital`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`edital` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`edital` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `titulo` VARCHAR(255) NULL DEFAULT NULL ,
+  `titulo` VARCHAR(255) NULL ,
   `numero` INT NOT NULL ,
   `ano` INT NOT NULL ,
   `resumo` TEXT NOT NULL ,
@@ -269,11 +295,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`plano`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`plano` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`plano` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `titulo` VARCHAR(255) NOT NULL ,
-  `resumo` TEXT NULL DEFAULT NULL ,
-  `data` DATE NULL DEFAULT NULL ,
+  `resumo` TEXT NULL ,
+  `data` DATE NULL ,
   `edital` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_plano_edital1` (`edital` ASC) ,
@@ -288,6 +316,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`plano_curriculo`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`plano_curriculo` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`plano_curriculo` (
   `plano_id` INT NOT NULL ,
   `curriculo_id` INT(11) NOT NULL ,
@@ -310,6 +340,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `invio`.`orientacao`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `invio`.`orientacao` ;
+
 CREATE  TABLE IF NOT EXISTS `invio`.`orientacao` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `aluno` VARCHAR(100) NOT NULL ,
@@ -328,7 +360,6 @@ CREATE  TABLE IF NOT EXISTS `invio`.`orientacao` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `invio` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
