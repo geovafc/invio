@@ -12,7 +12,7 @@
             <p:panel style="border-color: transparent; color: transparent; background: transparent">
                 <div align="left">
                     <p:commandButton 
-                        ajax="false" value="Cancelar" action="listar.xhtml"/>
+                        ajax="false" value="Cancelar" action="/publico/indexHome.xhtml"/>
                 </div>
             </p:panel>
         </h:form>
@@ -300,8 +300,7 @@
                         </h:panelGrid>  
 
                         <p:commandButton value="Confimar" ajax="false" update="form"   
-                                         actionListener="#{curriculoBean.salvarCurriculo()}" 
-                                         action="listar.xhtml"/>  
+                                         action="#{curriculoBean.salvarCurriculo()}"/>  
                     </p:panel>  
                 </p:tab>
             </p:wizard>

@@ -17,7 +17,7 @@ public class CurriculoDAO extends GenericDAO<Area> {
 
         List<Curriculo> curriculos;
 
-        String consulta = "select o from Curriculo o where o.login.id=" + loginLogado.getId();
+        String consulta = "select o.curriculo from Login o where o.id=" + loginLogado.getId();
         
         curriculos = getEntityManager().createQuery(consulta).getResultList();
         
