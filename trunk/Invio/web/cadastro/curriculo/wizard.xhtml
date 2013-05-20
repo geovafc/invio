@@ -30,9 +30,7 @@
                       nextLabel="Próximo" backLabel="Anterior" >
 
                 <p:tab id="personal" title="Pessoal">  
-
                     <p:panel header="Dados Pessoais" style="height: 420px">  
-
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
                             <h:outputText value="Nome: *" />  
@@ -57,7 +55,7 @@
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
                             <h:outputText value="Sexo: *"/>
-                            <p:selectOneMenu id="genero" required="true" value="#{curriculoBean.curriculo.genero}">  
+                            <p:selectOneMenu style="width: 125px" id="genero" required="true" value="#{curriculoBean.curriculo.genero}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
                                 <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
@@ -77,7 +75,7 @@
                             <h:outputText value="Endereço Currículo Lattes: *" />  
                             <p:inputText id="lattes" required="true" label="Lattes"  
                                          value="#{curriculoBean.curriculo.lattes}" /> 
-                            <p:message id="erroLatte" for="lattes"/>
+                            <p:message id="erroLattes" for="lattes"/>
 
                             <h:outputText value="Grupo de Pesquisa: *" />  
                             <p:inputText id="grupoPesq" required="true" label="GrupoPesq"  
@@ -101,8 +99,6 @@
 
                 <p:tab id="address" title="Endereço">  
                     <p:panel header="Detalhes do Endereço" style="height: 420px">  
-
-
                         <h:panelGrid columns="3" columnClasses="label, value">  
 
                             <h:outputText value="Logradouro: " />  

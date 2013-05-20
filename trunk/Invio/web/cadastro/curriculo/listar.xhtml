@@ -14,7 +14,6 @@
 
                 <p:commandButton value="Novo" ajax="false" action="#{curriculoBean.novoFormularioCurriculo()}"/>
 
-
                 <p:dataTable 
                     id="dtCurriculo"
                     var="curriculo" value="#{curriculoBean.curriculos}"
@@ -61,7 +60,7 @@
                                     value="#{curriculo}" 
                                     target="#{curriculoBean.curriculo}" />  
                             </p:commandButton>      
-                            
+
                             <p:commandButton 
                                 ajax="false"
                                 action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"

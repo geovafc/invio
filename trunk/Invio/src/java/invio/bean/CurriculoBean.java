@@ -121,14 +121,19 @@ public class CurriculoBean {
     }
 
     public String salvarCurriculo() {
-
-        if (curriculoRN.salvar(curriculo)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
-
+        if (curriculo.getArea() == null) {
+            BeanUtil.criarMensagemDeErro("Não foi selecionada nehuma área de atuação.",
+                    "Por favor preencher uma área.");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
+
+            if (curriculoRN.salvar(curriculo)) {
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
+
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
+            }
         }
         return "listar.xhtml";
     }
