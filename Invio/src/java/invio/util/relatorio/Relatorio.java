@@ -21,7 +21,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
  *
  * @author fabio
  */
-public class RelatorioUtil<T> {
+public class Relatorio<T> {
 
     public boolean criarPDF(
             Connection conexao,
@@ -48,6 +48,7 @@ public class RelatorioUtil<T> {
             JRDataSource dataSource = new JRBeanCollectionDataSource(objetos);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(arquivoJasper);
             JasperPrint fillReport = JasperFillManager.fillReport(jasperReport, null, dataSource);
+            JasperExportManager.exportReportToPdfFile(fillReport, pdf.getAbsolutePath());        
             return true;
         } catch (JRException ex) {
             return false;
