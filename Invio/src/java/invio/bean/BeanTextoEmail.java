@@ -9,13 +9,13 @@ import invio.entidade.Login;
 public class BeanTextoEmail {
 
     public static String getTextoEmailCodigoConfirmacao(Login login) {
-        return "Olá " + login.getEmail() + "," + "\n\n"
-                + "Sua solicitação de cadastro foi registrada com sucesso em nosso sistema.\n"
-                + "Para concluir o processo, insira o código de confirmação abaixo quando for exigido.\n\n"
-                + "Código de Confirmação: " + login.getCodigoConfirmacao() + "\n\n\n"
-                + "Se você não fez essa solicitação de cadastro no sistema Invio, por favor desconsidere esse e-mail.\n\n"
-                + "Para mais informações, entre em contato com o atendimento Invio.\n\n\n"
-                + "Atenção: essa mensagem é enviada automaticamente, não responda para este e-mail.";
+        return "Olá " + login.getEmail() + "," + "\n\n\n"
+                + "Sua solicitação de cadastro foi registrada com sucesso em nosso sistema.\n\n\n"
+//                + "Para concluir o processo, insira o código de confirmação abaixo quando for exigido.\n\n"
+//                + "Código de Confirmação: " + login.getCodigoConfirmacao() + "\n\n\n"
+                + "Se você não fez essa solicitação de cadastro no Sistema Invio, por favor desconsidere esse e-mail.\n\n"
+                + "Para mais informações, entre em contato com o atendimento do Sistema Invio, ligando para a PROPED.\n\n\n"
+                + "ATENÇÃO: essa mensagem é enviada automaticamente, não responda para este e-mail.";
 
     }
 
@@ -25,7 +25,7 @@ public class BeanTextoEmail {
                 + "Sua senha é: " + senha + "\n\n"
                 + "Se você não fez essa solicitação ao sistema Invio, por favor desconsidere esse e-mail.\n\n"
                 + "Para mais informações, entre em contato com o atendimento Invio.\n\n\n"
-                + "Atenção: essa mensagem é enviada automaticamente, não responda para este e-mail.";
+                + "ATENÇÃO: essa mensagem é enviada automaticamente, não responda para este e-mail.";
     }
 
     private static String htmlMessage(Login login) {

@@ -8,50 +8,57 @@
     <ui:define name="content">
 
 
-            <form action="#{request.contextPath}/j_spring_security_check" method="post">
-                <h:panelGroup rendered="#{!empty param.login_error}">
-                    <span style="color: red">  * Erro ao efetuar o login</span>
+        <form action="#{request.contextPath}/j_spring_security_check" method="post">
+            <h:panelGroup rendered="#{!empty param.login_error}">
+                <span style="color: red">  * Erro ao efetuar o login</span>
+                <br/>
+            </h:panelGroup>
+
+            <p:messages showDetail="true" showSummary="true"/>
+            <div align="center">
+
+                <p:panel id="panelLogin">
+                    <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
                     <br/>
-                </h:panelGroup>
+                    <br/>
+                    <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
 
-                <p:messages showDetail="true" showSummary="true"/>
-                <div align="center">
+                        <h:outputText id="loginLabel" value="E-mail:"/>
+                        <p:inputText required="true" id="j_username"/>
 
-                    <p:panel id="panelLogin">
-                        <h:outputText id="bemVindo" value="Bem vindo(a) ao Invio."/>
-                        <br/>
-                        <br/>
-                        <h:panelGrid  id="gridLogin"  style="width: 32%" columns="2">
-
-                            <h:outputText id="loginLabel" value="E-mail:"/>
-                            <p:inputText required="true" id="j_username"/>
-
-                            <h:outputText value="Senha: " />  
-                            <p:password required="true" id="j_password" /> 
+                        <h:outputText value="Senha: " />  
+                        <p:password required="true" id="j_password" /> 
 
 
-                        </h:panelGrid>
+                    </h:panelGrid>
 
-                        <p:panel style ="border-color: transparent; 
-                                 color: transparent; background: transparent " >
+                    <p:panel style ="border-color: transparent; 
+                             color: transparent; background: transparent " >
 
-                            <div align="center">
-                                <h:commandButton  value="Entrar" />
-                            </div>
-                        </p:panel>
+                        <div align="center">
+                            <h:commandButton  
+                                value="Entrar" />
+                        </div>
                     </p:panel>
-                </div>
-            </form>
+                </p:panel>
+            </div>
+        </form>
+
+
         <h:form>
             <div align="center">
-                <p:commandLink value="Esqueceu sua senha?" ajax="false" 
-                               action="#{usuarioBean.irRecuperarSenha()}"/>
+                <p:commandLink 
+                    value="Esqueceu sua senha?" 
+                    ajax="false" 
+                    action="#{usuarioBean.irRecuperarSenha()}"/>
             </div>
             <br/>
             <div align="center">
-                <p:commandButton value="Criar uma conta" ajax="false" 
-                                 action="#{usuarioBean.irNovoUsuario()}" 
-                                 update="form"/>
+                <p:commandLink 
+                    value="Criar uma conta" 
+                    ajax="false" 
+                    action="#{usuarioBean.irNovoUsuario()}" 
+                    update="form"/>
             </div>
 
         </h:form>

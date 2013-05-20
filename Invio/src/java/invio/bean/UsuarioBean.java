@@ -232,7 +232,7 @@ public class UsuarioBean implements UserDetailsService {
 
         if (loginRN.salvar(login)) {
             perfilRN.salvar(perfil);
-            
+
             boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
             if (falhaAoEnviar == true) {
@@ -360,10 +360,14 @@ public class UsuarioBean implements UserDetailsService {
         }
         Login temp = loginRN.obter(string);
         List<GrantedAuthority> papeis = new ArrayList<GrantedAuthority>();
-        for (Perfil p : temp.getPerfilList()) {
-            papeis.add(new GrantedAuthorityImpl(p.getDescricao()));
+        if (temp != null) {
+            for (Perfil p : temp.getPerfilList()) {
+                papeis.add(new GrantedAuthorityImpl(p.getDescricao()));
+            }
+            return new User(temp.getEmail(), temp.getSenha(), temp.getAtivo(), true, true, true, papeis);
+        } else {
+            throw new UsernameNotFoundException(string);
         }
-        return new User(temp.getEmail(), temp.getSenha(), temp.getAtivo(), true, true, true, papeis);
     }
 
     public Login getUsuarioLogado() {
@@ -385,5 +389,4 @@ public class UsuarioBean implements UserDetailsService {
         }
         return false;
     }
-    
 }
