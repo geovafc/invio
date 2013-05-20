@@ -215,6 +215,10 @@ public class UsuarioBean implements UserDetailsService {
 
         return pagina;
     }
+    
+    public String salvarCurriculo() {
+        return "/publico/indexHome.xhtml";
+    }
 
     public void configurarSalvarLogin() {
 

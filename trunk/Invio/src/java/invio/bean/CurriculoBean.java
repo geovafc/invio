@@ -11,6 +11,7 @@ import invio.entidade.Programa;
 import invio.rn.AreaRN;
 import invio.rn.CurriculoRN;
 import invio.rn.LivroRN;
+import invio.rn.LoginRN;
 import invio.rn.OrientacaoRN;
 import invio.rn.PeriodicoRN;
 import invio.rn.PlanoRN;
@@ -55,6 +56,7 @@ public class CurriculoBean {
     private Area area = new Area();
     private boolean exibirOutroArea;
     private Integer totalPontos;
+    private String pagina;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -121,20 +123,26 @@ public class CurriculoBean {
     }
 
     public String salvarCurriculo() {
-        if (curriculo.getArea() == null) {
-            BeanUtil.criarMensagemDeErro("Não foi selecionada nenhuma área de atuação.",
-                    "Por favor preencher uma área.");
-        } else {
-            if (curriculoRN.salvar(curriculo)) {
-                BeanUtil.criarMensagemDeInformacao(
-                        "Operação realizada com sucesso",
-                        "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
-
+        LoginRN loginRN = new LoginRN();
+        Login loginLogado = usuarioBean.getUsuarioLogado();
+        loginLogado.setCurriculo(curriculo);
+        if (loginRN.salvar(loginLogado)) {
+            if (curriculo.getArea() == null) {
+                BeanUtil.criarMensagemDeErro("Não foi selecionada nenhuma área de atuação.",
+                        "Por favor preencher uma área.");
             } else {
-                BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
+                if (curriculoRN.salvar(curriculo)) {
+                    BeanUtil.criarMensagemDeInformacao(
+                            "Operação realizada com sucesso",
+                            "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
+                    pagina = "/publico/indexHome.xhtml";
+                } else {
+                    BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
+                    pagina = null;
+                }
             }
         }
-        return "listar.xhtml";
+        return pagina;
     }
 
     public String excluirCurriculo() {
@@ -248,7 +256,7 @@ public class CurriculoBean {
     public void setPeriodico(Periodico periodico) {
         this.periodico = periodico;
     }
-    
+
     public String salvarPeriodico() {
         if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");
