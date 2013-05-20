@@ -4,7 +4,7 @@ import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import org.hibernate.exception.ConstraintViolationException;
+//import org.hibernate.exception.ConstraintViolationException;
 
 public class GenericDAO<T> implements InterfaceDAO<T> {
 
@@ -29,11 +29,13 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
         try {
             em.getTransaction().commit();
             return true;
-        } catch (ConstraintViolationException e) {
-            System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
-            e.printStackTrace();
-            return false;
-        }catch (EntityExistsException e) {
+        } 
+//        catch (ConstraintViolationException e) {
+//            System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
+//            e.printStackTrace();
+//            return false;
+//        }
+        catch (EntityExistsException e) {
             System.out.println("Já existe um está chave primária");
             e.printStackTrace();
             return false;
@@ -65,14 +67,16 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
                 em.getTransaction().rollback();
             }
             return false;
-        } catch (ConstraintViolationException e) {
-            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
-            e.printStackTrace();
-            if (em.isOpen()) {
-                em.getTransaction().rollback();
-            }
-            return false;
-        } catch (Exception e) {
+        } 
+//        catch (ConstraintViolationException e) {
+//            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
+//            e.printStackTrace();
+//            if (em.isOpen()) {
+//                em.getTransaction().rollback();
+//            }
+//            return false;
+//        } 
+        catch (Exception e) {
             e.printStackTrace();
             if (em.isOpen()) {
                 em.getTransaction().rollback();

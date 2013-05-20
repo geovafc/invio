@@ -6,45 +6,46 @@
     <h:body>
         <h:form style="width: 95%"> 
             <p:menu style="width:97%">  
-                <p:submenu style="width: 100%" label="Administração">  
+                <!--                <p:submenu style="width: 100%" label="Administração">  
+                
+                                    <p:menuitem 
+                                        value="Listar Usuários"  ajax="false"
+                                        icon="ui-icon-arrowrefresh-1-w" 
+                                        action="/admin/usuarios/listarUsuarios.xhtml"/>  
+                                    <p:menuitem 
+                                        value="Upload Qualis"  ajax="false"
+                                        icon="ui-icon-arrowrefresh-1-w" 
+                                        action="/submissao/uploadFile.xhtml"/>  
+                                </p:submenu>-->
 
-                    <p:menuitem 
-                        value="Listar Usuários"  ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w" 
-                        action="/admin/usuarios/listarUsuarios.xhtml"/>  
-                    <p:menuitem 
-                        value="Upload Qualis"  ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w" 
-                        action="/submissao/uploadFile.xhtml"/>  
-                </p:submenu>
-                <p:submenu style="width: 100%" label="Cadastros">  
-
-                    <p:menuitem 
-                        value="Área"  ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w" 
-                        action="/cadastro/area/listar.xhtml"/>  
-
-                    <p:menuitem 
-                        value="Instituição"  ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w" 
-                        action="/cadastro/instituicao/listar.xhtml"/>
-
-                    <p:menuitem value="Programa"   ajax="false"
-                                icon="ui-icon-arrowrefresh-1-w"
-                                action="/cadastro/programa/listar.xhtml"/>
-
-                    <p:menuitem value="Currículo"  ajax="false"
-                                icon="ui-icon-arrowrefresh-1-w"
-                                action="/cadastro/curriculo/listar.xhtml"/>  
-
-                    <p:menuitem value="Avaliar Produção"  ajax="false"
-                                icon="ui-icon-arrowrefresh-1-w"
-                                action="/admin/listarCurriculoAv.xhtml"/>  
-                    
-<!--                    <p:menuitem value="Plano de Trabalho"  ajax="false"
-                                icon="ui-icon-arrowrefresh-1-w"
-                                action="/cadastro/plano/listar.xhtml"/>  -->
-                </p:submenu>      
+                <!--                <p:submenu style="width: 100%" label="Cadastros">  
+                
+                                    <p:menuitem 
+                                        value="Área"  ajax="false"
+                                        icon="ui-icon-arrowrefresh-1-w" 
+                                        action="/cadastro/area/listar.xhtml"/>  
+                
+                                    <p:menuitem 
+                                        value="Instituição"  ajax="false"
+                                        icon="ui-icon-arrowrefresh-1-w" 
+                                        action="/cadastro/instituicao/listar.xhtml"/>
+                
+                                    <p:menuitem value="Programa"   ajax="false"
+                                                icon="ui-icon-arrowrefresh-1-w"
+                                                action="/cadastro/programa/listar.xhtml"/>
+                
+                                    <p:menuitem value="Currículo"  ajax="false"
+                                                icon="ui-icon-arrowrefresh-1-w"
+                                                action="/cadastro/curriculo/listar.xhtml"/>  
+                
+                                    <p:menuitem value="Avaliar Produção"  ajax="false"
+                                                icon="ui-icon-arrowrefresh-1-w"
+                                                action="/admin/listarCurriculoAv.xhtml"/>  
+                                    
+                                    <p:menuitem value="Plano de Trabalho"  ajax="false"
+                                                icon="ui-icon-arrowrefresh-1-w"
+                                                action="/cadastro/plano/listar.xhtml"/>  
+                                </p:submenu>      -->
 
 
 
@@ -53,6 +54,37 @@
                                                 icon="ui-icon-arrowrefresh-1-w"
                                                 action="/submissao/uploadFile.xhtml"/>
                                 </p:submenu>-->
+
+                <p:submenu style="width: 100%" label="Sem Título" >
+                    
+                    <p:menuitem value="Meu Currículo"  
+                                ajax="false"
+                                icon="ui-icon-arrowrefresh-1-w"
+                                action="#{curriculoBean.meuCurriculo}"/> 
+                    
+                    <p:slideMenu>  
+                        <p:submenu 
+                            label="Minhas Produções" 
+                            icon="ui-icon-refresh">  
+                            <p:menuitem 
+                                value="Periódicos" 
+                                action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
+                            <p:menuitem 
+                                value="Livros" 
+                                action="/cadastro/curriculo/producao/livros.xhtml"/>  
+                            <p:menuitem 
+                                value="Orientações" 
+                                action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
+                        </p:submenu>  
+                    </p:slideMenu>
+                    
+                    <p:menuitem value="FCO"  
+                                title="Ficha Curricular do Orientador"
+                                ajax="false"
+                                icon="ui-icon-arrowrefresh-1-w"
+                                action="/cadastro/curriculo/fco.xhtml"/> 
+                </p:submenu>  
+
 
                 <p:submenu style="width: 100%" label="Logout" >  
 
@@ -63,7 +95,7 @@
                                                     image="/resources/imagem/sair.png"/>-->
 
                         <a onclick=
-                           "document.location = '#{request.contextPath}/j_spring_security_logout'" 
+                            "document.location = '#{request.contextPath}/j_spring_security_logout'" 
                            title="Sair">
                             <h:graphicImage library="imagem" name="sair.png"/>
                         </a>

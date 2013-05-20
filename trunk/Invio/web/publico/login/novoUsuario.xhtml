@@ -18,7 +18,7 @@
                     <br/>
                     <br/>
                     <h:panelGrid columns="2">
-                        
+
                         <h:outputText value="Perfil Acadêmico: *" />
                         <p:selectOneMenu style="width: 125px" required="true" id="perfil" value="#{usuarioBean.permissao}">  
                             <f:selectItem itemLabel="Selecione" itemValue="" />  
@@ -26,33 +26,20 @@
                             <f:selectItem itemLabel="Docente" itemValue="ROLE_DOCENTE" />  
                         </p:selectOneMenu>
 
-                        <f:view encoding="ISO-8859-1">
-                        <h:outputText value="Nome: *"/>
-                        <p:inputText required="true" id="curriculoNome" value="#{usuarioBean.curriculo.nome}"/>
-                        </f:view>
-
-
-                        <h:outputText value="CPF: *"/>
-                        <p:inputMask required="true" id="cpf" 
-                                     value="#{usuarioBean.curriculo.cpf}" mask="999.999.999-99"/>
-
-                        <h:outputText value="Sexo: *"/>
-                        <p:selectOneMenu style="width: 125px"
-                            id="curriculoGenero" required="true" 
-                            value="#{usuarioBean.curriculo.genero}">  
-                            <f:selectItem itemLabel="Selecione" itemValue="" />  
-                            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
-                            <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
-                        </p:selectOneMenu> 
-
                         <h:outputText value="E-mail: *"/>
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
                         <h:outputLabel for="senha1" value="Escolha uma senha: *" />  
-                        <p:password id="pwd1" value="#{usuarioBean.login.senha}" match="pwd2" 
-                                    weakLabel="Fraca" strongLabel="Forte" goodLabel="Bom" 
-                                    promptLabel="Entre com a senha" feedback="true" 
-                                    label="Senhas não preenchida ou diferentes." required="true"
+                        <p:password id="pwd1" 
+                                    value="#{usuarioBean.login.senha}" 
+                                    match="pwd2" 
+                                    weakLabel="Fraca" 
+                                    strongLabel="Forte" 
+                                    goodLabel="Bom" 
+                                    promptLabel="Entre com a senha" 
+                                    feedback="true" 
+                                    label="Senhas não preenchida ou diferentes." 
+                                    required="true"
                                     requiredMessage="Campos de Senhas não preenchidas ou incorretas."/>  
 
                         <h:outputLabel for="senha2" value="Digite senha novamente: *" />  

@@ -385,4 +385,5 @@ public class UsuarioBean implements UserDetailsService {
         }
         return false;
     }
+    
 }
