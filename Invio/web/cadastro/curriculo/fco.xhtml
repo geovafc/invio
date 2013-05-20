@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formFCO">
+
+            <p:panel header="Dados do Pesquisador">
+
+                <p:panelGrid 
+                    id="panelCurriculo"
+                    columns="2">
+
+                </p:panelGrid>
+
+            </p:panel>
+
+            <p:panel 
+                id="panelPeriodico"
+                header="Produção científica em periódicos">
+                <p:growl showDetail="true" showSummary="true"/>
+
+                <p:dataTable id="listaPeriodicosA"
+                             var="lperiodico" value="#{curriculoBean.curriculo.periodicoList}" 
+                             emptyMessage="Sem registro para a exibição.">
+
+                    <p:column headerText="Título" > 
+                        <h:outputLabel value="#{lperiodico.titulo}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Revista" > 
+                        <h:outputLabel value="#{lperiodico.revista}" />
+                    </p:column>  
+
+                    <p:column headerText="Pontuação" > 
+                        <h:outputLabel value="#{lperiodico.estrato}" />  
+                    </p:column> 
+
+                    <f:facet name="footer">
+                        Total em Periódicos: 
+                    </f:facet>
+
+                </p:dataTable>
+
+            </p:panel>
+
+            <p:panel 
+                id="panelLivro" 
+                header="Produção científica em livros">
+                <p:dataTable 
+                    id="listaLivros"
+                    value="#{curriculoBean.curriculo.livroList}" 
+                    var="lislivro" 
+                    emptyMessage="Sem registros para a exibição">
+
+                    <p:column headerText="Titulo">
+                        <h:outputLabel value="#{lislivro.titulo}"/> 
+                    </p:column>
+
+                    <p:column headerText="Capítulo"> 
+                        <h:outputLabel value="#{lislivro.capitulo}"/> 
+                    </p:column>
+
+                    <p:column headerText="Autor"> 
+                        <h:outputLabel value="#{lislivro.autor}"/> 
+                    </p:column>
+
+                    <p:column headerText="Ano"> 
+                        <h:outputLabel value="#{lislivro.ano}"/> 
+                    </p:column>
+
+                    <p:column headerText="Pontuação">
+                        <h:outputLabel value="#{lislivro.estrato}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        Total em Livros: 
+                    </f:facet>
+                </p:dataTable>
+
+            </p:panel>
+
+            <p:panel id="panelOrientacao">
+                <p:dataTable 
+                    id="listaOrientacao"
+                    value="#{curriculoBean.curriculo.orientacaoList}" 
+                    var="lisorientacao" 
+                    emptyMessage="Sem registros para a exibição">
+
+                    <f:facet name="header">
+                        Orientações
+                    </f:facet>
+
+                    <p:column headerText="Tipo Orientação">
+                        <h:outputLabel value="#{lisorientacao.tipoOrientacao}"/>
+                    </p:column>
+
+                    <p:column headerText="Aluno">
+                        <h:outputLabel value="#{lisorientacao.aluno}"/> 
+                    </p:column>
+
+                    <p:column headerText="Início"> 
+                        <h:outputLabel value="#{lisorientacao.PInicial}"/> 
+                    </p:column>
+
+                    <p:column headerText="Fim"> 
+                        <h:outputLabel value="#{lisorientacao.PFinal}"/> 
+                    </p:column>
+
+                    <p:column headerText="Tipo de Bolsa"> 
+                        <h:outputLabel value="#{lisorientacao.tipoBolsa}"/> 
+                    </p:column>
+
+                    <p:column headerText="Pontuação"> 
+                        <h:outputLabel value="#{lisorientacao.estrato}"/> 
+                    </p:column>
+
+                    <f:facet name="footer">
+                        Total em orientações: 
+                    </f:facet>
+
+                </p:dataTable>
+
+            </p:panel>
+
+            <h:panelGroup 
+                id="gridTotal">
+                <h:outputText  value="Total de Pontos:"/>   
+                <h:inputText disabled="true" value="#{curriculoBean.totalPontos}"/>   
+            </h:panelGroup>
+
+        </h:form>
+    </h:body>
+</html>

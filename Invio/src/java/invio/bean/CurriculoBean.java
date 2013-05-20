@@ -182,18 +182,28 @@ public class CurriculoBean {
         return "/admin/usuarios/listarUsuarios.xhtml";
     }
 
-    public String novoFormularioCurriculo() {
-        setCurriculo(new Curriculo());
-
-        UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
-        String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
-
-        curriculo.setLogin(usuarioBeanTemp.getUsuarioLogado());
-        curriculo.setEmail(email);
-
+    public String meuCurriculo() {
+        Login usuarioLogado = usuarioBean.getUsuarioLogado();
+        List<Curriculo> curriculos = usuarioLogado.getCurriculoList();
+        if (curriculos != null && curriculos.size() > 0) {
+            setCurriculo(curriculos.get(0));
+        } else {
+            setCurriculo(new Curriculo());
+        }
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
+//    public String novoFormularioCurriculo() {
+//        setCurriculo(new Curriculo());
+//
+//        UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
+//        String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
+//
+//        curriculo.setLogin(usuarioBeanTemp.getUsuarioLogado());
+//        curriculo.setEmail(email);
+//
+//        return "/cadastro/curriculo/wizard.xhtml";
+//    }
     public String altualizarPontos() {
         if (curriculo != null) {
 

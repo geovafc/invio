@@ -5,7 +5,6 @@ import invio.dao.QualisDAO;
 import invio.entidade.Qualis;
 import java.util.List;
 import javax.persistence.EntityExistsException;
-import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -46,13 +45,15 @@ public class QualisRN {
                         System.out.println("- Registro: " + qualis.getQualisPK().getIssn() + " " + qualis.getQualisPK().getTitulo()
                                 + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
                                 + " " + qualis.getStatus() + "\n I:" + i);
-                    } catch (ConstraintViolationException e) {
-                        System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
-                        e.printStackTrace();
-                        System.out.println("- Registro: " + qualis.getQualisPK().getIssn() + " " + qualis.getQualisPK().getTitulo()
-                                + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
-                                + " " + qualis.getStatus() + "\n I:" + i);
-                    } catch (Exception e) {
+                    } 
+//                    catch (ConstraintViolationException e) {
+//                        System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
+//                        e.printStackTrace();
+//                        System.out.println("- Registro: " + qualis.getQualisPK().getIssn() + " " + qualis.getQualisPK().getTitulo()
+//                                + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
+//                                + " " + qualis.getStatus() + "\n I:" + i);
+//                    } 
+                    catch (Exception e) {
                         System.out.println("EXCEPTION PEGA");
                         e.printStackTrace();
                         continue;
