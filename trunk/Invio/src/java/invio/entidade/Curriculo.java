@@ -57,6 +57,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByInstitutoCampi", query = "SELECT c FROM Curriculo c WHERE c.institutoCampi = :institutoCampi"),
     @NamedQuery(name = "Curriculo.findByFco", query = "SELECT c FROM Curriculo c WHERE c.fco = :fco")})
 public class Curriculo implements Serializable {
+    @Column(name = "extrato")
+    private Integer extrato;
+    @Column(name = "titulacao")
+    private String titulacao;
+    @OneToMany(mappedBy = "curriculo")
+    private List<Login> loginList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -408,6 +414,31 @@ public class Curriculo implements Serializable {
     @Override
     public String toString() {
         return "invio.entidade.Curriculo[ id=" + id + " ]";
+    }
+
+    public Integer getExtrato() {
+        return extrato;
+    }
+
+    public void setExtrato(Integer extrato) {
+        this.extrato = extrato;
+    }
+
+    public String getTitulacao() {
+        return titulacao;
+    }
+
+    public void setTitulacao(String titulacao) {
+        this.titulacao = titulacao;
+    }
+
+    @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
     
 }
