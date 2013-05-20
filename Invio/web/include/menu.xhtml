@@ -4,8 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:body>
-        <h:form style="width: 95%"> 
-            <p:menu style="width:97%">  
+        <h:form style="width: 90%"> 
+            <p:slideMenu style="width: 125%" backLabel="Voltar" >  
+                <!--<p:menu style="width:97%">-->  
                 <!--                <p:submenu style="width: 100%" label="Administração">  
                 
                                     <p:menuitem 
@@ -55,29 +56,38 @@
                                                 action="/submissao/uploadFile.xhtml"/>
                                 </p:submenu>-->
 
-                <p:submenu style="width: 100%" label="Sem Título" >
-                    
+                <p:submenu 
+                    style="width: 100%" 
+                    label="Currículo" >
+
                     <p:menuitem value="Meu Currículo"  
                                 ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
                                 action="#{curriculoBean.meuCurriculo}"/> 
-                    
-                    <p:slideMenu style="width: 200px">  
-                        <p:submenu 
-                            label="Minhas Produções" 
-                            icon="ui-icon-refresh">  
-                            <p:menuitem 
-                                value="Periódicos" 
-                                action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
-                            <p:menuitem 
-                                value="Livros" 
-                                action="/cadastro/curriculo/producao/livros.xhtml"/>  
-                            <p:menuitem 
-                                value="Orientações" 
-                                action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
-                        </p:submenu>  
-                    </p:slideMenu>
-                    
+
+                </p:submenu>
+
+                <p:submenu 
+                    label="Minhas Produções" 
+                    icon="ui-icon-refresh">  
+
+                    <p:menuitem 
+                        value="Periódicos" 
+                        action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
+
+                    <p:menuitem 
+                        value="Livros" 
+                        action="/cadastro/curriculo/producao/livros.xhtml"/>  
+
+                    <p:menuitem 
+                        value="Orientações" 
+                        action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
+
+                </p:submenu>  
+
+                <p:submenu 
+                    label="FCO"
+                    icon="ui-icon-refresh">  
                     <p:menuitem value="FCO"  
                                 title="Ficha Curricular do Orientador"
                                 ajax="false"
@@ -85,26 +95,24 @@
                                 action="/cadastro/curriculo/fco.xhtml"/> 
                 </p:submenu>  
 
+                <!--</p:menu>-->
+            </p:slideMenu>
 
-                <p:submenu style="width: 100%" label="Logout" >  
+            <p:submenu style="width: 100%" label="Logout" >  
 
-                    <p:menuitem id="misair" ajax="false">
-                        <!--                        <h:commandButton 
-                                                    id="btlogout"
-                                                    action="# {usuarioBean.logoutSair()}"
-                                                    image="/resources/imagem/sair.png"/>-->
+                <p:menuitem id="misair" ajax="false">
+                    <!--                        <h:commandButton 
+                                                id="btlogout"
+                                                action="# {usuarioBean.logoutSair()}"
+                                                image="/resources/imagem/sair.png"/>-->
+                    <a onclick=
+                        "document.location = '#{request.contextPath}/j_spring_security_logout'" 
+                       title="Sair">
+                        <h:graphicImage library="imagem" name="sair.png"/>
+                    </a>
+                </p:menuitem>
 
-                        <a onclick=
-                            "document.location = '#{request.contextPath}/j_spring_security_logout'" 
-                           title="Sair">
-                            <h:graphicImage library="imagem" name="sair.png"/>
-                        </a>
-                    </p:menuitem>
-
-                </p:submenu>  
-
-
-            </p:menu>
+            </p:submenu>  
 
         </h:form> 
     </h:body>

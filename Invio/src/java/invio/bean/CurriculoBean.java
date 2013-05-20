@@ -122,10 +122,9 @@ public class CurriculoBean {
 
     public String salvarCurriculo() {
         if (curriculo.getArea() == null) {
-            BeanUtil.criarMensagemDeErro("Não foi selecionada nehuma área de atuação.",
+            BeanUtil.criarMensagemDeErro("Não foi selecionada nenhuma área de atuação.",
                     "Por favor preencher uma área.");
         } else {
-
             if (curriculoRN.salvar(curriculo)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
@@ -184,9 +183,9 @@ public class CurriculoBean {
 
     public String meuCurriculo() {
         Login usuarioLogado = usuarioBean.getUsuarioLogado();
-        List<Curriculo> curriculos = usuarioLogado.getCurriculoList();
-        if (curriculos != null && curriculos.size() > 0) {
-            setCurriculo(curriculos.get(0));
+        Curriculo curriculo = usuarioLogado.getCurriculo();
+        if (curriculo != null) {
+            setCurriculo(curriculo);
         } else {
             setCurriculo(new Curriculo());
         }

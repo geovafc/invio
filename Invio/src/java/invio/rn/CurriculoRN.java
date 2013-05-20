@@ -25,6 +25,7 @@ public class CurriculoRN {
     GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
     CurriculoDAO curriculoDAO = new CurriculoDAO();
     GenericDAO<Area> daoArea = new GenericDAO<Area>();
+    GenericDAO<Login> daoLogin = new GenericDAO<Login>();
 
     public boolean salvar(Curriculo c) {
         boolean salvou = false;
@@ -98,6 +99,7 @@ public class CurriculoRN {
         return obterTodosDesc;
     }
 }
+
 
 class CurriculoPts implements Comparable<CurriculoPts> {
 
