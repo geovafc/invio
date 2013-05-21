@@ -240,7 +240,29 @@ public class CurriculoBean {
     }
 
     public Integer getTotalPontos() {
-        return totalPontos;
+        if (curriculo != null) {
+
+            totalPontos = 0;
+
+            List<Livro> livros = curriculo.getLivroList();
+            List<Periodico> periodicos = curriculo.getPeriodicoList();
+            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
+
+            for (Livro livroTemp : livros) {
+                totalPontos = totalPontos + livroTemp.getEstrato();
+            }
+
+            for (Periodico periodicoTemp : periodicos) {
+                totalPontos = totalPontos + periodicoTemp.getEstrato();
+
+            }
+
+            for (Orientacao orientacaoTemp : orientacoes) {
+
+                totalPontos = totalPontos + orientacaoTemp.getEstrato();
+            }
+        }
+            return totalPontos;
     }
 
     public void setTotalPontos(Integer totalPontos) {

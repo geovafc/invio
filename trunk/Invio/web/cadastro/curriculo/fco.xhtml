@@ -99,10 +99,6 @@ and open the template in the editor.
                         Orientações
                     </f:facet>
 
-                    <p:column headerText="Tipo Orientação">
-                        <h:outputLabel value="#{lisorientacao.tipoOrientacao}"/>
-                    </p:column>
-
                     <p:column headerText="Aluno">
                         <h:outputLabel value="#{lisorientacao.aluno}"/> 
                     </p:column>
@@ -134,7 +130,7 @@ and open the template in the editor.
             <h:panelGroup 
                 id="gridTotal">
                 <h:outputText  value="Total de Pontos:"/>   
-                <h:inputText disabled="true" value="#{curriculoBean.totalPontos}"/>   
+                <h:inputText disabled="true" value="#{curriculoBean.totalPontos}"/> 
             </h:panelGroup>
 
         </h:form>

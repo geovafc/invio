@@ -56,16 +56,10 @@
                                                 action="/submissao/uploadFile.xhtml"/>
                                 </p:submenu>-->
 
-                <p:submenu 
-                    style="width: 100%" 
-                    label="Currículo" >
-
-                    <p:menuitem value="Meu Currículo"  
-                                ajax="false"
-                                icon="ui-icon-arrowrefresh-1-w"
-                                action="#{curriculoBean.meuCurriculo}"/> 
-
-                </p:submenu>
+                <p:menuitem value="Meu Currículo"  
+                            ajax="false"
+                            icon="ui-icon-arrowrefresh-1-w"
+                            action="#{curriculoBean.meuCurriculo}"/> 
 
                 <p:submenu 
                     label="Minhas Produções" 
@@ -85,15 +79,11 @@
 
                 </p:submenu>  
 
-                <p:submenu 
-                    label="FCO"
-                    icon="ui-icon-refresh">  
                     <p:menuitem value="FCO"  
                                 title="Ficha Curricular do Orientador"
                                 ajax="false"
                                 icon="ui-icon-arrowrefresh-1-w"
                                 action="/cadastro/curriculo/fco.xhtml"/> 
-                </p:submenu>  
 
                 <!--</p:menu>-->
             </p:slideMenu>
@@ -106,7 +96,7 @@
                                                 action="# {usuarioBean.logoutSair()}"
                                                 image="/resources/imagem/sair.png"/>-->
                     <a onclick=
-                        "document.location = '#{request.contextPath}/j_spring_security_logout'" 
+                       "document.location = '#{request.contextPath}/j_spring_security_logout'" 
                        title="Sair">
                         <h:graphicImage library="imagem" name="sair.png"/>
                     </a>
