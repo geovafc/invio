@@ -165,7 +165,7 @@
                                     itemLabel="#{area.nome}" 
                                     itemValue="#{area}"/>
                                 <f:selectItem 
-                                    itemLabel="OUTRO" 
+                                    itemLabel="Outra Área" 
                                     itemValue=""/>
                             </p:selectOneListbox> 
                         </h:panelGrid>  
@@ -180,8 +180,14 @@
                                 <h:outputText value="Digite sua área: *"/>
                                 <p:autoComplete 
                                     id="curriculoAreaOutra"
+                                    forceSelection="true"
+                                    value="#{curriculoBean.curriculo.area}"
                                     completeMethod="#{curriculoBean.completeArea}"
-                                    value="#{curriculoBean.curriculo.area}"/>
+                                    var="area"
+                                    itemValue="#{area}"
+                                    itemLabel="#{area.nome}"
+                                    required="true"
+                                    converter="areaConversor"/>
                             </f:view>
                         </h:panelGrid>  
                     </p:panel>  
