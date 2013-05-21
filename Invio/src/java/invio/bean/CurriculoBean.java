@@ -2,6 +2,7 @@ package invio.bean;
 
 import invio.entidade.Area;
 import invio.entidade.Curriculo;
+import invio.entidade.Instituicao;
 import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.entidade.Orientacao;
@@ -33,26 +34,26 @@ import org.primefaces.model.UploadedFile;
 public class CurriculoBean {
 
     private CurriculoRN curriculoRN = new CurriculoRN();
+    private PeriodicoRN periodicoRN = new PeriodicoRN();
+    private LivroRN livroRN = new LivroRN();
+    private AreaRN areaRN = new AreaRN();
+    private QualisRN qualisRN = new QualisRN();
+    private OrientacaoRN orientacaoRN = new OrientacaoRN();
+    private PlanoRN planoRN = new PlanoRN();
+    
     private List<Curriculo> curriculos;
     private List<Curriculo> curriculosDesc;
     private Curriculo curriculo;
     private Login login;
-    private static Logger logger = Logger.getLogger(Curriculo.class.getName());
     private boolean skip;
     private Periodico periodico = new Periodico();
-    private PeriodicoRN periodicoRN = new PeriodicoRN();
     private Livro livro = new Livro();
-    private LivroRN livroRN = new LivroRN();
     private Orientacao orientacao = new Orientacao();
-    private OrientacaoRN orientacaoRN = new OrientacaoRN();
-    private PlanoRN planoRN = new PlanoRN();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
     private UsuarioBean usuarioBean = new UsuarioBean();
-    private QualisRN qualisRN = new QualisRN();
     private Programa programa = new Programa();
     private Area areaOutra = new Area();
-    private AreaRN areaRN = new AreaRN();
     private Area area = new Area();
     private boolean exibirOutroArea;
     private Integer totalPontos;
@@ -176,7 +177,8 @@ public class CurriculoBean {
     }
 
     public List<Area> getAreas() {
-        return curriculoRN.obterAreas();
+        Instituicao UFRA = new Instituicao(1); //TODO CORRIGIR POG
+        return areaRN.obterAreas(UFRA);
     }
 
     public String irListarCurriculos() {
@@ -595,14 +597,8 @@ public class CurriculoBean {
 //        } catch (IOException ex) {
 //        }
 //    }
-    public List<String> complete(String query) {
-        List<String> results = qualisRN.obterTodosTitulos(query);
-
-        return results;
-    }
-
-    public List<String> completeArea(String query) {
-        List<String> results = qualisRN.obterTodosTitulosArea(query);
+    public List<Area> completeArea(String query) {
+        List<Area> results = areaRN.completeArea(query);
         return results;
     }
 

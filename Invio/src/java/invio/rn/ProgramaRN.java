@@ -24,7 +24,7 @@ public class ProgramaRN {
     AreaRN areaRN = new AreaRN();
 
     public boolean salvar(Programa p) {
-       boolean salvou = false;
+        boolean salvou = false;
 
         if (dao.iniciarTransacao()) {
             if (p.getId() == null) {
@@ -68,7 +68,6 @@ public class ProgramaRN {
 //            System.out.println(p);
 //        }
 //    }
-
     public List<Area> obterSelecionados2(Programa programa) {
 
         List<Area> temp = daoArea.obterTodos(Area.class);
@@ -84,7 +83,6 @@ public class ProgramaRN {
 
         return areasSelecionadas;
     }
-
 //    public List<Area> obterItensNaoSelecionados(Programa programa) {
 //
 //        List<Area> areas = daoArea.obterTodos(Area.class);
@@ -97,13 +95,4 @@ public class ProgramaRN {
 //
 //        return areas;
 //    }
-
-     public List<Area> completeArea(String digitacao) {
-        return areaRN.buscarAreasPorCriterio(digitacao);
-    }
-    
-    
-    public List<Area> obterAreas() {
-        return daoArea.obterTodos(Area.class);
-    }
 }

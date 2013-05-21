@@ -45,10 +45,6 @@ public class CurriculoRN {
         return salvou;
     }
 
-    public List<Area> obterAreas() {
-        return daoArea.obterTodos(Area.class);
-    }
-
     public boolean remover(Curriculo c) {
         return dao.excluir(c);
     }

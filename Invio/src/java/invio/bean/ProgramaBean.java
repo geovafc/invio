@@ -56,12 +56,12 @@ public class ProgramaBean {
     }
 
     public List<Area> completeArea(String digitacao) {
-        List<Area> results = programaRN.completeArea(digitacao);
+        List<Area> results = areaRN.completeArea(digitacao);
         return results;
     }
 
     public List<Area> getAreas() {
-        return programaRN.obterAreas();
+        return areaRN.obterTodos();
     }
 
     public String irAreasPrograma() {
