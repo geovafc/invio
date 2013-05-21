@@ -4,6 +4,7 @@
  */
 package invio.bean;
 
+import invio.bean.util.BeanUtil;
 import invio.entidade.Curriculo;
 import invio.entidade.Edital;
 import invio.entidade.Plano;

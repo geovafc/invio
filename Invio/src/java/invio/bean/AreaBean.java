@@ -4,6 +4,7 @@
  */
 package invio.bean;
 
+import invio.bean.util.BeanUtil;
 import invio.entidade.Area;
 import invio.rn.AreaRN;
 import java.util.List;

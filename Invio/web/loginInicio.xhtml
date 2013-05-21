@@ -8,7 +8,9 @@
     <ui:define name="content">
 
 
-        <form action="#{request.contextPath}/j_spring_security_check" method="post">
+        <form 
+            action="#{request.contextPath}/j_spring_security_check" 
+            method="post">
             <h:panelGroup rendered="#{!empty param.login_error}">
                 <span style="color: red">  * Erro ao efetuar o login</span>
                 <br/>
