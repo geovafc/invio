@@ -1,5 +1,6 @@
 package invio.bean;
 
+import invio.bean.util.BeanUtil;
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.entidade.Perfil;
@@ -7,6 +8,7 @@ import invio.rn.CurriculoRN;
 import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
 import invio.rn.PerfilRN;
+import invio.bean.util.UsuarioUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,8 @@ public class UsuarioBean implements UserDetailsService {
     private String codigoConfirmacao = "EJR8T31W";
     private String permissao;
     private Login usuarioLogado = new Login();
+    private String cpfLoginTemp = "";
+    private String cpfLogin = "";
 
     public String getPermissao() {
         return permissao;
@@ -74,7 +78,6 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public String irRecuperarSenha() {
-
         return "/publico/login/recuperarSenha.xhtml";
     }
 
@@ -84,7 +87,6 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public String cancelarTelaConfirmacao() {
-
         configurarLimparSessao();
         return "/loginInicio.xhtml";
     }
@@ -105,51 +107,13 @@ public class UsuarioBean implements UserDetailsService {
         this.entrar = entrar;
     }
 
-    public String entrar() {
-
-        boolean confirmacao = false;
-        boolean loginEncontrado = false;
-        String pagina = "";
-
-        logins = loginRN.obterTodos();
-
-        if (logins.size() > 0) {
-
-            for (Login loginTemp : logins) {
-
-                if (loginTemp.getEmail().equals(login.getEmail())
-                        && loginTemp.getSenha().equals(login.getSenha())) {
-                    login = loginTemp;
-                    setEntrar(true);
-                    loginEncontrado = true;
-                }
-            }
-            if (loginEncontrado != true) {
-                pagina = "/loginInicio.xhtml";
-                //login = null;
-                BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
-                        "");
-            }
-        } else {
-            setEntrar(false);
-            pagina = "/loginInicio.xhtml";
-            //login = null;
-            BeanUtil.criarMensagemDeAviso("O e-mail ou a senha inserido está incorreto.",
-                    "");
-        }
-
-        if (entrar == true) {
-            if (login.getCodigoConfirmacaoTemp().equals("") && login.getCodigoConfirmacao().equals(codigoConfirmacao)) {
-                pagina = "/publico/login/telaConfirmacao.xhtml";
-            } else if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
-                pagina = "/publico/indexHome.xhtml";
-            }
-        }
-
-        return pagina;
+    public String getCpfLoginTemp() {
+        return cpfLoginTemp;
     }
-    String cpfLogin = "";
-    String cpfLoginTemp = "";
+
+    public void setCpfLoginTemp(String cpfLoginTemp) {
+        this.cpfLoginTemp = cpfLoginTemp;
+    }
 
     public String getCpfLogin() {
         return cpfLogin;
@@ -157,14 +121,6 @@ public class UsuarioBean implements UserDetailsService {
 
     public void setCpfLogin(String cpfLogin) {
         this.cpfLogin = cpfLogin;
-    }
-
-    public String getCpfLoginTemp() {
-        return cpfLoginTemp;
-    }
-
-    public void setCpfLoginTemp(String cpfLoginTemp) {
-        this.cpfLoginTemp = cpfLoginTemp;
     }
 
     public String recuperarSenha() {
@@ -215,7 +171,7 @@ public class UsuarioBean implements UserDetailsService {
 
         return pagina;
     }
-    
+
     public String salvarCurriculo() {
         return "/publico/indexHome.xhtml";
     }
@@ -375,9 +331,7 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public Login getUsuarioLogado() {
-        FacesContext f = FacesContext.getCurrentInstance();
-        ExternalContext e = f.getExternalContext();
-        usuarioLogado = loginRN.obter(e.getRemoteUser());
+        usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         return usuarioLogado;
     }
 
@@ -388,6 +342,15 @@ public class UsuarioBean implements UserDetailsService {
     public boolean isMaster() {
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
             if (temp.getDescricao().equals("ROLE_MASTER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAdministracao() {
+        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
+            if (temp.getDescricao().equals("ROLE_ADMINISTRACAO")) {
                 return true;
             }
         }

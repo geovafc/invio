@@ -1,5 +1,6 @@
 package invio.bean;
 
+import invio.bean.util.BeanUtil;
 import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Instituicao;
@@ -18,11 +19,11 @@ import invio.rn.PeriodicoRN;
 import invio.rn.PlanoRN;
 import invio.rn.pdf.QualisRN;
 import invio.util.UploadArquivo;
+import invio.bean.util.UsuarioUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
@@ -40,7 +41,6 @@ public class CurriculoBean {
     private QualisRN qualisRN = new QualisRN();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
     private PlanoRN planoRN = new PlanoRN();
-    
     private List<Curriculo> curriculos;
     private List<Curriculo> curriculosDesc;
     private Curriculo curriculo;
@@ -67,15 +67,17 @@ public class CurriculoBean {
     }
 
     public List<Curriculo> getCurriculos() {
-        if (usuarioBean.isMaster()) {
+        if (UsuarioUtil.isUsuarioLogadoMaster()) {
             curriculos = curriculoRN.obterTodos();
         } else {
-            curriculos = curriculoRN.obterCurriculoLogin(usuarioBean.getUsuarioLogado());
+            curriculos = curriculoRN.obterCurriculoLogin(UsuarioUtil.obterUsuarioLogado());
         }
         return curriculos;
     }
 
     public List<Curriculo> getCurriculosDesc() {
+        //TODO Para que isso?!!!
+        
         curriculos = curriculoRN.obterTodosDesc();
         return curriculosDesc;
     }
@@ -109,13 +111,6 @@ public class CurriculoBean {
         this.curriculos = curriculos;
     }
 
-//    public Curriculo getCurriculo() {
-//        if (curriculo != null) {
-//            return curriculo;
-//        } else {
-//            return (Curriculo) BeanUtil.lerDaSessao("curriculo");
-//        }
-//    }
     public void setCurriculo(Curriculo curriculo) {
         if (BeanUtil.lerDaSessao("curriculo") == null) {
             BeanUtil.colocarNaSessao("curriculo", curriculo);
@@ -192,7 +187,7 @@ public class CurriculoBean {
     }
 
     public String meuCurriculo() {
-        Login usuarioLogado = usuarioBean.getUsuarioLogado();
+        Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = usuarioLogado.getCurriculo();
         if (curriculo != null) {
             setCurriculo(curriculo);
@@ -202,17 +197,6 @@ public class CurriculoBean {
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
-//    public String novoFormularioCurriculo() {
-//        setCurriculo(new Curriculo());
-//
-//        UsuarioBean usuarioBeanTemp = (UsuarioBean) BeanUtil.lerDaSessao("usuarioBean");
-//        String email = usuarioBeanTemp.getUsuarioLogado().getEmail();
-//
-//        curriculo.setLogin(usuarioBeanTemp.getUsuarioLogado());
-//        curriculo.setEmail(email);
-//
-//        return "/cadastro/curriculo/wizard.xhtml";
-//    }
     public String altualizarPontos() {
         if (curriculo != null) {
 
@@ -264,7 +248,7 @@ public class CurriculoBean {
                 totalPontos = totalPontos + orientacaoTemp.getEstrato();
             }
         }
-            return totalPontos;
+        return totalPontos;
     }
 
     public void setTotalPontos(Integer totalPontos) {

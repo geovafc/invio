@@ -1,5 +1,6 @@
 package invio.bean;
 
+import invio.bean.util.BeanUtil;
 import invio.entidade.Instituicao;
 import invio.entidade.Unidade;
 import invio.rn.InstituicaoRN;
