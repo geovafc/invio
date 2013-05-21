@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="../template/templatePadrao.xhtml">
         <ui:define name="content">
+            <p:growl showDetail="true" showSummary="true"/>
             <div align="center">
                 <h:outputText id="bemVindo" value="Seja bem vindo(a) ao sistema Invio #{usuarioBean.usuarioLogado.email} !"/>
             </div>

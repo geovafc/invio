@@ -67,10 +67,10 @@ public class QualisRN {
                 if (!confirmar) {
                     continue;
                 } else {
-                    System.out.println("Registro Salvo: " + qualis.getQualisPK().getIssn() + " " + qualis.getQualisPK().getTitulo()
-                            + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
-                            + " " + qualis.getStatus());
-                    i++;
+//                    System.out.println("Registro Salvo: " + qualis.getQualisPK().getIssn() + " " + qualis.getQualisPK().getTitulo()
+//                            + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
+//                            + " " + qualis.getStatus());
+//                    i++;
                 }
 
                 if (j == (tamanhaLista - 1) || i == PARAR) {

@@ -135,7 +135,7 @@ public class CurriculoBean {
                 if (curriculoRN.salvar(curriculo)) {
                     BeanUtil.criarMensagemDeInformacao(
                             "Operação realizada com sucesso",
-                            "O curriculo de " + getCurriculo().getNome() + " foi gravado com sucesso.");
+                            "O curriculo " + getCurriculo().getNome() + " foi gravado com sucesso.");
                     pagina = "/publico/indexHome.xhtml";
                 } else {
                     BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
