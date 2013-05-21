@@ -235,7 +235,7 @@ public class PDFBoxRegexRN {
                         
                     resposta.add(qualis);    
                     
-                    System.out.println("Registro Tratado: " + registro);
+//                    System.out.println("Registro Tratado: " + registro);
                     registro = new StringBuilder();
 
                 }
