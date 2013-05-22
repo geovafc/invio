@@ -47,7 +47,6 @@ public class CurriculoBean {
     private Curriculo curriculo;
     private Login login;
     private boolean skip;
-    private Periodico periodico = new Periodico();
     private Livro livro = new Livro();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
@@ -261,98 +260,6 @@ public class CurriculoBean {
         this.totalPontos = totalPontos;
     }
 
-    //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
-    //CONTROLE DE PERIODICO A PARTIR DESTA LINHA
-    public Periodico getPeriodico() {
-        return periodico;
-    }
-
-    public void setPeriodico(Periodico periodico) {
-        this.periodico = periodico;
-    }
-
-    public String salvarPeriodico() {
-        if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");
-            return null;
-        } else if (periodico.getAutores() == null || periodico.getAutores().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Autor.");
-            return null;
-        } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Ano Publicação.");
-            return null;
-        } else {
-
-            periodico.setCurriculo(getCurriculo());
-
-            curriculo.getPeriodicoList().add(periodico);
-            if (periodicoRN.salvar(periodico)) {
-                List<Periodico> ps = getCurriculo().getPeriodicoList();
-                if (ps == null) {
-                    ps = new ArrayList<Periodico>();
-                    ps.add(periodico);
-                }
-                curriculoRN.salvar(getCurriculo());
-                BeanUtil.criarMensagemDeInformacao(
-                        "Operação realizada com sucesso",
-                        "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
-            } else {
-                BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
-            }
-        }
-        periodico = new Periodico();
-        return null;
-    }
-
-    public String salvarEditarPeriodico(Periodico periodicoTemp) {
-
-        if (periodicoRN.salvar(periodicoTemp)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "O Periódico " + periodicoTemp.getTitulo() + " foi salvo com sucesso.");
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodicoTemp.getTitulo());
-        }
-        periodico = new Periodico();
-
-        return null;
-    }
-
-    public String excluirPeriodico() {
-        System.out.println("Periodico: " + periodico);
-        if (periodicoRN.remover(periodico)) {
-            BeanUtil.criarMensagemDeInformacao("Periódico excluído", "Periódico: " + periodico.getTitulo());
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao excluir Periódico", "Periódico: " + periodico.getTitulo());
-        }
-        periodico = new Periodico();
-        return "periodicos.xhtml";
-    }
-
-    public void uploadActionPeriodico(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        InputStream stream = null;
-        try {
-            stream = file.getInputstream();
-            String tipo = file.getContentType();
-            if (tipo.equals("application/pdf")) {
-                tipo = "pdf";
-            } else if (tipo.equals("application/jpg")) {
-                tipo = "jpg";
-            }
-
-
-            String nomeDoArquivo = this.fileUpload.uploadPeriodico(getCurriculo(), periodico, tipo, stream);
-            this.periodico.setArquivo(nomeDoArquivo);
-            periodicoRN.salvar(periodico);
-            //Inicializa
-            this.periodico = new Periodico();
-            this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-        } catch (IOException ex) {
-        }
-    }
-
     public void uploadActionPlano(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         InputStream stream = null;
@@ -375,11 +282,7 @@ public class CurriculoBean {
         }
     }
 
-    public String voltarListaPeriodico() {
-
-        periodico = new Periodico();
-        return "/cadastro/curriculo/producao/periodicos.xhtml";
-    }
+   
 
     //CONTROLE DE LIVRO APARTIR DESTA LINHA
     //CONTROLE DE LIVRO APARTIR DESTA LINHA

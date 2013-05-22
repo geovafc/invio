@@ -8,14 +8,9 @@
 
     <ui:define name="content">
         <p:panel header="Lista de Periódicos">
-            <h:inputHidden 
-                id="ihInstituicao"
-                value="#{curriculoBean.curriculo}" 
-                converter="curriculoConversor"/>
-
 <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
-            <h:form id="periodico">  
+            <h:form id="Periodico">  
 
                 <p:messages showDetail="true" showSummary="true"/>  
 
@@ -24,61 +19,62 @@
                         
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
-                                     value="#{curriculoBean.periodico.titulo}" required="false"/>  
+                                     value="#{periodicoBean.periodico.titulo}" required="false"/>  
 
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="false"   
-                                     value="#{curriculoBean.periodico.autores}" />  
+                                     value="#{periodicoBean.periodico.autores}" />  
 
 
                         <h:outputLabel value="Ano Publicação : *"/>  
-                        <p:inputMask  value="#{curriculoBean.periodico.ano}" mask="9999"
+                        <p:inputMask  value="#{periodicoBean.periodico.ano}" mask="9999"
                                       id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Revista : " />  
                         <f:view encoding="ISO-8859-1">
-                        <p:autoComplete id="Revista" scrollHeight="100" value="#{curriculoBean.periodico.revista}"   
-                                        completeMethod="#{curriculoBean.complete}"/>
+                        <p:autoComplete id="Revista" scrollHeight="100" value="#{periodicoBean.periodico.revista}"   
+                                        completeMethod="#{periodicoBean.complete}"/>
                         </f:view>
 
                         <h:outputLabel value="Volume : " for="volume"/> 
                         <p:inputText id="Volume" required="false"   
-                                     value="#{curriculoBean.periodico.volume}" />  
+                                     value="#{periodicoBean.periodico.volume}" />  
 
                         <h:outputLabel value="Página Incial: " for="paginaI"/>  
                         <p:inputText id="PaginaI" required="false" size="2"   
-                                     value="#{curriculoBean.periodico.paginainicial}" />  
+                                     value="#{periodicoBean.periodico.paginainicial}" />  
                         
                         <h:outputLabel value="Página Final: " for="paginaF"/>  
                         <p:inputText id="PaginaF" required="false" size="2"   
-                                     value="#{curriculoBean.periodico.paginafinal}" />  
+                                     value="#{periodicoBean.periodico.paginafinal}" />  
                         
                         <h:outputLabel value="DOI: " for="doi"/>  
                         <p:inputText id="Doi" required="false"
-                                     value="#{curriculoBean.periodico.doi}" />  
+                                     value="#{periodicoBean.periodico.doi}" />  
                         
                         <h:outputLabel value="JCR: " for="jcr"/>  
                         <p:inputText id="Jcr" required="false"
-                                     value="#{curriculoBean.periodico.jcr}" />  
+                                     value="#{periodicoBean.periodico.jcr}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Adicionar"
                                          ajax="false"
-                                         action="#{curriculoBean.salvarPeriodico()}"
-                                         update=":periodico:periodicosTabela"/>
+                                         action="#{periodicoBean.salvarPeriodico()}"
+                                         update=":periodicosTabela"/>
 
                     </h:panelGrid>  
                 </p:panel>  
 
                 <br/>
                 <p:dataTable id="periodicosTabela" 
-                             value="#{curriculoBean.curriculo.periodicoList}" var="periodico"
+                             value="#{periodicoBean.periodicos}" 
+                             var="periodico"
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
                              editable="true">
 
-                    <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarPeriodico(periodico)}" update="periodicosTabela" />  
+                    <p:ajax event="rowEdit" listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" update="periodicosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 
@@ -223,7 +219,7 @@
                                        action="/cadastro/curriculo/producao/excluirPeriodico.xhtml">
                             <f:setPropertyActionListener 
                                 value="#{periodico}" 
-                                target="#{curriculoBean.periodico}" />
+                                target="#{periodicoBean.periodico}" />
                         </p:commandLink>  
 
                     </p:column>
@@ -235,7 +231,7 @@
                                        action="uploadPeriodico.xhtml">  
                             <f:setPropertyActionListener 
                                 value="#{periodico}" 
-                                target="#{curriculoBean.periodico}" />
+                                target="#{periodicoBean.periodico}" />
                         </p:commandLink>
 
                     </p:column>

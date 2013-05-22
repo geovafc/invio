@@ -9,11 +9,11 @@
     <ui:define name="content">
         <h:form>
             <h:inputHidden 
-                id="ihCurriculo"
-                value="#{curriculoBean.curriculo}" 
+                id="ihPeriodico"
+                value="#{periodicoBean.periodico}" 
                 converter="curriculoConversor"/>
             
-            <h:inputHidden value="#{curriculoBean.periodico}"
+            <h:inputHidden value="#{periodicoBean.periodico}"
                            converter="periodicoConversor"/>
             
             <h:panelGrid 
@@ -27,11 +27,11 @@
                 </f:facet>
                 
                 <h:outputText value="Título:" />  
-                <h:outputText value="#{curriculoBean.periodico.titulo}" 
+                <h:outputText value="#{periodicoBean.periodico.titulo}" 
                               style="font-weight:bold"/>  
 
                 <p:commandButton 
-                    action="#{curriculoBean.excluirPeriodico()}" 
+                    action="#{periodicoBean.excluirPeriodico()}" 
                     ajax="false"
                     value="Sim" />
 
