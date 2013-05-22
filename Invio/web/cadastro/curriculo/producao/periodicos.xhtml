@@ -8,7 +8,7 @@
 
     <ui:define name="content">
         <p:panel header="Lista de Periódicos">
-<!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
+            <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
             <h:form id="Periodico">  
 
@@ -16,7 +16,7 @@
 
                 <p:panel header="Novo Periódico">  
                     <h:panelGrid columns="6" id="grid" cellspacing="4"> 
-                        
+
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
                                      value="#{periodicoBean.periodico.titulo}" required="false"/>  
@@ -32,8 +32,11 @@
 
                         <h:outputLabel value="Revista : " />  
                         <f:view encoding="ISO-8859-1">
-                        <p:autoComplete id="Revista" scrollHeight="100" value="#{periodicoBean.periodico.revista}"   
-                                        completeMethod="#{periodicoBean.complete}"/>
+                            <p:autoComplete 
+                                id="Revista" 
+                                scrollHeight="100" 
+                                value="#{periodicoBean.periodico.revista}"   
+                                completeMethod="#{periodicoBean.complete}"/>
                         </f:view>
 
                         <h:outputLabel value="Volume : " for="volume"/> 
@@ -43,15 +46,15 @@
                         <h:outputLabel value="Página Incial: " for="paginaI"/>  
                         <p:inputText id="PaginaI" required="false" size="2"   
                                      value="#{periodicoBean.periodico.paginainicial}" />  
-                        
+
                         <h:outputLabel value="Página Final: " for="paginaF"/>  
                         <p:inputText id="PaginaF" required="false" size="2"   
                                      value="#{periodicoBean.periodico.paginafinal}" />  
-                        
+
                         <h:outputLabel value="DOI: " for="doi"/>  
                         <p:inputText id="Doi" required="false"
                                      value="#{periodicoBean.periodico.doi}" />  
-                        
+
                         <h:outputLabel value="JCR: " for="jcr"/>  
                         <p:inputText id="Jcr" required="false"
                                      value="#{periodicoBean.periodico.jcr}" />  
@@ -163,7 +166,7 @@
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
-                    
+
                     <p:column headerText="Página Final"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
@@ -177,7 +180,7 @@
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
-                    
+
                     <p:column headerText="JCR"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 

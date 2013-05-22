@@ -19,7 +19,7 @@ public class AreaDAO extends GenericDAO<Area> {
     }
     
     public List<Area> obterAreas(Instituicao instituicao) {
-        String consulta = "select p.area from Programa p "
+        String consulta = "select distinct p.area from Programa p "
                 + "where p.instituicao = :instituicao";
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("instituicao", instituicao);

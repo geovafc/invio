@@ -10,8 +10,8 @@ import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.entidade.Periodico;
 import invio.rn.PeriodicoRN;
+import invio.rn.pdf.QualisRN;
 import invio.util.UploadArquivo;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -99,12 +99,8 @@ public class PeriodicoBean {
     }
 
     public List<String> complete(String query) {
-        List<String> results = new ArrayList<String>();
-
-        for (int i = 0; i < 10; i++) {
-            results.add(query + i);
-        }
-        return results;
+        QualisRN qualisRN = new QualisRN();
+        return qualisRN.obterTodosTitulos(query);
     }
 //    public void uploadActionPeriodico(FileUploadEvent event) {
 //        UploadedFile file = event.getFile();
