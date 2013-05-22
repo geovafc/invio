@@ -63,29 +63,28 @@
                     icon="ui-icon-arrowrefresh-1-w"
                     action="#{curriculoBean.meuCurriculo}"/> 
 
-                                <p:submenu 
-                                    label="Minhas Produções" 
-                                    icon="ui-icon-refresh">  
-                
-                                    <p:menuitem 
-                                        value="Periódicos" 
-                                        action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
-<!--
-                                    <p:menuitem 
-                                        value="Livros" 
-                                        action="/cadastro/curriculo/producao/livros.xhtml"/>  -->
-                
-                                    <p:menuitem 
-                                        value="Orientações" 
-                                        action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
-                
-                                </p:submenu>  
-                
-<!--                                <p:menuitem value="FCO"  
-                                            title="Ficha Curricular do Orientador"
-                                            ajax="false"
-                                            icon="ui-icon-arrowrefresh-1-w"
-                                            action="/cadastro/curriculo/fco.xhtml"/> -->
+                <p:submenu 
+                    label="Minhas Produções" 
+                    icon="ui-icon-refresh">  
+
+                    <p:menuitem 
+                        value="Periódicos" 
+                        action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
+                    <p:menuitem 
+                        value="Livros" 
+                        action="/cadastro/curriculo/producao/livros.xhtml"/>  
+
+                    <p:menuitem 
+                        value="Orientações" 
+                        action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
+
+                </p:submenu>  
+
+                <!--                                <p:menuitem value="FCO"  
+                                                            title="Ficha Curricular do Orientador"
+                                                            ajax="false"
+                                                            icon="ui-icon-arrowrefresh-1-w"
+                                                            action="/cadastro/curriculo/fco.xhtml"/> -->
 
             </p:slideMenu>
 
