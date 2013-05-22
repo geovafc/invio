@@ -1,17 +1,15 @@
 package invio.dao;
 
-import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Query;
 
 /**
  *
  * @author Dir de Armas Marinha
  */
-public class CurriculoDAO extends GenericDAO<Area> {
+public class CurriculoDAO extends GenericDAO<Curriculo> {
 
     public List<Curriculo> findCurriculoByUsuario(Login loginLogado) {
 

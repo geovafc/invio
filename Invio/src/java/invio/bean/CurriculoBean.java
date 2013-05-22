@@ -35,6 +35,7 @@ import org.primefaces.model.UploadedFile;
 public class CurriculoBean {
 
     private CurriculoRN curriculoRN = new CurriculoRN();
+    private LoginRN loginRN = new LoginRN();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
     private LivroRN livroRN = new LivroRN();
     private AreaRN areaRN = new AreaRN();
@@ -51,13 +52,10 @@ public class CurriculoBean {
     private Orientacao orientacao = new Orientacao();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
-    private UsuarioBean usuarioBean = new UsuarioBean();
     private Programa programa = new Programa();
     private Area areaOutra = new Area();
-    private Area area = new Area();
     private boolean exibirOutroArea;
     private Integer totalPontos;
-    private String pagina;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -77,7 +75,7 @@ public class CurriculoBean {
 
     public List<Curriculo> getCurriculosDesc() {
         //TODO Para que isso?!!!
-        
+
         curriculos = curriculoRN.obterTodosDesc();
         return curriculosDesc;
     }
@@ -119,26 +117,35 @@ public class CurriculoBean {
     }
 
     public String salvarCurriculo() {
-        LoginRN loginRN = new LoginRN();
-        Login loginLogado = usuarioBean.getUsuarioLogado();
-        loginLogado.setCurriculo(curriculo);
-        if (loginRN.salvar(loginLogado)) {
-            if (curriculo.getArea() == null) {
-                BeanUtil.criarMensagemDeErro("Não foi selecionada nenhuma área de atuação.",
-                        "Por favor preencher uma área.");
+        if (curriculo.getArea() == null) {
+            BeanUtil.criarMensagemDeErro(
+                    "Não foi selecionada nenhuma área de atuação.",
+                    "Por favor preencher uma área.");
+            return null;
+        } else {
+            if ("Doutorado".equals(curriculo.getTitulacao())) {
+                curriculo.setExtrato(50);
+            } else if ("Mestrado".equals(curriculo.getTitulacao())) {
+                curriculo.setExtrato(30);
+            }
+            
+            Login loginLogado = UsuarioUtil.obterUsuarioLogado();
+            loginLogado.setCurriculo(curriculo);
+
+            if (loginRN.salvar(loginLogado) &&
+                    curriculoRN.salvar(curriculo)) {
+
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "O curriculo " + getCurriculo().getNome() + " foi gravado com sucesso.");
+                return "/publico/indexHome.xhtml";
             } else {
-                if (curriculoRN.salvar(curriculo)) {
-                    BeanUtil.criarMensagemDeInformacao(
-                            "Operação realizada com sucesso",
-                            "O curriculo " + getCurriculo().getNome() + " foi gravado com sucesso.");
-                    pagina = "/publico/indexHome.xhtml";
-                } else {
-                    BeanUtil.criarMensagemDeErro("Erro ao salvar o curriculo", "Curriculo: " + getCurriculo().getNome());
-                    pagina = null;
-                }
+                BeanUtil.criarMensagemDeErro(
+                        "Erro ao salvar o curriculo",
+                        "Curriculo: " + getCurriculo().getNome());
+                return null;
             }
         }
-        return pagina;
     }
 
     public String excluirCurriculo() {
