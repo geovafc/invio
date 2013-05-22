@@ -127,11 +127,18 @@ and open the template in the editor.
 
             </p:panel>
 
-            <h:panelGroup 
-                id="gridTotal">
-                <h:outputText  value="Total de Pontos:"/>   
-                <h:inputText disabled="true" value="#{curriculoBean.totalPontos}"/> 
-            </h:panelGroup>
+            <p:panel header="Pontuação Final">
+
+                <p:panelGrid 
+                    id="panelCurriculo"
+                    columns="2">
+                    <h:outputText  value="Total:"/>   
+                    <h:inputText 
+                        disabled="true" 
+                        value="#{curriculoBean.totalPontos}"/> 
+                </p:panelGrid>
+
+            </p:panel>
 
         </h:form>
     </h:body>

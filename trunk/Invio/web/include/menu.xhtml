@@ -5,8 +5,9 @@
       xmlns:p="http://primefaces.org/ui">
     <h:body>
         <h:form style="width: 90%"> 
-            <p:slideMenu style="width: 125%" backLabel="Voltar" >  
-                <!--<p:menu style="width:97%">-->  
+            <p:slideMenu 
+                style="width: 125%" 
+                backLabel="Voltar" >  
                 <!--                <p:submenu style="width: 100%" label="Administração">  
                 
                                     <p:menuitem 
@@ -56,39 +57,41 @@
                                                 action="/submissao/uploadFile.xhtml"/>
                                 </p:submenu>-->
 
-                <p:menuitem value="Meu Currículo"  
-                            ajax="false"
-                            icon="ui-icon-arrowrefresh-1-w"
-                            action="#{curriculoBean.meuCurriculo}"/> 
+                <p:menuitem 
+                    value="Meu Currículo"  
+                    ajax="false"
+                    icon="ui-icon-arrowrefresh-1-w"
+                    action="#{curriculoBean.meuCurriculo}"/> 
 
-                <p:submenu 
-                    label="Minhas Produções" 
-                    icon="ui-icon-refresh">  
+                <!--                <p:submenu 
+                                    label="Minhas Produções" 
+                                    icon="ui-icon-refresh">  
+                
+                                    <p:menuitem 
+                                        value="Periódicos" 
+                                        action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
+                
+                                    <p:menuitem 
+                                        value="Livros" 
+                                        action="/cadastro/curriculo/producao/livros.xhtml"/>  
+                
+                                    <p:menuitem 
+                                        value="Orientações" 
+                                        action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
+                
+                                </p:submenu>  
+                
+                                <p:menuitem value="FCO"  
+                                            title="Ficha Curricular do Orientador"
+                                            ajax="false"
+                                            icon="ui-icon-arrowrefresh-1-w"
+                                            action="/cadastro/curriculo/fco.xhtml"/> -->
 
-                    <p:menuitem 
-                        value="Periódicos" 
-                        action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
-
-                    <p:menuitem 
-                        value="Livros" 
-                        action="/cadastro/curriculo/producao/livros.xhtml"/>  
-
-                    <p:menuitem 
-                        value="Orientações" 
-                        action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
-
-                </p:submenu>  
-
-                    <p:menuitem value="FCO"  
-                                title="Ficha Curricular do Orientador"
-                                ajax="false"
-                                icon="ui-icon-arrowrefresh-1-w"
-                                action="/cadastro/curriculo/fco.xhtml"/> 
-
-                <!--</p:menu>-->
             </p:slideMenu>
 
-            <p:submenu style="width: 100%" label="Logout" >  
+            <p:submenu 
+                style="width: 100%" 
+                label="Logout" >  
 
                 <p:menuitem id="misair" ajax="false">
                     <!--                        <h:commandButton 
