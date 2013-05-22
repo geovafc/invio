@@ -40,20 +40,27 @@ public class PeriodicoBean {
     }
 
     public List<Periodico> getPeriodicos() {
-        return periodicoRN.obterTodos();
+        Login login = UsuarioUtil.obterUsuarioLogado();
+        return periodicoRN.obterPeriodicos(login.getCurriculo());
     }
 
     public String salvarPeriodico() {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
         if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Título.");
+            BeanUtil.criarMensagemDeErro(
+                    "Erro ao salvar o Periódico.", 
+                    "Preencha o campo Título.");
             return null;
         } else if (periodico.getAutores() == null || periodico.getAutores().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Autor.");
+            BeanUtil.criarMensagemDeErro(
+                    "Erro ao salvar o Periódico.", 
+                    "Preencha o campo Autor.");
             return null;
         } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Periódico.", "Preencha o campo Ano Publicação.");
+            BeanUtil.criarMensagemDeErro(
+                    "Erro ao salvar o Periódico.", 
+                    "Preencha o campo Ano Publicação.");
             return null;
         } else {
             periodico.setCurriculo(curriculo);

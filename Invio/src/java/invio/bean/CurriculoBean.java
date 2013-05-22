@@ -289,7 +289,7 @@ public class CurriculoBean {
         List<Orientacao> orientacoes = getCurriculo().getOrientacaoList();
 
         for (Periodico periodicoAtual : periodicos) {
-            periodicoRN.salvarPAtual(periodicoAtual);
+            periodicoRN.salvar(periodicoAtual);
         }
 
         for (Livro livroAtual : livros) {
