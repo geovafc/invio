@@ -31,7 +31,7 @@ public class QualisDAO extends GenericDAO<Qualis> {
 
     public List<String> obterTodosTitulos(String palavra, int maxResultados) {
         String query = "SELECT q.titulo FROM qualis q "
-                + "WHERE q.titulo like '%" + palavra + "%'"; //Acrescetei o % antes da palavra
+                + "WHERE q.titulo like '%" + palavra + "%'"; //Acrescentei o % antes da palavra
         Query q = getEntityManager().createNativeQuery(query);
                 q.setMaxResults(maxResultados);
         List<String> resultado = (List<String>) q.getResultList();
