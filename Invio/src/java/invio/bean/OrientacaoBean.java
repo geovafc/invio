@@ -58,7 +58,7 @@ public class OrientacaoBean {
         }
         if (orientacao.getAluno() == null
                 || orientacao.getAluno().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Orientação.",
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
                     "Preencha o campo Bolsista.");
             return null;
         } else if (orientacao.getTipoBolsa() == null

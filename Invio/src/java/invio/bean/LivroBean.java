@@ -46,20 +46,27 @@ public class LivroBean {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
 
-        if (livro.getTipoLivro() == 30 && livro.getCapitulo().equals("")) {
-            livro.setEstrato(30);
-        } else if (livro.getTipoLivro() == 30 && livro.getCapitulo() != null) {
-            livro.setEstrato(20);
-        } else if (livro.getTipoLivro() == 10) {
-            livro.setEstrato(10);
-        }
-        livro.setCurriculo(curriculo);
-        if (livroRN.salvar(livro)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
+        if (livro.getTitulo() == null
+                || livro.getTitulo().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar Livro.",
+                    "Preencha o campo Título.");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+
+            if (livro.getTipoLivro() == 30 && livro.getCapitulo().equals("")) {
+                livro.setEstrato(30);
+            } else if (livro.getTipoLivro() == 30 && livro.getCapitulo() != null) {
+                livro.setEstrato(20);
+            } else if (livro.getTipoLivro() == 10) {
+                livro.setEstrato(10);
+            }
+            livro.setCurriculo(curriculo);
+            if (livroRN.salvar(livro)) {
+                BeanUtil.criarMensagemDeInformacao(
+                        "Operação realizada com sucesso",
+                        "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro ao salvar o livro", "Livro: " + livro.getTitulo());
+            }
         }
         livro = new Livro();
         return null;

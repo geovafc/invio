@@ -17,7 +17,7 @@
                     <h:panelGrid columns="6" id="grid" cellspacing="4">  
 
                         <h:outputText value="Tipo de Orientação: *" />
-                        <p:selectOneMenu required="true" id="tOrientacao" value="#{orientacaoBean.orientacao.tipoOrientacao}">  
+                        <p:selectOneMenu id="tOrientacao" value="#{orientacaoBean.orientacao.tipoOrientacao}">  
                             <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" />  
                             <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="4" />  
                             <f:selectItem itemLabel="Especialização (Orientação)" itemValue="2" />  
@@ -31,11 +31,10 @@
                         <h:outputLabel value="Nome Bolsista : *"/> 
                         <p:inputText 
                             id="Bolsista"   
-                            value="#{orientacaoBean.orientacao.aluno}" 
-                            required="true"/>  
+                            value="#{orientacaoBean.orientacao.aluno}" />  
 
                         <h:outputText value="Tipo de Bolsa: *" />
-                        <p:selectOneMenu required="true" id="tBolsa" value="#{orientacaoBean.orientacao.tipoBolsa}">  
+                        <p:selectOneMenu value="#{orientacaoBean.orientacao.tipoBolsa}">  
                             <f:selectItem itemLabel="PIBIC/UFRA-AF" itemValue="UFRA-AF" />  
                             <f:selectItem itemLabel="PIBIC/UFRA" itemValue="UFRA" />  
                             <f:selectItem itemLabel="CNPq-AF" itemValue="CNPQ-AF" />  
@@ -50,16 +49,14 @@
                             value="#{orientacaoBean.orientacao.PInicial}" 
                             navigator="true" 
                             pattern="dd/MM/yyyy" 
-                            id="periodoInicial" 
-                            required="true"/> 
+                            id="periodoInicial" /> 
 
                         <h:outputText value="Período Final: *"/>
                         <p:calendar 
                             value="#{orientacaoBean.orientacao.PFinal}" 
                             navigator="true" 
                             pattern="dd/MM/yyyy" 
-                            id="periodoFinal" 
-                            required="true"/>                        
+                            id="periodoFinal" />                        
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton 

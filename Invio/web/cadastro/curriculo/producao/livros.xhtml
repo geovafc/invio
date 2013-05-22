@@ -44,7 +44,8 @@
                                      value="#{livroBean.livro.isbn}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  
-                        <p:commandButton id="btn_add" value="Adicionar"
+                        <p:commandButton id="btn_add" 
+                                         value="Adicionar"
                                          ajax="false"
                                          action="#{livroBean.salvarLivro()}"
                                          update=":livrosTabela"/>
@@ -58,9 +59,10 @@
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
-                             editable="true"
-                             >
-                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" update="livrosTabela" />  
+                             editable="true" >
+                    
+                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
+                            update="livrosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 

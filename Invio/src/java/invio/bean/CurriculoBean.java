@@ -229,7 +229,10 @@ public class CurriculoBean {
         return "/admin/listarProducao.xhtml";
 
     }
-
+    
+    public String totalFCO(){
+        return null;
+    }
     public Integer getTotalPontos() {
         if (curriculo != null) {
 
