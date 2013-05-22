@@ -54,14 +54,19 @@
                             <p:message id="erroEmail" for="email"/>
 
                             <h:outputText value="Celular: *" />  
-                            <p:inputMask id="celular" required="true" 
-                                         mask="(99)9999-9999" label="Celular"  
+                            <p:inputMask id="celular" 
+                                         required="true" 
+                                         mask="(99)9999-9999" 
+                                         label="Celular"  
                                          value="#{curriculoBean.curriculo.celular}" />
                             <p:message id="erroCelular" for="celular"/>
 
                             <h:outputText value="Data de Nascimento: *" />
                             <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" 
-                                        navigator="true" pattern="dd/MM/yyyy" id="nascimentoCal" required="true"/> 
+                                        navigator="true" 
+                                        pattern="dd/MM/yyyy" 
+                                        id="nascimentoCal" 
+                                        required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
                             <h:outputText value="Sexo: *"/>
