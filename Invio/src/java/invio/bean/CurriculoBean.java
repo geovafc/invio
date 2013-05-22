@@ -49,7 +49,6 @@ public class CurriculoBean {
     private boolean skip;
     private Periodico periodico = new Periodico();
     private Livro livro = new Livro();
-    private Orientacao orientacao = new Orientacao();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
     private Programa programa = new Programa();
@@ -128,12 +127,12 @@ public class CurriculoBean {
             } else if ("Mestrado".equals(curriculo.getTitulacao())) {
                 curriculo.setExtrato(30);
             }
-            
+
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();
             loginLogado.setCurriculo(curriculo);
 
-            if (loginRN.salvar(loginLogado) &&
-                    curriculoRN.salvar(curriculo)) {
+            if (loginRN.salvar(loginLogado)
+                    && curriculoRN.salvar(curriculo)) {
 
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
@@ -492,77 +491,6 @@ public class CurriculoBean {
         return "/admin/listarCurriculoAv.xhtml";
     }
 
-    //CONTROLE DE ORIENTACAO A PARTIR DESTA LINHA
-    //CONTROLE DE ORIENTACAO A PARTIR DESTA LINHA
-    public Orientacao getOrientacao() {
-        return orientacao;
-    }
-
-    public void setOrientacao(Orientacao orientacao) {
-        this.orientacao = orientacao;
-    }
-
-    public String salvarOrientacao() {
-        if (orientacao.getTipoOrientacao() == 8) {
-            orientacao.setEstrato(8);
-        } else if (orientacao.getTipoOrientacao() == 4) {
-            orientacao.setEstrato(4);
-        } else {
-            orientacao.setEstrato(2);
-        }
-        if (orientacao.getAluno() == null || orientacao.getAluno().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Orientação.", "Preencha o campo Bolsista.");
-            return null;
-        } else if (orientacao.getTipoBolsa() == null || orientacao.getTipoBolsa().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Tipo de Bolsa.", "Preencha o campo Tipo de Bolsa.");
-            return null;
-        } else {
-            orientacao.setCurriculo(getCurriculo());
-
-            curriculo.getOrientacaoList().add(orientacao);
-            if (orientacaoRN.salvar(orientacao)) {
-                List<Orientacao> lo = getCurriculo().getOrientacaoList();
-                if (lo == null) {
-                    lo = new ArrayList<Orientacao>();
-                    lo.add(orientacao);
-                }
-                curriculoRN.salvar(getCurriculo());
-                BeanUtil.criarMensagemDeInformacao(
-                        "Operação realizada com sucesso",
-                        "A orientação do bolsista " + orientacao.getAluno() + " foi salva com sucesso.");
-            } else {
-                BeanUtil.criarMensagemDeErro("Erro ao salvar a orientação", "Orientação: " + orientacao.getAluno());
-            }
-        }
-        orientacao = new Orientacao();
-        return null;
-    }
-
-    public String salvarEditarOrientacao(Orientacao orientacaoTemp) {
-
-        if (orientacaoRN.salvar(orientacaoTemp)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "A orientação do bolsista " + orientacaoTemp.getAluno() + " foi salva com sucesso.");
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar a orientação", "Orientação: " + orientacaoTemp.getAluno());
-        }
-        orientacao = new Orientacao();
-
-        return null;
-    }
-
-    public String excluirOrientacao() {
-        System.out.println("Orientação: " + orientacao);
-        if (orientacaoRN.remover(orientacao)) {
-            BeanUtil.criarMensagemDeInformacao("Orientação excluída", "Orientação do bolsista: " + orientacao.getAluno());
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao excluir Orientação", "Orientação: " + orientacao.getAluno());
-        }
-        orientacao = new Orientacao();
-        return "orientacoes.xhtml";
-    }
-
     //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
     //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
 //    public void uploadActionOrientacao(FileUploadEvent event) {
@@ -588,11 +516,6 @@ public class CurriculoBean {
 //        } catch (IOException ex) {
 //        }
 //    }
-    public List<Area> completeArea(String query) {
-        List<Area> results = areaRN.completeArea(query);
-        return results;
-    }
-
     public Programa getPrograma() {
         return programa;
     }

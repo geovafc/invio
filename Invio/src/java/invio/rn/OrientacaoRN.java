@@ -1,18 +1,13 @@
 package invio.rn;
 
-import invio.dao.GenericDAO;
-import invio.entidade.Area;
+import invio.dao.OrientacaoDAO;
 import invio.entidade.Curriculo;
 import invio.entidade.Orientacao;
-import invio.entidade.Programa;
-import invio.rn.pdf.QualisRN;
 import java.util.List;
 
 public class OrientacaoRN {
 
-    private GenericDAO<Orientacao> dao = new GenericDAO<Orientacao>();
-    private QualisRN qualisRN = new QualisRN();
-    private GenericDAO<Curriculo> curriculoDAO = new GenericDAO<Curriculo>();
+    private OrientacaoDAO dao = new OrientacaoDAO();
 
     public boolean salvar(Orientacao orientacao) {
         boolean salvou = false;
@@ -43,4 +38,9 @@ public class OrientacaoRN {
     public List<Orientacao> obterTodos() {
         return dao.obterTodos(Orientacao.class);
     }
+    
+    public List<Orientacao> obterOrientacoes(Curriculo curriculo) {
+        return dao.obterOrientacoes(curriculo);
+    }
+    
 }
