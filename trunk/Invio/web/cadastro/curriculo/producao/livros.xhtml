@@ -8,11 +8,6 @@
 
     <ui:define name="content">
         <p:panel header="Lista de Livros">
-            <h:inputHidden 
-                id="ihInstituicao"
-                value="#{curriculoBean.curriculo}" 
-                converter="curriculoConversor"/>
-
 <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
             <h:form id="Livro">  
@@ -23,35 +18,35 @@
                     <h:panelGrid columns="4" id="grid" cellspacing="4">  
 
                         <h:outputText value="Tipo: " />  
-                        <p:selectOneRadio id="tipo" value="#{curriculoBean.livro.tipoLivro}">  
+                        <p:selectOneRadio id="tipo" value="#{livroBean.livro.tipoLivro}">  
                             <f:selectItem itemLabel="Autor" itemValue="30" />  
                             <f:selectItem itemLabel="Editor" itemValue="10" />  
                         </p:selectOneRadio>  
 
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
-                                     value="#{curriculoBean.livro.titulo}" required="false"/>  
+                                     value="#{livroBean.livro.titulo}" required="false"/>  
 
                         <h:outputLabel value="Autor : *" />  
                         <p:inputText id="Autor" required="false"   
-                                     value="#{curriculoBean.livro.autor}" />  
+                                     value="#{livroBean.livro.autor}" />  
 
                         <h:outputLabel value="Ano Publicação : *" />  
                         <p:inputMask id="anoPublicacao" required="false"  mask="9999" 
-                                     value="#{curriculoBean.livro.ano}" />
+                                     value="#{livroBean.livro.ano}" />
 
                         <h:outputLabel value="Capítulo : " />  
                         <p:inputText id="Capitulo" required="false"   
-                                     value="#{curriculoBean.livro.capitulo}" />
+                                     value="#{livroBean.livro.capitulo}" />
                         
                         <h:outputLabel value="ISBN : " />  
                         <p:inputText id="Isbn" required="false"   
-                                     value="#{curriculoBean.livro.isbn}" />
+                                     value="#{livroBean.livro.isbn}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" value="Adicionar"
                                          ajax="false"
-                                         action="#{curriculoBean.salvarLivro()}"
+                                         action="#{livroBean.salvarLivro()}"
                                          update=":livrosTabela"/>
 
                     </h:panelGrid>  
@@ -59,13 +54,13 @@
 
                 <br/>
                 <p:dataTable id="livrosTabela" 
-                             value="#{curriculoBean.curriculo.livroList}" var="livro"
+                             value="#{livroBean.livros}" var="livro"
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
                              editable="true"
                              >
-                    <p:ajax event="rowEdit" listener="#{curriculoBean.salvarEditarLivro(Livro)}" update="livrosTabela" />  
+                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" update="livrosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 
@@ -169,7 +164,7 @@
                                        action="/cadastro/curriculo/producao/excluirLivro.xhtml">
                             <f:setPropertyActionListener 
                                 value="#{livro}" 
-                                target="#{curriculoBean.livro}" />
+                                target="#{livroBean.livro}" />
                         </p:commandLink>  
 
 
@@ -183,7 +178,7 @@
                                        action="uploadLivro.xhtml">  
                             <f:setPropertyActionListener 
                                 value="#{livro}" 
-                                target="#{curriculoBean.livro}" />
+                                target="#{livroBean.livro}" />
                         </p:commandLink>
 
                     </p:column>

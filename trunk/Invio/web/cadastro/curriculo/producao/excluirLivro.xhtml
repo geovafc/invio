@@ -13,7 +13,7 @@
                 value="#{curriculoBean.curriculo}" 
                 converter="curriculoConversor"/>
             
-            <h:inputHidden value="#{curriculoBean.livro}"
+            <h:inputHidden value="#{livroBean.livro}"
                            converter="livroConversor"/>
             
             
@@ -28,11 +28,11 @@
                 </f:facet>
                 
                 <h:outputText value="Título:" />  
-                <h:outputText value="#{curriculoBean.livro.titulo}" 
+                <h:outputText value="#{livroBean.livro.titulo}" 
                               style="font-weight:bold"/>  
 
                 <p:commandButton 
-                    action="#{curriculoBean.excluirLivro()}" 
+                    action="#{livroBean.excluirLivro()}" 
                     ajax="false"
                     value="Sim" />
 

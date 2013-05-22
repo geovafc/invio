@@ -1,11 +1,14 @@
 package invio.rn;
 
 import invio.dao.GenericDAO;
+import invio.dao.LivroDAO;
+import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import java.util.List;
 
 public class LivroRN {
         GenericDAO<Livro> dao = new GenericDAO<Livro>();
+        private LivroDAO livroDAO = new LivroDAO();
   
 
     public boolean salvar(Livro livro) {
@@ -36,6 +39,10 @@ public class LivroRN {
 
     public List<Livro> obterTodos() {
         return dao.obterTodos(Livro.class);
+    }
+    
+    public List<Livro> obterLivros(Curriculo curriculo) {
+        return livroDAO.obterLivros(curriculo);
     }
     
 
