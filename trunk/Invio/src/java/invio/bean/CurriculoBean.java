@@ -1,6 +1,7 @@
 package invio.bean;
 
 import invio.bean.util.BeanUtil;
+import invio.bean.util.UsuarioUtil;
 import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Instituicao;
@@ -19,7 +20,6 @@ import invio.rn.PeriodicoRN;
 import invio.rn.PlanoRN;
 import invio.rn.pdf.QualisRN;
 import invio.util.UploadArquivo;
-import invio.bean.util.UsuarioUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -45,7 +45,6 @@ public class CurriculoBean {
     private Curriculo curriculo;
     private Login login;
     private boolean skip;
-    private Livro livro = new Livro();
     private Plano plano = new Plano();
     private UploadArquivo fileUpload = new UploadArquivo();
     private Programa programa = new Programa();
