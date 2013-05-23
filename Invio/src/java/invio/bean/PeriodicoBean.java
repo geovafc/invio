@@ -40,8 +40,7 @@ public class PeriodicoBean {
     }
 
     public List<Periodico> getPeriodicos() {
-        Login login = UsuarioUtil.obterUsuarioLogado();
-        return periodicoRN.obterPeriodicos(login.getCurriculo());
+        return periodicoRN.obterPeriodicos(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
 
     public String salvarPeriodico() {
