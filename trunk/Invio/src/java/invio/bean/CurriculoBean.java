@@ -228,27 +228,31 @@ public class CurriculoBean {
     }
 
     public String totalFCO() {
+        return "/cadastro/curriculo/fco.xhtml";
+    }
+
+    public Integer getTotalPontos() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         curriculo = usuarioLogado.getCurriculo();
 
         if (curriculo != null
                 && curriculo.getId() != null) {
             totalPontos = 0;
-            totalPontos = totalPontos + (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
+            totalPontos += (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
 
             List<Livro> livros = curriculo.getLivroList();
             List<Periodico> periodicos = curriculo.getPeriodicoList();
             List<Orientacao> orientacoes = curriculo.getOrientacaoList();
 
             if (livros != null) {
-                for (Livro livroTemp : livros) {
-                    totalPontos += livroTemp.getEstrato();
+                for (Livro l : livros) {
+                    totalPontos += l.getEstrato();
                 }
             }
 
             if (periodicos != null) {
-                for (Periodico periodicoTemp : periodicos) {
-                    totalPontos += periodicoTemp.getEstrato();
+                for (Periodico p : periodicos) {
+                    totalPontos += p.getEstrato();
 
                 }
             }
@@ -258,36 +262,6 @@ public class CurriculoBean {
 
                     totalPontos += orientacaoTemp.getEstrato();
                 }
-            }
-            
-            curriculo.setFco(totalPontos);
-
-            curriculoRN.salvar(curriculo);
-        }
-        return "/cadastro/curriculo/fco.xhtml";
-    }
-
-    public Integer getTotalPontos() {
-        if (curriculo != null) {
-
-            totalPontos = 0;
-
-            List<Livro> livros = curriculo.getLivroList();
-            List<Periodico> periodicos = curriculo.getPeriodicoList();
-            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
-
-            for (Livro livroTemp : livros) {
-                totalPontos = totalPontos + livroTemp.getEstrato();
-            }
-
-            for (Periodico periodicoTemp : periodicos) {
-                totalPontos = totalPontos + periodicoTemp.getEstrato();
-
-            }
-
-            for (Orientacao orientacaoTemp : orientacoes) {
-
-                totalPontos = totalPontos + orientacaoTemp.getEstrato();
             }
         }
         return totalPontos;
@@ -426,5 +400,9 @@ public class CurriculoBean {
     public List<String> complete(String query) {
         QualisRN qualisRN = new QualisRN();
         return qualisRN.obterTodosTitulos(query);
+    }
+    
+    public List<Area> completeArea(String query) {
+        return areaRN.completeArea(query);
     }
 }

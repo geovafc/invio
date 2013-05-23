@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author fabio
  */
 @Entity
 @Table(name = "area")
@@ -42,9 +42,9 @@ public class Area implements Serializable {
     @Column(name = "nome")
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
-    private List<Curriculo> curriculoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
     private List<Programa> programaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
+    private List<Curriculo> curriculoList;
 
     public Area() {
     }
@@ -75,21 +75,21 @@ public class Area implements Serializable {
     }
 
     @XmlTransient
-    public List<Curriculo> getCurriculoList() {
-        return curriculoList;
-    }
-
-    public void setCurriculoList(List<Curriculo> curriculoList) {
-        this.curriculoList = curriculoList;
-    }
-
-    @XmlTransient
     public List<Programa> getProgramaList() {
         return programaList;
     }
 
     public void setProgramaList(List<Programa> programaList) {
         this.programaList = programaList;
+    }
+
+    @XmlTransient
+    public List<Curriculo> getCurriculoList() {
+        return curriculoList;
+    }
+
+    public void setCurriculoList(List<Curriculo> curriculoList) {
+        this.curriculoList = curriculoList;
     }
 
     @Override

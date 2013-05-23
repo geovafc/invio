@@ -26,7 +26,7 @@ public class PeriodicoRN {
         return salvou;
     }
 
-    private void atribuirPontuacaoAutomaticamente(Periodico periodico) {
+    public void atribuirPontuacaoAutomaticamente(Periodico periodico) {
         int pt = 0;
         if (periodico.getCurriculo() != null) {
             Area area = periodico.getCurriculo().getArea();

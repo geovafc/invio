@@ -1,6 +1,7 @@
 package invio.bean;
 
 import invio.bean.util.BeanUtil;
+import invio.bean.util.UsuarioUtil;
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.entidade.Perfil;
@@ -8,13 +9,11 @@ import invio.rn.CurriculoRN;
 import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
 import invio.rn.PerfilRN;
-import invio.bean.util.UsuarioUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.core.GrantedAuthority;
