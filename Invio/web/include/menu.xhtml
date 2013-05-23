@@ -6,9 +6,10 @@
     <h:body>
         <h:form style="width: 90%"> 
             <p:slideMenu 
-                style="width: 125%"  
-                backLabel="Voltar" > 
-                
+                my="left top" 
+                at="left bottom" 
+                style="width: 100%; height: 100%"
+                backLabel="Voltar">  
                 <!--                <p:submenu style="width: 100%" label="Administração">  
                 
                                     <p:menuitem 
@@ -65,34 +66,31 @@
                     action="#{curriculoBean.meuCurriculo}"/> 
 
                 <p:submenu 
+                    style="width: 100%; height: 100%"
                     label="Minhas Produções" 
                     icon="ui-icon-refresh">  
 
                     <p:menuitem 
                         value="Periódicos" 
                         action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
-                    
+
                     <p:menuitem 
                         value="Livros" 
                         action="/cadastro/curriculo/producao/livros.xhtml"/>  
 
                     <p:menuitem 
-                        value="Orientações" 
+                        value="Orientações " 
                         action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
 
                 </p:submenu>  
 
-                <p:menuitem value="FCO"  
-                            title="Ficha Curricular do Orientador"
+                <p:menuitem value="Imprimir Currículo"  
+                            title="Imprimir a Ficha Curricular com as Produções"
                             ajax="false"
                             icon="ui-icon-arrowrefresh-1-w"
                             action="#{curriculoBean.totalPontos}"/> 
 
-            </p:slideMenu>
-
-            <p:submenu 
-                style="width: 100%" 
-                label="Logout" >  
+                <p:separator />
 
                 <p:menuitem id="misair" ajax="false">
                     <!--                        <h:commandButton 
@@ -106,7 +104,7 @@
                     </a>
                 </p:menuitem>
 
-            </p:submenu>  
+            </p:slideMenu>  
 
         </h:form> 
     </h:body>
