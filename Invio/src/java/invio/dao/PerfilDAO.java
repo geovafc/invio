@@ -1,7 +1,6 @@
 package invio.dao;
 
 import invio.entidade.Perfil;
-import invio.entidade.Perfil;
 import javax.persistence.Query;
 
 /**

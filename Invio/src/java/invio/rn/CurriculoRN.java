@@ -4,7 +4,6 @@
  */
 package invio.rn;
 
-import invio.dao.AreaDAO;
 import invio.dao.CurriculoDAO;
 import invio.dao.GenericDAO;
 import invio.entidade.Area;
@@ -36,6 +35,12 @@ public class CurriculoRN {
                     salvou = true;
                 }
             } else {
+                if (c.getPeriodicoList() != null) {
+                    PeriodicoRN periodicoRN = new PeriodicoRN();
+                    for (Periodico p : c.getPeriodicoList()) {
+                        periodicoRN.atribuirPontuacaoAutomaticamente(p);
+                    }
+                }
                 if (dao.alterar(c)) {
                     salvou = true;
                 }

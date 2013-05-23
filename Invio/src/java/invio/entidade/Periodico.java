@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dir de Armas Marinha
+ * @author fabio
  */
 @Entity
 @Table(name = "periodico")
@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Periodico.findByEstrato", query = "SELECT p FROM Periodico p WHERE p.estrato = :estrato"),
     @NamedQuery(name = "Periodico.findByAvaliacao", query = "SELECT p FROM Periodico p WHERE p.avaliacao = :avaliacao"),
     @NamedQuery(name = "Periodico.findByJcr", query = "SELECT p FROM Periodico p WHERE p.jcr = :jcr"),
-    @NamedQuery(name = "Periodico.findByDoi", query = "SELECT p FROM Periodico p WHERE p.doi = :doi")})
+    @NamedQuery(name = "Periodico.findByDoi", query = "SELECT p FROM Periodico p WHERE p.doi = :doi"),
+    @NamedQuery(name = "Periodico.findByLink", query = "SELECT p FROM Periodico p WHERE p.link = :link")})
 public class Periodico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -77,6 +78,8 @@ public class Periodico implements Serializable {
     private String jcr;
     @Column(name = "doi")
     private String doi;
+    @Column(name = "link")
+    private String link;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculo;
@@ -200,6 +203,14 @@ public class Periodico implements Serializable {
 
     public void setDoi(String doi) {
         this.doi = doi;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Curriculo getCurriculo() {
