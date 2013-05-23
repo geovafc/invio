@@ -8,7 +8,7 @@
 
     <ui:define name="content">
         <p:panel header="Lista de Livros">
-<!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
+            <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
             <h:form id="Livro">  
 
@@ -38,7 +38,7 @@
                         <h:outputLabel value="Capítulo : " />  
                         <p:inputText id="Capitulo" required="false"   
                                      value="#{livroBean.livro.capitulo}" />
-                        
+
                         <h:outputLabel value="ISBN : " />  
                         <p:inputText id="Isbn" required="false"   
                                      value="#{livroBean.livro.isbn}" />
@@ -60,7 +60,7 @@
                              paginator="true" rows="5" 
                              rowsPerPageTemplate="5,10,15"
                              editable="true" >
-                    
+
                     <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
                             update="livrosTabela" />  
 
@@ -123,8 +123,8 @@
                             </f:facet> 
                         </p:cellEditor> 
                     </p:column>
-                    
-                     <p:column headerText="ISBN"
+
+                    <p:column headerText="ISBN"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
@@ -184,6 +184,11 @@
                         </p:commandLink>
 
                     </p:column>
+
+                    <f:facet name="footer">
+                        Total em Livros: 
+                        <h:outputLabel value="#{livroBean.total}"/>
+                    </f:facet>
 
                 </p:dataTable>
             </h:form>  

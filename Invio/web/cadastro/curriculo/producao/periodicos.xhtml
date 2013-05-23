@@ -80,7 +80,10 @@
                              rowsPerPageTemplate="5,10,15"
                              editable="true">
 
-                    <p:ajax event="rowEdit" listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" update="periodicosTabela" />  
+                    <p:ajax 
+                        event="rowEdit" 
+                        listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
+                        update="periodicosTabela" />  
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 
@@ -241,6 +244,11 @@
                         </p:commandLink>
 
                     </p:column>
+                    
+                    <f:facet name="footer">
+                        Total em Periódicos: 
+                        <h:outputLabel value="#{periodicoBean.total}"/>
+                    </f:facet>
 
                 </p:dataTable>  
 
