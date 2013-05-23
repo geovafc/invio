@@ -230,36 +230,39 @@ public class CurriculoBean {
 
     public String totalFCO() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
-        
         curriculo = usuarioLogado.getCurriculo();
-        
-        System.out.println("Curriculo Logado = "+curriculo.getNome());
-        
-        if (curriculo != null && curriculo.getId() !=null) {
+
+        if (curriculo != null
+                && curriculo.getId() != null) {
             totalPontos = 0;
-            
-            totalPontos = totalPontos+ (curriculo.getExtrato()==null ? 0 : curriculo.getExtrato());
-            
+            totalPontos = totalPontos + (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
+
             List<Livro> livros = curriculo.getLivroList();
             List<Periodico> periodicos = curriculo.getPeriodicoList();
             List<Orientacao> orientacoes = curriculo.getOrientacaoList();
-                  
 
-            for (Livro livroTemp : livros) {
-                totalPontos = totalPontos + livroTemp.getEstrato();
+            if (livros != null) {
+                for (Livro livroTemp : livros) {
+                    totalPontos += livroTemp.getEstrato();
+                }
             }
 
-            for (Periodico periodicoTemp : periodicos) {
-                totalPontos = totalPontos + periodicoTemp.getEstrato();
+            if (periodicos != null) {
+                for (Periodico periodicoTemp : periodicos) {
+                    totalPontos += periodicoTemp.getEstrato();
 
+                }
             }
 
-            for (Orientacao orientacaoTemp : orientacoes) {
+            if (orientacoes != null) {
+                for (Orientacao orientacaoTemp : orientacoes) {
 
-                totalPontos = totalPontos + orientacaoTemp.getEstrato();
+                    totalPontos += orientacaoTemp.getEstrato();
+                }
             }
-            curriculo.setFco(totalPontos);
             
+            curriculo.setFco(totalPontos);
+
             curriculoRN.salvar(curriculo);
         }
         return "/cadastro/curriculo/fco.xhtml";

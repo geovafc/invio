@@ -40,8 +40,20 @@ public class PeriodicoBean {
     }
 
     public List<Periodico> getPeriodicos() {
-        return periodicoRN.obterPeriodicos(UsuarioUtil.obterUsuarioLogado().getCurriculo());
+        Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
+        return periodicoRN.obterPeriodicos(curriculo);
     }
+
+    public int getTotal() {
+        int total = 0;
+        
+        for (Periodico p : getPeriodicos()) {
+            total += p.getEstrato();
+        }
+        
+        return total;
+    }
+
 
     public String salvarPeriodico() {
         Login login = UsuarioUtil.obterUsuarioLogado();
