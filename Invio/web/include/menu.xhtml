@@ -59,27 +59,31 @@
                                                 action="/submissao/uploadFile.xhtml"/>
                                 </p:submenu>-->
 
-                <p:menuitem 
-                    value="Meu Currículo"  
-                    ajax="false"
-                    icon="ui-icon-arrowrefresh-1-w"
-                    action="#{curriculoBean.meuCurriculo}"/> 
 
                 <p:submenu 
                     style="width: 100%; height: 100%"
-                    label="Minhas Produções" 
+                    label="Meu Currículo" 
                     icon="ui-icon-refresh">  
+                    <p:menuitem 
+                        value="Meu Perfil"  
+                        title="Informações pessoais, titulação e área de atuação"
+                        ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w"
+                        action="#{curriculoBean.meuCurriculo}"/> 
 
                     <p:menuitem 
                         value="Periódicos" 
+                        title="Lista de publicações em periódicos"
                         action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
 
                     <p:menuitem 
                         value="Livros" 
+                        title="Publicações de livros como autor ou editor e capítulos"
                         action="/cadastro/curriculo/producao/livros.xhtml"/>  
 
                     <p:menuitem 
                         value="Orientações " 
+                        title="Indicação dos alunos orientados"
                         action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
 
                 </p:submenu>  
@@ -88,6 +92,7 @@
                             title="Imprimir a Ficha Curricular com as Produções"
                             ajax="false"
                             icon="ui-icon-arrowrefresh-1-w"
+                            target="_blank"
                             action="#{curriculoBean.totalFCO}"/> 
 
                 <p:separator />
@@ -97,8 +102,8 @@
                                                 id="btlogout"
                                                 action="# {usuarioBean.logoutSair()}"
                                                 image="/resources/imagem/sair.png"/>-->
-                    <a onclick=
-                       "document.location = '#{request.contextPath}/j_spring_security_logout'" 
+                       <a onclick=
+                        "document.location = '#{request.contextPath}/j_spring_security_logout'" 
                        title="Sair">
                         <h:graphicImage library="imagem" name="sair.png"/>
                     </a>
