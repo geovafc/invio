@@ -15,23 +15,19 @@
                 <p:messages showDetail="true" showSummary="true"/>  
 
                 <p:panel header="Novo Periódico">  
-                    <h:panelGrid columns="6" id="grid" cellspacing="4"> 
+                    <h:panelGrid columns="4" id="grid" cellspacing="4"> 
 
-                        <h:outputLabel value="Título : *"/> 
-                        <p:inputText id="Titulo"  
-                                     value="#{periodicoBean.periodico.titulo}" 
-                                     required="false"/>  
-
-                        <h:outputLabel value="Autor : *" />  
+                        <h:outputLabel value="Autor(es) : *" />  
                         <p:inputText 
                             id="Autor"
                             required="false"   
                             value="#{periodicoBean.periodico.autores}" />  
 
-
-                        <h:outputLabel value="Ano Publicação : *"/>  
-                        <p:inputMask  value="#{periodicoBean.periodico.ano}" mask="9999"
-                                      id="DataPublicacao" required="false"/>
+                        <h:outputLabel value="Título : *"/> 
+                        <p:inputText 
+                            id="Titulo"  
+                            value="#{periodicoBean.periodico.titulo}" 
+                            required="false"/>  
 
                         <h:outputLabel value="Revista : " />  
                         <p:autoComplete 
@@ -40,17 +36,13 @@
                             value="#{periodicoBean.periodico.revista}"   
                             completeMethod="#{periodicoBean.complete}"/>
 
+                        <h:outputLabel value="Ano de Publicação : *"/>  
+                        <p:inputMask  value="#{periodicoBean.periodico.ano}" mask="9999"
+                                      id="DataPublicacao" required="false"/>
+
                         <h:outputLabel value="Volume : " for="volume"/> 
                         <p:inputText id="Volume" required="false"   
                                      value="#{periodicoBean.periodico.volume}" />  
-
-                        <h:outputLabel value="Página Incial: " for="paginaI"/>  
-                        <p:inputText id="PaginaI" required="false" size="2"   
-                                     value="#{periodicoBean.periodico.paginainicial}" />  
-
-                        <h:outputLabel value="Página Final: " for="paginaF"/>  
-                        <p:inputText id="PaginaF" required="false" size="2"   
-                                     value="#{periodicoBean.periodico.paginafinal}" />  
 
                         <h:outputLabel value="DOI: " for="doi"/>  
                         <p:inputText 
@@ -62,6 +54,22 @@
                         <h:outputLabel value="JCR: " for="jcr"/>  
                         <p:inputText id="Jcr" required="false"
                                      value="#{periodicoBean.periodico.jcr}" />  
+
+                        <h:outputLabel value="Página Incial: " for="paginaI"/>  
+                        <p:inputText id="PaginaI" required="false" size="2"   
+                                     value="#{periodicoBean.periodico.paginainicial}" />  
+
+                        <h:outputLabel value="Página Final: " for="paginaF"/>  
+                        <p:inputText id="PaginaF" required="false" size="2"   
+                                     value="#{periodicoBean.periodico.paginafinal}" />  
+                        
+                        <h:outputLabel value="Link: " for="link"/>  
+                        <p:inputText 
+                            id="link" 
+                            title="Endereço eletrônico de publicação do artigo"
+                            required="false" 
+                            maxlength="200"
+                            value="#{periodicoBean.periodico.link}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton 

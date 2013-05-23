@@ -37,11 +37,11 @@ and open the template in the editor.
 
                 <h:outputText value="E-mail: "/>
                 <h:outputText value="#{curriculoBean.curriculo.email}"/>
-                
+
                 <h:outputText value="Endereço: "/>
                 <h:outputText 
                     value="#{curriculoBean.curriculo.logradouro} #{curriculoBean.curriculo.numeroEnd}"/>
-                
+
             </p:panelGrid>
 
         </p:panel>
@@ -130,11 +130,15 @@ and open the template in the editor.
                 </p:column>
 
                 <p:column headerText="Início"> 
-                    <h:outputLabel value="#{orientacao.PInicial}"/> 
+                    <h:outputLabel value="#{orientacao.PInicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputLabel>
                 </p:column>
 
                 <p:column headerText="Fim"> 
-                    <h:outputLabel value="#{orientacao.PFinal}"/> 
+                    <h:outputLabel value="#{orientacao.PFinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputLabel>
                 </p:column>
 
                 <p:column headerText="Tipo de Bolsa"> 
@@ -162,7 +166,7 @@ and open the template in the editor.
                 <h:outputText  value="Total:"/>   
                 <h:inputText 
                     disabled="true" 
-                    value="#{curriculoBean.curriculo.fco}"/> 
+                    value="#{curriculoBean.totalPontos}"/> 
             </p:panelGrid>
 
         </p:panel>
