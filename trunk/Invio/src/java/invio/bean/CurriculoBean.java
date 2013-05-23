@@ -227,10 +227,44 @@ public class CurriculoBean {
         return "/admin/listarProducao.xhtml";
 
     }
-    
-    public String totalFCO(){
-        return null;
+
+    public String totalFCO() {
+        Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
+        
+        curriculo = usuarioLogado.getCurriculo();
+        
+        System.out.println("Curriculo Logado = "+curriculo.getNome());
+        
+        if (curriculo != null && curriculo.getId() !=null) {
+            totalPontos = 0;
+            
+            totalPontos = totalPontos+ (curriculo.getExtrato()==null ? 0 : curriculo.getExtrato());
+            
+            List<Livro> livros = curriculo.getLivroList();
+            List<Periodico> periodicos = curriculo.getPeriodicoList();
+            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
+                  
+
+            for (Livro livroTemp : livros) {
+                totalPontos = totalPontos + livroTemp.getEstrato();
+            }
+
+            for (Periodico periodicoTemp : periodicos) {
+                totalPontos = totalPontos + periodicoTemp.getEstrato();
+
+            }
+
+            for (Orientacao orientacaoTemp : orientacoes) {
+
+                totalPontos = totalPontos + orientacaoTemp.getEstrato();
+            }
+            curriculo.setFco(totalPontos);
+            
+            curriculoRN.salvar(curriculo);
+        }
+        return "/cadastro/curriculo/fco.xhtml";
     }
+
     public Integer getTotalPontos() {
         if (curriculo != null) {
 

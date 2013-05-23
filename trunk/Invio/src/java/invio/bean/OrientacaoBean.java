@@ -41,7 +41,7 @@ public class OrientacaoBean {
 
     public List<Orientacao> getOrientacoes() {
         //TODO Orientações do curriculo indicado (login)
-        return orientacaoRN.obterTodos();
+        return orientacaoRN.obterOrientacoes(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
     
     public String salvarOrientacao() {

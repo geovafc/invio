@@ -39,7 +39,7 @@ public class LivroBean {
     }
 
     public List<Livro> getLivros() {
-        return livroRN.obterTodos();
+        return livroRN.obterLivros(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
 
     public String salvarLivro() {
