@@ -42,6 +42,16 @@ public class LivroBean {
         return livroRN.obterLivros(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
 
+    public int getTotal() {
+        int total = 0;
+
+        for (Livro l : getLivros()) {
+            total += l.getEstrato();
+        }
+
+        return total;
+    }
+
     public String salvarLivro() {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();

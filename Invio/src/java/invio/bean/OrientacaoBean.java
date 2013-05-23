@@ -43,12 +43,22 @@ public class OrientacaoBean {
         //TODO Orientações do curriculo indicado (login)
         return orientacaoRN.obterOrientacoes(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
-    
+
+    public int getTotal() {
+        int total = 0;
+
+        for (Orientacao o : getOrientacoes()) {
+            total += o.getEstrato();
+        }
+
+        return total;
+    }
+
     public String salvarOrientacao() {
         //TODO Extrato é com X
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
-        
+
         if (orientacao.getTipoOrientacao() == 8) {
             orientacao.setEstrato(8);
         } else if (orientacao.getTipoOrientacao() == 4) {
