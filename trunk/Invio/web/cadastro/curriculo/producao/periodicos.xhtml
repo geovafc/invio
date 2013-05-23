@@ -53,8 +53,11 @@
                                      value="#{periodicoBean.periodico.paginafinal}" />  
 
                         <h:outputLabel value="DOI: " for="doi"/>  
-                        <p:inputText id="Doi" required="false"
-                                     value="#{periodicoBean.periodico.doi}" />  
+                        <p:inputText 
+                            id="Doi" 
+                            required="false"
+                            maxlength="30"
+                            value="#{periodicoBean.periodico.doi}" />  
 
                         <h:outputLabel value="JCR: " for="jcr"/>  
                         <p:inputText id="Jcr" required="false"
@@ -244,7 +247,7 @@
                         </p:commandLink>
 
                     </p:column>
-                    
+
                     <f:facet name="footer">
                         Total em Periódicos: 
                         <h:outputLabel value="#{periodicoBean.total}"/>
