@@ -27,7 +27,8 @@
             <p:wizard widgetVar="wiz" 
                       id="wizardCurriculo"
                       flowListener="#{curriculoBean.onFlowProcess}"
-                      nextLabel="Próximo" backLabel="Anterior" >
+                      nextLabel="Próximo" 
+                      backLabel="Anterior" >
 
                 <p:tab id="personal" title="Pessoal">  
                     <p:panel header="Dados Pessoais" style="height: 500px">  
@@ -65,6 +66,7 @@
                             <p:calendar value="#{curriculoBean.curriculo.dtNascimento}" 
                                         navigator="true" 
                                         pattern="dd/MM/yyyy" 
+                                        yearRange="c-70:c-20"
                                         id="nascimentoCal" 
                                         required="true"/> 
                             <p:message id="erroNascimento" for="nascimentoCal"/>
@@ -78,29 +80,47 @@
                             <p:message id="erroGenero" for="genero"/>
 
                             <h:outputText value="CPF: *" />  
-                            <p:inputMask id="cpf" required="true" label="Cpf"  
-                                         value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
+                            <p:inputMask 
+                                id="cpf" 
+                                required="true" 
+                                label="Cpf"  
+                                value="#{curriculoBean.curriculo.cpf}" mask="999.999.999-99" /> 
                             <p:message id="erroCPF" for="cpf"/>
 
                             <h:outputText value="Matricula: *" />  
-                            <p:inputText id="matricula" required="true" label="Matricula"  
-                                         value="#{curriculoBean.curriculo.matricula}" /> 
+                            <p:inputText 
+                                id="matricula" 
+                                required="true" 
+                                label="Matricula"  
+                                title="SIAPE para docentes e MATRICULO para discentes"
+                                value="#{curriculoBean.curriculo.matricula}" /> 
                             <p:message id="erroMatricula" for="matricula"/>
 
-                            <h:outputText value="Endereço Currículo Lattes: *" />  
-                            <p:inputText id="lattes" required="true" label="Lattes"  
-                                         value="#{curriculoBean.curriculo.lattes}" /> 
+                            <h:outputText value="Currículo Lattes: *" />  
+                            <p:inputText 
+                                id="lattes" 
+                                required="true" 
+                                label="Lattes"  
+                                title="Site ou link do currículo lattes"
+                                value="#{curriculoBean.curriculo.lattes}" /> 
                             <p:message id="erroLattes" for="lattes"/>
 
                             <h:outputText value="Grupo de Pesquisa: *" />  
-                            <p:inputText id="grupoPesq" required="true" label="GrupoPesq"  
-                                         value="#{curriculoBean.curriculo.grupoPesq}" /> 
+                            <p:inputText 
+                                id="grupoPesq" 
+                                required="true" 
+                                label="GrupoPesq"  
+                                title="Site ou link do grupo de pesquisa"
+                                value="#{curriculoBean.curriculo.grupoPesq}" /> 
                             <p:message id="erroGrupoPesq" for="grupoPesq"/>
 
 
                             <h:outputText value="Curso: *"/>
-                            <p:inputText id="curso" required="true" label="Curso"  
-                                         value="#{curriculoBean.curriculo.curso}" />
+                            <p:inputText 
+                                id="curso" 
+                                required="true" 
+                                label="Curso"  
+                                value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso"/>
 
                             <h:outputText value="Instituto/Campi: *"/>
