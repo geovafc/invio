@@ -125,7 +125,7 @@ public class QualisRN {
     }
 
     public int obterEstrato(String titulo, String area) {
-        String estrato = dao.obterEstrato(titulo, area, 20);
+        String estrato = dao.obterEstrato(titulo, area);
 
         estrato = estrato.trim();
         System.out.println("estrato"+estrato);

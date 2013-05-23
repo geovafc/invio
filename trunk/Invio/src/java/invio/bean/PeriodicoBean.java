@@ -65,7 +65,6 @@ public class PeriodicoBean {
         } else {
             periodico.setCurriculo(curriculo);
 
-            curriculo.getPeriodicoList().add(periodico);
             if (periodicoRN.salvar(periodico)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",

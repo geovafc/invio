@@ -10,7 +10,7 @@
         <p:panel header="Lista de Periódicos">
             <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
-            <h:form id="Periodico">  
+            <h:form id="Periodico" acceptcharset="ISO-8859-1" >  
 
                 <p:messages showDetail="true" showSummary="true"/>  
 
@@ -18,12 +18,15 @@
                     <h:panelGrid columns="6" id="grid" cellspacing="4"> 
 
                         <h:outputLabel value="Título : *"/> 
-                        <p:inputText id="Titulo"   
-                                     value="#{periodicoBean.periodico.titulo}" required="false"/>  
+                        <p:inputText id="Titulo"  
+                                     value="#{periodicoBean.periodico.titulo}" 
+                                     required="false"/>  
 
                         <h:outputLabel value="Autor : *" />  
-                        <p:inputText id="Autor" required="false"   
-                                     value="#{periodicoBean.periodico.autores}" />  
+                        <p:inputText 
+                            id="Autor"
+                            required="false"   
+                            value="#{periodicoBean.periodico.autores}" />  
 
 
                         <h:outputLabel value="Ano Publicação : *"/>  
@@ -31,13 +34,11 @@
                                       id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Revista : " />  
-                        <f:view encoding="ISO-8859-1">
-                            <p:autoComplete 
-                                id="Revista" 
-                                scrollHeight="100" 
-                                value="#{periodicoBean.periodico.revista}"   
-                                completeMethod="#{periodicoBean.complete}"/>
-                        </f:view>
+                        <p:autoComplete 
+                            id="Revista" 
+                            scrollHeight="100" 
+                            value="#{periodicoBean.periodico.revista}"   
+                            completeMethod="#{periodicoBean.complete}"/>
 
                         <h:outputLabel value="Volume : " for="volume"/> 
                         <p:inputText id="Volume" required="false"   
@@ -60,10 +61,12 @@
                                      value="#{periodicoBean.periodico.jcr}" />  
 
                         <p:commandButton value="Limpar" type="reset"/>  
-                        <p:commandButton id="btn_add" value="Adicionar"
-                                         ajax="false"
-                                         action="#{periodicoBean.salvarPeriodico()}"
-                                         update=":periodicosTabela"/>
+                        <p:commandButton 
+                            id="btn_add" 
+                            value="Adicionar"
+                            ajax="false"
+                            action="#{periodicoBean.salvarPeriodico}"
+                            update=":periodicosTabela"/>
 
                     </h:panelGrid>  
                 </p:panel>  

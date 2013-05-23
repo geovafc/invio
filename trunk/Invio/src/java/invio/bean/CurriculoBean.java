@@ -22,7 +22,6 @@ import invio.util.UploadArquivo;
 import invio.bean.util.UsuarioUtil;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -39,7 +38,6 @@ public class CurriculoBean {
     private PeriodicoRN periodicoRN = new PeriodicoRN();
     private LivroRN livroRN = new LivroRN();
     private AreaRN areaRN = new AreaRN();
-    private QualisRN qualisRN = new QualisRN();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
     private PlanoRN planoRN = new PlanoRN();
     private List<Curriculo> curriculos;
@@ -387,5 +385,10 @@ public class CurriculoBean {
      */
     public void setAreaOutra(Area areaOutra) {
         this.areaOutra = areaOutra;
+    }
+
+    public List<String> complete(String query) {
+        QualisRN qualisRN = new QualisRN();
+        return qualisRN.obterTodosTitulos(query);
     }
 }

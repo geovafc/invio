@@ -19,9 +19,7 @@ public class PeriodicoRN {
                 atribuirPontuacaoAutomaticamente(periodico);
                 salvou = periodicoDAO.criar(periodico);
             } else {
-                if (periodicoDAO.alterar(periodico)) {
-                    salvou = true;
-                }
+                salvou = periodicoDAO.alterar(periodico);
             }
             periodicoDAO.concluirTransacao();
         }
