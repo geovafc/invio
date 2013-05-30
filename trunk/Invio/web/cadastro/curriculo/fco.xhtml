@@ -9,7 +9,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Ficha Curricular do Orientador</title>
     </h:head>
     <h:body>
         <p:panel 
@@ -32,8 +32,8 @@ and open the template in the editor.
                 <h:outputText value="Área de Atuação: "/>
                 <h:outputText value="#{curriculoBean.curriculo.area.nome}"/>
 
-                <h:outputText value="Telefone: "/>
-                <h:outputText value="#{curriculoBean.curriculo.telefone}"/>
+                <h:outputText value="Celular: "/>
+                <h:outputText value="#{curriculoBean.curriculo.celular}"/>
 
                 <h:outputText value="E-mail: "/>
                 <h:outputText value="#{curriculoBean.curriculo.email}"/>
@@ -56,7 +56,9 @@ and open the template in the editor.
                          emptyMessage="Sem registro para a exibição.">
 
                 <p:column headerText="Título" > 
-                    <h:outputLabel value="#{periodico.titulo}" /> 
+                    <h:outputLabel style="max-width: 110px;min-width: 110px; 
+                              overflow: hidden;  max-height: 12px; 
+                              min-height: 12px; white-space: pre-line" value="#{periodico.titulo}" /> 
                 </p:column>  
 
                 <p:column headerText="Revista" > 

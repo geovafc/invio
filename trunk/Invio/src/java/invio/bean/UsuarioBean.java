@@ -349,7 +349,23 @@ public class UsuarioBean implements UserDetailsService {
 
     public boolean isAdministracao() {
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_ADMINISTRACAO")) {
+            if (temp.getDescricao().equals("ROLE_ADMINISTRACAO") || temp.getDescricao().equals("ROLE_MASTER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isDiscente() {
+        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
+            if (temp.getDescricao().equals("ROLE_DISCENTE") || temp.getDescricao().equals("ROLE_MASTER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isDocente() {
+        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
+            if (temp.getDescricao().equals("ROLE_DOCENTE") || temp.getDescricao().equals("ROLE_MASTER")) {
                 return true;
             }
         }

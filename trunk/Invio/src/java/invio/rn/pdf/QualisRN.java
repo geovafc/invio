@@ -131,19 +131,19 @@ public class QualisRN {
         System.out.println("estrato"+estrato);
         
         if(estrato.equalsIgnoreCase("A1")){
-            return 100;
-        }
-        else if(estrato.equalsIgnoreCase("A2")){
-        return 80;
-        }
-        else if(estrato.equalsIgnoreCase("B1")){
-        return 60;
-        }
-        else if(estrato.equalsIgnoreCase("B2")){
             return 50;
         }
-        else if(estrato.equalsIgnoreCase("B3")){
+        else if(estrato.equalsIgnoreCase("A2")){
+        return 45;
+        }
+        else if(estrato.equalsIgnoreCase("B1")){
+        return 40;
+        }
+        else if(estrato.equalsIgnoreCase("B2")){
             return 30;
+        }
+        else if(estrato.equalsIgnoreCase("B3")){
+            return 25;
         }
         else if(estrato.equalsIgnoreCase("B4")){
             return 20;

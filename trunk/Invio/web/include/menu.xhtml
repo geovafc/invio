@@ -59,6 +59,21 @@
                                                 action="/submissao/uploadFile.xhtml"/>
                                 </p:submenu>-->
 
+                <p:submenu
+                    style="width: 100%; height: 100%"
+                    rendered="#{usuarioBean.master}"
+                    label="Cadastros" 
+                    icon="ui-icon-refresh"> 
+                    <p:menuitem
+                        value="Programa"   
+                        ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w"
+                        action="/cadastro/programa/listar.xhtml"/>
+                    <p:menuitem 
+                        value="Instituição"  ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w" 
+                        action="/cadastro/instituicao/listar.xhtml"/>
+                </p:submenu>
 
                 <p:submenu 
                     style="width: 100%; height: 100%"
@@ -72,18 +87,21 @@
                         action="#{curriculoBean.meuCurriculo}"/> 
 
                     <p:menuitem 
+                        rendered="#{usuarioBean.docente}"
                         value="Periódicos" 
                         title="Lista de publicações em periódicos"
                         icon="ui-icon-document"
                         action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
 
                     <p:menuitem 
+                        rendered="#{usuarioBean.docente}"
                         value="Livros" 
                         title="Publicações de livros como autor ou editor e capítulos"
                         icon="ui-icon-note"
                         action="/cadastro/curriculo/producao/livros.xhtml"/>  
 
                     <p:menuitem 
+                        rendered="#{usuarioBean.docente}"
                         value="Orientações " 
                         title="Indicação dos alunos orientados"
                         icon="ui-icon-person"
@@ -91,7 +109,8 @@
 
                 </p:submenu>  
 
-                <p:menuitem value="Imprimir Currículo"  
+                <p:menuitem rendered="#{usuarioBean.docente}"
+                            value="Imprimir Currículo"  
                             title="Imprimir a Ficha Curricular com as Produções"
                             ajax="false"
                             icon="ui-icon-arrowrefresh-1-w"
@@ -100,19 +119,19 @@
 
                 <p:separator />
 
-                <p:menuitem id="misair" ajax="false">
-                    <!--                        <h:commandButton 
-                                                id="btlogout"
-                                                action="# {usuarioBean.logoutSair()}"
-                                                image="/resources/imagem/sair.png"/>-->
-                       <a onclick=
-                        "document.location = '#{request.contextPath}/j_spring_security_logout'" 
-                       title="Sair">
-                        <h:graphicImage library="imagem" name="sair.png"/>
-                    </a>
-                </p:menuitem>
 
             </p:slideMenu>  
+            <p:menuitem id="misair" ajax="false">
+                <!--                        <h:commandButton 
+                                            id="btlogout"
+                                            action="# {usuarioBean.logoutSair()}"
+                                            image="/resources/imagem/sair.png"/>-->
+                <a onclick=
+                   "document.location = '#{request.contextPath}/j_spring_security_logout'" 
+                   title="Sair">
+                    <h:graphicImage library="imagem" name="sair.png"/>
+                </a>
+            </p:menuitem>
 
         </h:form> 
     </h:body>

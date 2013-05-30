@@ -48,7 +48,8 @@
                         <p:calendar 
                             value="#{orientacaoBean.orientacao.PInicial}" 
                             navigator="true" 
-                            pattern="dd/MM/yyyy" 
+                            selectOtherMonths="true"
+                            pattern="MM/yyyy" 
                             id="periodoInicial" /> 
 
                         <h:outputText value="Período Final: *"/>
@@ -80,87 +81,73 @@
                     rowsPerPageTemplate="10,20,30"
                     editable="true">
 
-                    <p:ajax 
-                        event="rowEdit" 
-                        listener="#{orientacaoBean.salvarEditarOrientacao(orientacao)}" 
-                        update="orientacoesTabela" />  
+                    <!--                    <p:ajax 
+                                            event="rowEdit" 
+                                            listener="#{orientacaoBean.salvarEditarOrientacao(orientacao)}" 
+                                            update="orientacoesTabela" />  -->
 
                     <p:column headerText="Bolsista"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{orientacao.aluno}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{orientacao.aluno}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{orientacao.aluno}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{orientacao.aluno}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Período Inicial"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputText  value="#{orientacao.PInicial}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{orientacao.PInicial}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputText  value="#{orientacao.PInicial}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{orientacao.PInicial}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Período Final"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{orientacao.PFinal}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputLabel> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{orientacao.PFinal}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{orientacao.PFinal}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputLabel> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{orientacao.PFinal}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Tipo de Bolsa"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{orientacao.tipoBolsa}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{orientacao.tipoBolsa}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Pontuação"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{orientacao.estrato}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{orientacao.estrato}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor>
-                    </p:column> 
-
-                    <p:column headerText="Editar" style="width:38px">  
-                        <p:rowEditor />  
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{orientacao.estrato}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{orientacao.estrato}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
