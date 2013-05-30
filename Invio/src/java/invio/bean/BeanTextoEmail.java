@@ -14,7 +14,7 @@ public class BeanTextoEmail {
 //                + "Para concluir o processo, insira o código de confirmação abaixo quando for exigido.\n\n"
 //                + "Código de Confirmação: " + login.getCodigoConfirmacao() + "\n\n\n"
                 + "Se você não fez essa solicitação de cadastro no Sistema Invio, por favor desconsidere esse e-mail.\n\n"
-                + "Para mais informações, entre em contato com o atendimento do Sistema Invio, ligando para a PROPED.\n\n\n"
+                + "Para mais informações, entre em contato com o atendimento do Sistema Invio pelo email: pibic@ufra.edu.br.\n\n\n"
                 + "ATENÇÃO: essa mensagem é enviada automaticamente, não responda para este e-mail.";
 
     }

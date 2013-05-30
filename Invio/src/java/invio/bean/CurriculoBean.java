@@ -119,9 +119,9 @@ public class CurriculoBean {
             return null;
         } else {
             if ("Doutorado".equals(curriculo.getTitulacao())) {
-                curriculo.setExtrato(50);
-            } else if ("Mestrado".equals(curriculo.getTitulacao())) {
                 curriculo.setExtrato(30);
+            } else if ("Mestrado".equals(curriculo.getTitulacao())) {
+                curriculo.setExtrato(15);
             }
 
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();
@@ -356,6 +356,12 @@ public class CurriculoBean {
      * @return the curriculo
      */
     public Curriculo getCurriculo() {
+        if (curriculo == null) {
+            Login login = UsuarioUtil.obterUsuarioLogado();
+            if (login != null) {
+                curriculo = login.getCurriculo();
+            }
+        }
         return curriculo;
     }
 
@@ -401,7 +407,7 @@ public class CurriculoBean {
         QualisRN qualisRN = new QualisRN();
         return qualisRN.obterTodosTitulos(query);
     }
-    
+
     public List<Area> completeArea(String query) {
         return areaRN.completeArea(query);
     }

@@ -34,8 +34,8 @@
                     <p:panel header="Dados Pessoais" style="height: 500px">  
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
-                            <h:outputText value="Titulação: *"/>
-                            <p:selectOneMenu style="width: 125px" id="titulacao" required="true" value="#{curriculoBean.curriculo.titulacao}">  
+                            <h:outputText rendered="#{usuarioBean.docente}" value="Titulação: *"/>
+                            <p:selectOneMenu rendered="#{usuarioBean.docente}" style="width: 125px" id="titulacao" required="true" value="#{curriculoBean.curriculo.titulacao}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Doutorado" itemValue="Doutorado" />  
                                 <f:selectItem itemLabel="Mestrado" itemValue="Mestrado" />  
@@ -91,8 +91,8 @@
                             <p:inputText 
                                 id="matricula" 
                                 required="true" 
-                                label="Matricula"  
-                                title="SIAPE para docentes e MATRICULO para discentes"
+                                label="Matricula"
+                                title="SIAPE para Docentes e MATRÍCULA para Discentes."
                                 value="#{curriculoBean.curriculo.matricula}" /> 
                             <p:message id="erroMatricula" for="matricula"/>
 
@@ -105,22 +105,23 @@
                                 value="#{curriculoBean.curriculo.lattes}" /> 
                             <p:message id="erroLattes" for="lattes"/>
 
-                            <h:outputText value="Grupo de Pesquisa: *" />  
-                            <p:inputText 
-                                id="grupoPesq" 
-                                required="true" 
-                                label="GrupoPesq"  
-                                title="Site ou link do grupo de pesquisa"
-                                value="#{curriculoBean.curriculo.grupoPesq}" /> 
+                            <h:outputText rendered="#{usuarioBean.docente}" 
+                                          value="Grupo de Pesquisa (Link): *" />  
+                            <p:inputText rendered="#{usuarioBean.docente}"
+                                         id="grupoPesq" 
+                                         required="true" 
+                                         label="GrupoPesq"  
+                                         value="#{curriculoBean.curriculo.grupoPesq}" /> 
                             <p:message id="erroGrupoPesq" for="grupoPesq"/>
 
 
-                            <h:outputText value="Curso: *"/>
-                            <p:inputText 
-                                id="curso" 
-                                required="true" 
-                                label="Curso"  
-                                value="#{curriculoBean.curriculo.curso}" />
+                            <h:outputText rendered="#{usuarioBean.discente}" 
+                                          value="Curso: *"/>
+                            <p:inputText rendered="#{usuarioBean.discente}"
+                                         id="curso" 
+                                         required="true" 
+                                         label="Curso"  
+                                         value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso"/>
 
                             <h:outputText value="Instituto/Campi: *"/>
@@ -271,13 +272,16 @@
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.lattes}" />  
 
-                            <h:outputText value="Grupo de Pesquisa: " />  
-                            <h:inputText styleClass="outputLabel" 
+                            <h:outputText rendered="#{usuarioBean.docente}" value="Grupo de Pesquisa: " />  
+                            <h:inputText rendered="#{usuarioBean.docente}"
+                                         styleClass="outputLabel" 
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.grupoPesq}" />  
 
-                            <h:outputText value="Curso: " />  
-                            <h:inputText styleClass="outputLabel"  
+                            <h:outputText rendered="#{usuarioBean.discente}" 
+                                          value="Curso: " />  
+                            <h:inputText rendered="#{usuarioBean.discente}" 
+                                         styleClass="outputLabel"  
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.curso}" />  
 
@@ -330,8 +334,10 @@
                             <h:outputText />  
                         </h:panelGrid>  
 
-                        <p:commandButton value="Confimar" ajax="false" update="form"   
-                                         action="#{curriculoBean.salvarCurriculo()}"/>  
+                        <div align="right">
+                            <p:commandButton value="Confimar" ajax="false" update="form"   
+                                             action="#{curriculoBean.salvarCurriculo()}"/> 
+                        </div>
                     </p:panel>  
                 </p:tab>
             </p:wizard>

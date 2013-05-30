@@ -10,6 +10,8 @@
         <p:panel header="Lista de Periódicos">
             <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
+            *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
+
             <h:form id="Periodico" acceptcharset="ISO-8859-1" >  
 
                 <p:messages showDetail="true" showSummary="true"/>  
@@ -41,35 +43,27 @@
                                       id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Volume : " for="volume"/> 
-                        <p:inputText id="Volume" required="false"   
+                        <p:inputText id="volume" required="false"   
                                      value="#{periodicoBean.periodico.volume}" />  
 
                         <h:outputLabel value="DOI: " for="doi"/>  
                         <p:inputText 
-                            id="Doi" 
+                            id="doi" 
                             required="false"
                             maxlength="30"
                             value="#{periodicoBean.periodico.doi}" />  
 
                         <h:outputLabel value="JCR: " for="jcr"/>  
-                        <p:inputText id="Jcr" required="false"
+                        <p:inputText id="jcr" required="false"
                                      value="#{periodicoBean.periodico.jcr}" />  
 
                         <h:outputLabel value="Página Incial: " for="paginaI"/>  
-                        <p:inputText id="PaginaI" required="false" size="2"   
+                        <p:inputText id="paginaI" required="false" size="2"   
                                      value="#{periodicoBean.periodico.paginainicial}" />  
 
                         <h:outputLabel value="Página Final: " for="paginaF"/>  
-                        <p:inputText id="PaginaF" required="false" size="2"   
-                                     value="#{periodicoBean.periodico.paginafinal}" />  
-                        
-                        <h:outputLabel value="Link: " for="link"/>  
-                        <p:inputText 
-                            id="link" 
-                            title="Endereço eletrônico de publicação do artigo"
-                            required="false" 
-                            maxlength="200"
-                            value="#{periodicoBean.periodico.link}" />  
+                        <p:inputText id="paginaF" required="false" size="2"   
+                                     value="#{periodicoBean.periodico.paginafinal}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton 
@@ -91,68 +85,59 @@
                              rowsPerPageTemplate="5,10,15"
                              editable="true">
 
-                    <p:ajax 
-                        event="rowEdit" 
-                        listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
-                        update="periodicosTabela" />  
+                    <!--                    <p:ajax 
+                                            event="rowEdit" 
+                                            listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
+                                            update="periodicosTabela" />  -->
 
                     <p:column headerText="Título"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.titulo}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.titulo}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.titulo}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.titulo}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>  
 
                     <p:column headerText="Autor"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.autores}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.autores}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.autores}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.autores}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Revista"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.revista}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.revista}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.revista}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.revista}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Ano"
                               style="max-width: 65px;min-width: 65px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.ano}">
-                                </h:outputLabel> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputMask mask="9999" value="#{periodico.ano}" style="width: 90%">
-                                </p:inputMask>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.ano}">
+                            </h:outputLabel> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputMask mask="9999" value="#{periodico.ano}" style="width: 90%">
+                            </p:inputMask>
+                        </f:facet> 
                     </p:column>
 
 
@@ -160,75 +145,65 @@
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.volume}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.volume}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.volume}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.volume}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Página Inicial"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.paginainicial}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.paginainicial}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.paginainicial}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.paginainicial}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Página Final"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.paginafinal}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.paginafinal}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.paginafinal}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.paginafinal}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="JCR"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.jcr}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.jcr}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor> 
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.jcr}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.jcr}" style="width: 90%"/>
+                        </f:facet> 
                     </p:column>
 
                     <p:column headerText="Pontuação"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                        <p:cellEditor>
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{periodico.estrato}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{periodico.estrato}" style="width: 90%"/>
-                            </f:facet> 
-                        </p:cellEditor>
-                    </p:column>  
+                        <f:facet name="output">  
+                            <h:outputLabel value="#{periodico.estrato}"/> 
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{periodico.estrato}" style="width: 90%"/>
+                        </f:facet> 
+                        Ï                    </p:column>  
 
-                    <p:column headerText="Editar" style="width:38px">  
-                        <p:rowEditor />  
-                    </p:column>
+                    <!--                    <p:column headerText="Editar" style="width:38px">  
+                                            <p:rowEditor />  
+                                        </p:column>-->
 
                     <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
@@ -244,17 +219,17 @@
 
                     </p:column>
 
-                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">  
-                        <p:commandLink value="Comprovação" ajax="false" update="periodicosTabela"
-                                       action="uploadPeriodico.xhtml">  
-                            <f:setPropertyActionListener 
-                                value="#{periodico}" 
-                                target="#{periodicoBean.periodico}" />
-                        </p:commandLink>
-
-                    </p:column>
+                    <!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
+                                                  overflow: hidden;  max-height: 12px; 
+                                                  min-height: 12px; white-space: pre-line">  
+                                            <p:commandLink value="Comprovação" ajax="false" update="periodicosTabela"
+                                                           action="uploadPeriodico.xhtml">  
+                                                <f:setPropertyActionListener 
+                                                    value="#{periodico}" 
+                                                    target="#{periodicoBean.periodico}" />
+                                            </p:commandLink>
+                    
+                                        </p:column>-->
 
                     <f:facet name="footer">
                         Total em Periódicos: 
