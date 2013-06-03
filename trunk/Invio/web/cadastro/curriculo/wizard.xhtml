@@ -35,7 +35,9 @@
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
                             <h:outputText rendered="#{usuarioBean.docente}" value="Titulação: *"/>
-                            <p:selectOneMenu rendered="#{usuarioBean.docente}" style="width: 125px" id="titulacao" required="true" value="#{curriculoBean.curriculo.titulacao}">  
+                            <p:selectOneMenu rendered="#{usuarioBean.docente}" 
+                                             style="width: 125px" id="titulacao" 
+                                             required="true" value="#{curriculoBean.curriculo.titulacao}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Doutorado" itemValue="Doutorado" />  
                                 <f:selectItem itemLabel="Mestrado" itemValue="Mestrado" />  
@@ -43,6 +45,10 @@
                                 <f:selectItem itemLabel="Graduado" itemValue="Graduado" />  
                             </p:selectOneMenu>
                             <p:message id="erroTitulacao" for="titulacao"/>
+
+                            <h:outputText value="Bolsa de Produtividade CNPq?" />  
+                            <p:selectBooleanCheckbox id="bolsaP" value="#{formBean.value1}" /> 
+                            <p:message id="erroBolsaP" for="bolsaP"/>
 
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  

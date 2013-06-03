@@ -58,8 +58,7 @@
                              value="#{livroBean.livros}" var="livro"
                              emptyMessage="Sem registro para a exibição."
                              paginator="true" rows="5" 
-                             rowsPerPageTemplate="5,10,15"
-                             editable="true" >
+                             rowsPerPageTemplate="5,10,15">
 
 <!--                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
                             update="livrosTabela" />  -->
@@ -68,36 +67,21 @@
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                            <f:facet name="output">  
                                 <h:outputLabel value="#{livro.titulo}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{livro.titulo}" style="width: 90%"/>
-                            </f:facet> 
                     </p:column>  
 
                     <p:column headerText="Autor"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                            <f:facet name="output">  
                                 <h:outputLabel value="#{livro.autor}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{livro.autor}" style="width: 90%"/>
-                            </f:facet> 
                     </p:column>
 
                     <p:column headerText="Capítulo"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                            <f:facet name="output">  
                                 <h:outputLabel value="#{livro.capitulo}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{livro.capitulo}" style="width: 90%"/>
-                            </f:facet> 
                     </p:column>
 
 
@@ -105,38 +89,21 @@
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
-                            <f:facet name="output">  
-                                <h:outputLabel value="#{livro.ano}">
-                                </h:outputLabel> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputMask mask="9999" value="#{livro.ano}" style="width: 90%">
-                                </p:inputMask>
-                            </f:facet> 
+                                <h:outputLabel value="#{livro.ano}"/>
                     </p:column>
 
                     <p:column headerText="ISBN"
                               style="max-width: 110px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                            <f:facet name="output">  
                                 <h:outputLabel value="#{livro.isbn}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{livro.isbn}" style="width: 90%"/>
-                            </f:facet> 
                     </p:column>
 
                     <p:column headerText="Pontuação"
                               style="max-width: 95px;min-width: 95px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
-                            <f:facet name="output">  
                                 <h:outputLabel value="#{livro.estrato}"/> 
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{livro.estrato}" style="width: 90%"/>
-                            </f:facet> 
                     </p:column> 
 
 <!--                    <p:column headerText="Editar" style="width:38px">  
