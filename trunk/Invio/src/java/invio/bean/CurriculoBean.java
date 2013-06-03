@@ -123,6 +123,8 @@ public class CurriculoBean {
                 curriculo.setExtrato(30);
             } else if ("Mestrado".equals(curriculo.getTitulacao())) {
                 curriculo.setExtrato(15);
+            } else {
+                curriculo.setExtrato(0);
             }
 
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();

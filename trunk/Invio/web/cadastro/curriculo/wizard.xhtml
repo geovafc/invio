@@ -46,10 +46,6 @@
                             </p:selectOneMenu>
                             <p:message id="erroTitulacao" for="titulacao"/>
 
-                            <h:outputText value="Bolsa de Produtividade CNPq?" />  
-                            <p:selectBooleanCheckbox id="bolsaP" value="#{formBean.value1}" /> 
-                            <p:message id="erroBolsaP" for="bolsaP"/>
-
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
                                          value="#{curriculoBean.curriculo.nome}" />
@@ -128,13 +124,14 @@
                                          required="true" 
                                          label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
+                            
                             <p:message id="erroCurso" for="curso"/>
-
-                            <h:outputText value="Instituto/Campi: *"/>
-                            <p:inputText id="instituto" required="true" label="instituto"  
-                                         value="#{curriculoBean.curriculo.institutoCampi}" />
-                            <p:message id="erroInstituto" for="instituto"/>
-
+                            <div align="left">
+                                <h:outputText value="Instituto/Campi: *"/>
+                                <p:inputText id="instituto" required="true" label="instituto"  
+                                             value="#{curriculoBean.curriculo.institutoCampi}" />
+                                <p:message id="erroInstituto" for="instituto"/>
+                            </div>
                         </h:panelGrid> 
                     </p:panel>                      
                 </p:tab>  
