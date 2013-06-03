@@ -235,7 +235,7 @@ public class UsuarioBean implements UserDetailsService {
         this.emailJaCadastrado = emailJaCadastrado;
     }
 
-    public String salvar2() {
+    public String salvar2() { //alterar este método. Está sendo chamado no alterar senha.
         if (!loginRN.existe(login.getEmail())) {
             if (!javaMailRN.configurarEnviarEmail(login, "Confirmação de registro "
                     + "de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login))) {
@@ -365,7 +365,17 @@ public class UsuarioBean implements UserDetailsService {
     }
     public boolean isDocente() {
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_DOCENTE") || temp.getDescricao().equals("ROLE_MASTER")) {
+            if (temp.getDescricao().equals("ROLE_DOCENTE") || temp.getDescricao().equals("ROLE_TECNICO") 
+                    || temp.getDescricao().equals("ROLE_MASTER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isTecnico() {
+        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
+            if (temp.getDescricao().equals("ROLE_TECNICO") || temp.getDescricao().equals("ROLE_DOCENTE") 
+                    || temp.getDescricao().equals("ROLE_MASTER")) {
                 return true;
             }
         }

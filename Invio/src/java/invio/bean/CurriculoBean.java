@@ -51,6 +51,7 @@ public class CurriculoBean {
     private Area areaOutra = new Area();
     private boolean exibirOutroArea;
     private Integer totalPontos;
+    private boolean BolsaP;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -259,7 +260,6 @@ public class CurriculoBean {
 
             if (orientacoes != null) {
                 for (Orientacao orientacaoTemp : orientacoes) {
-
                     totalPontos += orientacaoTemp.getEstrato();
                 }
             }
@@ -351,6 +351,19 @@ public class CurriculoBean {
         getCurriculo().getArea().getProgramaList().add(programa);
         curriculoRN.salvar(getCurriculo());
     }
+
+    //Bolsa de Produtividade do CNPq
+//    public boolean isBolsaP() {
+//        return BolsaP;
+//    }
+//
+//    public void setBolsaP(boolean BolsaP) {
+//        if (BolsaP == true) {
+//            curriculo.setBolsaProdutividade(30);
+//        }
+//        this.BolsaP = BolsaP;
+//    }
+    //Bolsa de Produtividade do CNPq
 
     /**
      * @return the curriculo
