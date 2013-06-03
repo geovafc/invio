@@ -56,13 +56,11 @@ and open the template in the editor.
                          emptyMessage="Sem registro para a exibição.">
 
                 <p:column headerText="Título" > 
-                    <h:outputLabel style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line" value="#{periodico.titulo}" /> 
+                    <h:outputLabel style="width: 85%" value="#{periodico.titulo}" /> 
                 </p:column>  
 
                 <p:column headerText="Revista" > 
-                    <h:outputLabel value="#{periodico.revista}" />
+                    <h:outputLabel style="width: 85%" value="#{periodico.revista}" />
                 </p:column>  
 
                 <p:column headerText="Pontuação" > 
