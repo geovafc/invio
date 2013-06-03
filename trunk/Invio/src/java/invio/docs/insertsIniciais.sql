@@ -2,6 +2,7 @@ INSERT INTO perfil (descricao) VALUES ('ROLE_MASTER');
 INSERT INTO perfil (descricao) VALUES ('ROLE_ADMINISTRACAO');
 INSERT INTO perfil (descricao) VALUES ('ROLE_DOCENTE');
 INSERT INTO perfil (descricao) VALUES ('ROLE_DISCENTE');
+INSERT INTO perfil (descricao) VALUES ('ROLE_TECNICO');
 
 INSERT INTO `instituicao` (`id`, `nome`, `sigla`) VALUES
 (1, 'Universidade Federal Rural da Amazônia', 'UFRA');
