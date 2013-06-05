@@ -10,35 +10,30 @@
     </h:head>
     <h:body>
         <p:layout fullPage="true">
-            
+
             <p:layoutUnit position="north" size="94"
                           resizable="false" 
                           closable="false" 
                           collapsible="false">
-                
+
                 <ui:insert name="header">
                     <ui:include src="../include/topo.xhtml"/>
                 </ui:insert>
-                
+
             </p:layoutUnit>
 
             <p:layoutUnit position="center" size="750">
-                
+
                 <ui:insert name="content">
                     Conteudo
                 </ui:insert>
-                
+
+                <div align="right" id="creditos">
+                    <h:graphicImage library="imagem" name="creditosBpmLab.png"/>
+                </div>
+
             </p:layoutUnit>
-            
-            <p:layoutUnit position="south" size="50">
-                
-                <ui:insert name="bottom">
-                    <div align="center">
-                    © 2012 BPM Lab . Todos os direitos reservados.
-                    </div>
-                </ui:insert>
-                
-            </p:layoutUnit>
+
 
         </p:layout>
     </h:body>

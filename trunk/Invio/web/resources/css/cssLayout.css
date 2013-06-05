@@ -52,6 +52,13 @@
   text-decoration: none;
 }
 
+#creditos{
+    position: absolute;
+    top: 50%;
+    margin-top:-160px;
+    right: 1px;
+}
+
 #top a:link:hover, #top a:visited:hover  {
   color: black;
   font-weight : bold;
