@@ -55,15 +55,15 @@ and open the template in the editor.
                          var="periodico" value="#{periodicoBean.periodicos}" 
                          emptyMessage="Sem registro para a exibição.">
 
-                <p:column headerText="Título" > 
-                    <h:outputLabel style="width: 85%" value="#{periodico.titulo}" /> 
+                <p:column headerText="Título" width="45%" > 
+                    <h:outputLabel value="#{periodico.titulo}" /> 
                 </p:column>  
 
-                <p:column headerText="Revista" > 
-                    <h:outputLabel style="width: 85%" value="#{periodico.revista}" />
+                <p:column headerText="Revista" width="45%"> 
+                    <h:outputLabel value="#{periodico.revista}" />
                 </p:column>  
 
-                <p:column headerText="Pontuação" > 
+                <p:column headerText="Pontuação" width="10%" > 
                     <h:outputLabel value="#{periodico.estrato}" />  
                 </p:column> 
 
