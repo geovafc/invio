@@ -44,7 +44,7 @@
                                 <f:selectItem itemLabel="Especialista" itemValue="Especialista" />  
                                 <f:selectItem itemLabel="Graduado" itemValue="Graduado" />  
                             </p:selectOneMenu>
-                            <p:message id="erroTitulacao" for="titulacao"/>
+                            <p:message id="erroTitulacao" for="titulacao" rendered="#{usuarioBean.docente}"/>
 
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
@@ -114,7 +114,7 @@
                                          required="true" 
                                          label="GrupoPesq"  
                                          value="#{curriculoBean.curriculo.grupoPesq}" /> 
-                            <p:message id="erroGrupoPesq" for="grupoPesq"/>
+                            <p:message id="erroGrupoPesq" for="grupoPesq" rendered="#{usuarioBean.docente}"/>
 
 
                             <h:outputText rendered="#{usuarioBean.discente}" 
@@ -124,14 +124,13 @@
                                          required="true" 
                                          label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
+                            <p:message id="erroCurso" for="curso" rendered="#{usuarioBean.discente}"/>
                             
-                            <p:message id="erroCurso" for="curso"/>
-                            <div align="left">
-                                <h:outputText value="Instituto/Campi: *"/>
-                                <p:inputText id="instituto" required="true" label="instituto"  
-                                             value="#{curriculoBean.curriculo.institutoCampi}" />
-                                <p:message id="erroInstituto" for="instituto"/>
-                            </div>
+                            <h:outputText value="Instituto/Campi: *"/>
+                            <p:inputText id="instituto" required="true" label="instituto"  
+                                         value="#{curriculoBean.curriculo.institutoCampi}" />
+                            <p:message id="erroInstituto" for="instituto"/>
+                            
                         </h:panelGrid> 
                     </p:panel>                      
                 </p:tab>  

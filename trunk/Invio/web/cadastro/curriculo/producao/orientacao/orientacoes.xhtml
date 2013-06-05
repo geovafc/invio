@@ -44,7 +44,7 @@
                             <f:selectItem itemLabel="Outro" itemValue="Outro" />  
                         </p:selectOneMenu>
 
-                        <h:outputText value="Período Inicial : *" />
+                        <h:outputText value="Período Inicial :" />
                         <p:calendar 
                             value="#{orientacaoBean.orientacao.PInicial}" 
                             navigator="true" 
@@ -86,14 +86,14 @@
                                             update="orientacoesTabela" />  -->
 
                     <p:column headerText="Bolsista"
-                              style="max-width: 110px;min-width: 110px; 
+                              style="max-width: 250px;min-width: 110px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
                             <h:outputLabel value="#{orientacao.aluno}"/> 
                     </p:column>
 
                     <p:column headerText="Período Inicial"
-                              style="max-width: 110px;min-width: 110px; 
+                              style="max-width: 50px;min-width: 45px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
                             <h:outputText  value="#{orientacao.PInicial}">
@@ -102,7 +102,7 @@
                     </p:column>
 
                     <p:column headerText="Período Final"
-                              style="max-width: 110px;min-width: 110px; 
+                              style="max-width: 80px;min-width: 55px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line"> 
                             <h:outputLabel value="#{orientacao.PFinal}">
@@ -116,9 +116,9 @@
                               min-height: 12px; white-space: pre-line"> 
                             <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
                     </p:column>
-
+                    
                     <p:column headerText="Pontuação"
-                              style="max-width: 95px;min-width: 95px; 
+                              style="max-width: 70px;min-width: 30px; 
                               overflow: hidden;  max-height: 12px; 
                               min-height: 12px; white-space: pre-line">
                             <h:outputLabel value="#{orientacao.estrato}"/> 

@@ -17,7 +17,7 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
     
     public List<Orientacao> obterOrientacoes(Curriculo curriculo) {
         String consulta = "select o from Orientacao o "
-                + "where o.curriculo = :curriculo";
+                + "where o.curriculo = :curriculo ORDER BY o.pFinal desc";
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Orientacao> orientacoes = query.getResultList();

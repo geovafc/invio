@@ -205,8 +205,8 @@ public class UsuarioBean implements UserDetailsService {
 
                 pagina2 = "/loginInicio.xhtml";
                 //login = null;
-                BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                        "Quando for realizado o login será solicitado o código.");
+                BeanUtil.criarMensagemDeAviso("Sua inscrição no Sistema foi realizada com sucesso.",
+                        "");
                 configurarLimparSessao();
             }
         }

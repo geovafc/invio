@@ -9,7 +9,7 @@ public class PeriodicoDAO extends GenericDAO<Periodico> {
 
     public List<Periodico> obterPeriodicos(Curriculo curriculo) {
         String consulta = "select o from Periodico o "
-                + "where o.curriculo = :curriculo";
+                + "where o.curriculo = :curriculo ORDER BY o.ano desc";
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Periodico> periodicos = query.getResultList();
