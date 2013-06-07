@@ -20,8 +20,11 @@ import invio.rn.PeriodicoRN;
 import invio.rn.PlanoRN;
 import invio.rn.pdf.QualisRN;
 import invio.util.UploadArquivo;
+import invio.util.relatorio.Relatorio;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -165,10 +168,13 @@ public class CurriculoBean {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        if (event.getOldStep().equals("areaCurriculo")
+    
+        if (event.getOldStep()
+                .equals("areaCurriculo")
                 && curriculo.getArea() != null) {
             return "confirm";
-        } else if (event.getOldStep().equals("areaOutroCurriculo")
+        } else if (event.getOldStep()
+                .equals("areaOutroCurriculo")
                 && curriculo.getArea() != null) {
             return "confirm";
         } else {
@@ -366,7 +372,6 @@ public class CurriculoBean {
 //        this.BolsaP = BolsaP;
 //    }
     //Bolsa de Produtividade do CNPq
-
     /**
      * @return the curriculo
      */
@@ -425,5 +430,17 @@ public class CurriculoBean {
 
     public List<Area> completeArea(String query) {
         return areaRN.completeArea(query);
+    }
+
+    public void gerarFCO() {
+
+        String path = "/core/report/fco.jasper";
+
+        List<Curriculo> dataSource = new ArrayList<Curriculo>();
+        Curriculo curriculoR = new Curriculo();
+        dataSource.add(curriculoR);
+
+        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome());
+
     }
 }
