@@ -126,7 +126,6 @@ public class UsuarioBean implements UserDetailsService {
         logins = loginRN.obterTodos();
         boolean loginEncontrado = false;
         String pagina = "";
-        setCpfLoginTemp(getCpfLoginTemp());
         for (Login loginTemp : logins) {
 
             if (loginTemp.getEmail().equals(login.getEmail())) {
@@ -136,38 +135,30 @@ public class UsuarioBean implements UserDetailsService {
 
                 if (loginEncontrado == true) {
 
-                    if (getCpfLoginTemp().equals(getCpfLogin())) {
-
-                        login = loginTemp;
-                        boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
-                                BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
+                    login = loginTemp;
+                    boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
+                            BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
 
 
-                        if (falhaAoEnviarEmail == true) {
-                            pagina = "/loginInicio.xhtml";
-                            BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                                    "Não foi possível enviar o e-mail de recuperação de senha, tente mais tarde.");
-                            javaMailRN = new JavaMailRN();
-                        } else {
-                            pagina = "/loginInicio.xhtml";
-                            BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
-                            configurarLimparSessao();
-
-                        }
-
+                    if (falhaAoEnviarEmail == true) {
+                        pagina = "/loginInicio.xhtml";
+                        BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                                "Não foi possível enviar o e-mail de recuperação de senha, tente novamente mais tarde.");
+                        javaMailRN = new JavaMailRN();
                     } else {
-                        BeanUtil.criarMensagemDeAviso("O CPF inserido não foi encontrado, ",
-                                "ele pode está incorreto.");
+                        pagina = "/loginInicio.xhtml";
+                        BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
+                        configurarLimparSessao();
+
                     }
                 }
             }
         }
         if (loginEncontrado != true) {
             pagina = "/publico/login/recuperarSenha.xhtml";
-            BeanUtil.criarMensagemDeAviso("O E-mail inserido não foi encontrado, ",
-                    "ele pode está incorreto.");
+            BeanUtil.criarMensagemDeAviso("O E-mail inserido não foi encontrado.",
+                    "Tente novamente.");
         }
-
         return pagina;
     }
 
@@ -355,6 +346,7 @@ public class UsuarioBean implements UserDetailsService {
         }
         return false;
     }
+
     public boolean isDiscente() {
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
             if (temp.getDescricao().equals("ROLE_DISCENTE") || temp.getDescricao().equals("ROLE_MASTER")) {
@@ -363,18 +355,20 @@ public class UsuarioBean implements UserDetailsService {
         }
         return false;
     }
+
     public boolean isDocente() {
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_DOCENTE") || temp.getDescricao().equals("ROLE_TECNICO") 
+            if (temp.getDescricao().equals("ROLE_DOCENTE") || temp.getDescricao().equals("ROLE_TECNICO")
                     || temp.getDescricao().equals("ROLE_MASTER")) {
                 return true;
             }
         }
         return false;
     }
+
     public boolean isTecnico() {
         for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_TECNICO") || temp.getDescricao().equals("ROLE_DOCENTE") 
+            if (temp.getDescricao().equals("ROLE_TECNICO") || temp.getDescricao().equals("ROLE_DOCENTE")
                     || temp.getDescricao().equals("ROLE_MASTER")) {
                 return true;
             }

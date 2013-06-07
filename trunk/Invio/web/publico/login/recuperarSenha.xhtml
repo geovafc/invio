@@ -21,10 +21,6 @@
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
 
 
-                        <h:outputText id="cpfLabel" value="CPF:"/>
-                        <p:inputMask id="cpf" required="true" label="Cpf"
-                                     value="#{usuarioBean.cpfLoginTemp}" mask="999.999.999-99"/>
-
                         <p:commandButton value="Enviar" 
                                          ajax="false" 
                                          action="#{usuarioBean.recuperarSenha()}"/>

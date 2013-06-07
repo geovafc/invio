@@ -12,8 +12,6 @@
             <p:panel header="Lista de Currículos">
                 <p:growl showDetail="true" showSummary="true"/>
 
-                <p:commandButton value="Novo" ajax="false" action="#{curriculoBean.novoFormularioCurriculo()}"/>
-
                 <p:dataTable 
                     id="dtCurriculo"
                     var="curriculo" value="#{curriculoBean.curriculos}"
@@ -68,7 +66,18 @@
                                 <f:setPropertyActionListener 
                                     value="#{curriculo}" 
                                     target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton>      
+                            </p:commandButton>   
+
+                            <p:commandLink 
+                                ajax="false"
+                                action="#{curriculoBean.gerarFCO()}"
+                                target="_blank"
+                                title="Crach&aacute;">  
+                                <h:graphicImage library="imagem" name="printer24.png"/>
+                                <f:setPropertyActionListener 
+                                    value="#{curriculo}" 
+                                    target="#{curriculoBean.curriculo}" />
+                            </p:commandLink>
                         </div>
                     </p:column>
 
