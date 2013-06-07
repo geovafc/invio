@@ -24,7 +24,7 @@ public class BeanTextoEmail {
                 + "Recebemos sua solicitação de recuperação de senha de acesso. \n\n"
                 + "Sua senha é: " + senha + "\n\n"
                 + "Se você não fez essa solicitação ao sistema Invio, por favor desconsidere esse e-mail.\n\n"
-                + "Para mais informações, entre em contato com o atendimento Invio.\n\n\n"
+                + "Para mais informações, entre em contato com o atendimento do Sistema Invio pelo email: pibic@ufra.edu.br.\n\n\n"
                 + "ATENÇÃO: essa mensagem é enviada automaticamente, não responda para este e-mail.";
     }
 
