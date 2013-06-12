@@ -168,7 +168,7 @@ public class CurriculoBean {
     }
 
     public String onFlowProcess(FlowEvent event) {
-    
+
         if (event.getOldStep()
                 .equals("areaCurriculo")
                 && curriculo.getArea() != null) {
@@ -199,9 +199,9 @@ public class CurriculoBean {
 
     public String meuCurriculo() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
-        Curriculo curriculo = usuarioLogado.getCurriculo();
-        if (curriculo != null) {
-            setCurriculo(curriculo);
+        Curriculo curriculoWiz = usuarioLogado.getCurriculo();
+        if (curriculoWiz != null) {
+            setCurriculo(curriculoWiz);
         } else {
             setCurriculo(new Curriculo());
         }
@@ -243,7 +243,7 @@ public class CurriculoBean {
     public Integer getTotalPontos() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         curriculo = usuarioLogado.getCurriculo();
-
+        
         if (curriculo != null
                 && curriculo.getId() != null) {
             totalPontos = 0;
@@ -272,6 +272,13 @@ public class CurriculoBean {
                 }
             }
         }
+        curriculo.setFco(totalPontos);
+
+        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
+        loginLogado.setCurriculo(curriculo);
+
+        loginRN.salvar(loginLogado);
+        curriculoRN.salvar(curriculo);
         return totalPontos;
     }
 
@@ -318,7 +325,13 @@ public class CurriculoBean {
         for (Orientacao orientacaoAtual : orientacoes) {
             orientacaoRN.salvar(orientacaoAtual);
         }
+        curriculo.setFco(totalPontos);
 
+        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
+        loginLogado.setCurriculo(curriculo);
+
+        loginRN.salvar(loginLogado);
+        curriculoRN.salvar(curriculo);
         return "/admin/listarCurriculoAv.xhtml";
     }
 
@@ -435,9 +448,8 @@ public class CurriculoBean {
     public void gerarFCO() {
 
         String path = "/core/report/fco.jasper";
-
         List<Curriculo> dataSource = new ArrayList<Curriculo>();
-        Curriculo curriculoR = new Curriculo();
+        Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
         dataSource.add(curriculoR);
 
         Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome());
