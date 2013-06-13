@@ -62,9 +62,9 @@ public class LivroBean {
                     "Preencha o campo Título.");
         } else if (livro.getTipoLivro() != 30 && livro.getTipoLivro() != 10) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar Livro.", "Selecione o campo Autor ou Editor.");
-        } else if (livro.getAutor() == null) {
+        } else if (livro.getAutor() == null || livro.getAutor().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar Livro.", "Preencha o campo Autor.");
-        } else if (livro.getAno() == null) {
+        } else if (livro.getAno() == null || livro.getAno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar Livro.", "Preencha o campo Ano de Publicação.");
         } else {
 
