@@ -69,12 +69,12 @@ public class OrientacaoBean {
         if (orientacao.getAluno() == null
                 || orientacao.getAluno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
-                    "Preencha o campo Bolsista.");
+                    "Preencha o campo Nome Bolsista.");
             return null;
-        } else if (orientacao.getTipoBolsa() == null
+        } else if (orientacao.getPFinal() == null
                 || orientacao.getTipoBolsa().trim().equals("")) {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar o Tipo de Bolsa.",
-                    "Preencha o campo Tipo de Bolsa.");
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
+                    "Preencha o campo Período Final.");
             return null;
         } else {
             orientacao.setCurriculo(curriculo);
