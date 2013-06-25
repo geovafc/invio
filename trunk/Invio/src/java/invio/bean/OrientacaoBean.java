@@ -24,11 +24,18 @@ public class OrientacaoBean {
 
     private Orientacao orientacao = new Orientacao();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
+    private List<Orientacao> orientacoesAvaliado;
+    public Integer estratoTemp;
 
-    /**
-     * Creates a new instance of OrientacaoBean
-     */
     public OrientacaoBean() {
+    }
+
+    public Integer getEstratoTemp() {
+        return estratoTemp;
+    }
+
+    public void setEstratoTemp(Integer estratoTemp) {
+        this.estratoTemp = estratoTemp;
     }
 
     public Orientacao getOrientacao() {
@@ -54,6 +61,41 @@ public class OrientacaoBean {
         return total;
     }
 
+    public List<Orientacao> getOrientacoesAvaliado(Curriculo Curriculo) {
+        if (orientacoesAvaliado == null) {
+            orientacoesAvaliado = orientacaoRN.obterTodosAvaliado(Curriculo);
+        }
+        return orientacoesAvaliado;
+    }
+
+    public List<Orientacao> getOrientacoesParaAvaliar(Curriculo Curriculo) {
+        if (orientacoesAvaliado == null) {
+            orientacoesAvaliado = orientacaoRN.obterTodosParaAvaliar(Curriculo);
+        }
+        return orientacoesAvaliado;
+    }
+
+    public String avaliarOrientacao() {
+        if (orientacao.getEstrato().equals(getEstratoTemp())) {
+            orientacao.setAvaliacao("Avaliado");
+        } else if (orientacao.getEstrato() < getEstratoTemp()) {
+            orientacao.setAvaliacao("Avaliado c/ Diferenças");
+        } else if (orientacao.getEstrato() > getEstratoTemp()) {
+            orientacao.setAvaliacao("Recusado pelo Comitê");
+        }
+        Curriculo curriculo = orientacao.getCurriculo();
+        orientacao.setCurriculo(curriculo);
+        if (orientacaoRN.salvar(orientacao)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "A orientação " + orientacao.getAluno() + " foi avaliada.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao avaliar a orientação: ", "" + orientacao.getAluno());
+        }
+        orientacao = new Orientacao();
+        return null;
+    }
+
     public String salvarOrientacao() {
         //TODO Extrato é com X
         Login login = UsuarioUtil.obterUsuarioLogado();
@@ -66,16 +108,26 @@ public class OrientacaoBean {
         } else {
             orientacao.setEstrato(2);
         }
-        if (orientacao.getAluno() == null
+        if (curriculo == null) {
+            BeanUtil.criarMensagemDeErro("Você ainda não possui Currículo",
+                    "Por favor preencha seu currículo em 'Meu Currículo' -> 'Meu Perfil'");
+        } else if (orientacao.getAluno() == null
                 || orientacao.getAluno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
                     "Preencha o campo Nome Bolsista.");
             return null;
-        } else if (orientacao.getPFinal() == null
-                || orientacao.getTipoBolsa().trim().equals("")) {
+        } else if (orientacao.getPFinal() == null) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
                     "Preencha o campo Período Final.");
             return null;
+        } else if (orientacao.getTipoOrientacao() != 8 && orientacao.getTipoOrientacao() != 4
+                && orientacao.getTipoOrientacao() != 2) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
+                    "Selecione o campo Tipo de Orientação.");
+        } else if (orientacao.getTipoBolsa() == null
+                || orientacao.getTipoBolsa().trim().equals("")) {
+            BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
+                    "Selecione o Tipo de Bolsa.");
         } else {
             orientacao.setCurriculo(curriculo);
             if (orientacaoRN.salvar(orientacao)) {

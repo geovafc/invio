@@ -26,8 +26,18 @@ public class LivroBean {
     private UploadArquivo fileUpload = new UploadArquivo();
     Livro livro = new Livro();
     LivroRN livroRN = new LivroRN();
+    private List<Livro> livrosAvaliado;
+    public Integer estratoTemp;
 
     public LivroBean() {
+    }
+
+    public Integer getEstratoTemp() {
+        return estratoTemp;
+    }
+
+    public void setEstratoTemp(Integer estratoTemp) {
+        this.estratoTemp = estratoTemp;
     }
 
     public Livro getLivro() {
@@ -52,11 +62,48 @@ public class LivroBean {
         return total;
     }
 
+    public List<Livro> getLivrosAvaliado(Curriculo Curriculo) {
+        if (livrosAvaliado == null) {
+            livrosAvaliado = livroRN.obterTodosAvaliado(Curriculo);
+        }
+        return livrosAvaliado;
+    }
+
+    public List<Livro> getLivrosParaAvaliar(Curriculo Curriculo) {
+        if (livrosAvaliado == null) {
+            livrosAvaliado = livroRN.obterTodosParaAvaliar(Curriculo);
+        }
+        return livrosAvaliado;
+    }
+
+    public String avaliarLivro() {
+        if (livro.getEstrato().equals(getEstratoTemp())) {
+            livro.setAvaliacao("Avaliado");
+        } else if (livro.getEstrato() < getEstratoTemp()) {
+            livro.setAvaliacao("Avaliado c/ Diferenças");
+        } else if (livro.getEstrato() > getEstratoTemp()) {
+            livro.setAvaliacao("Recusado pelo Comitê");
+        }
+        Curriculo curriculo = livro.getCurriculo();
+        livro.setCurriculo(curriculo);
+        if (livroRN.salvar(livro)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "O Livro " + livro.getTitulo() + " foi avaliado.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao avaliar o livro: ", "" + livro.getTitulo());
+        }
+        return null;
+    }
+
     public String salvarLivro() {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
 
-        if (livro.getTitulo() == null
+        if (curriculo == null) {
+            BeanUtil.criarMensagemDeErro("Você ainda não possui Currículo",
+                    "Por favor preencha seu currículo em 'Meu Currículo' -> 'Meu Perfil'");
+        } else if (livro.getTitulo() == null
                 || livro.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar Livro.",
                     "Preencha o campo Título.");

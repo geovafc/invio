@@ -15,4 +15,16 @@ public class PeriodicoDAO extends GenericDAO<Periodico> {
         List<Periodico> periodicos = query.getResultList();
         return periodicos;
     }
+    
+    public List<Periodico> obterPeriodicos(Curriculo curriculo, 
+            boolean avaliado) {
+        String consulta = "select o from Periodico o "
+                + "where o.curriculo = :curriculo and "
+                + (avaliado?"not(o.avaliacao is null) ":"o.avaliacao is null ")
+                + "ORDER BY o.ano desc";
+        Query query = getEntityManager().createQuery(consulta);
+        query.setParameter("curriculo", curriculo);
+        List<Periodico> periodicos = query.getResultList();
+        return periodicos;
+    }
 }

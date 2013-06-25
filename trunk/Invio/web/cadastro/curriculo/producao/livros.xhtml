@@ -25,22 +25,32 @@
 
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText id="Titulo"   
-                                     value="#{livroBean.livro.titulo}" required="false"/>  
+                                     maxlength="350"
+                                     required="false"
+                                     value="#{livroBean.livro.titulo}" />  
 
                         <h:outputLabel value="Autor : *" />  
-                        <p:inputText id="Autor" required="false"   
+                        <p:inputText id="Autor" 
+                                     maxlength="350"
+                                     required="false"   
                                      value="#{livroBean.livro.autor}" />  
 
                         <h:outputLabel value="Ano Publicação : *" />  
-                        <p:inputMask id="anoPublicacao" required="false"  mask="9999" 
+                        <p:inputMask id="anoPublicacao"
+                                     mask="9999" 
+                                     required="false"  
                                      value="#{livroBean.livro.ano}" />
 
                         <h:outputLabel value="Capítulo : " />  
-                        <p:inputText id="Capitulo" required="false"   
+                        <p:inputText id="Capitulo" 
+                                     maxlength="100"
+                                     required="false"   
                                      value="#{livroBean.livro.capitulo}" />
 
                         <h:outputLabel value="ISBN : " />  
-                        <p:inputText id="Isbn" required="false"   
+                        <p:inputText id="Isbn" 
+                                     maxlength="45"
+                                     required="false"   
                                      value="#{livroBean.livro.isbn}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  

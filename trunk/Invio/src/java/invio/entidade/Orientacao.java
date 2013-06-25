@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author fabio
+ * @author soranso
  */
 @Entity
 @Table(name = "orientacao")
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Orientacao.findByPFinal", query = "SELECT o FROM Orientacao o WHERE o.pFinal = :pFinal"),
     @NamedQuery(name = "Orientacao.findByTipoOrientacao", query = "SELECT o FROM Orientacao o WHERE o.tipoOrientacao = :tipoOrientacao"),
     @NamedQuery(name = "Orientacao.findByTipoBolsa", query = "SELECT o FROM Orientacao o WHERE o.tipoBolsa = :tipoBolsa"),
-    @NamedQuery(name = "Orientacao.findByEstrato", query = "SELECT o FROM Orientacao o WHERE o.estrato = :estrato")})
+    @NamedQuery(name = "Orientacao.findByEstrato", query = "SELECT o FROM Orientacao o WHERE o.estrato = :estrato"),
+    @NamedQuery(name = "Orientacao.findByAvaliacao", query = "SELECT o FROM Orientacao o WHERE o.avaliacao = :avaliacao")})
 public class Orientacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,7 +48,6 @@ public class Orientacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "aluno")
     private String aluno;
-    @Basic(optional = false)
     @Column(name = "p_inicial")
     @Temporal(TemporalType.DATE)
     private Date pInicial;
@@ -63,6 +63,8 @@ public class Orientacao implements Serializable {
     private String tipoBolsa;
     @Column(name = "estrato")
     private Integer estrato;
+    @Column(name = "avaliacao")
+    private String avaliacao;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculo;
@@ -74,10 +76,9 @@ public class Orientacao implements Serializable {
         this.id = id;
     }
 
-    public Orientacao(Integer id, String aluno, Date pInicial, Date pFinal, int tipoOrientacao, String tipoBolsa) {
+    public Orientacao(Integer id, String aluno, Date pFinal, int tipoOrientacao, String tipoBolsa) {
         this.id = id;
         this.aluno = aluno;
-        this.pInicial = pInicial;
         this.pFinal = pFinal;
         this.tipoOrientacao = tipoOrientacao;
         this.tipoBolsa = tipoBolsa;
@@ -137,6 +138,14 @@ public class Orientacao implements Serializable {
 
     public void setEstrato(Integer estrato) {
         this.estrato = estrato;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
     public Curriculo getCurriculo() {

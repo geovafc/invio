@@ -15,4 +15,15 @@ public class LivroDAO extends GenericDAO<Livro> {
         List<Livro> livros = query.getResultList();
         return livros;
     }
+    public List<Livro> obterLivros(Curriculo curriculo,
+            boolean avaliado) {
+        String consulta = "select o from Livro o "
+                + "where o.curriculo = :curriculo and "
+                + (avaliado?"not(o.avaliacao is null) ":"o.avaliacao is null ")
+                + "ORDER BY o.ano desc";
+        Query query = getEntityManager().createQuery(consulta);
+        query.setParameter("curriculo", curriculo);
+        List<Livro> livros = query.getResultList();
+        return livros;
+    }
 }

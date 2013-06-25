@@ -73,8 +73,6 @@ public class CurriculoBean {
     }
 
     public List<Curriculo> getCurriculosDesc() {
-        //TODO Para que isso?!!!
-
         curriculos = curriculoRN.obterTodosDesc();
         return curriculosDesc;
     }
@@ -208,34 +206,33 @@ public class CurriculoBean {
         return "/cadastro/curriculo/wizard.xhtml";
     }
 
-    public String altualizarPontos() {
-        if (curriculo != null) {
-
-            totalPontos = 0;
-
-            List<Livro> livros = curriculo.getLivroList();
-            List<Periodico> periodicos = curriculo.getPeriodicoList();
-            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
-
-            for (Livro livroTemp : livros) {
-                totalPontos = totalPontos + livroTemp.getEstrato();
-            }
-
-            for (Periodico periodicoTemp : periodicos) {
-                totalPontos = totalPontos + periodicoTemp.getEstrato();
-
-            }
-
-            for (Orientacao orientacaoTemp : orientacoes) {
-
-                totalPontos = totalPontos + orientacaoTemp.getEstrato();
-            }
-
-        }
-        return "/admin/listarProducao.xhtml";
-
-    }
-
+//    public String altualizarPontos() {
+//        if (curriculo != null) {
+//
+//            totalPontos = 0;
+//
+//            List<Livro> livros = curriculo.getLivroList();
+//            List<Periodico> periodicos = curriculo.getPeriodicoList();
+//            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
+//
+//            for (Livro livroTemp : livros) {
+//                totalPontos = totalPontos + livroTemp.getEstrato();
+//            }
+//
+//            for (Periodico periodicoTemp : periodicos) {
+//                totalPontos = totalPontos + periodicoTemp.getEstrato();
+//
+//            }
+//
+//            for (Orientacao orientacaoTemp : orientacoes) {
+//
+//                totalPontos = totalPontos + orientacaoTemp.getEstrato();
+//            }
+//
+//        }
+//        return "/admin/listarProducao.xhtml";
+//
+//    }
     public String totalFCO() {
         return "/cadastro/curriculo/fco.xhtml";
     }
@@ -243,7 +240,7 @@ public class CurriculoBean {
     public Integer getTotalPontos() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         curriculo = usuarioLogado.getCurriculo();
-        
+
         if (curriculo != null
                 && curriculo.getId() != null) {
             totalPontos = 0;
@@ -390,9 +387,9 @@ public class CurriculoBean {
      */
     public Curriculo getCurriculo() {
         if (curriculo == null) {
-            Login login = UsuarioUtil.obterUsuarioLogado();
-            if (login != null) {
-                curriculo = login.getCurriculo();
+            Login loginLog = UsuarioUtil.obterUsuarioLogado();
+            if (loginLog != null) {
+                curriculo = loginLog.getCurriculo();
             }
         }
         return curriculo;
@@ -453,6 +450,15 @@ public class CurriculoBean {
         dataSource.add(curriculoR);
 
         Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome());
+    }
 
+    public void gerarListaDocentes() {
+
+        String path = "/relatorio/crachaCredenciado.jasper";
+        List<Curriculo> dataSource = new ArrayList<Curriculo>();
+        Curriculo curriculoR = new Curriculo();
+        dataSource.add(curriculoR);
+
+        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome());
     }
 }
