@@ -38,9 +38,16 @@ public class OrientacaoRN {
     public List<Orientacao> obterTodos() {
         return dao.obterTodos(Orientacao.class);
     }
+
+    public List<Orientacao> obterTodosAvaliado(Curriculo curriculo) {
+        return dao.obterOrientacoes(curriculo, true);
+    }
     
+    public List<Orientacao> obterTodosParaAvaliar(Curriculo curriculo) {
+        return dao.obterOrientacoes(curriculo, false);
+    }
+
     public List<Orientacao> obterOrientacoes(Curriculo curriculo) {
         return dao.obterOrientacoes(curriculo);
     }
-    
 }

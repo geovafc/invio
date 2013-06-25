@@ -22,12 +22,14 @@
                         <h:outputLabel value="Autor(es) : *" />  
                         <p:inputText 
                             id="Autor"
+                            maxlength="400"
                             required="false"   
                             value="#{periodicoBean.periodico.autores}" />  
 
                         <h:outputLabel value="Título : *"/> 
                         <p:inputText 
                             id="Titulo"  
+                            maxlength="400"
                             value="#{periodicoBean.periodico.titulo}" 
                             required="false"/>  
 
@@ -43,7 +45,9 @@
                                       id="DataPublicacao" required="false"/>
 
                         <h:outputLabel value="Volume : " for="volume"/> 
-                        <p:inputText id="volume" required="false"   
+                        <p:inputText id="volume" 
+                                     maxlength="45"
+                                     required="false"   
                                      value="#{periodicoBean.periodico.volume}" />  
 
                         <h:outputLabel value="DOI: " for="doi"/>  
@@ -54,15 +58,23 @@
                             value="#{periodicoBean.periodico.doi}" />  
 
                         <h:outputLabel value="JCR: " for="jcr"/>  
-                        <p:inputText id="jcr" required="false"
+                        <p:inputText id="jcr" 
+                                     maxlength="200"
+                                     required="false"
                                      value="#{periodicoBean.periodico.jcr}" />  
 
                         <h:outputLabel value="Página Incial: " for="paginaI"/>  
-                        <p:inputText id="paginaI" required="false" size="2"   
+                        <p:inputText id="paginaI" 
+                                     maxlength="11"
+                                     required="false" 
+                                     size="2"   
                                      value="#{periodicoBean.periodico.paginainicial}" />  
 
                         <h:outputLabel value="Página Final: " for="paginaF"/>  
-                        <p:inputText id="paginaF" required="false" size="2"   
+                        <p:inputText id="paginaF" 
+                                     maxlength="11"
+                                     required="false" 
+                                     size="2"   
                                      value="#{periodicoBean.periodico.paginafinal}" />
 
                         <p:commandButton value="Limpar" type="reset"/>  

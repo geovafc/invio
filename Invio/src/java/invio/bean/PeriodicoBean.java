@@ -27,8 +27,18 @@ public class PeriodicoBean {
     private UploadArquivo fileUpload = new UploadArquivo();
     private Periodico periodico = new Periodico();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
+    private List<Periodico> periodicosAvaliado;
+    public Integer estratoTemp;
 
     public PeriodicoBean() {
+    }
+
+    public Integer getEstratoTemp() {
+        return estratoTemp;
+    }
+
+    public void setEstratoTemp(Integer estratoTemp) {
+        this.estratoTemp = estratoTemp;
     }
 
     public Periodico getPeriodico() {
@@ -46,31 +56,68 @@ public class PeriodicoBean {
 
     public int getTotal() {
         int total = 0;
-        
+
         for (Periodico p : getPeriodicos()) {
             total += p.getEstrato();
         }
-        
+
         return total;
     }
 
+    public List<Periodico> getPeriodicosAvaliado(Curriculo Curriculo) {
+        if (periodicosAvaliado == null) {
+            periodicosAvaliado = periodicoRN.obterTodosAvaliado(Curriculo);
+        }
+        return periodicosAvaliado;
+    }
+
+    public List<Periodico> getPeriodicosParaAvaliar(Curriculo Curriculo) {
+        if (periodicosAvaliado == null) {
+            periodicosAvaliado = periodicoRN.obterTodosParaAvaliar(Curriculo);
+        }
+        return periodicosAvaliado;
+    }
+
+    public String avaliarPeriodico() {
+
+        if (periodico.getEstrato().equals(getEstratoTemp())) {
+            periodico.setAvaliacao("Avaliado");
+        } else if (periodico.getEstrato() < getEstratoTemp()) {
+            periodico.setAvaliacao("Avaliado c/ Diferenças");
+        } else if (periodico.getEstrato() > getEstratoTemp()) {
+            periodico.setAvaliacao("Recusado pelo Comitê");
+        }
+        Curriculo curriculo = periodico.getCurriculo();
+        periodico.setCurriculo(curriculo);
+        if (periodicoRN.salvar(periodico)) {
+            BeanUtil.criarMensagemDeInformacao(
+                    "Operação realizada com sucesso",
+                    "O periódico " + periodico.getTitulo() + " foi avaliado.");
+        } else {
+            BeanUtil.criarMensagemDeErro("Erro ao avaliar o periódico: ", "" + periodico.getTitulo());
+        }
+        return null;
+    }
 
     public String salvarPeriodico() {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
-        if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
+        if (curriculo == null) {
+            BeanUtil.criarMensagemDeErro("Você ainda não possui Currículo",
+                    "Por favor preencha seu currículo em 'Meu Currículo' -> 'Meu Perfil'");
+        } else if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro ao salvar o Periódico.", 
+                    "Erro ao salvar o Periódico.",
                     "Preencha o campo Título.");
             return null;
         } else if (periodico.getAutores() == null || periodico.getAutores().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro ao salvar o Periódico.", 
+                    "Erro ao salvar o Periódico.",
                     "Preencha o campo Autor.");
             return null;
         } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro ao salvar o Periódico.", 
+                    "Erro ao salvar o Periódico.",
                     "Preencha o campo Ano Publicação.");
             return null;
         } else {
