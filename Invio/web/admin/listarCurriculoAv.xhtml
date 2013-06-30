@@ -29,11 +29,13 @@
                         <div align="center">
                             <p:commandButton 
                                 value="Avaliar"
-                                action="/admin/listarAvaliar.xhtml" >
+                                action="#{avaliacaoBean.pagListarAvaliar()}" >
+                                <f:setPropertyActionListener value="#{acurriculo}" target="#{avaliacaoBean.curriculo}"/>
                             </p:commandButton>  
                             <p:commandButton 
                                 value="Avaliado"
-                                action="/admin/listarAvaliado.xhtml" >
+                                action="#{avaliacaoBean.pagListarAvaliado()}" >
+                                <f:setPropertyActionListener value="#{acurriculo}" target="#{avaliacaoBean.curriculo}"/>
                             </p:commandButton>  
                         </div>
                     </p:column> 

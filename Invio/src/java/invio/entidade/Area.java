@@ -42,9 +42,9 @@ public class Area implements Serializable {
     @Column(name = "nome")
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
-    private List<Programa> programaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
     private List<Curriculo> curriculoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
+    private List<Programa> programaList;
 
     public Area() {
     }
@@ -75,21 +75,21 @@ public class Area implements Serializable {
     }
 
     @XmlTransient
-    public List<Programa> getProgramaList() {
-        return programaList;
-    }
-
-    public void setProgramaList(List<Programa> programaList) {
-        this.programaList = programaList;
-    }
-
-    @XmlTransient
     public List<Curriculo> getCurriculoList() {
         return curriculoList;
     }
 
     public void setCurriculoList(List<Curriculo> curriculoList) {
         this.curriculoList = curriculoList;
+    }
+
+    @XmlTransient
+    public List<Programa> getProgramaList() {
+        return programaList;
+    }
+
+    public void setProgramaList(List<Programa> programaList) {
+        this.programaList = programaList;
     }
 
     @Override

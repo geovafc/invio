@@ -24,7 +24,6 @@ import invio.util.relatorio.Relatorio;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -54,7 +53,6 @@ public class CurriculoBean {
     private Area areaOutra = new Area();
     private boolean exibirOutroArea;
     private Integer totalPontos;
-    private boolean BolsaP;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -233,7 +231,46 @@ public class CurriculoBean {
 //        return "/admin/listarProducao.xhtml";
 //
 //    }
+    
     public String totalFCO() {
+        Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
+        curriculo = usuarioLogado.getCurriculo();
+
+        if (curriculo != null
+                && curriculo.getId() != null) {
+            totalPontos = 0;
+            totalPontos += (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
+
+            List<Livro> livros = curriculo.getLivroList();
+            List<Periodico> periodicos = curriculo.getPeriodicoList();
+            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
+
+            if (livros != null) {
+                for (Livro l : livros) {
+                    totalPontos += l.getEstrato();
+                }
+            }
+
+            if (periodicos != null) {
+                for (Periodico p : periodicos) {
+                    totalPontos += p.getEstrato();
+
+                }
+            }
+
+            if (orientacoes != null) {
+                for (Orientacao orientacaoTemp : orientacoes) {
+                    totalPontos += orientacaoTemp.getEstrato();
+                }
+            }
+        }
+        curriculo.setFco(totalPontos);
+
+        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
+        loginLogado.setCurriculo(curriculo);
+
+        loginRN.salvar(loginLogado);
+        curriculoRN.salvar(curriculo);
         return "/cadastro/curriculo/fco.xhtml";
     }
 

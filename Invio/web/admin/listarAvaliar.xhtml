@@ -14,7 +14,7 @@
                 <p:growl showDetail="true" showSummary="true"/>
 
                 <p:dataTable id="listaPeriodicosA"
-                             var="lperiodico" value="#{periodicoBean.getPeriodicosParaAvaliar(Curriculo)}" 
+                             var="lperiodico" value="#{avaliacaoBean.getPeriodicosParaAvaliar(Curriculo)}" 
                              emptyMessage="Sem registro para a exibição.">
 
                     <f:facet name="header">
@@ -52,7 +52,7 @@
                         <div align="center">
                             <p:commandButton
                                 value="OK"
-                                action="#{periodicoBean.avaliarPeriodico()}" >
+                                action="#{avaliacaoBean.avaliarPeriodico()}" >
                             </p:commandButton>
                         </div>
                     </p:column>
@@ -62,7 +62,7 @@
 
             <p:panel id="panelLivro">
                 <p:dataTable id="listaLivros"
-                             var="lislivro" value="#{livroBean.getLivrosParaAvaliar(Curriculo)}" 
+                             var="lislivro" value="#{avaliacaoBean.getLivrosParaAvaliar(Curriculo)}" 
                              emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="header">
@@ -87,7 +87,7 @@
                     </p:column>
                     <p:column headerText="Pontuação Comitê">
                         <div align="center">
-                            <p:selectOneMenu value="#{livroBean.estratoTemp}">  
+                            <p:selectOneMenu value="#{avaliacaoBean.estratoTemp}">  
                                 <f:selectItem itemLabel="30" itemValue="30" />  
                                 <f:selectItem itemLabel="20" itemValue="20" />  
                                 <f:selectItem itemLabel="10" itemValue="10" />
@@ -100,7 +100,7 @@
                         <div align="center">
                             <p:commandButton
                                 value="OK"
-                                action="#{livroBean.avaliarLivro()}" >
+                                action="#{avaliacaoBean.avaliarLivro()}" >
                             </p:commandButton>
                         </div>
                     </p:column>
@@ -110,7 +110,7 @@
 
             <p:panel id="panelOrientacao">
                 <p:dataTable id="listaOrientacao"
-                             var="lisorientacao" value="#{orientacaoBean.getOrientacoesParaAvaliar(Curriculo)}" 
+                             var="lisorientacao" value="#{avaliacaoBean.getOrientacoesParaAvaliar(Curriculo)}" 
                              emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="header">
@@ -146,7 +146,7 @@
                         <div align="center">
                             <p:commandButton
                                 value="OK"
-                                action="#{orientacaoBean.avaliarOrientacao()}" >
+                                action="#{avaliacaoBean.avaliarOrientacao()}" >
                             </p:commandButton>
                         </div>
                     </p:column>

@@ -128,14 +128,16 @@ public class Curriculo implements Serializable {
     private List<Periodico> periodicoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Orientacao> orientacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
-    private List<Livro> livroList;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne
     private Instituicao instituicao;
     @JoinColumn(name = "area", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Area area;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
+    private List<Frequencia> frequenciaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Livro> livroList;
     @OneToMany(mappedBy = "curriculo")
     private List<Login> loginList;
 
@@ -373,15 +375,6 @@ public class Curriculo implements Serializable {
         this.orientacaoList = orientacaoList;
     }
 
-    @XmlTransient
-    public List<Livro> getLivroList() {
-        return livroList;
-    }
-
-    public void setLivroList(List<Livro> livroList) {
-        this.livroList = livroList;
-    }
-
     public Instituicao getInstituicao() {
         return instituicao;
     }
@@ -396,6 +389,24 @@ public class Curriculo implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    @XmlTransient
+    public List<Frequencia> getFrequenciaList() {
+        return frequenciaList;
+    }
+
+    public void setFrequenciaList(List<Frequencia> frequenciaList) {
+        this.frequenciaList = frequenciaList;
+    }
+
+    @XmlTransient
+    public List<Livro> getLivroList() {
+        return livroList;
+    }
+
+    public void setLivroList(List<Livro> livroList) {
+        this.livroList = livroList;
     }
 
     @XmlTransient

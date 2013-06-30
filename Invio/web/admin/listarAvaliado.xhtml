@@ -14,7 +14,7 @@
                 <p:growl showDetail="true" showSummary="true"/>
 
                 <p:dataTable id="listaPeriodicosA"
-                             var="lperiodico" value="#{periodicoBean.getPeriodicosAvaliado(Curriculo)}" 
+                             var="lperiodico" value="#{avaliacaoBean.getPeriodicosAvaliado(Curriculo)}" 
                              emptyMessage="Sem registro para a exibição.">
 
                     <f:facet name="header">
@@ -39,7 +39,7 @@
 
             <p:panel id="panelLivroA">
                 <p:dataTable id="listaLivros"
-                             var="lislivro" value="#{livroBean.getLivrosAvaliado(Curriculo)}" 
+                             var="lislivro" value="#{avaliacaoBean.getLivrosAvaliado(Curriculo)}" 
                              emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="header">
@@ -67,7 +67,7 @@
 
             <p:panel id="panelOrientacaoA">
                 <p:dataTable id="listaOrientacao"
-                             var="lisorientacao" value="#{orientacaoBean.getOrientacoesAvaliado(Curriculo)}" 
+                             var="lisorientacao" value="#{avaliacaoBean.getOrientacoesAvaliado(Curriculo)}" 
                              emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="header">
