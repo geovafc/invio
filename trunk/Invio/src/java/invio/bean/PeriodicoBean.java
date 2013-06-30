@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package invio.bean;
 
 import invio.bean.util.BeanUtil;
@@ -27,18 +23,9 @@ public class PeriodicoBean {
     private UploadArquivo fileUpload = new UploadArquivo();
     private Periodico periodico = new Periodico();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
-    private List<Periodico> periodicosAvaliado;
     public Integer estratoTemp;
 
     public PeriodicoBean() {
-    }
-
-    public Integer getEstratoTemp() {
-        return estratoTemp;
-    }
-
-    public void setEstratoTemp(Integer estratoTemp) {
-        this.estratoTemp = estratoTemp;
     }
 
     public Periodico getPeriodico() {
@@ -62,41 +49,6 @@ public class PeriodicoBean {
         }
 
         return total;
-    }
-
-    public List<Periodico> getPeriodicosAvaliado(Curriculo Curriculo) {
-        if (periodicosAvaliado == null) {
-            periodicosAvaliado = periodicoRN.obterTodosAvaliado(Curriculo);
-        }
-        return periodicosAvaliado;
-    }
-
-    public List<Periodico> getPeriodicosParaAvaliar(Curriculo Curriculo) {
-        if (periodicosAvaliado == null) {
-            periodicosAvaliado = periodicoRN.obterTodosParaAvaliar(Curriculo);
-        }
-        return periodicosAvaliado;
-    }
-
-    public String avaliarPeriodico() {
-
-        if (periodico.getEstrato().equals(getEstratoTemp())) {
-            periodico.setAvaliacao("Avaliado");
-        } else if (periodico.getEstrato() < getEstratoTemp()) {
-            periodico.setAvaliacao("Avaliado c/ Diferenças");
-        } else if (periodico.getEstrato() > getEstratoTemp()) {
-            periodico.setAvaliacao("Recusado pelo Comitê");
-        }
-        Curriculo curriculo = periodico.getCurriculo();
-        periodico.setCurriculo(curriculo);
-        if (periodicoRN.salvar(periodico)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "O periódico " + periodico.getTitulo() + " foi avaliado.");
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao avaliar o periódico: ", "" + periodico.getTitulo());
-        }
-        return null;
     }
 
     public String salvarPeriodico() {

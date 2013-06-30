@@ -58,11 +58,11 @@ public class PeriodicoRN {
     }
     
     public List<Periodico> obterTodosAvaliado(Curriculo curriculo) {
-        return periodicoDAO.obterPeriodicos(curriculo, true);
+        return periodicoDAO.obterPeriodicos2(curriculo, true);
     }
     
     public List<Periodico> obterTodosParaAvaliar(Curriculo curriculo) {
-        return periodicoDAO.obterPeriodicos(curriculo, false);
+        return periodicoDAO.obterPeriodicos2(curriculo, false);
     }
 
     public List<Periodico> obterPeriodicos(Curriculo curriculo) {

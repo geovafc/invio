@@ -16,6 +16,8 @@ import javax.persistence.Query;
  */
 public class OrientacaoDAO extends GenericDAO<Orientacao> {
     
+    GenericDAO<Orientacao> genericDAO = new GenericDAO<Orientacao>();
+    
     public List<Orientacao> obterOrientacoes(Curriculo curriculo) {
         String consulta = "select o from Orientacao o "
                 + "where o.curriculo = :curriculo ORDER BY o.pFinal desc";
@@ -33,6 +35,19 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Orientacao> orientacoes = query.getResultList();
+        return orientacoes;
+    }
+    
+     public List<Orientacao> obterOrientacoes2(Curriculo curriculo,
+            boolean avaliado) {
+        String consulta2 = "select o from Orientacao o where o.curriculo=" + curriculo.getId() + " ";
+
+        if (avaliado == true) {
+            consulta2 += "and NOT (o.avaliacao IS NULL)";
+        } else {
+            consulta2 += "and o.avaliacao IS NULL";
+        }
+        List<Orientacao> orientacoes = genericDAO.getEntityManager().createQuery(consulta2).getResultList();
         return orientacoes;
     }
     

@@ -332,6 +332,25 @@ CREATE  TABLE IF NOT EXISTS `invio`.`orientacao` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `invio`.`frequencia`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`frequencia` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `mes` VARCHAR(45) NOT NULL ,
+  `dataUpload` DATETIME NULL ,
+  `localArquivo` VARCHAR(255) NULL ,
+  `curriculo_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_frequencia_curriculo1_idx` (`curriculo_id` ASC) ,
+  CONSTRAINT `fk_frequencia_curriculo1`
+    FOREIGN KEY (`curriculo_id` )
+    REFERENCES `invio`.`curriculo` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `invio` ;
 
 

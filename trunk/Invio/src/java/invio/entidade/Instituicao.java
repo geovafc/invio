@@ -45,12 +45,12 @@ public class Instituicao implements Serializable {
     @Basic(optional = false)
     @Column(name = "sigla")
     private String sigla;
+    @OneToMany(mappedBy = "instituicao")
+    private List<Curriculo> curriculoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Programa> programaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Edital> editalList;
-    @OneToMany(mappedBy = "instituicao")
-    private List<Curriculo> curriculoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Unidade> unidadeList;
 
@@ -92,6 +92,15 @@ public class Instituicao implements Serializable {
     }
 
     @XmlTransient
+    public List<Curriculo> getCurriculoList() {
+        return curriculoList;
+    }
+
+    public void setCurriculoList(List<Curriculo> curriculoList) {
+        this.curriculoList = curriculoList;
+    }
+
+    @XmlTransient
     public List<Programa> getProgramaList() {
         return programaList;
     }
@@ -107,15 +116,6 @@ public class Instituicao implements Serializable {
 
     public void setEditalList(List<Edital> editalList) {
         this.editalList = editalList;
-    }
-
-    @XmlTransient
-    public List<Curriculo> getCurriculoList() {
-        return curriculoList;
-    }
-
-    public void setCurriculoList(List<Curriculo> curriculoList) {
-        this.curriculoList = curriculoList;
     }
 
     @XmlTransient

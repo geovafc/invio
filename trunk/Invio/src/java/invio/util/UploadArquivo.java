@@ -5,8 +5,8 @@
 package invio.util;
 
 import invio.entidade.Curriculo;
+import invio.entidade.Frequencia;
 import invio.entidade.Livro;
-import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
 import java.io.File;
@@ -72,6 +72,15 @@ public class UploadArquivo {
             InputStream stream) {
         String nomeDoArquivo = livro.getId() + livro.getTitulo()+"."+ tipo;
         upload(curriculo, ConfiguracaoUtil.TipoProducao.LIVROS, nomeDoArquivo, stream);
+        return nomeDoArquivo;
+    }
+    
+    public String uploadFrequencia(Curriculo curriculo, 
+            Frequencia frequencia, 
+            String tipo, 
+            InputStream stream) {
+        String nomeDoArquivo = frequencia.getId() + frequencia.getMes()+"."+ tipo;
+        upload(curriculo, ConfiguracaoUtil.TipoProducao.FREQUENCIAS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
 

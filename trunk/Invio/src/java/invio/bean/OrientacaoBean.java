@@ -24,18 +24,8 @@ public class OrientacaoBean {
 
     private Orientacao orientacao = new Orientacao();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
-    private List<Orientacao> orientacoesAvaliado;
-    public Integer estratoTemp;
 
     public OrientacaoBean() {
-    }
-
-    public Integer getEstratoTemp() {
-        return estratoTemp;
-    }
-
-    public void setEstratoTemp(Integer estratoTemp) {
-        this.estratoTemp = estratoTemp;
     }
 
     public Orientacao getOrientacao() {
@@ -59,41 +49,6 @@ public class OrientacaoBean {
         }
 
         return total;
-    }
-
-    public List<Orientacao> getOrientacoesAvaliado(Curriculo Curriculo) {
-        if (orientacoesAvaliado == null) {
-            orientacoesAvaliado = orientacaoRN.obterTodosAvaliado(Curriculo);
-        }
-        return orientacoesAvaliado;
-    }
-
-    public List<Orientacao> getOrientacoesParaAvaliar(Curriculo Curriculo) {
-        if (orientacoesAvaliado == null) {
-            orientacoesAvaliado = orientacaoRN.obterTodosParaAvaliar(Curriculo);
-        }
-        return orientacoesAvaliado;
-    }
-
-    public String avaliarOrientacao() {
-        if (orientacao.getEstrato().equals(getEstratoTemp())) {
-            orientacao.setAvaliacao("Avaliado");
-        } else if (orientacao.getEstrato() < getEstratoTemp()) {
-            orientacao.setAvaliacao("Avaliado c/ Diferenças");
-        } else if (orientacao.getEstrato() > getEstratoTemp()) {
-            orientacao.setAvaliacao("Recusado pelo Comitê");
-        }
-        Curriculo curriculo = orientacao.getCurriculo();
-        orientacao.setCurriculo(curriculo);
-        if (orientacaoRN.salvar(orientacao)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "A orientação " + orientacao.getAluno() + " foi avaliada.");
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao avaliar a orientação: ", "" + orientacao.getAluno());
-        }
-        orientacao = new Orientacao();
-        return null;
     }
 
     public String salvarOrientacao() {

@@ -3,18 +3,19 @@
   <persistence-unit name="InvioPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>invio.entidade.Orientacao</class>
-    <class>invio.entidade.Curriculo</class>
-    <class>invio.entidade.Programa</class>
-    <class>invio.entidade.Login</class>
-    <class>invio.entidade.Plano</class>
     <class>invio.entidade.Livro</class>
-    <class>invio.entidade.Area</class>
-    <class>invio.entidade.Perfil</class>
-    <class>invio.entidade.Qualis</class>
     <class>invio.entidade.Instituicao</class>
-    <class>invio.entidade.Unidade</class>
+    <class>invio.entidade.Frequencia</class>
+    <class>invio.entidade.Programa</class>
+    <class>invio.entidade.Perfil</class>
+    <class>invio.entidade.Plano</class>
     <class>invio.entidade.Edital</class>
+    <class>invio.entidade.Unidade</class>
+    <class>invio.entidade.Login</class>
+    <class>invio.entidade.Area</class>
     <class>invio.entidade.Periodico</class>
+    <class>invio.entidade.Qualis</class>
+    <class>invio.entidade.Curriculo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/invio?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="inviousr"/>

@@ -42,11 +42,11 @@ public class LivroRN {
     }
 
     public List<Livro> obterTodosAvaliado(Curriculo curriculo) {
-        return livroDAO.obterLivros(curriculo, true);
+        return livroDAO.obterLivros2(curriculo, true);
     }
     
     public List<Livro> obterTodosParaAvaliar(Curriculo curriculo) {
-        return livroDAO.obterLivros(curriculo, false);
+        return livroDAO.obterLivros2(curriculo, false);
     }
 
     public List<Livro> obterLivros(Curriculo curriculo) {
