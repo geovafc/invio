@@ -23,13 +23,23 @@
                         <p:selectOneMenu id="tipo" value="#{relatorioBean.relatorio.tipo}">  
                             <f:selectItem itemLabel="Relatório Final" itemValue="RF" />  
                             <f:selectItem itemLabel="Relatório Parcial" itemValue="RP" />  
-                        </p:selectOneMenu>>  
+                        </p:selectOneMenu>
 
-                        <h:outputLabel value="Mês: *"/> 
-                        <p:inputText id="Mes"   
-                                     maxlength="350"
-                                     required="false"
-                                     value="#{relatorioBean.relatorio.mes}" />  
+                        <h:outputLabel value="Mês Frequência: *"/> 
+                        <p:selectOneMenu value="#{relatorioBean.relatorio.mes}" >
+                            <f:selectItem itemValue="JANEIRO" itemLabel="JANEIRO"/>
+                            <f:selectItem itemValue="FEVEREIRO" itemLabel="FEVEREIRO"/>
+                            <f:selectItem itemValue="MARÇO" itemLabel="MARÇO"/>
+                            <f:selectItem itemValue="ABRIL" itemLabel="ABRIL"/>
+                            <f:selectItem itemValue="MAIO" itemLabel="MAIO"/>
+                            <f:selectItem itemValue="JUNHO" itemLabel="JUNHO"/>
+                            <f:selectItem itemValue="JULHO" itemLabel="JULHO"/>
+                            <f:selectItem itemValue="AGOSTO" itemLabel="AGOSTO"/>
+                            <f:selectItem itemValue="SETEMBRO" itemLabel="SETEMBRO"/>
+                            <f:selectItem itemValue="OUTUBRO" itemLabel="OUTUBRO"/>
+                            <f:selectItem itemValue="NOVEMBRO" itemLabel="NOVEMBRO"/>
+                            <f:selectItem itemValue="DEZEMBRO" itemLabel="DEZEMBRO"/>
+                        </p:selectOneMenu>
 
                         <p:commandButton value="Limpar" type="reset"/>  
                         <p:commandButton id="btn_add" 

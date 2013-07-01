@@ -55,9 +55,10 @@ public class AvaliacaoBean {
 
         if (periodico.getEstrato().equals(getEstratoTemp())) {
             periodico.setAvaliacao("Avaliado");
-        } else if (periodico.getEstrato() < getEstratoTemp()) {
+        } else if (periodico.getEstrato() < getEstratoTemp() || 
+                periodico.getEstrato() > getEstratoTemp()) {
             periodico.setAvaliacao("Avaliado c/ Diferenças");
-        } else if (periodico.getEstrato() > getEstratoTemp()) {
+        } else if (periodico.getEstrato().equals(getEstratoTemp().equals(0))){
             periodico.setAvaliacao("Recusado pelo Comitê");
         }
         Curriculo curriculo = periodico.getCurriculo();
@@ -71,6 +72,7 @@ public class AvaliacaoBean {
         }
         return null;
     }
+    
     //Fim de periódicos lista e avaliação
     //Início Livro lista e avaliação
     public List<Livro> getLivrosAvaliado(Curriculo Curriculo) {

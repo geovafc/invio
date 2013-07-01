@@ -68,12 +68,13 @@
                             action="/admin/usuarios/listarUsuarios.xhtml"/>
 
                 <p:menuitem 
+                    rendered="#{usuarioBean.administracao}"
                     value="Avaliar Produção"  ajax="false"
                     icon="ui-icon-arrowrefresh-1-w"
                     action="/admin/listarCurriculoAv.xhtml"/>
                 <p:submenu
                     style="width: 100%; height: 100%"
-                    rendered="#{usuarioBean.master}"
+                    rendered="#{usuarioBean.administracao}"
                     label="Cadastros" 
                     icon="ui-icon-refresh"> 
                     <p:menuitem
@@ -98,11 +99,17 @@
                         icon="ui-icon-contact"
                         action="#{curriculoBean.meuCurriculo}"/> 
                     <p:menuitem 
-                        rendered="#{usuarioBean.docente}"
+                        rendered="#{usuarioBean.discente}"
                         value="Frequências" 
                         title="Lista de frequências"
                         icon="ui-icon-document"
-                        action="/frequencia/listaFrequencias.xhtml"/>
+                        action="/documentacao/listaFrequencias.xhtml"/>
+                    <p:menuitem 
+                        rendered="#{usuarioBean.discente}"
+                        value="Relatórios" 
+                        title="Lista de relatórios finais e parciais."
+                        icon="ui-icon-document"
+                        action="/documentacao/listaRelatorios.xhtml"/>
                     <p:menuitem 
                         rendered="#{usuarioBean.docente}"
                         value="Periódicos" 
