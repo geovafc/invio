@@ -26,21 +26,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author soranso
  */
 @Entity
-@Table(name = "frequencia")
+@Table(name = "relatorio")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Frequencia.findAll", query = "SELECT f FROM Frequencia f"),
-    @NamedQuery(name = "Frequencia.findById", query = "SELECT f FROM Frequencia f WHERE f.id = :id"),
-    @NamedQuery(name = "Frequencia.findByMes", query = "SELECT f FROM Frequencia f WHERE f.mes = :mes"),
-    @NamedQuery(name = "Frequencia.findByDataUpload", query = "SELECT f FROM Frequencia f WHERE f.dataUpload = :dataUpload"),
-    @NamedQuery(name = "Frequencia.findByLocalArquivo", query = "SELECT f FROM Frequencia f WHERE f.localArquivo = :localArquivo")})
-public class Frequencia implements Serializable {
+    @NamedQuery(name = "Relatorio.findAll", query = "SELECT r FROM Relatorio r"),
+    @NamedQuery(name = "Relatorio.findById", query = "SELECT r FROM Relatorio r WHERE r.id = :id"),
+    @NamedQuery(name = "Relatorio.findByTipo", query = "SELECT r FROM Relatorio r WHERE r.tipo = :tipo"),
+    @NamedQuery(name = "Relatorio.findByMes", query = "SELECT r FROM Relatorio r WHERE r.mes = :mes"),
+    @NamedQuery(name = "Relatorio.findByDataUpload", query = "SELECT r FROM Relatorio r WHERE r.dataUpload = :dataUpload"),
+    @NamedQuery(name = "Relatorio.findByLocalArquivo", query = "SELECT r FROM Relatorio r WHERE r.localArquivo = :localArquivo")})
+public class Relatorio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "tipo")
+    private String tipo;
     @Basic(optional = false)
     @Column(name = "mes")
     private String mes;
@@ -53,15 +57,16 @@ public class Frequencia implements Serializable {
     @ManyToOne(optional = false)
     private Curriculo curriculo;
 
-    public Frequencia() {
+    public Relatorio() {
     }
 
-    public Frequencia(Integer id) {
+    public Relatorio(Integer id) {
         this.id = id;
     }
 
-    public Frequencia(Integer id, String mes) {
+    public Relatorio(Integer id, String tipo, String mes) {
         this.id = id;
+        this.tipo = tipo;
         this.mes = mes;
     }
 
@@ -71,6 +76,14 @@ public class Frequencia implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getMes() {
@@ -115,10 +128,10 @@ public class Frequencia implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Frequencia)) {
+        if (!(object instanceof Relatorio)) {
             return false;
         }
-        Frequencia other = (Frequencia) object;
+        Relatorio other = (Relatorio) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -127,7 +140,7 @@ public class Frequencia implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Frequencia[ id=" + id + " ]";
+        return "invio.entidade.Relatorio[ id=" + id + " ]";
     }
     
 }
