@@ -74,15 +74,12 @@ public class QualisRN {
                 }
 
                 if (j == (tamanhaLista - 1) || i == PARAR) {
-
-
                     if (!dao.concluirTransacao()) {
                         System.out.println("Não foi possível concluir Transação");
 
                         System.out.println("- Registro: " + qualis.getQualisPK().getIssn() + " " + qualis.getQualisPK().getTitulo()
                                 + " " + qualis.getEstrato() + " " + qualis.getQualisPK().getAreaAvaliacao()
                                 + " " + qualis.getStatus());
-
                         return registros;
                     } else {
                         registros += i;
