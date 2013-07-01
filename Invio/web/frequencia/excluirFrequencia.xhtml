@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../../template/templatePadrao.xhtml"
+                template="./../template/templatePadrao.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -13,7 +13,7 @@
                 value="#{curriculoBean.curriculo}" 
                 converter="curriculoConversor"/>
             
-            <h:inputHidden value="#{livroBean.livro}"
+            <h:inputHidden value="#{frequenciaBean.frequencia}"
                            converter="livroConversor"/>
             
             
@@ -24,22 +24,22 @@
                 style="margin:0 auto;">  
 
                 <f:facet name="header">
-                    <h:outputText value="Deseja realmente Exluir Livro?"/>
+                    <h:outputText value="Deseja realmente Exluir a Frequência?"/>
                 </f:facet>
                 
                 <h:outputText value="Título:" />  
-                <h:outputText value="#{livroBean.livro.titulo}" 
+                <h:outputText value="#{frequenciaBean.frequencia.mes}" 
                               style="font-weight:bold"/>  
 
                 <p:commandButton 
-                    action="#{livroBean.excluirLivro()}" 
+                    action="#{frequenciaBean.excluirFrequencia()}" 
                     ajax="false"
                     value="Sim" />
 
                 <p:commandButton 
                     value="Não" 
                     ajax="false"
-                    action="livros.xhtml"/>
+                    action="listaFrequencias.xhtml"/>
 
             </h:panelGrid> 
 
