@@ -341,11 +341,31 @@ CREATE  TABLE IF NOT EXISTS `invio`.`frequencia` (
   `mes` VARCHAR(45) NOT NULL ,
   `dataUpload` DATETIME NULL ,
   `localArquivo` VARCHAR(255) NULL ,
-  `curriculo_id` INT(11) NOT NULL ,
+  `curriculo` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_frequencia_curriculo1_idx` (`curriculo_id` ASC) ,
+  INDEX `fk_frequencia_curriculo1_idx` (`curriculo` ASC) ,
   CONSTRAINT `fk_frequencia_curriculo1`
-    FOREIGN KEY (`curriculo_id` )
+    FOREIGN KEY (`curriculo` )
+    REFERENCES `invio`.`curriculo` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `invio`.`relatorio`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `invio`.`relatorio` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `tipo` VARCHAR(80) NOT NULL COMMENT '\'RF - Relatório Final || RP - Relatório Parcial\'' ,
+  `mes` VARCHAR(45) NOT NULL ,
+  `dataUpload` DATETIME NULL ,
+  `localArquivo` VARCHAR(45) NULL ,
+  `curriculo` INT(11) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_relatorio_curriculo1_idx` (`curriculo` ASC) ,
+  CONSTRAINT `fk_relatorio_curriculo1`
+    FOREIGN KEY (`curriculo` )
     REFERENCES `invio`.`curriculo` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

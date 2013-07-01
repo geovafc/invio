@@ -134,7 +134,9 @@ public class Curriculo implements Serializable {
     @JoinColumn(name = "area", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Area area;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Relatorio> relatorioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Frequencia> frequenciaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Livro> livroList;
@@ -389,6 +391,15 @@ public class Curriculo implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    @XmlTransient
+    public List<Relatorio> getRelatorioList() {
+        return relatorioList;
+    }
+
+    public void setRelatorioList(List<Relatorio> relatorioList) {
+        this.relatorioList = relatorioList;
     }
 
     @XmlTransient

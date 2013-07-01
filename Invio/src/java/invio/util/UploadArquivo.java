@@ -9,6 +9,7 @@ import invio.entidade.Frequencia;
 import invio.entidade.Livro;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
+import invio.entidade.Relatorio;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -81,6 +82,15 @@ public class UploadArquivo {
             InputStream stream) {
         String nomeDoArquivo = frequencia.getId() + frequencia.getMes()+"."+ tipo;
         upload(curriculo, ConfiguracaoUtil.TipoProducao.FREQUENCIAS, nomeDoArquivo, stream);
+        return nomeDoArquivo;
+    }
+    
+    public String uploadRelatorio(Curriculo curriculo, 
+            Relatorio relatorio, 
+            String tipo, 
+            InputStream stream) {
+        String nomeDoArquivo = relatorio.getId() + relatorio.getMes()+"."+ tipo;
+        upload(curriculo, ConfiguracaoUtil.TipoProducao.RELATORIOS, nomeDoArquivo, stream);
         return nomeDoArquivo;
     }
 

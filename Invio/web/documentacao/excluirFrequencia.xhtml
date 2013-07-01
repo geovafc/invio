@@ -14,7 +14,7 @@
                 converter="curriculoConversor"/>
             
             <h:inputHidden value="#{frequenciaBean.frequencia}"
-                           converter="livroConversor"/>
+                           converter="frequenciaConversor"/>
             
             
             <h:panelGrid 
@@ -27,7 +27,7 @@
                     <h:outputText value="Deseja realmente Exluir a Frequência?"/>
                 </f:facet>
                 
-                <h:outputText value="Título:" />  
+                <h:outputText value="Mês:" />  
                 <h:outputText value="#{frequenciaBean.frequencia.mes}" 
                               style="font-weight:bold"/>  
 

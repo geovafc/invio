@@ -41,7 +41,7 @@ public class FrequenciaBean {
     }
     
     public String voltarListaFrequencia(){
-        return "/frequencias/listaFrequencias.xhtml";
+        return "/documentacao/listaFrequencias.xhtml";
     }
 
     public String salvarFrequencia() {
@@ -56,7 +56,7 @@ public class FrequenciaBean {
             BeanUtil.criarMensagemDeErro("Erro ao salvar Frequencia.",
                     "Preencha o campo Mês.");
         }
-        frequencia.setCurriculoId(curriculo);
+        frequencia.setCurriculo(curriculo);
         if (frequenciaRN.salvar(frequencia)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
@@ -76,7 +76,7 @@ public class FrequenciaBean {
         }
 
         frequencia = new Frequencia();
-        return "frequencias.xhtml";
+        return "listaFrequencias.xhtml";
     }
 
     public void uploadActionFrequencia(FileUploadEvent event) {
