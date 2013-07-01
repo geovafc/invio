@@ -9,9 +9,9 @@ public class FrequenciaDAO extends GenericDAO<Frequencia> {
 
     GenericDAO<Frequencia> genericDAO = new GenericDAO<Frequencia>();
 
-    public List<Frequencia> obterFrequencias(Curriculo curriculo) {
+        public List<Frequencia> obterFrequencias(Curriculo curriculo) {
         String consulta = "select o from Frequencia o "
-                + "where o.curriculo = :curriculo ORDER BY o.mes desc";
+                + "where o.curriculo = :curriculo";
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Frequencia> frequencias = query.getResultList();

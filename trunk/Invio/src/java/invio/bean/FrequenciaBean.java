@@ -24,7 +24,6 @@ public class FrequenciaBean {
     Frequencia frequencia = new Frequencia();
     FrequenciaRN frequenciaRN = new FrequenciaRN();
 
-    
     public FrequenciaBean() {
         frequencia.setDataUpload(new Date());
     }
@@ -39,6 +38,10 @@ public class FrequenciaBean {
 
     public List<Frequencia> getFrequencias() {
         return frequenciaRN.obterFrequencias(UsuarioUtil.obterUsuarioLogado().getCurriculo());
+    }
+    
+    public String voltarListaFrequencia(){
+        return "/frequencias/listaFrequencias.xhtml";
     }
 
     public String salvarFrequencia() {
@@ -66,11 +69,10 @@ public class FrequenciaBean {
     }
 
     public String excluirFrequencia() {
-        System.out.println("Frequencia: " + frequencia);
         if (frequenciaRN.remover(frequencia)) {
-            BeanUtil.criarMensagemDeInformacao("Frequencia excluída", "Frequencia: " + frequencia.getMes());
+            BeanUtil.criarMensagemDeInformacao("Frequencia excluída", "Frequencia do mês: " + frequencia.getMes());
         } else {
-            BeanUtil.criarMensagemDeErro("Erro ao excluir Frequencia", "Frequencia: " + frequencia.getMes());
+            BeanUtil.criarMensagemDeErro("Erro ao excluir Frequencia", "Frequencia do mês: " + frequencia.getMes());
         }
 
         frequencia = new Frequencia();

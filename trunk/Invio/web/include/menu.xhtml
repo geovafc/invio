@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:body>
-        <h:form style="width: 200%"> 
+        <h:form style="width: 90%"> 
             <p:slideMenu 
                 my="left top" 
                 at="left bottom" 
@@ -97,7 +97,12 @@
                         ajax="false"
                         icon="ui-icon-contact"
                         action="#{curriculoBean.meuCurriculo}"/> 
-
+                    <p:menuitem 
+                        rendered="#{usuarioBean.docente}"
+                        value="Frequências" 
+                        title="Lista de frequências"
+                        icon="ui-icon-document"
+                        action="/frequencia/listaFrequencias.xhtml"/>
                     <p:menuitem 
                         rendered="#{usuarioBean.docente}"
                         value="Periódicos" 
@@ -130,10 +135,6 @@
                         icon="ui-icon-person"
                         action="#{curriculoBean.gerarListaDocentes()}"/>
                 </p:submenu>
-
-                <p:menuitem action="/frequencias/frequencias.xhtml"
-                           value="Frequências"
-                           ajax="false"/>
 
                 <p:menuitem rendered="#{usuarioBean.docente}"
                             value="Imprimir Currículo"  
