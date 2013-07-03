@@ -102,31 +102,35 @@
                         rendered="#{usuarioBean.discente}"
                         value="Frequências" 
                         title="Lista de frequências"
+                        ajax="false"
                         icon="ui-icon-document"
                         action="/documentacao/listaFrequencias.xhtml"/>
                     <p:menuitem 
                         rendered="#{usuarioBean.discente}"
                         value="Relatórios" 
                         title="Lista de relatórios finais e parciais."
+                        ajax="false"
                         icon="ui-icon-document"
                         action="/documentacao/listaRelatorios.xhtml"/>
                     <p:menuitem 
                         rendered="#{usuarioBean.docente}"
                         value="Periódicos" 
                         title="Lista de publicações em periódicos"
+                        ajax="false"
                         icon="ui-icon-document"
                         action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
 
                     <p:menuitem 
                         rendered="#{usuarioBean.docente}"
                         value="Livros" 
+                        ajax="false"
                         title="Publicações de livros como autor ou editor e capítulos"
                         icon="ui-icon-note"
                         action="/cadastro/curriculo/producao/livros.xhtml"/>  
-
                     <p:menuitem 
                         rendered="#{usuarioBean.docente}"
                         value="Orientações " 
+                        ajax="false"
                         title="Indicação dos alunos orientados"
                         icon="ui-icon-person"
                         action="/cadastro/curriculo/producao/orientacao/orientacoes.xhtml"/>  
@@ -139,6 +143,7 @@
                         rendered="#{usuarioBean.docente}"
                         value="Docentes" 
                         title="Lista de Docentes cadastrados no sistema."
+                        ajax="false"
                         icon="ui-icon-person"
                         action="#{curriculoBean.gerarListaDocentes()}"/>
                 </p:submenu>

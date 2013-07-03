@@ -28,6 +28,14 @@ public class AvaliacaoBean {
     public Integer estratoTemp;
     Curriculo curriculo = new Curriculo();
 
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
+    }
+
     public Integer getEstratoTemp() {
         return estratoTemp;
     }
@@ -61,8 +69,8 @@ public class AvaliacaoBean {
         } else if (periodico.getEstrato().equals(getEstratoTemp().equals(0))){
             periodico.setAvaliacao("Recusado pelo Comitê");
         }
-        Curriculo curriculo = periodico.getCurriculo();
-        periodico.setCurriculo(curriculo);
+        Curriculo curriculoA = periodico.getCurriculo();
+        periodico.setCurriculo(curriculoA);
         if (periodicoRN.salvar(periodico)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
@@ -143,12 +151,10 @@ public class AvaliacaoBean {
     //Fim Orientações lista e avaliação
 
     public String pagListarAvaliar() {
-
         return "faces/admin/listarAvaliar.xhtml";
     }
 
     public String pagListarAvaliado() {
-
         return "faces/admin/listarAvaliado.xhtml";
     }
 }
