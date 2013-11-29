@@ -14,14 +14,13 @@
 
             <div align="center">
                 <p:panel >
-                    <h:outputText id="bemVindo" value="Preencha as informações abaixo para cadastro:"/>
+                    <h:outputText id="edPermissoes" value="Editar Permissões:"/>
                     <br/>
                     <br/>
                     <h:panelGrid columns="2">
 
                         <h:outputText value="Tipo Usuário: " />
-                        <p:selectOneMenu style="width: 125px" id="perfil" value="#{usuarioBean.permissao}">  
-                            <f:selectItem itemLabel="Selecione" itemValue="" />  
+                        <p:selectOneMenu style="width: 185px" id="perfil" value="#{usuarioBean.permissao}">  
                             <f:selectItem itemLabel="Discente" itemValue="ROLE_DISCENTE" />  
                             <f:selectItem itemLabel="Docente" itemValue="ROLE_DOCENTE" />  
                             <f:selectItem itemLabel="Técnico" itemValue="ROLE_TECNICO" />  
@@ -29,15 +28,15 @@
                             <f:selectItem itemLabel="Master" itemValue="ROLE_MASTER" />  
                         </p:selectOneMenu>
 
-                        <h:outputLabel for="senha1" value="Alterar senha: " />  
+                        <h:outputLabel id="pw1" value="Alterar senha: " />  
                         <p:password id="pwd1" value="#{usuarioBean.login.senha}"
                                     weakLabel="Fraca" strongLabel="Forte" goodLabel="Bom" 
                                     promptLabel="Entre com a senha" feedback="true"/>  
 
                         <p:commandButton 
-                            ajax="false" value="Savar" 
+                            ajax="false" value="Salvar" 
                             action="#{usuarioBean.salvar2()}" 
-                            update="form"/>
+                            update=":Permissoes"/>
                         <h:outputText value="" />
 
                     </h:panelGrid>

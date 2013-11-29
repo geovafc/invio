@@ -42,7 +42,7 @@ public class PerfilRN {
         return dao.obter(descricao);
     }
     
-    public List<Perfil> obterTodos (){
+    public List<Perfil> obterTodo(){
         return dao.obterTodos(Perfil.class);
     }
 }

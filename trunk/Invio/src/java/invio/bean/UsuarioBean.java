@@ -60,6 +60,15 @@ public class UsuarioBean implements UserDetailsService {
         this.perfil = perfil;
     }
 
+    public List<Login> getLogins() {
+        if (UsuarioUtil.isUsuarioLogadoMaster()) {
+            logins = loginRN.obterTodos();
+        } else {
+            BeanUtil.criarMensagemDeInformacao("Página não autorizada para este Usuário.", "");
+        }
+        return logins;
+    }
+
     public Curriculo getCurriculo() {
         return curriculo;
     }
@@ -227,33 +236,35 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public String salvar2() { //alterar este método. Está sendo chamado no alterar senha.
-        if (!loginRN.existe(login.getEmail())) {
-            if (!javaMailRN.configurarEnviarEmail(login, "Confirmação de registro "
-                    + "de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login))) {
-                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                        "Não foi possível concluir o cadastro, tente mais tarde.");
-                return "";
-            } else {
-                List<Perfil> perfis = new ArrayList<Perfil>();
-                perfis.add(perfilRN.obter(permissao));
-                login.setPerfilList(perfis);
-                if (!loginRN.salvar(login)) {
-                    BeanUtil.criarMensagemDeErro("Ocorreu um erro ao salvar login", "Ocorreu um erro ao salvar login");
+        if (loginRN.existe(login.getEmail())) {
+            List<Perfil> perfis = new ArrayList<Perfil>();
+            perfil = perfilRN.obter(permissao);
+            perfis.add(perfil);
+            perfil.getLoginList().add(login);
 
+            login.setPerfilList(perfis);
+
+            if (perfilRN.salvar(perfil)) {
+                System.out.println("Passei aqui!!");
+                loginRN.salvar(login);
+                boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
+
+                if (falhaAoEnviar == true) {
+                    loginRN.remover(login);
+                    pagina2 = "/loginInicio.xhtml";
+                    BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                            "Não foi possível concluir a requisição, tente mais tarde.");
+                    configurarLimparSessao();
+                    javaMailRN = new JavaMailRN();
                 } else {
-                    if (!curriculoRN.salvar(curriculo)) {
-                        BeanUtil.criarMensagemDeErro("Ocorreu um erro ao salvar curriculo", "Ocorreu um erro ao salvar curriculo");
-                    }
+                    pagina2 = "/loginInicio.xhtml";
+                    BeanUtil.criarMensagemDeAviso("Seus dados foram alterados com sucesso.",
+                            "");
+                    configurarLimparSessao();
                 }
-
             }
-            BeanUtil.criarMensagemDeAviso("Foi enviado para seu e-mail um código de confirmação de cadastro.",
-                    "Quando for realizado o login será solicitado o código.");
-            return "/loginInicio.xhtml";
-        } else {
-            BeanUtil.criarMensagemDeAviso("Email já existe!", "Email já existe");
-            return "";
         }
+        return null;
     }
 
     public String salvar() {
