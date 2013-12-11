@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="792f3343-5740-4994-93bf-824fc92a9efe">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select nome, titulacao, lattes, celular, email, logradouro, fco from curriculo;]]>
+		<![CDATA[select c.nome, c.titulacao, c.lattes, c.celular, c.email, c.logradouro, c.fco, l.titulo, l.autor, l.estrato, l.ano, l.capitulo, p.titulo, p.revista, p.estrato, o.aluno, o.estrato, o.estrato, o.p_inicial, o.p_final, o.tipo_bolsa
+from curriculo c, livro l, periodico p, orientacao o
+where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id;]]>
 	</queryString>
 	<field name="nome" class="java.lang.String"/>
 	<field name="titulacao" class="java.lang.String"/>
@@ -13,6 +15,16 @@
 	<field name="email" class="java.lang.String"/>
 	<field name="logradouro" class="java.lang.String"/>
 	<field name="fco" class="java.lang.Integer"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="autor" class="java.lang.String"/>
+	<field name="estrato" class="java.lang.Integer"/>
+	<field name="ano" class="java.lang.String"/>
+	<field name="capitulo" class="java.lang.String"/>
+	<field name="revista" class="java.lang.String"/>
+	<field name="aluno" class="java.lang.String"/>
+	<field name="p_inicial" class="java.sql.Date"/>
+	<field name="p_final" class="java.sql.Date"/>
+	<field name="tipo_bolsa" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -36,7 +48,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="194" splitType="Stretch">
+		<band height="154" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="dfc57a9b-9d1b-4438-83e1-21785c24922d" x="0" y="25" width="43" height="20"/>
 				<textElement>
@@ -128,6 +140,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{logradouro}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement uuid="929c05bf-7d39-4fd6-bc0b-d9fe254277be" x="0" y="4" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="929c05bf-7d39-4fd6-bc0b-d9fe254277be" x="0" y="144" width="555" height="1"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>

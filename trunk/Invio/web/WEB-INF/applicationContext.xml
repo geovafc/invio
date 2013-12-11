@@ -34,8 +34,8 @@
     </authentication-manager>-->
     <authentication-manager>
         <authentication-provider 
-            user-service-ref ='myUserDetailsService'
-        />
+            user-service-ref ='myUserDetailsService'/>
+        <password-encoder hash="sha-256" />
     </authentication-manager>
     <beans:bean id="myUserDetailsService"
                 class="invio.bean.UsuarioBean">
