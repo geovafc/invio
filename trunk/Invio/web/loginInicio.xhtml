@@ -6,8 +6,6 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-
-
         <form 
             action="#{request.contextPath}/j_spring_security_check" 
             method="post">
@@ -46,7 +44,6 @@
             </div>
         </form>
 
-
         <h:form>
             <div align="center">
                 <p:commandLink 
@@ -62,13 +59,12 @@
                     action="#{usuarioBean.irNovoUsuario()}" 
                     update="form"/>
             </div>
-
         </h:form>
+
         <br/>
         <div align="center">
             <html>
                 <body>
-
                     <div id="fb-root"></div>
                     <script>
                         // Load the SDK Asynchronously
@@ -84,7 +80,6 @@
                             ref.parentNode.insertBefore(js, ref);
                         }(document));
                     </script>
-
                     <div class="fb-like"></div>
 
                 </body>
