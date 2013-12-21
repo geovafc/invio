@@ -17,21 +17,6 @@
          always-use-default-target = "true" default-target-url = "/publico/indexHome.xhtml"/>
     </http>
     
-    <!--    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
-        <beans:property name="url" value="jdbc:mysql://localhost:3306/invio?zeroDateTimeBehavior=convertToNull" />
-        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <beans:property name="username" value="inviousr" />
-        <beans:property name="password" value="inviousr" />
-    </beans:bean>
-    <authentication-manager>
-        <authentication-provider>
-            <jdbc-user-service data-source-ref="dataSource"
-                        users-by-username-query="SELECT email, senha, 'true' as enable FROM login WHERE email=?"
-                        authorities-by-username-query="SELECT up.email, p.descricao 
-                                                        FROM perfil_login up INNER JOIN perfil p ON p.id = up.perfil 
-                                                        WHERE email=?"/>
-        </authentication-provider>
-    </authentication-manager>-->
     <authentication-manager>
         <authentication-provider 
             user-service-ref ='myUserDetailsService'/>

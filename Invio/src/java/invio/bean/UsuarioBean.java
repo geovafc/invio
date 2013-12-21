@@ -138,17 +138,13 @@ public class UsuarioBean implements UserDetailsService {
         for (Login loginTemp : logins) {
 
             if (loginTemp.getEmail().equals(login.getEmail())) {
-
 //                setCpfLogin(loginTemp.getCurriculoId().getCpf());
                 loginEncontrado = true;
-
                 if (loginEncontrado == true) {
 
                     login = loginTemp;
                     boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
                             BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
-
-
                     if (falhaAoEnviarEmail == true) {
                         pagina = "/loginInicio.xhtml";
                         BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
@@ -158,7 +154,6 @@ public class UsuarioBean implements UserDetailsService {
                         pagina = "/loginInicio.xhtml";
                         BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
                         configurarLimparSessao();
-
                     }
                 }
             }
@@ -176,7 +171,6 @@ public class UsuarioBean implements UserDetailsService {
     }
 
     public void configurarSalvarLogin() {
-
         login.setCodigoConfirmacaoTemp("");
         login.setCodigoConfirmacao(codigoConfirmacao);
         login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
@@ -186,7 +180,6 @@ public class UsuarioBean implements UserDetailsService {
         perfil = perfilRN.obter(permissao);
         perfis.add(perfil);
         perfil.getLoginList().add(login);
-
         login.setPerfilList(perfis);
 
         if (loginRN.salvar(login)) {
@@ -204,7 +197,6 @@ public class UsuarioBean implements UserDetailsService {
             } else {
 
                 pagina2 = "/loginInicio.xhtml";
-                //login = null;
                 BeanUtil.criarMensagemDeAviso("Sua inscrição no Sistema foi realizada com sucesso.",
                         "");
                 configurarLimparSessao();
@@ -235,7 +227,8 @@ public class UsuarioBean implements UserDetailsService {
         this.emailJaCadastrado = emailJaCadastrado;
     }
 
-    public String salvar2() { //alterar este método. Está sendo chamado no alterar senha.
+    public String alterarSenha() { //Concluir este método. Será chamado no alterar senha que ainda não está 
+        //implementado na página.
         if (loginRN.existe(login.getEmail())) {
             List<Perfil> perfis = new ArrayList<Perfil>();
             perfil = perfilRN.obter(permissao);
@@ -292,26 +285,17 @@ public class UsuarioBean implements UserDetailsService {
         configurarLimparSessao();
         return pagina2;
     }
-//    String pagina3 = "";
 
     public String okCodigo() {
-
         if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
-
             login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
-
-
             loginRN.salvar(login);
-
             pagina3 = "/publico/indexHome.xhtml";
-
-
         } else {
             BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
             pagina3 = "/publico/login/telaConfirmacao.xhtml";
         }
         return pagina3;
-
     }
 
     @Override
