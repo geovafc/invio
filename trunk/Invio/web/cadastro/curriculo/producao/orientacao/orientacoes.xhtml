@@ -20,14 +20,14 @@
                         <h:outputText value="Tipo de Orientação: *" />
                         <p:selectOneMenu id="tOrientacao" value="#{orientacaoBean.orientacao.tipoOrientacao}">  
                             <f:selectItem itemLabel="" itemValue="" />  
-                            <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" />  
-                            <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="4" />  
-                            <f:selectItem itemLabel="Especialização (Orientação)" itemValue="2" />  
-                            <f:selectItem itemLabel="Iniciação Científica (Orientação)" itemValue="2" />  
-                            <f:selectItem itemLabel="TCC (Orientação)" itemValue="2" />  
-                            <f:selectItem itemLabel="Bolsista DTI (Orientação)" itemValue="2" />  
-                            <f:selectItem itemLabel="Tese de Doutorado (Co-orientação)" itemValue="4" />  
+                            <f:selectItem itemLabel="Bolsista DTI (Orientação)" itemValue="1" />  
                             <f:selectItem itemLabel="Dissertação de Mestrado (Co-orientação)" itemValue="2" />  
+                            <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="3" />  
+                            <f:selectItem itemLabel="Especialização (Orientação)" itemValue="4" />  
+                            <f:selectItem itemLabel="Iniciação Científica (Orientação)" itemValue="5" />  
+                            <f:selectItem itemLabel="TCC (Orientação)" itemValue="6" />  
+                            <f:selectItem itemLabel="Tese de Doutorado (Co-orientação)" itemValue="7" />  
+                            <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" /> 
                         </p:selectOneMenu>
 
                         <h:outputLabel value="Nome Bolsista : *"/> 
@@ -61,7 +61,7 @@
                         <p:calendar 
                             value="#{orientacaoBean.orientacao.PFinal}" 
                             navigator="true" 
-                            pattern="dd/MM/yyyy" 
+                            pattern="MM/yyyy" 
                             id="periodoFinal" />                        
 
                         <p:commandButton value="Limpar" type="reset"/>  
@@ -77,79 +77,172 @@
 
                 <br/>
 
-                <p:dataTable 
-                    id="orientacoesTabela" 
-                    value="#{orientacaoBean.orientacoes}" 
-                    var="orientacao"
-                    emptyMessage="Sem registro para a exibição."
-                    paginator="true" rows="10" 
-                    rowsPerPageTemplate="20,40">
+                <p:tabView>
 
-                    <!--                    <p:ajax 
-                                            event="rowEdit" 
-                                            listener="#{orientacaoBean.salvarEditarOrientacao(orientacao)}" 
-                                            update="orientacoesTabela" />  -->
+                    <p:tab id="orientacoesTab1" title="Orientações Contabilizadas">
 
-                    <p:column headerText="Bolsista"
-                              style="max-width: 250px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
-                        <h:outputLabel value="#{orientacao.aluno}"/> 
-                    </p:column>
 
-                    <p:column headerText="Período Inicial"
-                              style="max-width: 50px;min-width: 45px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputText  value="#{orientacao.PInicial}">
-                            <f:convertDateTime pattern="MM/yyyy"/>
-                        </h:outputText> 
-                    </p:column>
+                        <p:dataTable 
+                            id="orientacoesTabela" 
+                            value="#{orientacaoBean.orientacoesAtuais}" 
+                            var="orientacao"
+                            emptyMessage="Sem registro para a exibição."
+                            paginator="true" rows="10" 
+                            rowsPerPageTemplate="20,40">
 
-                    <p:column headerText="Período Final"
-                              style="max-width: 80px;min-width: 55px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{orientacao.PFinal}">
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </h:outputLabel> 
-                    </p:column>
+                            <!--                    <p:ajax 
+                                                    event="rowEdit" 
+                                                    listener="#{orientacaoBean.salvarEditarOrientacao(orientacao)}" 
+                                                    update="orientacoesTabela" />  -->
 
-                    <p:column headerText="Tipo de Bolsa"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
-                    </p:column>
+                            <p:column headerText="Bolsista"
+                                      style="max-width: 250px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacao.aluno}"/> 
+                            </p:column>
 
-                    <p:column headerText="Pontuação"
-                              style="max-width: 70px;min-width: 30px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
-                        <h:outputLabel value="#{orientacao.estrato}"/> 
-                    </p:column>
+                            <p:column headerText="Período Inicial"
+                                      style="max-width: 50px;min-width: 45px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputText  value="#{orientacao.PInicial}">
+                                    <f:convertDateTime pattern="MM/yyyy"/>
+                                </h:outputText> 
+                            </p:column>
 
-                    <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">  
+                            <p:column headerText="Período Final"
+                                      style="max-width: 80px;min-width: 55px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{orientacao.PFinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputLabel> 
+                            </p:column>
 
-                        <p:commandLink value="Excluir"
-                                       ajax="false"
-                                       action="/cadastro/curriculo/producao/orientacao/excluirOrientacao.xhtml"
-                                       >
-                            <f:setPropertyActionListener 
-                                value="#{orientacao}" 
-                                target="#{orientacaoBean.orientacao}" />
-                        </p:commandLink>  
+                            <p:column headerText="Tipo de Orientação"
+                                      style="max-width: 250px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}"/> 
+                            </p:column>
 
-                    </p:column>
+                            <p:column headerText="Tipo de Bolsa"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
+                            </p:column>
 
-                    <f:facet name="footer">
-                        Total em orientações:
-                        <h:outputLabel value="#{orientacaoBean.total}"/>
-                    </f:facet>
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 70px;min-width: 30px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacao.estrato}"/> 
+                            </p:column>
 
-                </p:dataTable>  
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">  
+
+                                <p:commandLink value="Excluir"
+                                               ajax="false"
+                                               action="/cadastro/curriculo/producao/orientacao/excluirOrientacao.xhtml"
+                                               >
+                                    <f:setPropertyActionListener 
+                                        value="#{orientacao}" 
+                                        target="#{orientacaoBean.orientacao}" />
+                                </p:commandLink>  
+
+                            </p:column>
+
+                            <f:facet name="footer">
+                                Total em orientações:
+                                <h:outputLabel value="#{orientacaoBean.total}"/>
+                            </f:facet>
+
+                        </p:dataTable>  
+                    </p:tab>
+                    
+                    <p:tab id="orientacoesTab2" title="Orientações Arquivadas">
+                        <p:dataTable 
+                            id="orientacoesTabela2" 
+                            value="#{orientacaoBean.orientacoesPassadas}" 
+                            var="orientacao"
+                            emptyMessage="Sem registro para a exibição."
+                            paginator="true" rows="10" 
+                            rowsPerPageTemplate="20,40">
+
+                            <!--                    <p:ajax 
+                                                    event="rowEdit" 
+                                                    listener="#{orientacaoBean.salvarEditarOrientacao(orientacao)}" 
+                                                    update="orientacoesTabela" />  -->
+
+                            <p:column headerText="Bolsista"
+                                      style="max-width: 250px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacao.aluno}"/> 
+                            </p:column>
+
+                            <p:column headerText="Período Inicial"
+                                      style="max-width: 50px;min-width: 45px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputText  value="#{orientacao.PInicial}">
+                                    <f:convertDateTime pattern="MM/yyyy"/>
+                                </h:outputText> 
+                            </p:column>
+
+                            <p:column headerText="Período Final"
+                                      style="max-width: 80px;min-width: 55px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{orientacao.PFinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputLabel> 
+                            </p:column>
+
+                            <p:column headerText="Tipo de Orientação"
+                                      style="max-width: 250px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}"/> 
+                            </p:column>
+
+                            <p:column headerText="Tipo de Bolsa"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
+                            </p:column>
+
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 70px;min-width: 30px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacao.estrato}"/> 
+                            </p:column>
+
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">  
+
+                                <p:commandLink value="Excluir"
+                                               ajax="false"
+                                               action="/cadastro/curriculo/producao/orientacao/excluirOrientacao.xhtml"
+                                               >
+                                    <f:setPropertyActionListener 
+                                        value="#{orientacao}" 
+                                        target="#{orientacaoBean.orientacao}" />
+                                </p:commandLink>  
+
+                            </p:column>
+
+                        </p:dataTable>  
+                        
+                    </p:tab>
+                </p:tabView>
 
             </h:form>  
 

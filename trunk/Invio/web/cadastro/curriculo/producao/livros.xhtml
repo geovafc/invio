@@ -64,97 +64,178 @@
                 </p:panel>  
 
                 <br/>
-                <p:dataTable id="livrosTabela" 
-                             value="#{livroBean.livros}" var="livro"
-                             emptyMessage="Sem registro para a exibição."
-                             paginator="true" rows="5" 
-                             rowsPerPageTemplate="5,10,15">
+
+                <p:tabView>
+
+                    <p:tab id="livrosTab1" title="Livros Atuais">
+
+                        <p:dataTable id="livrosTabela" 
+                                     value="#{livroBean.livrosAtuais}" var="livro"
+                                     emptyMessage="Sem registro para a exibição."
+                                     paginator="true" rows="5" 
+                                     rowsPerPageTemplate="5,10,15">
 
 <!--                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
                             update="livrosTabela" />  -->
 
-                    <p:column headerText="Título"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
+                            <p:column headerText="Título"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
                                 <h:outputLabel value="#{livro.titulo}"/> 
-                    </p:column>  
+                            </p:column>  
 
-                    <p:column headerText="Autor"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
+                            <p:column headerText="Autor"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
                                 <h:outputLabel value="#{livro.autor}"/> 
-                    </p:column>
+                            </p:column>
 
-                    <p:column headerText="Capítulo"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
+                            <p:column headerText="Capítulo"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
                                 <h:outputLabel value="#{livro.capitulo}"/> 
-                    </p:column>
+                            </p:column>
 
 
-                    <p:column headerText="Ano"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
+                            <p:column headerText="Ano"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
                                 <h:outputLabel value="#{livro.ano}"/>
-                    </p:column>
+                            </p:column>
 
-                    <p:column headerText="ISBN"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
+                            <p:column headerText="ISBN"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
                                 <h:outputLabel value="#{livro.isbn}"/> 
-                    </p:column>
+                            </p:column>
 
-                    <p:column headerText="Pontuação"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
                                 <h:outputLabel value="#{livro.estrato}"/> 
-                    </p:column> 
+                            </p:column> 
 
-<!--                    <p:column headerText="Editar" style="width:38px">  
-                        <p:rowEditor />  
-                    </p:column>-->
+                            <!--                    <p:column headerText="Editar" style="width:38px">  
+                                                    <p:rowEditor />  
+                                                </p:column>-->
 
-                    <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">  
-
-
-                        <p:commandLink value="Excluir"
-                                       ajax="false"
-                                       action="/cadastro/curriculo/producao/excluirLivro.xhtml">
-                            <f:setPropertyActionListener 
-                                value="#{livro}" 
-                                target="#{livroBean.livro}" />
-                        </p:commandLink>  
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">  
 
 
-                    </p:column>
+                                <p:commandLink value="Excluir"
+                                               ajax="false"
+                                               action="/cadastro/curriculo/producao/excluirLivro.xhtml">
+                                    <f:setPropertyActionListener 
+                                        value="#{livro}" 
+                                        target="#{livroBean.livro}" />
+                                </p:commandLink>  
 
-<!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">  
 
-                        <p:commandLink value="Comprovação" ajax="false" update="livrosTabela"
-                                       action="uploadLivro.xhtml">  
-                            <f:setPropertyActionListener 
-                                value="#{livro}" 
-                                target="#{livroBean.livro}" />
-                        </p:commandLink>
+                            </p:column>
 
-                    </p:column>-->
+                            <!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
+                                                          overflow: hidden;  max-height: 12px; 
+                                                          min-height: 12px; white-space: pre-line">  
+                            
+                                                    <p:commandLink value="Comprovação" ajax="false" update="livrosTabela"
+                                                                   action="uploadLivro.xhtml">  
+                                                        <f:setPropertyActionListener 
+                                                            value="#{livro}" 
+                                                            target="#{livroBean.livro}" />
+                                                    </p:commandLink>
+                            
+                                                </p:column>-->
 
-                    <f:facet name="footer">
-                        Total em Livros: 
-                        <h:outputLabel value="#{livroBean.total}"/>
-                    </f:facet>
+                            <f:facet name="footer">
+                                Total em Livros: 
+                                <h:outputLabel value="#{livroBean.total}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:tab>
 
-                </p:dataTable>
+                    <p:tab id="livrosTab2" title="Livros Passados">
+                        <p:dataTable id="livrosTabela" 
+                                     value="#{livroBean.livrosPassados}" var="livro"
+                                     emptyMessage="Sem registro para a exibição."
+                                     paginator="true" rows="5" 
+                                     rowsPerPageTemplate="5,10,15">
+
+<!--                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
+                            update="livrosTabela" />  -->
+
+                            <p:column headerText="Título"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{livro.titulo}"/> 
+                            </p:column>  
+
+                            <p:column headerText="Autor"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{livro.autor}"/> 
+                            </p:column>
+
+                            <p:column headerText="Capítulo"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{livro.capitulo}"/> 
+                            </p:column>
+
+
+                            <p:column headerText="Ano"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{livro.ano}"/>
+                            </p:column>
+
+                            <p:column headerText="ISBN"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{livro.isbn}"/> 
+                            </p:column>
+
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{livro.estrato}"/> 
+                            </p:column> 
+
+                            <!--                    <p:column headerText="Editar" style="width:38px">  
+                                                    <p:rowEditor />  
+                                                </p:column>-->
+
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">  
+
+
+                                <p:commandLink value="Excluir"
+                                               ajax="false"
+                                               action="/cadastro/curriculo/producao/excluirLivro.xhtml">
+                                    <f:setPropertyActionListener 
+                                        value="#{livro}" 
+                                        target="#{livroBean.livro}" />
+                                </p:commandLink>  
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:tab>
+
+                </p:tabView>
             </h:form>  
 
         </p:panel>
