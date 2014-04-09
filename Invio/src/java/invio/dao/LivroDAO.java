@@ -9,12 +9,24 @@ public class LivroDAO extends GenericDAO<Livro> {
 
     GenericDAO<Livro> genericDAO = new GenericDAO<Livro>();
 
-    public List<Livro> obterLivros(Curriculo curriculo) {
-        String consulta = "select o from Livro o "
-                + "where o.curriculo = :curriculo ORDER BY o.ano desc";
+    public List<Livro> obterLivrosAtuais(Curriculo curriculo, String anoAtual, String anoLimite) {
+        String consulta = "SELECT o FROM Livro o "
+                + "WHERE o.curriculo = :curriculo AND o.ano BETWEEN :anoLimite AND :anoAtual ORDER BY o.ano DESC";
         Query query = getEntityManager().createQuery(consulta);
-        query.setParameter("curriculo", curriculo);
-        List<Livro> livros = query.getResultList();
+        List<Livro> livros = query.setParameter("curriculo", curriculo).
+                setParameter("anoAtual", anoAtual).
+                setParameter("anoLimite", anoLimite).
+                getResultList();
+        return livros;
+    }
+
+    public List<Livro> obterLivrosPassados(Curriculo curriculo, String anoLimite) {
+        String consulta = "SELECT o FROM Livro o "
+                + "where o.curriculo = :curriculo AND o.ano < :anoLimite ORDER BY o.ano desc";
+        Query query = getEntityManager().createQuery(consulta);
+        List<Livro> livros = query.setParameter("curriculo", curriculo).
+                setParameter("anoLimite", anoLimite).
+                getResultList();
         return livros;
     }
 
