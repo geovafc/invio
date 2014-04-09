@@ -5,12 +5,17 @@ import invio.entidade.Area;
 import invio.entidade.Curriculo;
 import invio.entidade.Periodico;
 import invio.rn.pdf.QualisRN;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class PeriodicoRN {
 
     private QualisRN qualisRN = new QualisRN();
     private PeriodicoDAO periodicoDAO = new PeriodicoDAO();
+    private Calendar c = Calendar.getInstance();
+    private String anoAtual = String.valueOf(c.getWeekYear());
+    private String anoLimite = String.valueOf(c.getWeekYear() - 4);
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
@@ -56,16 +61,20 @@ public class PeriodicoRN {
     public List<Periodico> obterTodos() {
         return periodicoDAO.obterTodos(Periodico.class);
     }
-    
+
     public List<Periodico> obterTodosAvaliado(Curriculo curriculo) {
         return periodicoDAO.obterPeriodicos2(curriculo, true);
     }
-    
+
     public List<Periodico> obterTodosParaAvaliar(Curriculo curriculo) {
         return periodicoDAO.obterPeriodicos2(curriculo, false);
     }
 
-    public List<Periodico> obterPeriodicos(Curriculo curriculo) {
-        return periodicoDAO.obterPeriodicos(curriculo);
+    public List<Periodico> obterPeriodicosAtuais(Curriculo curriculo) {
+        return periodicoDAO.obterPeriodicosAtuais(curriculo, anoAtual, anoLimite);
+    }
+
+    public List<Periodico> obterPeriodicosPassados(Curriculo curriculo) {
+        return periodicoDAO.obterPeriodicosPassados(curriculo, anoLimite);
     }
 }

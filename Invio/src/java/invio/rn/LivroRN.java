@@ -4,12 +4,16 @@ import invio.dao.GenericDAO;
 import invio.dao.LivroDAO;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
+import java.util.Calendar;
 import java.util.List;
 
 public class LivroRN {
 
     GenericDAO<Livro> dao = new GenericDAO<Livro>();
     private LivroDAO livroDAO = new LivroDAO();
+    private Calendar c = Calendar.getInstance();
+    private String anoAtual = String.valueOf(c.getWeekYear());
+    private String anoLimite = String.valueOf(c.getWeekYear() - 4);
 
     public boolean salvar(Livro livro) {
         boolean salvou = false;
@@ -44,12 +48,16 @@ public class LivroRN {
     public List<Livro> obterTodosAvaliado(Curriculo curriculo) {
         return livroDAO.obterLivros2(curriculo, true);
     }
-    
+
     public List<Livro> obterTodosParaAvaliar(Curriculo curriculo) {
         return livroDAO.obterLivros2(curriculo, false);
     }
 
-    public List<Livro> obterLivros(Curriculo curriculo) {
-        return livroDAO.obterLivros(curriculo);
+    public List<Livro> obterLivrosAtuais(Curriculo curriculo) {
+        return livroDAO.obterLivrosAtuais(curriculo, anoAtual, anoLimite);
+    }
+
+    public List<Livro> obterLivrosPassados(Curriculo curriculo) {
+        return livroDAO.obterLivrosPassados(curriculo, anoLimite);
     }
 }
