@@ -36,18 +36,22 @@ public class PeriodicoBean {
         this.periodico = periodico;
     }
 
-    public List<Periodico> getPeriodicos() {
+    public List<Periodico> getPeriodicosAtuais() {
         Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
-        return periodicoRN.obterPeriodicos(curriculo);
+        return periodicoRN.obterPeriodicosAtuais(curriculo);
+    }
+    
+    public List<Periodico> getPeriodicosPassados() {
+        Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
+        return periodicoRN.obterPeriodicosPassados(curriculo);
     }
 
     public int getTotal() {
         int total = 0;
 
-        for (Periodico p : getPeriodicos()) {
+        for (Periodico p : getPeriodicosAtuais()) {
             total += p.getEstrato();
         }
-
         return total;
     }
 
