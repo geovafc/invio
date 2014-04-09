@@ -13,7 +13,7 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     public GenericDAO() {
     }
 
-    public boolean iniciarTransacao() {
+    public boolean iniciarTransacao() { 
         try {
             if (em.getTransaction().isActive()) {
                 return true;

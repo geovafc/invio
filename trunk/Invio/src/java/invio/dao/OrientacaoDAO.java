@@ -7,6 +7,7 @@ package invio.dao;
 import invio.entidade.Curriculo;
 import invio.entidade.Orientacao;
 import invio.rn.CurriculoRN;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -15,30 +16,43 @@ import javax.persistence.Query;
  * @author fabio
  */
 public class OrientacaoDAO extends GenericDAO<Orientacao> {
-    
-    GenericDAO<Orientacao> genericDAO = new GenericDAO<Orientacao>();
-    
-    public List<Orientacao> obterOrientacoes(Curriculo curriculo) {
-        String consulta = "select o from Orientacao o "
-                + "where o.curriculo = :curriculo ORDER BY o.pFinal desc";
+
+    private GenericDAO<Orientacao> genericDAO = new GenericDAO<Orientacao>();
+
+    public List<Orientacao> obterOrientacoesAtuais(Curriculo curriculo, Date dataLimite) {
+        String consulta = "SELECT o FROM Orientacao o "
+                + "WHERE o.curriculo = :curriculo AND o.pFinal >= :dataLimite ORDER BY o.pFinal DESC";
         Query query = getEntityManager().createQuery(consulta);
-        query.setParameter("curriculo", curriculo);
-        List<Orientacao> orientacoes = query.getResultList();
+        List<Orientacao> orientacoes = query.setParameter("curriculo", curriculo)
+                .setParameter("dataLimite", dataLimite).
+                getResultList();
         return orientacoes;
     }
-    public List<Orientacao> obterOrientacoes(Curriculo curriculo, 
+
+    public List<Orientacao> obterOrientacoesPassadas(Curriculo curriculo, Date dataLimite) {
+        String consulta = "SELECT o FROM Orientacao o "
+                + "WHERE o.curriculo = :curriculo AND :dataLimite > o.pFinal ORDER BY o.pFinal DESC";
+        Query query = getEntityManager().createQuery(consulta);
+        List<Orientacao> orientacoes = query.
+                setParameter("curriculo", curriculo)
+                .setParameter("dataLimite", dataLimite)
+                .getResultList();
+        return orientacoes;
+    }
+
+    public List<Orientacao> obterOrientacoes(Curriculo curriculo,
             boolean avaliado) {
         String consulta = "select o from Orientacao o "
                 + "where o.curriculo = :curriculo and "
-                + (avaliado?"not(o.avaliacao is null) ":"o.avaliacao is null ")
+                + (avaliado ? "not(o.avaliacao is null) " : "o.avaliacao is null ")
                 + "ORDER BY o.pFinal desc";
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Orientacao> orientacoes = query.getResultList();
         return orientacoes;
     }
-    
-     public List<Orientacao> obterOrientacoes2(Curriculo curriculo,
+
+    public List<Orientacao> obterOrientacoes2(Curriculo curriculo,
             boolean avaliado) {
         String consulta2 = "select o from Orientacao o where o.curriculo=" + curriculo.getId() + " ";
 
@@ -50,17 +64,16 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
         List<Orientacao> orientacoes = genericDAO.getEntityManager().createQuery(consulta2).getResultList();
         return orientacoes;
     }
-    
+
     public static void main(String[] args) {
         Curriculo c = new CurriculoRN().obter(1);
-        
+
         List<Orientacao> lista = new OrientacaoDAO().obterOrientacoes(c, false);
-        
-        if (lista.isEmpty()){
+
+        if (lista.isEmpty()) {
             System.out.println("Nao carreggou.");
         } else {
             System.out.println(lista);
         }
     }
-    
 }
