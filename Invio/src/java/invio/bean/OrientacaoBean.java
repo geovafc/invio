@@ -36,15 +36,20 @@ public class OrientacaoBean {
         this.orientacao = orientacao;
     }
 
-    public List<Orientacao> getOrientacoes() {
+    public List<Orientacao> getOrientacoesAtuais() {
         //TODO Orientações do curriculo indicado (login)
-        return orientacaoRN.obterOrientacoes(UsuarioUtil.obterUsuarioLogado().getCurriculo());
+        return orientacaoRN.obterOrientacoesAtuais(UsuarioUtil.obterUsuarioLogado().getCurriculo());
+    }
+    
+    public List<Orientacao> getOrientacoesPassadas() {
+        //TODO Orientações do curriculo indicado (login)
+        return orientacaoRN.obterOrientacoesPassadas(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
 
     public int getTotal() {
         int total = 0;
 
-        for (Orientacao o : getOrientacoes()) {
+        for (Orientacao o : getOrientacoesAtuais()) {
             total += o.getEstrato();
         }
 
@@ -56,13 +61,8 @@ public class OrientacaoBean {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
 
-        if (orientacao.getTipoOrientacao() == 8) {
-            orientacao.setEstrato(8);
-        } else if (orientacao.getTipoOrientacao() == 4) {
-            orientacao.setEstrato(4);
-        } else {
-            orientacao.setEstrato(2);
-        }
+        orientacao.setEstrato(orientacaoRN.obterExtratoPorTipoOrientacao(orientacao.getTipoOrientacao()));
+
         if (curriculo == null) {
             BeanUtil.criarMensagemDeErro("Você ainda não possui Currículo",
                     "Por favor preencha seu currículo em 'Meu Currículo' -> 'Meu Perfil'");
@@ -75,8 +75,7 @@ public class OrientacaoBean {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
                     "Preencha o campo Período Final.");
             return null;
-        } else if (orientacao.getTipoOrientacao() != 8 && orientacao.getTipoOrientacao() != 4
-                && orientacao.getTipoOrientacao() != 2) {
+        } else if (orientacao.getTipoOrientacao() < 1 || orientacao.getTipoOrientacao() > 8) {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a Orientação.",
                     "Selecione o campo Tipo de Orientação.");
         } else if (orientacao.getTipoBolsa() == null
@@ -123,5 +122,9 @@ public class OrientacaoBean {
         }
         orientacao = new Orientacao();
         return "orientacoes.xhtml";
+    }
+
+    public String obterTipo(Integer tipo) {
+        return orientacaoRN.obterTipoOrientacao(tipo);
     }
 }

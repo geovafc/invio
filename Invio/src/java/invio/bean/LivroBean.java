@@ -38,14 +38,18 @@ public class LivroBean {
         this.livro = livro;
     }
 
-    public List<Livro> getLivros() {
-        return livroRN.obterLivros(UsuarioUtil.obterUsuarioLogado().getCurriculo());
+    public List<Livro> getLivrosAtuais() {
+        return livroRN.obterLivrosAtuais(UsuarioUtil.obterUsuarioLogado().getCurriculo());
+    }
+    
+    public List<Livro> getLivrosPassados() {
+        return livroRN.obterLivrosPassados(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
 
     public int getTotal() {
         int total = 0;
 
-        for (Livro l : getLivros()) {
+        for (Livro l : getLivrosAtuais()) {
             total += l.getEstrato();
         }
 

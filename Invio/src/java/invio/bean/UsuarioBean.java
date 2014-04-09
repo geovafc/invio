@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @ManagedBean
 @SessionScoped
-public class UsuarioBean implements UserDetailsService {
+public class UsuarioBean {
 
     PerfilRN perfilRN = new PerfilRN();
     LoginRN loginRN = new LoginRN();
@@ -227,8 +227,8 @@ public class UsuarioBean implements UserDetailsService {
         this.emailJaCadastrado = emailJaCadastrado;
     }
 
-    public String alterarSenha() { //Concluir este método. Será chamado no alterar senha que ainda não está 
-        //implementado na página.
+    public String salvar2() { //concluir este método. Será chamado no alterar senha que ainda
+        //não esta implementado na página.
         if (loginRN.existe(login.getEmail())) {
             List<Perfil> perfis = new ArrayList<Perfil>();
             perfil = perfilRN.obter(permissao);
@@ -238,7 +238,6 @@ public class UsuarioBean implements UserDetailsService {
             login.setPerfilList(perfis);
 
             if (perfilRN.salvar(perfil)) {
-                System.out.println("Passei aqui!!");
                 loginRN.salvar(login);
                 boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
@@ -296,23 +295,6 @@ public class UsuarioBean implements UserDetailsService {
             pagina3 = "/publico/login/telaConfirmacao.xhtml";
         }
         return pagina3;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        if (string.isEmpty()) {
-            throw new UsernameNotFoundException(string);
-        }
-        Login temp = loginRN.obter(string);
-        List<GrantedAuthority> papeis = new ArrayList<GrantedAuthority>();
-        if (temp != null) {
-            for (Perfil p : temp.getPerfilList()) {
-                papeis.add(new GrantedAuthorityImpl(p.getDescricao()));
-            }
-            return new User(temp.getEmail(), temp.getSenha(), temp.getAtivo(), true, true, true, papeis);
-        } else {
-            throw new UsernameNotFoundException(string);
-        }
     }
 
     public Login getUsuarioLogado() {
