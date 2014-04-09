@@ -12,7 +12,7 @@
 
             *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
 
-            <h:form id="Periodico" acceptcharset="ISO-8859-1" >  
+            <h:form id="Periodico" acceptcharset="UTF-8" >  
 
                 <p:messages showDetail="true" showSummary="true"/>  
 
@@ -89,118 +89,226 @@
                 </p:panel>  
 
                 <br/>
-                <p:dataTable id="periodicosTabela" 
-                             value="#{periodicoBean.periodicos}" 
-                             var="periodico"
-                             emptyMessage="Sem registro para a exibição."
-                             paginator="true" rows="5" 
-                             rowsPerPageTemplate="5,10,15">
 
-                    <!--                    <p:ajax 
-                                            event="rowEdit" 
-                                            listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
-                                            update="periodicosTabela" />  -->
-
-                    <p:column headerText="Título"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
-                        <h:outputLabel value="#{periodico.titulo}"/> 
-                    </p:column>  
-
-                    <p:column headerText="Autor"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.autores}"/> 
-                    </p:column>
-
-                    <p:column headerText="Revista"
-                              style="max-width: 110px;min-width: 110px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.revista}"/> 
-                    </p:column>
-
-                    <p:column headerText="Ano"
-                              style="max-width: 65px;min-width: 65px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.ano}"/>
-                    </p:column>
-
-
-                    <p:column headerText="Volume"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.volume}"/> 
-                    </p:column>
-
-                    <p:column headerText="Página Inicial"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.paginainicial}"/> 
-                    </p:column>
-
-                    <p:column headerText="Página Final"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.paginafinal}"/> 
-                    </p:column>
-
-                    <p:column headerText="JCR"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line"> 
-                        <h:outputLabel value="#{periodico.jcr}"/> 
-                    </p:column>
-
-                    <p:column headerText="Pontuação"
-                              style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">
-                        <h:outputLabel value="#{periodico.estrato}"/> 
-                    </p:column>  
-
-                    <!--                    <p:column headerText="Editar" style="width:38px">  
-                                            <p:rowEditor />  
-                                        </p:column>-->
-
-                    <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
-                              overflow: hidden;  max-height: 12px; 
-                              min-height: 12px; white-space: pre-line">  
-
-                        <p:commandLink value="Excluir"
-                                       ajax="false"
-                                       action="/cadastro/curriculo/producao/excluirPeriodico.xhtml">
-                            <f:setPropertyActionListener 
-                                value="#{periodico}" 
-                                target="#{periodicoBean.periodico}" />
-                        </p:commandLink>  
-
-                    </p:column>
-
-                    <!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
-                                                  overflow: hidden;  max-height: 12px; 
-                                                  min-height: 12px; white-space: pre-line">  
-                                            <p:commandLink value="Comprovação" ajax="false" update="periodicosTabela"
-                                                           action="uploadPeriodico.xhtml">  
-                                                <f:setPropertyActionListener 
-                                                    value="#{periodico}" 
-                                                    target="#{periodicoBean.periodico}" />
-                                            </p:commandLink>
+                <p:tabView>
                     
-                                        </p:column>-->
+                    <p:tab id="periodicoTab1" title="Periodicos Atuais">
 
-                    <f:facet name="footer">
-                        Total em Periódicos: 
-                        <h:outputLabel value="#{periodicoBean.total}"/>
-                    </f:facet>
+                        <p:dataTable id="periodicosTabelaAtuais" 
+                                     value="#{periodicoBean.periodicosAtuais}" 
+                                     var="periodico"
+                                     emptyMessage="Sem registro para a exibição."
+                                     paginator="true" rows="5" 
+                                     rowsPerPageTemplate="5,10,15">
 
-                </p:dataTable>  
+                            <!--                    <p:ajax 
+                                                    event="rowEdit" 
+                                                    listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
+                                                    update="periodicosTabela" />  -->
+
+                            <p:column headerText="Título"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{periodico.titulo}"/> 
+                            </p:column>  
+
+                            <p:column headerText="Autor"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.autores}"/> 
+                            </p:column>
+
+                            <p:column headerText="Revista"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.revista}"/> 
+                            </p:column>
+
+                            <p:column headerText="Ano"
+                                      style="max-width: 65px;min-width: 65px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.ano}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Volume"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.volume}"/> 
+                            </p:column>
+
+                            <p:column headerText="Página Inicial"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.paginainicial}"/> 
+                            </p:column>
+
+                            <p:column headerText="Página Final"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.paginafinal}"/> 
+                            </p:column>
+
+                            <p:column headerText="JCR"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.jcr}"/> 
+                            </p:column>
+
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{periodico.estrato}"/> 
+                            </p:column>  
+
+                            <!--                    <p:column headerText="Editar" style="width:38px">  
+                                                    <p:rowEditor />  
+                                                </p:column>-->
+
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">  
+
+                                <p:commandLink value="Excluir"
+                                               ajax="false"
+                                               action="/cadastro/curriculo/producao/excluirPeriodico.xhtml">
+                                    <f:setPropertyActionListener 
+                                        value="#{periodico}" 
+                                        target="#{periodicoBean.periodico}" />
+                                </p:commandLink>  
+
+                            </p:column>
+
+                            <!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
+                                                          overflow: hidden;  max-height: 12px; 
+                                                          min-height: 12px; white-space: pre-line">  
+                                                    <p:commandLink value="Comprovação" ajax="false" update="periodicosTabela"
+                                                                   action="uploadPeriodico.xhtml">  
+                                                        <f:setPropertyActionListener 
+                                                            value="#{periodico}" 
+                                                            target="#{periodicoBean.periodico}" />
+                                                    </p:commandLink>
+                            
+                                                </p:column>-->
+
+                            <f:facet name="footer">
+                                Total em Periódicos: 
+                                <h:outputLabel value="#{periodicoBean.total}"/>
+                            </f:facet>
+                        </p:dataTable>  
+                    </p:tab>
+                    
+                    
+                    
+                    <p:tab id="periodicoTab2" title="Periodicos Arquivados">
+                        
+                        <p:dataTable id="periodicosTabelaArquivados" 
+                                     value="#{periodicoBean.periodicosPassados}" 
+                                     var="periodico"
+                                     emptyMessage="Sem registro para a exibição."
+                                     paginator="true" rows="5" 
+                                     rowsPerPageTemplate="5,10,15">
+
+                            <!--                    <p:ajax 
+                                                    event="rowEdit" 
+                                                    listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
+                                                    update="periodicosTabela" />  -->
+
+                            <p:column headerText="Título"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{periodico.titulo}"/> 
+                            </p:column>  
+
+                            <p:column headerText="Autor"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.autores}"/> 
+                            </p:column>
+
+                            <p:column headerText="Revista"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.revista}"/> 
+                            </p:column>
+
+                            <p:column headerText="Ano"
+                                      style="max-width: 65px;min-width: 65px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.ano}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Volume"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.volume}"/> 
+                            </p:column>
+
+                            <p:column headerText="Página Inicial"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.paginainicial}"/> 
+                            </p:column>
+
+                            <p:column headerText="Página Final"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.paginafinal}"/> 
+                            </p:column>
+
+                            <p:column headerText="JCR"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{periodico.jcr}"/> 
+                            </p:column>
+
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{periodico.estrato}"/> 
+                            </p:column>  
+
+                            <!--                    <p:column headerText="Editar" style="width:38px">  
+                                                    <p:rowEditor />  
+                                                </p:column>-->
+
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">  
+
+                                <p:commandLink value="Excluir"
+                                               ajax="false"
+                                               action="/cadastro/curriculo/producao/excluirPeriodico.xhtml">
+                                    <f:setPropertyActionListener 
+                                        value="#{periodico}" 
+                                        target="#{periodicoBean.periodico}" />
+                                </p:commandLink>  
+
+                            </p:column>
+
+                        </p:dataTable>  
+                    </p:tab>
+                    
+                </p:tabView>
 
             </h:form>  
 
