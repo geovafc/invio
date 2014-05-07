@@ -231,7 +231,6 @@ public class CurriculoBean {
 //        return "/admin/listarProducao.xhtml";
 //
 //    }
-    
     public String totalFCO() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         curriculo = usuarioLogado.getCurriculo();
@@ -479,23 +478,70 @@ public class CurriculoBean {
         return areaRN.completeArea(query);
     }
 
-    public void gerarFCO() {
-
-        String path = "/core/report/fco.jasper";
-        List<Curriculo> dataSource = new ArrayList<Curriculo>();
-        Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
-        dataSource.add(curriculoR);
-
-        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome());
-    }
-
     public void gerarListaDocentes() {
 
         String path = "/relatorio/crachaCredenciado.jasper";
         List<Curriculo> dataSource = new ArrayList<Curriculo>();
         Curriculo curriculoR = new Curriculo();
         dataSource.add(curriculoR);
+    }
 
-        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome());
+    public String gerarFCO() {
+        Login usuario = UsuarioUtil.obterUsuarioLogado();
+        if (usuario.getCurriculo() == null) {
+            return "/publico/indexHome.xhtml";
+        } else {
+            String path = "/core/report/fco.jasper";
+            Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
+            String area = curriculoR.getArea().getNome();
+            int id_do_usuario_logado = curriculoR.getId();
+
+            Relatorio.geraRelatorio(path, "Curriculo - " + curriculoR.getNome(), id_do_usuario_logado, area);
+            return null;
+        }
+    }
+
+    public void gerarcrachaCredenciado() {
+
+        String path = "/core/report/crachaCredenciado.jasper";
+        List dataSource = new ArrayList();
+        Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
+        List datasourceLivro = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
+        List datasourcePeriodico = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
+        List datasourceOrientacao = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getOrientacaoList());
+        dataSource.addAll(datasourceLivro);
+        dataSource.addAll(datasourcePeriodico);
+        dataSource.addAll(datasourceOrientacao);
+        dataSource.add(curriculoR);
+        String area = curriculoR.getArea().getNome();
+        int id_do_usuario_logado = curriculoR.getId();
+
+        Relatorio.ImprimirRelatorio(path, dataSource,
+                "relatorio" + id_do_usuario_logado + area, id_do_usuario_logado, area);
+    }
+
+    public void gerarListaLivros() {
+        //TODO
+        String path = "/core/report/listaLivro.jasper";
+        List<Livro> dataSource = new ArrayList<Livro>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
+        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
+        String nome = UsuarioUtil.obterUsuarioLogado().getCurriculo().getNome();
+        Relatorio.geraRelatorio(path, nome, params, null);
+    }
+
+    public void gerarListaPerioticos() {
+        //TODO
+        String path = "/core/report/listaPeriodico.jasper";
+        List<Periodico> dataSource = new ArrayList<Periodico>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
+        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
+        Curriculo curriculoR = new Curriculo();
+    }
+
+    public void gerarListaOrientacoes() {
+        //TODO
+        String path = "/core/report/listaOrientacao.jasper";
+        List<Orientacao> dataSource = new ArrayList<Orientacao>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getOrientacaoList());
+        Curriculo curriculoR = new Curriculo();
+        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
     }
 }
