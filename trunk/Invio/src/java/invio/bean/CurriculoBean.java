@@ -25,8 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
@@ -489,6 +491,8 @@ public class CurriculoBean {
     public String gerarFCO() {
         Login usuario = UsuarioUtil.obterUsuarioLogado();
         if (usuario.getCurriculo() == null) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", "Não há FCO preenchido para exibição.");
+            FacesContext.getCurrentInstance().addMessage(null, fm);
             return "/publico/indexHome.xhtml";
         } else {
             String path = "/core/report/fco.jasper";
