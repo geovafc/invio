@@ -8,22 +8,31 @@ import invio.entidade.Periodico;
 import invio.rn.PeriodicoRN;
 import invio.rn.pdf.QualisRN;
 import invio.util.UploadArquivo;
+import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
  * @author fabio
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class PeriodicoBean {
 
     private UploadArquivo fileUpload = new UploadArquivo();
     private Periodico periodico = new Periodico();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
-    public Integer estratoTemp;
+    private Integer estratoTemp;
 
     public PeriodicoBean() {
     }
@@ -40,10 +49,34 @@ public class PeriodicoBean {
         Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
         return periodicoRN.obterPeriodicosAtuais(curriculo);
     }
-    
+
     public List<Periodico> getPeriodicosPassados() {
         Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
         return periodicoRN.obterPeriodicosPassados(curriculo);
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        try {
+            System.out.println(event.getFile().getContents());
+            System.out.println(event.getFile().getContents());
+            System.out.println(event.getFile().getContents());
+            System.out.println(event.getFile().getContents());
+            FileOutputStream fos = new FileOutputStream("/home/bpmlab/NetBeansProjects/Invio/web/resources/arquivos/"
+                    + event.getFile().getFileName());
+            int c = 0;
+            while ((c = event.getFile().getInputstream().read()) != -1) {
+                fos.write(c);
+            }
+            event.getFile().getInputstream().close();
+            fos.close();
+            FacesMessage msg = new FacesMessage("Sucesso! ", event.getFile().getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage("Falha ", event.getFile().getFileName()
+                    + " não foi carregado, verifique o tipo de arquivo, pode estar corrompido.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            e.printStackTrace();
+        }
     }
 
     public int getTotal() {
