@@ -93,4 +93,30 @@ public class Relatorio {
             e.printStackTrace();
         }
     }
+        
+        public static void ImprimirRelatorio(String path, List dataSource, String name , Object params ,Object Area ){
+            try {
+                
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                ServletContext scontext =
+                        (ServletContext) facesContext.getExternalContext().getContext();
+                
+                JRBeanCollectionDataSource collection = new JRBeanCollectionDataSource(dataSource);
+                HashMap<String , Object> parameters = new HashMap<String,Object>();
+                parameters.put("Meu_Parametro", params);
+                parameters.put("Area", Area);
+                JasperPrint print = JasperFillManager.fillReport(path, parameters, collection);
+                byte[] b = JasperExportManager.exportReportToPdf(print);
+                
+                HttpServletResponse res = (HttpServletResponse)
+                        facesContext.getExternalContext().getResponse();
+                res.setContentType("application/pdf");
+                res.setHeader("Content-disposition","inline; filename=\"" + name + ".pdf\"");
+                res.getOutputStream().write(b);
+                facesContext.renderResponse();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
 }

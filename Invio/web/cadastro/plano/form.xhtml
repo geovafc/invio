@@ -13,7 +13,6 @@
             <ui:define name="content">
 
                 <p:growl showDetail="true" showSummary="false"/>
-
                 <p:tabView id="tabView" effect="fade" activeIndex="#{propriedadeTabViewBean.tabAtual}">
                     <p:ajax event="tabChange" listener="#{propriedadeTabViewBean.onTabChange}"/> 
                     <p:tab id="tab1" title="Plano">

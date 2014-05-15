@@ -115,6 +115,9 @@ and c.id =$P{Meu_Parametro} ;]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="total" class="java.lang.Number" calculation="Sum"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="autor" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Number" calculation="Sum"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
