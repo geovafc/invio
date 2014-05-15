@@ -144,7 +144,7 @@ class CurriculoPts implements Comparable<CurriculoPts> {
 
         List<Livro> livros = curriculo.getLivroList();
         List<Periodico> periodicos = curriculo.getPeriodicoList();
-
+        
         for (Periodico periodico : periodicos) {
             if (!periodico.getAvaliacao().trim().equals("")
                     && !periodico.getAvaliacao().trim().equals("Nao")
