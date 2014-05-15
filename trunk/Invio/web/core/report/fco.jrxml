@@ -2,22 +2,119 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="792f3343-5740-4994-93bf-824fc92a9efe">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="240"/>
+	<subDataset name="Livro" uuid="a0921179-e189-4a79-b183-001714166006">
+		<parameter name="Meu_Parametro" class="java.lang.Object">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select distinct l.titulo , l.autor ,l.capitulo ,l.ano , l.estrato as estrato_livro
+from curriculo c, livro l
+where l.curriculo = c.id
+and c.id =$P{Meu_Parametro};]]>
+		</queryString>
+		<field name="titulo" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="autor" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="capitulo" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="ano" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="estrato_livro" class="java.lang.Integer"/>
+	</subDataset>
+	<subDataset name="Periodico" uuid="35278d8a-9338-48ad-b1e5-2a90f8f61ad8">
+		<parameter name="Meu_Parametro" class="java.lang.Object">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select distinct
+p.titulo as pTitulo,p.autores as pAutores, p.revista as pRevista , p.ano as pAno,
+p.estrato
+from curriculo c, periodico p
+where  p.curriculo = c.id
+and c.id =$P{Meu_Parametro} ;]]>
+		</queryString>
+		<field name="pTitulo" class="java.lang.String"/>
+		<field name="pAutores" class="java.lang.String"/>
+		<field name="pRevista" class="java.lang.String"/>
+		<field name="pAno" class="java.lang.String"/>
+		<field name="estrato" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Orientacao" uuid="86243502-0076-42e0-a607-509ae7e4da79">
+		<parameter name="Meu_Parametro" class="java.lang.Object">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select distinct o.aluno, o.p_inicial , o.p_final,o.tipo_bolsa , o.estrato as estracao_Orientacao
+from curriculo c, orientacao o 
+where o.curriculo = c.id
+and c.id = $P{Meu_Parametro};]]>
+		</queryString>
+		<field name="aluno" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="p_inicial" class="java.sql.Date">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="p_final" class="java.sql.Date">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="tipo_bolsa" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="estracao_Orientacao" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="Area" class="java.lang.Object">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/bpmlab/NetBeansProjects/Invio/web/core/report/"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="Meu_Parametro" class="java.lang.Object">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select c.nome, c.titulacao, c.lattes, c.celular, c.email, c.logradouro, c.fco
-from curriculo c, livro l, periodico p, orientacao o 
-where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id;]]>
+		<![CDATA[select distinct c.id ,c.nome, c.titulacao, c.lattes, c.celular, c.email, c.logradouro, c.fco, c.extrato as total,l.autor
+from curriculo c, livro l, periodico p,orientacao o 
+where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id
+and c.id =$P{Meu_Parametro} ;]]>
 	</queryString>
-	<field name="nome" class="java.lang.String"/>
-	<field name="titulacao" class="java.lang.String"/>
-	<field name="lattes" class="java.lang.String"/>
-	<field name="celular" class="java.lang.String"/>
-	<field name="email" class="java.lang.String"/>
-	<field name="logradouro" class="java.lang.String"/>
-	<field name="fco" class="java.lang.Integer"/>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="titulacao" class="java.lang.String">
+		<fieldDescription><![CDATA[Graduado / Especialista / Mestrado / Doutorado]]></fieldDescription>
+	</field>
+	<field name="lattes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="celular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="logradouro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fco" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="autor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total" class="java.lang.Number" calculation="Sum"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,15 +130,10 @@ where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id;]]>
 				</textElement>
 				<text><![CDATA[Ficha Curricular do Orientador]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="229566de-be53-46b7-b11b-2466cb924231" x="528" y="0" width="27" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="154" splitType="Stretch">
+		<band height="186" splitType="Stretch">
 			<textField>
 				<reportElement uuid="3874710e-7ffb-4bac-b1be-5d21bcced62a" x="113" y="45" width="442" height="20"/>
 				<textElement>
@@ -112,7 +204,7 @@ where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id;]]>
 				<text><![CDATA[Titulação:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="61d8e338-8281-4b82-8730-2b4124f97c8a" x="66" y="5" width="214" height="20"/>
+				<reportElement uuid="61d8e338-8281-4b82-8730-2b4124f97c8a" x="66" y="5" width="442" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -126,7 +218,7 @@ where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id;]]>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="3874710e-7ffb-4bac-b1be-5d21bcced62a" x="66" y="25" width="77" height="20"/>
+				<reportElement uuid="3874710e-7ffb-4bac-b1be-5d21bcced62a" x="45" y="25" width="474" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -140,24 +232,293 @@ where l.curriculo = c.id AND p.curriculo = c.id AND o.curriculo = c.id;]]>
 				<text><![CDATA[Currículo Lattes:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="a58ba81b-4e5f-45f6-8955-a2401e953da5" x="143" y="65" width="242" height="20"/>
+				<reportElement uuid="ef31bc81-abe7-4906-a781-1776de7864d1" x="143" y="65" width="215" height="20"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""+$P{Meu_Parametro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[""+$P{Area}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="58570075-cc53-460d-a9ac-7f25778d9ee2" x="234" y="164" width="84" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total de Pontos]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9d5421b6-4401-4f8e-89e4-56714c2b2d9a" x="318" y="164" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="126" splitType="Stretch">
+			<frame>
+				<reportElement uuid="565d90ad-a5e6-4df5-b560-4176a6ff30f9" x="0" y="0" width="375" height="124"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<componentElement>
+					<reportElement uuid="22b0228b-9f45-470b-8d0b-d7d7ffcdb03b" x="1" y="20" width="374" height="104"/>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="Livro" uuid="45323e10-720e-4fae-8710-6968f3376e4f">
+							<datasetParameter name="Meu_Parametro">
+								<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="104" width="374">
+							<textField>
+								<reportElement uuid="3d774c93-3ef0-492e-8ff2-800c326f564b" x="45" y="24" width="274" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement uuid="5601d654-53ea-41f7-b251-6f329fc3fa63" x="47" y="44" width="272" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{autor}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement uuid="92ad4615-9845-4563-9e5c-a647df36724e" x="43" y="64" width="274" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{capitulo}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement uuid="68ad1688-ecd6-4279-b059-0691a4f6ba08" x="45" y="84" width="274" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement uuid="cdfa06c4-9d7d-41bf-ba19-3591df631ebc" x="0" y="24" width="45" height="20"/>
+								<textElement/>
+								<text><![CDATA[titulo]]></text>
+							</staticText>
+							<staticText>
+								<reportElement uuid="c38b806d-241b-4a10-a39e-176a3c8b727e" x="0" y="44" width="45" height="20"/>
+								<textElement/>
+								<text><![CDATA[autor]]></text>
+							</staticText>
+							<staticText>
+								<reportElement uuid="a9d0dfd4-5daf-43f1-bbbb-d1dda3c3500c" x="0" y="64" width="42" height="20"/>
+								<textElement/>
+								<text><![CDATA[capitulo]]></text>
+							</staticText>
+							<staticText>
+								<reportElement uuid="d9f3fa24-23cd-4167-8377-cee88d2c7111" x="2" y="84" width="43" height="20"/>
+								<textElement/>
+								<text><![CDATA[ano]]></text>
+							</staticText>
+							<line>
+								<reportElement uuid="3068b9db-4e31-49a3-924d-a2e7ac0d81a6" x="2" y="0" width="372" height="1"/>
+							</line>
+							<textField>
+								<reportElement uuid="14f84171-ece4-4b03-a126-d4185a4fcbae" x="350" y="4" width="24" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{estrato_livro}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement uuid="30e4610f-9c38-4337-842b-cf8a9a536bc6" x="296" y="4" width="54" height="20"/>
+								<textElement/>
+								<text><![CDATA[Pontuação]]></text>
+							</staticText>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<staticText>
+					<reportElement uuid="05497f11-ea7a-43f3-8166-a7ec87c46211" x="0" y="0" width="100" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Livros]]></text>
+				</staticText>
+			</frame>
+		</band>
+		<band height="125">
+			<frame>
+				<reportElement uuid="4660a950-26db-49bb-98bf-f9d76bb00d43" x="1" y="0" width="374" height="122"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<staticText>
+					<reportElement uuid="b6401208-0ef8-47bc-83aa-e0f0059af656" x="1" y="0" width="100" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Periódicos]]></text>
+				</staticText>
+				<componentElement>
+					<reportElement uuid="7f6412b0-c2a6-4cae-beaa-ed3653df135c" x="1" y="20" width="373" height="102"/>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="Periodico" uuid="f0535554-d631-4e47-989f-f92f1e06c7e3">
+							<datasetParameter name="Meu_Parametro">
+								<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="102" width="373">
+							<line>
+								<reportElement uuid="e6ae38a2-6069-4b73-a525-c03d8b4fd049" x="3" y="1" width="367" height="1"/>
+							</line>
+							<textField>
+								<reportElement uuid="460cd992-4f55-404a-a439-4cbed18b15f2" x="53" y="22" width="320" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{pTitulo}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement uuid="25b14c69-408e-4cea-a5f6-57b3bdd8c409" x="51" y="62" width="319" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{pRevista}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement uuid="72212fb2-a551-4f4f-ba97-ab4742da5ae4" x="51" y="82" width="319" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{pAno}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement uuid="61a7ddd2-817b-4bb1-b432-9a27f2e4d6bc" x="3" y="82" width="47" height="20"/>
+								<textElement/>
+								<text><![CDATA[Ano]]></text>
+							</staticText>
+							<staticText>
+								<reportElement uuid="b5bef3bb-d9a6-406b-be39-1bc607ca66db" x="2" y="42" width="51" height="20"/>
+								<textElement/>
+								<text><![CDATA[Autores]]></text>
+							</staticText>
+							<staticText>
+								<reportElement uuid="c587efbb-e4a2-49ed-b370-95adb2c827a4" x="2" y="22" width="51" height="20"/>
+								<textElement/>
+								<text><![CDATA[Titulo]]></text>
+							</staticText>
+							<staticText>
+								<reportElement uuid="9170fd98-7a8f-44d1-a782-0197b0ca839a" x="1" y="62" width="49" height="20"/>
+								<textElement/>
+								<text><![CDATA[Revista]]></text>
+							</staticText>
+							<textField>
+								<reportElement uuid="a70aafb9-f1c2-4d89-b634-6005743239ba" x="348" y="2" width="25" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{estrato}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement uuid="607c9241-0051-4022-8cbc-2ed1e150a30d" x="289" y="2" width="60" height="20"/>
+								<textElement/>
+								<text><![CDATA[Pontuação]]></text>
+							</staticText>
+							<textField>
+								<reportElement uuid="bff22b6f-5a77-4ec2-a10f-a0447fa629e7" x="53" y="42" width="316" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{pAutores}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+			</frame>
+		</band>
+		<band height="143">
+			<frame>
+				<reportElement uuid="acf3ca8d-82b4-466c-9f8c-654bb07db21b" x="3" y="0" width="372" height="133"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Solid"/>
+					<topPen lineWidth="0.75" lineStyle="Solid"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.75" lineStyle="Solid"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement uuid="b0a7940f-d894-452f-a62d-13cd0e4c8827" x="1" y="7" width="100" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Orientações]]></text>
+				</staticText>
+			</frame>
+			<componentElement>
+				<reportElement uuid="a92c1051-e198-42b4-81e2-3ea682f7d555" mode="Opaque" x="6" y="27" width="369" height="106" forecolor="#000000" backcolor="#FFFFFF"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="Orientacao" uuid="f1a2ecaf-6d02-448a-93b4-fff6f6910ffb">
+						<datasetParameter name="Meu_Parametro">
+							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="106" width="369">
+						<textField>
+							<reportElement uuid="9447e6b0-5441-4586-8367-d05a5a86c5ad" x="56" y="25" width="309" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{aluno}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement uuid="05b5a0bb-f58f-4307-9e19-dbfeaebc491d" x="56" y="65" width="312" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{p_inicial}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement uuid="5ed97c89-8166-498a-b73a-71204d806ae6" x="56" y="45" width="312" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{tipo_bolsa}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement uuid="3522364e-425e-4c84-afd0-880187bad32d" x="56" y="85" width="313" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{p_final}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement uuid="fe8101f9-0685-4f93-a2ee-e29bc0d34179" x="1" y="85" width="54" height="20"/>
+							<textElement/>
+							<text><![CDATA[p_final]]></text>
+						</staticText>
+						<staticText>
+							<reportElement uuid="5e504d5f-7fad-49fe-8150-765b9faf21ac" x="0" y="65" width="55" height="20"/>
+							<textElement/>
+							<text><![CDATA[p_inicial]]></text>
+						</staticText>
+						<staticText>
+							<reportElement uuid="5cd4f240-87a2-401f-b248-3576866be057" x="0" y="45" width="56" height="20"/>
+							<textElement/>
+							<text><![CDATA[tipo_bolsa]]></text>
+						</staticText>
+						<staticText>
+							<reportElement uuid="bedbe83c-c544-4d17-8e2a-3a84145cf7e6" x="278" y="5" width="63" height="20"/>
+							<textElement/>
+							<text><![CDATA[Pontuação]]></text>
+						</staticText>
+						<staticText>
+							<reportElement uuid="6ad62759-c8b7-4d71-9883-932ffaed2c6b" x="1" y="25" width="55" height="20"/>
+							<textElement/>
+							<text><![CDATA[aluno]]></text>
+						</staticText>
+						<line>
+							<reportElement uuid="0f1abbdc-d91b-40ca-bfa7-a737fefdbbf3" x="1" y="0" width="368" height="1"/>
+						</line>
+						<textField>
+							<reportElement uuid="27d27921-1f99-45d9-98aa-f145b48bf096" x="341" y="5" width="28" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{estracao_Orientacao}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="23">
+			<textField evaluationTime="Report">
+				<reportElement uuid="1af234ef-6c9e-44bb-ab38-fb324eae95e3" x="515" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1dc2a987-3bab-4d82-b3b5-04578ca16aac" x="439" y="0" width="76" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>
