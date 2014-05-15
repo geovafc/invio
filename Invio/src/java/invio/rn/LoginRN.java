@@ -3,6 +3,7 @@ package invio.rn;
 import invio.dao.CurriculoDAO;
 import invio.dao.LoginDAO;
 import invio.entidade.Login;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,5 +46,22 @@ public class LoginRN {
 
     public List<Login> obterTodos() {
         return dao.obterTodos(Login.class);
+    }
+
+    public List<Login> filtrar(String chave) {
+        List<Login> resposta = new ArrayList<Login>();
+        if (chave == null) {
+            return resposta;
+        } else {
+            List<Login> todos = dao.obterTodos(Login.class);
+            if (todos != null) {
+                for (Login login : todos) {
+                    if (login.getEmail().contains(chave)) {
+                        resposta.add(login);
+                    }
+                }
+            }
+            return resposta;
+        }
     }
 }
