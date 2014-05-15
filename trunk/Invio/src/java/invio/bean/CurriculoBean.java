@@ -523,23 +523,6 @@ public class CurriculoBean {
         Relatorio.ImprimirRelatorio(path, dataSource,
                 "relatorio" + id_do_usuario_logado + area, id_do_usuario_logado, area);
     }
-    public void gerarcrachaCredenciado() {
-
-        String path = "/core/report/crachaCredenciado.jasper";
-        List dataSource = new ArrayList();
-        Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
-        List datasourceLivro = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
-        List datasourcePeriodico = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
-        List datasourceOrientacao = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getOrientacaoList());
-        dataSource.addAll(datasourceLivro);
-        dataSource.addAll(datasourcePeriodico);
-        dataSource.addAll(datasourceOrientacao);
-        dataSource.add(curriculoR);
-        String area = curriculoR.getArea().getNome();
-        int id_do_usuario_logado = curriculoR.getId();
-
-        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome(), id_do_usuario_logado,area );
-    }
 
     public void gerarListaLivros() {
         //TODO
@@ -556,25 +539,8 @@ public class CurriculoBean {
         List<Periodico> dataSource = new ArrayList<Periodico>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
         Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
         Curriculo curriculoR = new Curriculo();
+        Relatorio.geraRelatorio(path, "Curriculo - " + curriculoR.getNome(), null, null);
     }
-        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + curriculoR.getNome(),null, null);
-    }
-    public void gerarListaLivros() {
-        String path = "/core/report/listaLivro.jasper";
-        List<Livro> dataSource = new ArrayList<Livro>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
-        Object params =UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
-        String nome = UsuarioUtil.obterUsuarioLogado().getCurriculo().getNome();
-        Relatorio.geraRelatorio(path, dataSource, "Curriculo - " + nome,params,null);
-    }
-    public void gerarListaPerioticos() {
-
-        String path = "/core/report/listaPeriodico.jasper";
-        List<Periodico> dataSource = new ArrayList<Periodico>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
-        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
-        Curriculo curriculoR = new Curriculo();
-        Relatorio.geraRelatorio(path, dataSource,curriculoR.getNome(),params,null);
-    }
-    public void gerarListaOrientacoes() {
 
     public void gerarListaOrientacoes() {
         //TODO
