@@ -94,7 +94,7 @@ public class Relatorio {
         }
     }
         
-        public static void ImprimirRelatorio(String path, List dataSource, String name , Object params ,Object Area ){
+        public static void imprimirRelatorio(String path, List dataSource, String name , Object params ,Object Area ){
             try {
                 
                 FacesContext facesContext = FacesContext.getCurrentInstance();
