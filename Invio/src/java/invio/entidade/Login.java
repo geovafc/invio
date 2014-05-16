@@ -6,7 +6,6 @@ package invio.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByCodigoConfirmacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfirmacaoTemp = :codigoConfirmacaoTemp"),
     @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao"),
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
-    @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo")})
+    @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo"),
+    @NamedQuery(name = "Login.findByPerfil", query = "SELECT l FROM Login l WHERE l.perfil = :perfil")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,11 +60,9 @@ public class Login implements Serializable {
     private String email;
     @Column(name = "ativo")
     private Boolean ativo;
-    @JoinTable(name = "perfil_login", joinColumns = {
-        @JoinColumn(name = "login", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "perfil", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Perfil> perfilList;
+    @Basic(optional = false)
+    @Column(name = "perfil")
+    private char perfil;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne
     private Curriculo curriculo;
@@ -79,10 +74,11 @@ public class Login implements Serializable {
         this.id = id;
     }
 
-    public Login(Integer id, String senha, String email) {
+    public Login(Integer id, String senha, String email, char perfil) {
         this.id = id;
         this.senha = senha;
         this.email = email;
+        this.perfil = perfil;
     }
 
     public Integer getId() {
@@ -141,13 +137,12 @@ public class Login implements Serializable {
         this.ativo = ativo;
     }
 
-    @XmlTransient
-    public List<Perfil> getPerfilList() {
-        return perfilList;
+    public char getPerfil() {
+        return perfil;
     }
 
-    public void setPerfilList(List<Perfil> perfilList) {
-        this.perfilList = perfilList;
+    public void setPerfil(char perfil) {
+        this.perfil = perfil;
     }
 
     public Curriculo getCurriculo() {

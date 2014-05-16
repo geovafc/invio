@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -123,10 +122,7 @@ public class Curriculo implements Serializable {
     private Integer extrato;
     @Column(name = "titulacao")
     private String titulacao;
-    @JoinTable(name = "plano_curriculo", joinColumns = {
-        @JoinColumn(name = "curriculo_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "plano_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "curriculoList")
     private List<Plano> planoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;

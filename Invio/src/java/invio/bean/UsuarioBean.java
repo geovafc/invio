@@ -4,11 +4,9 @@ import invio.bean.util.BeanUtil;
 import invio.bean.util.UsuarioUtil;
 import invio.entidade.Curriculo;
 import invio.entidade.Login;
-import invio.entidade.Perfil;
 import invio.rn.CurriculoRN;
 import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
-import invio.rn.PerfilRN;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,23 +14,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @ManagedBean
 @SessionScoped
 public class UsuarioBean {
 
-    PerfilRN perfilRN = new PerfilRN();
     LoginRN loginRN = new LoginRN();
     CurriculoRN curriculoRN = new CurriculoRN();
     JavaMailRN javaMailRN = new JavaMailRN();
     List<Login> logins;
-    Perfil perfil = new Perfil();
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
@@ -61,7 +51,7 @@ public class UsuarioBean {
     }
 
     public List<Login> getLogins() {
-        if (UsuarioUtil.isUsuarioLogadoMaster()) {
+        if (UsuarioUtil.isUsuarioLogadoAdministrador()) {
             logins = loginRN.obterTodos();
         } else {
             BeanUtil.criarMensagemDeInformacao("Página não autorizada para este Usuário.", "");
@@ -306,50 +296,15 @@ public class UsuarioBean {
         this.usuarioLogado = usuarioLogado;
     }
 
-    public boolean isMaster() {
-        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_MASTER")) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isAdministrador() {
+        return UsuarioUtil.isUsuarioLogadoAdministrador();
     }
 
-    public boolean isAdministracao() {
-        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_ADMINISTRACAO") || temp.getDescricao().equals("ROLE_MASTER")) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isSecretaria() {
+        return UsuarioUtil.isUsuarioLogadoSecretaria();
     }
 
-    public boolean isDiscente() {
-        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_DISCENTE") || temp.getDescricao().equals("ROLE_MASTER")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isDocente() {
-        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_DOCENTE") || temp.getDescricao().equals("ROLE_TECNICO")
-                    || temp.getDescricao().equals("ROLE_MASTER")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isTecnico() {
-        for (Perfil temp : getUsuarioLogado().getPerfilList()) {
-            if (temp.getDescricao().equals("ROLE_TECNICO") || temp.getDescricao().equals("ROLE_DOCENTE")
-                    || temp.getDescricao().equals("ROLE_MASTER")) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isUsuario() {
+        return UsuarioUtil.isUsuarioLogadoUsuario();
     }
 }
