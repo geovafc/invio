@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:panel header="Lista de Unidades">
+
+                <h:inputHidden 
+                    id="ihInstituicao"
+                    value="#{instituicaoBean.instituicao}" 
+                    converter="instituicaoConversor"/>
+
+                <p:growl showDetail="true" showSummary="true"/>
+
+                <p:commandButton value="Novo" ajax="false" action="#{instituicaoBean.novoFormularioUnidade()}"/>
+
+                <p:commandButton value="Voltar" action="/cadastro/instituicao/listar.xhtml"/>
+
+                <p:dataTable 
+                    id="dtUnidadesDeInstituicoes"
+                    var="unidade" value="#{instituicaoBean.unidades}"
+                    paginator="true" rows="6"  
+                    emptyMessage="Sem registro para a exibição."
+                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                    rowsPerPageTemplate="5,10,15">
+
+                    <p:column headerText="Nome" filterBy="#{unidade.nome}">  
+                        <h:outputText value="#{unidade.nome}" />  
+                    </p:column>  
+
+                    <p:column headerText="Operações">  
+                        <div align="center">
+                            <p:commandButton 
+                                action="#{instituicaoBean.irEditarUnidade}"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{unidade}" 
+                                    target="#{instituicaoBean.unidade}" />  
+                            </p:commandButton>  
+
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluirUnidade.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{unidade}" 
+                                    target="#{instituicaoBean.unidade}" />  
+                            </p:commandButton>  
+
+                        </div>
+                    </p:column> 
+
+                </p:dataTable>
+
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
