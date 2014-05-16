@@ -21,11 +21,9 @@
 
                         <h:outputText value="Tipo Usuário: " />
                         <p:selectOneMenu style="width: 185px" id="perfil" value="#{usuarioBean.permissao}">  
-                            <f:selectItem itemLabel="Discente" itemValue="ROLE_DISCENTE" />  
-                            <f:selectItem itemLabel="Docente" itemValue="ROLE_DOCENTE" />  
-                            <f:selectItem itemLabel="Técnico" itemValue="ROLE_TECNICO" />  
-                            <f:selectItem itemLabel="Administrador" itemValue="ROLE_ADMINISTRACAO" />  
-                            <f:selectItem itemLabel="Master" itemValue="ROLE_MASTER" />  
+                            <f:selectItem itemLabel="Administrador" itemValue="A" />  
+                            <f:selectItem itemLabel="Secretaria" itemValue="S" />  
+                            <f:selectItem itemLabel="Usuario" itemValue="U" />  
                         </p:selectOneMenu>
 
                         <h:outputLabel id="pw1" value="Alterar senha: " />  

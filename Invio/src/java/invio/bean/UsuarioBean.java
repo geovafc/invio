@@ -26,28 +26,21 @@ public class UsuarioBean {
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
-    private String permissao;
+    private char permissao;
     private Login usuarioLogado = new Login();
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
 
-    public String getPermissao() {
+    
+    public char getPermissao() {
         return permissao;
     }
 
-    public void setPermissao(String permissao) {
+    public void setPermissao(char permissao) {
         this.permissao = permissao;
     }
 
     public UsuarioBean() {
-    }
-
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
     }
 
     public List<Login> getLogins() {
@@ -165,15 +158,8 @@ public class UsuarioBean {
         login.setCodigoConfirmacao(codigoConfirmacao);
         login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
         login.setAtivo(true);
-
-        List<Perfil> perfis = new ArrayList<Perfil>();
-        perfil = perfilRN.obter(permissao);
-        perfis.add(perfil);
-        perfil.getLoginList().add(login);
-        login.setPerfilList(perfis);
-
+        login.setPerfil('U');
         if (loginRN.salvar(login)) {
-            perfilRN.salvar(perfil);
 
             boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
@@ -220,15 +206,9 @@ public class UsuarioBean {
     public String salvar2() { //concluir este método. Será chamado no alterar senha que ainda
         //não esta implementado na página.
         if (loginRN.existe(login.getEmail())) {
-            List<Perfil> perfis = new ArrayList<Perfil>();
-            perfil = perfilRN.obter(permissao);
-            perfis.add(perfil);
-            perfil.getLoginList().add(login);
+            login.setPerfil(permissao);
 
-            login.setPerfilList(perfis);
-
-            if (perfilRN.salvar(perfil)) {
-                loginRN.salvar(login);
+            if (loginRN.salvar(login)) {
                 boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
                 if (falhaAoEnviar == true) {

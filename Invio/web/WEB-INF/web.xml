@@ -35,7 +35,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/publico/indexHome.xhtml</welcome-file>
+        <welcome-file>loginInicio.xhtml</welcome-file>
     </welcome-file-list>
     
     <!--    Spring security -->
