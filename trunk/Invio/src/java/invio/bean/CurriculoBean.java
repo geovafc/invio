@@ -187,12 +187,12 @@ public class CurriculoBean {
 
     public String irListarCurriculos() {
         setCurriculo(null);
-        return "/cadastro/curriculo/listar.xhtml";
+        return "/usuario/cadastro/curriculo/listar.xhtml";
     }
 
     public String irListarUsuarios() {
         setCurriculo(null);
-        return "/admin/usuarios/listarUsuarios.xhtml";
+        return "/administracao/usuarios/listarUsuarios.xhtml";
     }
 
     public String meuCurriculo() {
@@ -203,7 +203,7 @@ public class CurriculoBean {
         } else {
             setCurriculo(new Curriculo());
         }
-        return "/cadastro/curriculo/wizard.xhtml";
+        return "/usuario/cadastro/curriculo/wizard.xhtml";
     }
 
 //    public String altualizarPontos() {
@@ -272,7 +272,7 @@ public class CurriculoBean {
 
         loginRN.salvar(loginLogado);
         curriculoRN.salvar(curriculo);
-        return "/cadastro/curriculo/fco.xhtml";
+        return "/usuario/cadastro/curriculo/fco.xhtml";
     }
 
     public Integer getTotalPontos() {
@@ -367,7 +367,7 @@ public class CurriculoBean {
 
         loginRN.salvar(loginLogado);
         curriculoRN.salvar(curriculo);
-        return "/admin/listarCurriculoAv.xhtml";
+        return "/administracao/listarCurriculoAv.xhtml";
     }
 
     //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
@@ -495,7 +495,7 @@ public class CurriculoBean {
             FacesContext.getCurrentInstance().addMessage(null, fm);
             return "/publico/indexHome.xhtml";
         } else {
-            String path = "/core/report/fco.jasper";
+            String path = "/usuario/core/report/fco.jasper";
             Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
             String area = curriculoR.getArea().getNome();
             int id_do_usuario_logado = curriculoR.getId();
@@ -507,7 +507,7 @@ public class CurriculoBean {
 
     public void gerarcrachaCredenciado() {
 
-        String path = "/core/report/crachaCredenciado.jasper";
+        String path = "/usuario/core/report/crachaCredenciado.jasper";
         List dataSource = new ArrayList();
         Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
         List datasourceLivro = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
@@ -526,7 +526,7 @@ public class CurriculoBean {
 
     public void gerarListaLivros() {
         //TODO
-        String path = "/core/report/listaLivro.jasper";
+        String path = "/usuario/core/report/listaLivro.jasper";
         List<Livro> dataSource = new ArrayList<Livro>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
         Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
         String nome = UsuarioUtil.obterUsuarioLogado().getCurriculo().getNome();
@@ -535,7 +535,7 @@ public class CurriculoBean {
 
     public void gerarListaPerioticos() {
         //TODO
-        String path = "/core/report/listaPeriodico.jasper";
+        String path = "/usuario/core/report/listaPeriodico.jasper";
         List<Periodico> dataSource = new ArrayList<Periodico>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
         Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
         Curriculo curriculoR = new Curriculo();
@@ -544,7 +544,7 @@ public class CurriculoBean {
 
     public void gerarListaOrientacoes() {
         //TODO
-        String path = "/core/report/listaOrientacao.jasper";
+        String path = "/usuario/core/report/listaOrientacao.jasper";
         List<Orientacao> dataSource = new ArrayList<Orientacao>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getOrientacaoList());
         Curriculo curriculoR = new Curriculo();
         Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();

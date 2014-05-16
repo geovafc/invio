@@ -151,10 +151,10 @@ public class AvaliacaoBean {
     //Fim Orientações lista e avaliação
 
     public String pagListarAvaliar() {
-        return "faces/admin/listarAvaliar.xhtml";
+        return "/administracao/listarAvaliar.xhtml";
     }
 
     public String pagListarAvaliado() {
-        return "faces/admin/listarAvaliado.xhtml";
+        return "/administracao/listarAvaliado.xhtml";
     }
 }
