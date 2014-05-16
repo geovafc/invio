@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -53,7 +54,10 @@ public class Plano implements Serializable {
     @Column(name = "data")
     @Temporal(TemporalType.DATE)
     private Date data;
-    @ManyToMany(mappedBy = "planoList")
+    @JoinTable(name = "plano_curriculo", joinColumns = {
+        @JoinColumn(name = "plano_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "curriculo_id", referencedColumnName = "id")})
+    @ManyToMany
     private List<Curriculo> curriculoList;
     @JoinColumn(name = "edital", referencedColumnName = "id")
     @ManyToOne(optional = false)

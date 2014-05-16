@@ -5,7 +5,6 @@
 package invio.bean.util;
 
 import invio.entidade.Login;
-import invio.entidade.Perfil;
 import invio.rn.LoginRN;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -23,23 +22,18 @@ public class UsuarioUtil {
         return loginRN.obter(e.getRemoteUser());
     }
 
-    public static boolean isUsuarioLogadoMaster() {
+    public static boolean isUsuarioLogadoAdministrador() {
         Login usuario = obterUsuarioLogado();
-        for (Perfil perfil : usuario.getPerfilList()) {
-            if ("ROLE_MASTER".equals(perfil.getDescricao())) {
-                return true;
-            }
-        }
-        return false;
+        return "ROLE_A".equals("ROLE_" + usuario.getPerfil());
     }
-    
-    public static boolean isUsuarioLogadoAdministracao() {
+
+    public static boolean isUsuarioLogadoSecretaria() {
         Login usuario = obterUsuarioLogado();
-        for (Perfil perfil : usuario.getPerfilList()) {
-            if ("ROLE_MASTER".equals(perfil.getDescricao())) {
-                return true;
-            }
-        }
-        return false;
+        return "ROLE_S".equals("ROLE_" + usuario.getPerfil());
+    }
+
+    public static boolean isUsuarioLogadoUsuario() {
+        Login usuario = obterUsuarioLogado();
+        return "ROLE_U".equals("ROLE_" + usuario.getPerfil());
     }
 }

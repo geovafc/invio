@@ -5,7 +5,6 @@
 package invio.spring;
 
 import invio.entidade.Login;
-import invio.entidade.Perfil;
 import invio.rn.LoginRN;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +30,16 @@ public class LoginSpring implements UserDetailsService {
         Login temp = loginRN.obter(string);
         List<GrantedAuthority> papeis = new ArrayList<GrantedAuthority>();
         if (temp != null) {
-            for (Perfil p : temp.getPerfilList()) {
-                papeis.add(new GrantedAuthorityImpl(p.getDescricao()));
-            }
-            return new User(temp.getEmail(), temp.getSenha(), temp.getAtivo(), true, true, true, papeis);
+            papeis.add(new GrantedAuthorityImpl("ROLE_" + temp.getPerfil()));
+            User user = new User(
+                    temp.getEmail(), 
+                    temp.getSenha(), 
+                    temp.getAtivo(), 
+                    true, 
+                    true, 
+                    true, 
+                    papeis);
+            return user;
         } else {
             throw new UsernameNotFoundException(string);
         }

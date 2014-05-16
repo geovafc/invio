@@ -64,7 +64,7 @@ public class CurriculoBean {
     }
 
     public List<Curriculo> getCurriculos() {
-        if (UsuarioUtil.isUsuarioLogadoMaster()) {
+        if (UsuarioUtil.isUsuarioLogadoAdministrador()) {
             curriculos = curriculoRN.obterTodos();
         } else {
             curriculos = curriculoRN.obterCurriculoLogin(UsuarioUtil.obterUsuarioLogado());
