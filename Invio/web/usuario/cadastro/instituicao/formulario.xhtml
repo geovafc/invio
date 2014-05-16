@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form acceptcharset="ISO-8859-1" >
+
+            <h:inputHidden 
+                id="objInstituicao"
+                value="#{instituicaoBean.instituicao.id}"/>
+            
+            <p:growl/>
+
+            <h:panelGrid columns="3">
+                
+                <f:view encoding="ISO-8859-1">
+                <h:outputText value="Nome: "/>
+                <h:inputText id="instituicaoNome" value="#{instituicaoBean.instituicao.nome}"/>
+                </f:view>
+                <h:message for="instituicaoNome"/>
+
+                <h:outputText value="Sigla: "/>
+                <h:inputText id="instituicaoSigla" value="#{instituicaoBean.instituicao.sigla}"/>
+                <h:message for="instituicaoSigla"/>
+
+            </h:panelGrid>
+
+            <p:commandButton 
+                ajax="false" value="Salvar" action="#{instituicaoBean.salvarInstituicao()}"/>
+            <p:commandButton 
+                ajax="false" value="Cancelar" action="#{instituicaoBean.irListarInstituicoes()}"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

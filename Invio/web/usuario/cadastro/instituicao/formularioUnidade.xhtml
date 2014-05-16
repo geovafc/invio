@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form acceptcharset="ISO-8859-1" >
+            
+            <h:inputHidden 
+                id="ihInstituicao"
+                value="#{instituicaoBean.instituicao}" 
+                converter="instituicaoConversor"/>
+            <h:inputHidden 
+                id="objUnidade"
+                value="#{instituicaoBean.unidade.id}"
+                />
+
+            <p:growl/>
+
+            <h:panelGrid columns="3">
+
+                <f:view encoding="ISO-8859-1">
+                <h:outputText value="Nome: "/>
+                <h:inputText id="unidadeNome" value="#{instituicaoBean.unidade.nome}"/>
+                </f:view>
+
+
+            </h:panelGrid>
+
+            <p:commandButton 
+                ajax="false" value="Salvar" action="#{instituicaoBean.salvarUnidade()}"/>
+            <p:commandButton 
+                ajax="false" value="Cancelar" action="listarUnidades.xhtml"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

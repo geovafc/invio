@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:panel header="Lista de Programas">
+
+                <p:growl showDetail="true" showSummary="true"/>
+
+                <p:commandButton value="Novo" ajax="false" action="#{programaBean.novoPrograma()}"/>
+
+                <p:dataTable 
+                    id="dtPrograma"
+                    var="programa" value="#{programaBean.programas}"
+                    paginator="true" rows="6"  
+                    emptyMessage="Sem registro para a exibição."
+                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                    rowsPerPageTemplate="5,10,15">
+
+                    <p:column headerText="Programa" filterBy="#{programa.nome}">  
+                        <h:outputText value="#{programa.nome}" />  
+                    </p:column>  
+
+                    <p:column headerText="Instituição" filterBy="#{programa.instituicao.nome}">  
+                        <h:outputText value="#{programa.instituicao.nome}" />  
+                    </p:column>
+
+                    <p:column headerText="Área" filterBy="#{programa.area.nome}" >  
+                        <h:outputText value="#{programa.area.nome}" />  
+                    </p:column>
+
+                    <p:column headerText="Operações">  
+                        <div align="center">
+                            <p:commandButton 
+                                action="formulario.xhtml"
+                                value="Editar"
+                                ajax="false">  
+                                <f:setPropertyActionListener 
+                                    value="#{programa}" 
+                                    target="#{programaBean.programa}" />  
+                            </p:commandButton>  
+
+                            <p:commandButton 
+                                ajax="false"
+                                action="excluir.xhtml"
+                                value="Excluir">  
+                                <f:setPropertyActionListener 
+                                    value="#{programa}" 
+                                    target="#{programaBean.programa}" />  
+                            </p:commandButton>
+
+                        </div>
+                    </p:column> 
+
+
+                </p:dataTable>
+
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
