@@ -98,21 +98,21 @@
                         icon="ui-icon-contact"
                         action="#{curriculoBean.meuCurriculo}"/> 
                     <p:menuitem 
-                        rendered="#{usuarioBean.discente}"
+                        rendered="#{usuarioBean.usuario}"
                         value="Frequências" 
                         title="Lista de frequências"
                         ajax="false"
                         icon="ui-icon-document"
                         action="/documentacao/listaFrequencias.xhtml"/>
                     <p:menuitem 
-                        rendered="#{usuarioBean.discente}"
+                        rendered="#{usuarioBean.usuario}"
                         value="Relatórios" 
                         title="Lista de relatórios finais e parciais."
                         ajax="false"
                         icon="ui-icon-document"
                         action="/documentacao/listaRelatorios.xhtml"/>
                     <p:menuitem 
-                        rendered="#{usuarioBean.docente}"
+                        rendered="#{usuarioBean.usuario}"
                         value="Periódicos" 
                         title="Lista de publicações em periódicos"
                         ajax="false"
@@ -120,14 +120,14 @@
                         action="/cadastro/curriculo/producao/periodicos.xhtml"/>  
 
                     <p:menuitem 
-                        rendered="#{usuarioBean.docente}"
+                        rendered="#{usuarioBean.usuario}"
                         value="Livros" 
                         ajax="false"
                         title="Publicações de livros como autor ou editor e capítulos"
                         icon="ui-icon-note"
                         action="/cadastro/curriculo/producao/livros.xhtml"/>  
                     <p:menuitem 
-                        rendered="#{usuarioBean.docente}"
+                        rendered="#{usuarioBean.usuario}"
                         value="Orientações " 
                         ajax="false"
                         title="Indicação dos alunos orientados"
@@ -139,7 +139,7 @@
                     label="Relatórios" 
                     icon="ui-icon-refresh">
                     <p:menuitem
-                        rendered="#{usuarioBean.docente}"
+                        rendered="#{usuarioBean.usuario}"
                         value="Docentes" 
                         title="Lista de Docentes cadastrados no sistema."
                         ajax="false"
@@ -147,7 +147,7 @@
                         action="#{curriculoBean.gerarListaDocentes()}"/>
                 </p:submenu>
 
-                <p:menuitem rendered="#{usuarioBean.docente}"
+                <p:menuitem rendered="#{usuarioBean.usuario}"
                             value="Imprimir Currículo"  
                             title="Imprimir a Ficha Curricular com as Produções"
                             ajax="false"
