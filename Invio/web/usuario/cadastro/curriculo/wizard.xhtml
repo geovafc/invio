@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../../template/templatePadrao.xhtml"
+                template="/publico/template/templatePadrao.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -34,8 +34,8 @@
                     <p:panel header="Dados Pessoais" style="height: 500px">  
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
-                            <h:outputText rendered="#{usuarioBean.docente}" value="Titulação: *"/>
-                            <p:selectOneMenu rendered="#{usuarioBean.docente}" 
+                            <h:outputText rendered="#{usuarioBean.usuario}" value="Titulação: *"/>
+                            <p:selectOneMenu rendered="#{usuarioBean.usuario}" 
                                              style="width: 125px" id="titulacao" 
                                              required="true" value="#{curriculoBean.curriculo.titulacao}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
@@ -44,7 +44,7 @@
                                 <f:selectItem itemLabel="Especialista" itemValue="Especialista" />  
                                 <f:selectItem itemLabel="Graduado" itemValue="Graduado" />  
                             </p:selectOneMenu>
-                            <p:message id="erroTitulacao" for="titulacao" rendered="#{usuarioBean.docente}"/>
+                            <p:message id="erroTitulacao" for="titulacao" rendered="#{usuarioBean.usuario}"/>
 
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
@@ -72,7 +72,7 @@
                                 value="#{curriculoBean.curriculo.dtNascimento}" 
                                 navigator="true" 
                                 pattern="dd/MM/yyyy" 
-                                yearRange="c-70:c-20"
+                                yearRange="c-50:c-0"
                                 required="true"/>
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
@@ -110,25 +110,25 @@
                                 value="#{curriculoBean.curriculo.lattes}" /> 
                             <p:message id="erroLattes" for="lattes"/>
 
-                            <h:outputText rendered="#{usuarioBean.docente}" 
+                            <h:outputText rendered="#{usuarioBean.usuario}" 
                                           value="Grupo de Pesquisa (Link): *" />  
-                            <p:inputText rendered="#{usuarioBean.docente}"
+                            <p:inputText rendered="#{usuarioBean.usuario}"
                                          id="grupoPesq" 
                                          required="true" 
                                          label="GrupoPesq"  
                                          value="#{curriculoBean.curriculo.grupoPesq}" /> 
-                            <p:message id="erroGrupoPesq" for="grupoPesq" rendered="#{usuarioBean.docente}"/>
+                            <p:message id="erroGrupoPesq" for="grupoPesq" rendered="#{usuarioBean.usuario}"/>
 
 
-                            <h:outputText rendered="#{usuarioBean.discente}" 
+                            <h:outputText rendered="#{usuarioBean.usuario}" 
                                           value="Curso: *"/>
-                            <p:inputText rendered="#{usuarioBean.discente}"
+                            <p:inputText rendered="#{usuarioBean.usuario}"
                                          id="curso" 
                                          required="true" 
                                          label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
-                            <p:message id="erroCurso" for="curso" rendered="#{usuarioBean.discente}"/>
-
+                            <p:message id="erroCurso" for="curso" rendered="#{usuarioBean.usuario}"/>
+                                        
                             <h:outputText value="Instituto/Campi: *"/>
                             <p:inputText id="instituto" required="true" label="instituto"  
                                          value="#{curriculoBean.curriculo.institutoCampi}" />
