@@ -482,7 +482,7 @@ public class CurriculoBean {
 
     public void gerarListaDocentes() {
 
-        String path = "/relatorio/crachaCredenciado.jasper";
+        String path = "/usuario/core/report/crachaCredenciado.jasper";
         List<Curriculo> dataSource = new ArrayList<Curriculo>();
         Curriculo curriculoR = new Curriculo();
         dataSource.add(curriculoR);
