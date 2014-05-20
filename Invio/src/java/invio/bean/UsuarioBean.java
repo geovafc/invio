@@ -26,7 +26,7 @@ public class UsuarioBean {
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
-    private char permissao;
+    private char permissao='U';
     private Login usuarioLogado = new Login();
     private String cpfLoginTemp = "";
     private String cpfLogin = "";

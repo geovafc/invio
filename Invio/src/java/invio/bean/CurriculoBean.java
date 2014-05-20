@@ -36,7 +36,6 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class CurriculoBean {
-
     private CurriculoRN curriculoRN = new CurriculoRN();
     private LoginRN loginRN = new LoginRN();
     private PeriodicoRN periodicoRN = new PeriodicoRN();

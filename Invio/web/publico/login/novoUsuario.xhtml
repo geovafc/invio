@@ -19,11 +19,7 @@
                     <br/>
                     <h:panelGrid columns="2">
 
-                        <h:outputText value="Perfil Acadêmico: *" />
-                        <p:selectOneMenu style="width: 125px" required="true" id="perfil" value="#{usuarioBean.permissao}">  
-                            <f:selectItem itemLabel="Selecione" itemValue="" />  
-                            <f:selectItem itemLabel="Usuario" itemValue="U" />  
-                        </p:selectOneMenu>
+                        
 
                         <h:outputText value="E-mail: *"/>
                         <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
