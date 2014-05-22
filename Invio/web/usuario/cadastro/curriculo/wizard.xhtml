@@ -24,6 +24,7 @@
             <h:inputHidden id="objCurriculo"
                            value="#{curriculoBean.curriculo.id}"/>
 
+
             <p:wizard widgetVar="wiz" 
                       id="wizardCurriculo"
                       flowListener="#{curriculoBean.onFlowProcess}"
@@ -121,10 +122,9 @@
 
 
                             <h:outputText rendered="#{usuarioBean.usuario}" 
-                                          value="Curso: *"/>
+                                          value="Curso: "/>
                             <p:inputText rendered="#{usuarioBean.usuario}"
                                          id="curso" 
-                                         required="true" 
                                          label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso" rendered="#{usuarioBean.usuario}"/>
@@ -191,13 +191,12 @@
                                                  converter="areaConversor" 
                                                  style="width: 300px;height:200px"> 
                                 <f:selectItems 
-                                    value="#{curriculoBean.areas}" 
+                                    value="#{areaBean.areas}" 
                                     var="area" 
-                                    itemLabel="#{area.nome}" 
+                                    itemLabel="#{area.nome}"
                                     itemValue="#{area}"/>
-                                <f:selectItem 
-                                    itemLabel="Outra Área" 
-                                    itemValue=""/>
+                                <f:selectItem itemLabel="Outra Área" itemValue=""/>
+                                
                             </p:selectOneListbox> 
                         </h:panelGrid>  
                     </p:panel>  
@@ -277,15 +276,15 @@
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.lattes}" />  
 
-                            <h:outputText rendered="#{usuarioBean.docente}" value="Grupo de Pesquisa: " />  
-                            <h:inputText rendered="#{usuarioBean.docente}"
+                            <h:outputText rendered="#{usuarioBean.usuario}" value="Grupo de Pesquisa: " />  
+                            <h:inputText rendered="#{usuarioBean.usuario}"
                                          styleClass="outputLabel" 
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.grupoPesq}" />  
 
-                            <h:outputText rendered="#{usuarioBean.discente}" 
+                            <h:outputText rendered="#{usuarioBean.usuario}" 
                                           value="Curso: " />  
-                            <h:inputText rendered="#{usuarioBean.discente}" 
+                            <h:inputText rendered="#{usuarioBean.usuario}" 
                                          styleClass="outputLabel"  
                                          disabled="true"
                                          value="#{curriculoBean.curriculo.curso}" />  

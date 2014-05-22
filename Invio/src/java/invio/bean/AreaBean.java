@@ -6,6 +6,7 @@ package invio.bean;
 
 import invio.bean.util.BeanUtil;
 import invio.entidade.Area;
+import invio.entidade.Instituicao;
 import invio.rn.AreaRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
