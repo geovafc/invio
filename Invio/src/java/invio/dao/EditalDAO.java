@@ -9,8 +9,6 @@ package invio.dao;
 import invio.entidade.Edital;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -19,19 +17,19 @@ import javax.persistence.Query;
  */
 public class EditalDAO extends GenericDAO<Edital>{
     
-    public List<Edital> obterTodosAbertos(Date dataAtual){
+    public List<Edital> obterTodosAbertos(){
         List<Edital> resposta=null;
-        String consulta ="select e.numero,e.ano,e.resumo,e.datainicial,e.datafinal"+
-                " from Edital e where e.datafinal >= :%";
-        Query q = getEntityManager().createQuery(consulta).setParameter("%", dataAtual);
+        String consulta ="select e from Edital e where e.datafinal >= :dataAtual";
+        Date dataAtual = new Date();
+        Query q = getEntityManager().createQuery(consulta).setParameter("dataAtual", dataAtual);
         resposta= (List<Edital>) q.getResultList();
         return resposta;
     }
-    public List<Edital> obterTodosFechados(Date dataAtual){
+    public List<Edital> obterTodosFechados(){
         List<Edital> resposta=null;
-        String consulta ="select e.numero,e.ano,e.resumo,e.datainicial,e.datafinal"+
-                " from Edital e where e.datafinal < :%";
-        Query q = getEntityManager().createQuery(consulta).setParameter("%", dataAtual);
+        String consulta ="select e from Edital e where e.datafinal < :dataAtual";
+        Date dataAtual = new Date();
+        Query q = getEntityManager().createQuery(consulta).setParameter("dataAtual", dataAtual);
         resposta= (List<Edital>) q.getResultList();
         return resposta;
     }

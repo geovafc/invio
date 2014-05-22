@@ -8,7 +8,6 @@ package invio.rn;
 import invio.dao.EditalDAO;
 import invio.dao.GenericDAO;
 import invio.entidade.Edital;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,12 +23,10 @@ public class EditalRN {
         return dao.obter(Edital.class, edital.getId());
     }
     public List<Edital> obterTodosAbertos() {
-        Date dataAtual = new Date();
-        return daoEdital.obterTodosAbertos(dataAtual);
+        return daoEdital.obterTodosAbertos();
     }
     public List<Edital> obterTodosFechados() {
-        Date dataAtual = new Date();
-        return daoEdital.obterTodosFechados(dataAtual);
+        return daoEdital.obterTodosFechados();
     }
 
     public List<Edital> obterTodos() {
