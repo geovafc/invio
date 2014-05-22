@@ -11,8 +11,7 @@
         <intercept-url pattern="/administracao/**" access="ROLE_A" />
         <intercept-url pattern="/secretaria/**" access="ROLE_A,ROLE_S" />
         <intercept-url pattern="/usuario/**" access="ROLE_A,ROLE_S,ROLE_U" />
-        <intercept-url pattern="/publico/indexHome.xhtml" access="ROLE_A,ROLE_S,ROLE_U" />
-        <!--        <intercept-url pattern="/publico/indexHome.xhtml" access="ROLE_DOCENTE,ROLE_DISCENTE,ROLE_MASTER,ROLE_ADMINISTRACAO" />-->
+        <intercept-url pattern="/publico/**" access="ROLE_A,ROLE_S,ROLE_U" />
         <form-login 
             login-page="/loginInicio.xhtml" 
             authentication-failure-url="/loginInicio.xhtml?erro=true"
