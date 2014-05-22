@@ -26,19 +26,12 @@ public class UsuarioBean {
     Login login = new Login();
     Curriculo curriculo = new Curriculo();
     private String codigoConfirmacao = "EJR8T31W";
-    private char permissao='U';
     private Login usuarioLogado = new Login();
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
 
     
-    public char getPermissao() {
-        return permissao;
-    }
-
-    public void setPermissao(char permissao) {
-        this.permissao = permissao;
-    }
+   
 
     public UsuarioBean() {
     }
@@ -183,7 +176,7 @@ public class UsuarioBean {
 
     public ArrayList<String> getTipoPerfilUsuarioComum() {
         tiposPerfil = new ArrayList<String>();
-        tiposPerfil.add("Discente");
+        tiposPerfil.add("");
         tiposPerfil.add("Docente");
         return tiposPerfil;
     }
@@ -206,7 +199,6 @@ public class UsuarioBean {
     public String salvar2() { //concluir este método. Será chamado no alterar senha que ainda
         //não esta implementado na página.
         if (loginRN.existe(login.getEmail())) {
-            login.setPerfil(permissao);
 
             if (loginRN.salvar(login)) {
                 boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));

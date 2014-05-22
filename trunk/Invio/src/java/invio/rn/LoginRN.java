@@ -1,6 +1,5 @@
 package invio.rn;
 
-import invio.dao.CurriculoDAO;
 import invio.dao.LoginDAO;
 import invio.entidade.Login;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ public class LoginRN {
 
         if (dao.iniciarTransacao()) {
             if (login.getId() == null) {
+                login.setPerfil('U');//Isso faz com que todo novo usuario no sistema entre com o nivel de acesso:usuário;
                 salvou = dao.criar(login);
             } else {
                 salvou = dao.alterar(login);
