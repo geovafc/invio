@@ -10,14 +10,22 @@
                 at="left bottom" 
                 style="width: 100%; height: 100%"
                 backLabel="Voltar">  
-                <p:menuitem rendered="#{usuarioBean.secretaria}"
-                            value="Novo Edital"  ajax="false"
-                            icon="ui-icon-arrowrefresh-1-w" 
-                            action="/secretaria/novoEdital.xhtml"/>
-                <p:menuitem rendered="#{usuarioBean.a}"
-                            value="Novo Edital"  ajax="false"
-                            icon="ui-icon-arrowrefresh-1-w" 
-                            action="/secretaria/novoEdital.xhtml"/>
+                <p:submenu
+                    style="width: 100%; height: 100%"
+                    label="Edital" 
+                    icon="ui-icon-refresh"> 
+                    <p:menuitem
+                        rendered="#{usuarioBean.administrador} OR #{usuarioBean.secretaria}"
+                        value="Novo Edital"   
+                        ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w"
+                        action="/secretaria/editalForm.xhtml"/>
+                    <p:menuitem 
+                        value="Lista de Editais"  ajax="false"
+                        icon="ui-icon-arrowrefresh-1-w" 
+                        action="/publico/edital/listaEdital.xhtml"/>
+                </p:submenu>
+
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Listar Usuários"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 

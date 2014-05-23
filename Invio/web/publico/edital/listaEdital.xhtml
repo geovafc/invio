@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <p:tabView>
+        <p:tab title="Editais Abertos" >
+            <p:dataTable id="dataTable"
+                        style="text-align: center"
+                        value="#{editalBean.editaisAbertos}" 
+                        var="edital">
+            
+                       <p:column headerText="Titulo">
+                           <h:outputLabel value="#{edital.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Ano">
+                            <h:outputLabel value="#{edital.ano}"/>
+                        </p:column>
+                        <p:column headerText="Data Inicial">
+                            <h:outputLabel value="#{edital.datainicial}"/>
+                        </p:column>
+                        <p:column headerText="Data Final">
+                            <h:outputLabel value="#{edital.datafinal}"/>
+                        </p:column>
+                
+                <p:column headerText="Submeter">
+                            <p:commandButton
+                                id="cbAlterar" 
+                                ajax="false" 
+                                action="#{editalBean.editar()}" 
+                                title="Editar"
+                                icon="ui-icon-pencil"/>
+                </p:column>
+                        <p:column headerText="Editar"
+                                  rendered="#{usuarioBean.secretaria} OR #{usuarioBean.administrador}">
+                            <p:commandButton
+                                id="cbAlterar" 
+                                ajax="false" 
+                                action="#{editalBean.editar()}" 
+                                title="Editar"
+                                icon="ui-icon-pencil">
+                            <f:setPropertyActionListener 
+                                    target="#{editalBean.editar}" 
+                                    value="#{edital}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column 
+                            headerText="Excluir"
+                            rendered="#{usuarioBean.secretaria} OR #{usuarioBean.administrador}">
+                            <p:commandButton 
+                                id="cbExcluir"
+                                ajax="false" 
+                                title="Excluir"
+                                icon="ui-icon-trash"
+                                action="#{editalBean.excluir}" >
+                                <f:setPropertyActionListener 
+                                    target="#{editalBean.excluir}" 
+                                    value="#{edital}x"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+ 
+        </p:tab>
+        <p:tab title="Editais Fechados">
+            <p:dataTable id="dataTable"
+                        style="text-align: center"
+                        value="#{editalBean.editaisFechados}" 
+                        var="edital">
+            
+                       <p:column headerText="Titulo">
+                           <h:outputLabel value="#{edital.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Ano">
+                            <h:outputLabel value="#{edital.ano}"/>
+                        </p:column>
+                        <p:column headerText="Data Inicial">
+                            <h:outputLabel value="#{edital.datainicial}"/>
+                        </p:column>
+                        <p:column headerText="Data Final">
+                            <h:outputLabel value="#{edital.datafinal}"/>
+                        </p:column>
+                        <p:column headerText="Editar">
+                            <p:commandButton
+                                id="cbAlterar" 
+                                ajax="false" 
+                                action="#{editalBean.editar()}" 
+                                title="Editar"
+                                icon="ui-icon-pencil">
+                                <f:setPropertyActionListener 
+                                    target="#{editalBean.editar}" 
+                                    value="#{edital}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandButton 
+                                id="cbExcluir"
+                                ajax="false" 
+                                title="Excluir"
+                                icon="ui-icon-trash"
+                                action="#{editalBean.excluir}" >
+                                <f:setPropertyActionListener 
+                                    target="#{editalBean.excluir}" 
+                                    value="#{edital}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+        </p:tab>
+        
+    </p:tabView> 
+    </ui:define>
+</ui:composition>
