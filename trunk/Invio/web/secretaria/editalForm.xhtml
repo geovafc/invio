@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="EditalForm">
+
+            <p:messages showDetail="true" showSummary="true"/>
+
+            <div align="center">
+                <p:panel >
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="Titulo: "/>
+                        <p:inputText  value="#{editalBean.edital.titulo}"/>
+                        <h:outputText value="Número: *"/>
+                        <p:inputText required="true" value="#{editalBean.edital.numero}"/>
+                        <h:outputText value="Ano: *"/>
+                        <p:inputText required="true" value="#{editalBean.edital.ano}"/>
+                        <h:outputText value="Resumo: *"/>
+                        <p:inputTextarea required="true"  value="#{editalBean.edital.resumo}"/>
+                        <h:outputText value="Data Inicial: *"/>
+                        <p:calendar  value="#{editalBean.edital.datainicial}"/>
+                        <h:outputText value="Data Final: *"/>
+                        <p:calendar   value="#{editalBean.edital.datafinal}"/>
+                        <h:outputText value="Instituição: *"/>
+                        <p:selectOneRadio id="tipo" value="#{editalBean.edital.instituicao}">  
+                            <f:selectItem itemLabel="Autor" itemValue="30" />  
+                            <f:selectItem itemLabel="Editor" itemValue="10" />  
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+
+                </p:panel>
+                <p:commandButton value="Salvar" action="#{editalBean.salvar()}"
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
