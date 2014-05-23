@@ -205,33 +205,6 @@ public class CurriculoBean {
         return "/usuario/cadastro/curriculo/wizard.xhtml";
     }
 
-//    public String altualizarPontos() {
-//        if (curriculo != null) {
-//
-//            totalPontos = 0;
-//
-//            List<Livro> livros = curriculo.getLivroList();
-//            List<Periodico> periodicos = curriculo.getPeriodicoList();
-//            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
-//
-//            for (Livro livroTemp : livros) {
-//                totalPontos = totalPontos + livroTemp.getEstrato();
-//            }
-//
-//            for (Periodico periodicoTemp : periodicos) {
-//                totalPontos = totalPontos + periodicoTemp.getEstrato();
-//
-//            }
-//
-//            for (Orientacao orientacaoTemp : orientacoes) {
-//
-//                totalPontos = totalPontos + orientacaoTemp.getEstrato();
-//            }
-//
-//        }
-//        return "/admin/listarProducao.xhtml";
-//
-//    }
     public String totalFCO() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         curriculo = usuarioLogado.getCurriculo();

@@ -19,19 +19,16 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class UsuarioBean {
 
-    LoginRN loginRN = new LoginRN();
-    CurriculoRN curriculoRN = new CurriculoRN();
-    JavaMailRN javaMailRN = new JavaMailRN();
-    List<Login> logins;
-    Login login = new Login();
-    Curriculo curriculo = new Curriculo();
-    private String codigoConfirmacao = "EJR8T31W";
+    private LoginRN loginRN = new LoginRN();
+    private CurriculoRN curriculoRN = new CurriculoRN();
+    private JavaMailRN javaMailRN = new JavaMailRN();
+    private List<Login> logins;
+    private Login login = new Login();
+    private Curriculo curriculo = new Curriculo();
     private Login usuarioLogado = new Login();
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
-
-    
-   
+    private String usuario;
 
     public UsuarioBean() {
     }
@@ -40,6 +37,7 @@ public class UsuarioBean {
         if (UsuarioUtil.isUsuarioLogadoAdministrador()) {
             logins = loginRN.obterTodos();
         } else {
+            logins = null;
             BeanUtil.criarMensagemDeInformacao("Página não autorizada para este Usuário.", "");
         }
         return logins;
@@ -59,6 +57,10 @@ public class UsuarioBean {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public String getUsuario() {
+        return usuario;
     }
 
     public String irRecuperarSenha() {
@@ -114,7 +116,6 @@ public class UsuarioBean {
         for (Login loginTemp : logins) {
 
             if (loginTemp.getEmail().equals(login.getEmail())) {
-//                setCpfLogin(loginTemp.getCurriculoId().getCpf());
                 loginEncontrado = true;
                 if (loginEncontrado == true) {
 
@@ -147,11 +148,9 @@ public class UsuarioBean {
     }
 
     public void configurarSalvarLogin() {
-        login.setCodigoConfirmacaoTemp("");
-        login.setCodigoConfirmacao(codigoConfirmacao);
+        login.setCodigoConfirmacaoTemp("XPTO");
         login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
         login.setAtivo(true);
-        login.setPerfil('U');
         if (loginRN.salvar(login)) {
 
             boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
@@ -159,15 +158,17 @@ public class UsuarioBean {
             if (falhaAoEnviar == true) {
                 loginRN.remover(login);
                 pagina2 = "/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                        "Não foi possível concluir o cadastro, tente mais tarde.");
+                BeanUtil.criarMensagemDeAviso(
+                        "Falha no sistema. ",
+                        "Desculpe, não foi possível concluir o cadastro.");
                 configurarLimparSessao();
                 javaMailRN = new JavaMailRN();
             } else {
 
                 pagina2 = "/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso("Sua inscrição no Sistema foi realizada com sucesso.",
-                        "");
+                BeanUtil.criarMensagemDeAviso(
+                        "Sucesso",
+                        "Sua inscrição no Sistema foi realizada com sucesso.");
                 configurarLimparSessao();
             }
         }
@@ -178,7 +179,9 @@ public class UsuarioBean {
         tiposPerfil = new ArrayList<String>();
         tiposPerfil.add("");
         tiposPerfil.add("Docente");
+
         return tiposPerfil;
+
     }
 
     public ArrayList<String> getTipoPerfilAdmin() {
@@ -196,32 +199,36 @@ public class UsuarioBean {
         this.emailJaCadastrado = emailJaCadastrado;
     }
 
-    public String salvar2() { //concluir este método. Será chamado no alterar senha que ainda
+    public String salvar2() {
+        //concluir este método. Será chamado no alterar senha que ainda
         //não esta implementado na página.
-        if (loginRN.existe(login.getEmail())) {
+        String resposta = null;
+        if (loginRN.salvar(login)) {
+            boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(
+                    login, 
+                    "Confirmação de registro de e-mail", 
+                    BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
-            if (loginRN.salvar(login)) {
-                boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
-
-                if (falhaAoEnviar == true) {
-                    loginRN.remover(login);
-                    pagina2 = "/loginInicio.xhtml";
-                    BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                            "Não foi possível concluir a requisição, tente mais tarde.");
-                    configurarLimparSessao();
-                    javaMailRN = new JavaMailRN();
-                } else {
-                    pagina2 = "/loginInicio.xhtml";
-                    BeanUtil.criarMensagemDeAviso("Seus dados foram alterados com sucesso.",
-                            "");
-                    configurarLimparSessao();
-                }
+            if (falhaAoEnviar == true) {
+                loginRN.remover(login);
+                resposta = "/loginInicio.xhtml";
+                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
+                        "Não foi possível concluir a requisição, tente mais tarde.");
+                configurarLimparSessao();
+                javaMailRN = new JavaMailRN();
+            } else {
+                resposta = "/loginInicio.xhtml";
+                BeanUtil.criarMensagemDeAviso(
+                        "Aviso",
+                        "Seus dados foram alterados com sucesso.");
+                configurarLimparSessao();
             }
         }
-        return null;
+        return resposta;
     }
 
     public String salvar() {
+
         if (loginRN.existe(login.getEmail())) {
             configurarLimparSessao();
             pagina2 = "/publico/login/novoUsuario.xhtml";
@@ -233,30 +240,34 @@ public class UsuarioBean {
         configurarLimparSessao();
         return pagina2;
     }
-    String pagina3 = "";
 
     public String alterarPermissao() {
+        String resposta = null;
         if (loginRN.existe(login.getEmail())) {
-            pagina2 = "/publico/login/novoUsuario.xhtml";
-            BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
-                    "");
+            resposta = "/publico/login/novoUsuario.xhtml";
+            BeanUtil.criarMensagemDeAviso(
+                    "Erro",
+                    "Já existe um usuário cadastrado com esse e-mail.");
         } else {
             configurarSalvarLogin();
         }
         configurarLimparSessao();
-        return pagina2;
+        return resposta;
     }
 
     public String okCodigo() {
+        String resposta = null;
         if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
             login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
             loginRN.salvar(login);
-            pagina3 = "/publico/indexHome.xhtml";
+            resposta = "/publico/indexHome.xhtml";
         } else {
-            BeanUtil.criarMensagemDeAviso("O código inserido está incorreto.", "");
-            pagina3 = "/publico/login/telaConfirmacao.xhtml";
+            BeanUtil.criarMensagemDeAviso(
+                    "Aviso",
+                    "O código inserido está incorreto.");
+            resposta = "/publico/login/telaConfirmacao.xhtml";
         }
-        return pagina3;
+        return resposta;
     }
 
     public Login getUsuarioLogado() {

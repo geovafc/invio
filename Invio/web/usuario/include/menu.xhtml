@@ -30,6 +30,12 @@
                             value="Listar Usuários"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/administracao/usuarios/listarUsuarios.xhtml"/>
+                
+                <p:menuitem rendered="#{usuarioBean.administrador}"
+                            value="Editar Permissão"  
+                            ajax="false"
+                            icon="ui-icon-pencil" 
+                            action="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
                 <p:menuitem 
                     rendered="#{usuarioBean.administrador}"
                     value="Avaliar Produção"  ajax="false"

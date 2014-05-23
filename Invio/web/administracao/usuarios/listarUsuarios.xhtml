@@ -14,34 +14,48 @@
 
                 <p:dataTable 
                     id="dtUsuario"
-                    var="login" value="#{usuarioBean.logins}"
+                    var="login" 
+                    value="#{usuarioBean.logins}"
                     emptyMessage="Sem registro para a exibição."
-                    paginator="true" rows="6"  
+                    paginator="true" 
+                    rows="15"  
                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                    rowsPerPageTemplate="5,10,15">
+                    rowsPerPageTemplate="15,25,50">
 
-                    <p:column headerText="Currículo" filterBy="#{login.curriculo.nome}" >  
+                    <p:column 
+                        headerText="Nome" 
+                        filterBy="#{login.curriculo.nome}" >  
                         <h:outputText value="#{login.curriculo.nome}" />  
                     </p:column>  
 
+                    <p:column 
+                        headerText="Login" 
+                        filterBy="#{login.email}" >  
+                        <h:outputText value="#{login.email}" />  
+                    </p:column>  
 
-                    <p:column headerText="Operações">  
-                        <div align="center">
-                            <p:commandButton 
-                                action="/administracao/usuarios/editarPermissoes.xhtml"
-                                value="Permissões"
-                                ajax="false">  
-                            </p:commandButton>  
 
-                            <p:commandButton 
-                                ajax="false"
-                                action="/administracao/usuarios/excluir.xhtml"
-                                value="Excluir">  
-                                <f:setPropertyActionListener 
-                                    value="#{curriculo}" 
-                                    target="#{curriculoBean.curriculo}" />  
-                            </p:commandButton> 
-                        </div>
+                    <p:column 
+                        headerText="Operações">  
+                        <p:commandButton 
+                            action="/administracao/usuarios/editarPermissoes.xhtml"
+                            icon="ui-icon-pencil"
+                            value="Perfil"
+                            ajax="false">  
+                            <f:setPropertyActionListener 
+                                value="#{login}" 
+                                target="#{usuarioBean.login}" />  
+                        </p:commandButton>  
+
+                        <p:commandButton 
+                            ajax="false"
+                            icon="ui-icon-trash"
+                            action="/administracao/usuarios/excluir.xhtml"
+                            value="Excluir">  
+                            <f:setPropertyActionListener
+                                value="#{login}" 
+                                target="#{usuarioBean.login}" />  
+                        </p:commandButton> 
                     </p:column> 
 
                 </p:dataTable>
