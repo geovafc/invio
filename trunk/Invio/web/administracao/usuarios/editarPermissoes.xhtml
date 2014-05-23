@@ -8,48 +8,59 @@
 
     <ui:define name="content">
 
-        <h:form id="Permissoes">
+        <h:form 
+            id="Permissoes">
 
             <p:messages showDetail="true" showSummary="true"/>
 
-            <div align="center">
-                <p:panel >
-                    <h:outputText id="edPermissoes" value="Editar Permissões:"/>
-                    <br/>
-                    <br/>
-                    <h:panelGrid columns="2">
+            <p:panel >
+                <h:outputText 
+                    id="edPermissoes" 
+                    value="Editar Permissão:"/>
 
-                        <h:outputText value="Tipo Usuário: " />
-                        <p:selectOneMenu style="width: 185px" id="perfil" value="#{usuarioBean.permissao}">  
-                            <f:selectItem itemLabel="Administrador" itemValue="A" />  
-                            <f:selectItem itemLabel="Secretaria" itemValue="S" />  
-                            <f:selectItem itemLabel="Usuario" itemValue="U" />  
-                        </p:selectOneMenu>
+                <h:panelGrid 
+                    columns="2">
+                    <h:outputText 
+                        value="Nome: " />
+                    <h:outputText 
+                        value="#{usuarioBean.login.curriculo.nome}" />
+                    <h:outputText 
+                        value="E-mail: " />
+                    <h:outputText 
+                        value="#{usuarioBean.login.email}" />
 
-                        <h:outputLabel id="pw1" value="Alterar senha: " />  
-                        <p:password id="pwd1" value="#{usuarioBean.login.senha}"
-                                    weakLabel="Fraca" strongLabel="Forte" goodLabel="Bom" 
-                                    promptLabel="Entre com a senha" feedback="true"/>  
+                    <!--Verificar a seleção para cadastrar tipo de usuário -->
+                    <h:outputText 
+                        value="Tipo Usuário: " />
+                    <p:selectOneMenu 
+                        id="perfil" 
+                        style="width: 185px" 
+                        value="#{usuarioBean.login.perfil}">  
+                        <f:selectItem 
+                            itemLabel="Usuário" 
+                            itemValue="U" /> 
+                        <f:selectItem 
+                            itemLabel="Secretaria" 
+                            itemValue="S" />      
+                        <f:selectItem 
+                            itemLabel="Administrador" 
+                            itemValue="A"  />  
+                    </p:selectOneMenu>
 
-                        <p:commandButton 
-                            ajax="false" value="Salvar" 
-                            action="#{usuarioBean.salvar2()}" 
-                            update=":Permissoes"/>
-                        <h:outputText value="" />
-
-                    </h:panelGrid>
-
-                </p:panel>
-            </div>
-
+                    <p:commandButton 
+                        ajax="false"
+                        value="Salvar" 
+                        icon="ui-icon-check"
+                        action="#{usuarioBean.alterarPermissao2()}" />
+                    <p:commandButton 
+                        ajax="false" 
+                        value="Cancelar" 
+                        icon="ui-icon-closethick"
+                        action="listarUsuarios.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
         </h:form>
-        <h:form>
-            <div align="center">
 
-                <p:commandButton 
-                    ajax="false" value="Cancelar" action="listarUsuarios.xhtml"/>
-            </div>
-        </h:form>
 
     </ui:define>
 </ui:composition>

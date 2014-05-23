@@ -8,8 +8,6 @@
 
     <ui:define name="content">
         <h:form>
-            <h:inputHidden value="#{curriculoBean.curriculo}" converter="curriculoConversor"/>
-            
             <h:panelGrid 
                 id="display" 
                 columns="2" 
@@ -20,12 +18,19 @@
                     <h:outputText value="Deseja realmente Exluir?"/>
                 </f:facet>
 
+                <p:panelGrid columns="2">
+                    
                 <h:outputText value="Nome:" />  
-                <h:outputText value="#{curriculoBean.curriculo.nome}" 
-                              style="font-weight:bold"/>  
+                <h:outputText 
+                    value="#{curriculoBean.login.curriculo.nome}" 
+                    style="font-weight:bold"/>  
+                <h:outputText value="E-mail:" />  
+                <h:outputText 
+                    value="#{curriculoBean.login.email}" 
+                    style="font-weight:bold"/>  
 
                 <p:commandButton 
-                    action="#{curriculoBean.excluirCurriculo()}" 
+                    action="#{usuarioBean.excluirLogin()}" 
                     ajax="false"
                     value="Sim" />
 
@@ -33,6 +38,8 @@
                     value="Não" 
                     ajax="false"
                     action="#{curriculoBean.irListarUsuarios()}"/>
+                
+                </p:panelGrid>
 
             </h:panelGrid> 
 

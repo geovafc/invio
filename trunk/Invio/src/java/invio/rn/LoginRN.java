@@ -29,6 +29,7 @@ public class LoginRN {
     }
 
     public boolean remover(Login login) {
+        //TODO Deveria remover o currículo associado
         return dao.excluir(login);
     }
 
@@ -55,8 +56,14 @@ public class LoginRN {
         } else {
             List<Login> todos = dao.obterTodos(Login.class);
             if (todos != null) {
+                boolean email = false;
+                boolean nome = false;
                 for (Login login : todos) {
-                    if (login.getEmail().contains(chave)) {
+                    email = login.getEmail().contains(chave);
+                    if (login.getCurriculo() != null) {
+                        nome = login.getCurriculo().getNome().contains(chave);
+                    }
+                    if (email || nome) {
                         resposta.add(login);
                     }
                 }
