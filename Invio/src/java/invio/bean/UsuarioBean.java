@@ -147,30 +147,23 @@ public class UsuarioBean {
         return "/publico/indexHome.xhtml";
     }
 
-    public void configurarSalvarLogin() {
+    public String salvar() {
         login.setCodigoConfirmacaoTemp("XPTO");
         login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
         login.setAtivo(true);
-        if (loginRN.salvar(login)) {
-
-            boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
-
-            if (falhaAoEnviar == true) {
-                loginRN.remover(login);
-                pagina2 = "/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso(
-                        "Falha no sistema. ",
-                        "Desculpe, não foi possível concluir o cadastro.");
-//                configurarLimparSessao();
-                javaMailRN = new JavaMailRN();
-            } else {
-
-                pagina2 = "/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso(
-                        "Sucesso",
-                        "Sua inscrição no Sistema foi realizada com sucesso.");
-//                configurarLimparSessao();
-            }
+        boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
+        if (falhaAoEnviar) {
+            BeanUtil.criarMensagemDeAviso(
+                    "Falha no sistema. ",
+                    "Desculpe, não foi possível concluir o cadastro.");
+            configurarLimparSessao();
+            javaMailRN = new JavaMailRN();
+            return "/public/login/novoUsuario.xhtml";
+        } else {
+            BeanUtil.criarMensagemDeAviso(
+                    "Sucesso",
+                    "Sua inscrição no Sistema foi realizada com sucesso.");
+            return "/loginInicio.xhtml";
         }
     }
     ArrayList<String> tiposPerfil;
@@ -205,8 +198,8 @@ public class UsuarioBean {
         String resposta = null;
         if (loginRN.salvar(login)) {
             boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(
-                    login, 
-                    "Confirmação de registro de e-mail", 
+                    login,
+                    "Confirmação de registro de e-mail",
                     BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
 
             if (falhaAoEnviar == true) {
@@ -224,33 +217,6 @@ public class UsuarioBean {
                 configurarLimparSessao();
             }
         }
-        return resposta;
-    }
-
-    public String salvar() {
-        if (loginRN.existe(login.getEmail())) {
-            configurarLimparSessao();
-            pagina2 = "/publico/login/novoUsuario.xhtml";
-            BeanUtil.criarMensagemDeAviso("Já existe um usuário cadastrado com esse e-mail.",
-                    "");
-        } else {
-            configurarSalvarLogin();
-        }
-//        configurarLimparSessao();
-        return pagina2;
-    }
-
-    public String alterarPermissao() {
-        String resposta = null;
-        if (loginRN.existe(login.getEmail())) {
-            resposta = "/publico/login/novoUsuario.xhtml";
-            BeanUtil.criarMensagemDeAviso(
-                    "Erro",
-                    "Já existe um usuário cadastrado com esse e-mail.");
-        } else {
-            configurarSalvarLogin();
-        }
-//        configurarLimparSessao();
         return resposta;
     }
 
