@@ -10,7 +10,7 @@
         <h:form id="Codigo">
 
             <h:inputHidden 
-                id="objtelaConfirmacao"
+                id="objTelaConfirmacao"
                 value="#{usuarioBean.login.id}"/> 
 
             <p:messages id="Erro" showDetail="true" showSummary="true"/>
@@ -21,20 +21,17 @@
                     <br/>
                     <br/>
                     <h:panelGrid columns="2">
-
                         <h:outputText value="Confirmação: "/>
-                        <h:inputText required="true" id="codigoConfirmacao" value="#{usuarioBean.login.codigoConfirmacaoTemp}"/>
-                        
-
+                        <h:inputText 
+                            id="codigoConfirmacao"
+                            value="#{usuarioBean.codigoDeConfirmacaoTemp}"
+                            required="true"/>
                         <br/>
                         <br/>
                         <p:commandButton 
-                            ajax="false" value="OK" 
-                            action="#{usuarioBean.okCodigo()}" 
-                            />
-                        <h:outputText value=""/>
-                        <h:outputText value=""/>
-
+                            ajax="false" 
+                            value="OK" 
+                            action="#{usuarioBean.okCodigo()}"/>
                     </h:panelGrid>
 
                 </p:panel>
@@ -45,9 +42,10 @@
 
         <h:form>
             <div align="center">
-
                 <p:commandButton 
-                    ajax="false" value="Cancelar" action="loginInicio.xhtml"/>
+                    ajax="false"
+                    value="Cancelar"
+                    action="loginInicio.xhtml"/>
             </div>
         </h:form>
 
