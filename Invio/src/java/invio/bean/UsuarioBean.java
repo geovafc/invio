@@ -27,6 +27,7 @@ public class UsuarioBean {
     private Login login = new Login();
     private Curriculo curriculo = new Curriculo();
     private Login usuarioLogado = new Login();
+    private String codigoDeConfirmacaoTemp;
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
     private String usuario;
@@ -42,6 +43,14 @@ public class UsuarioBean {
             BeanUtil.criarMensagemDeInformacao("Página não autorizada para este Usuário.", "");
         }
         return logins;
+    }
+
+    public String getCodigoDeConfirmacaoTemp() {
+        return codigoDeConfirmacaoTemp;
+    }
+
+    public void setCodigoDeConfirmacaoTemp(String codigoDeConfirmacaoTemp) {
+        this.codigoDeConfirmacaoTemp = codigoDeConfirmacaoTemp;
     }
 
     public Curriculo getCurriculo() {
