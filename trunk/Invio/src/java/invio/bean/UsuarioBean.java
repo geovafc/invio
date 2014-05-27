@@ -84,7 +84,7 @@ public class UsuarioBean {
     }
 
     public String irNovoUsuario() {
-        configurarLimparSessao();
+//        configurarLimparSessao();
         return "/publico/login/novoUsuario.xhtml";
     }
     boolean entrar = false;
@@ -161,7 +161,7 @@ public class UsuarioBean {
                 BeanUtil.criarMensagemDeAviso(
                         "Falha no sistema. ",
                         "Desculpe, não foi possível concluir o cadastro.");
-                configurarLimparSessao();
+//                configurarLimparSessao();
                 javaMailRN = new JavaMailRN();
             } else {
 
@@ -169,7 +169,7 @@ public class UsuarioBean {
                 BeanUtil.criarMensagemDeAviso(
                         "Sucesso",
                         "Sua inscrição no Sistema foi realizada com sucesso.");
-                configurarLimparSessao();
+//                configurarLimparSessao();
             }
         }
     }
@@ -228,7 +228,6 @@ public class UsuarioBean {
     }
 
     public String salvar() {
-
         if (loginRN.existe(login.getEmail())) {
             configurarLimparSessao();
             pagina2 = "/publico/login/novoUsuario.xhtml";
@@ -237,7 +236,7 @@ public class UsuarioBean {
         } else {
             configurarSalvarLogin();
         }
-        configurarLimparSessao();
+//        configurarLimparSessao();
         return pagina2;
     }
 
@@ -251,7 +250,7 @@ public class UsuarioBean {
         } else {
             configurarSalvarLogin();
         }
-        configurarLimparSessao();
+//        configurarLimparSessao();
         return resposta;
     }
 
