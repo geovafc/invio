@@ -15,7 +15,7 @@
                     label="Edital" 
                     icon="ui-icon-refresh"> 
                     <p:menuitem
-                        rendered="#{usuarioBean.administrador} OR #{usuarioBean.secretaria}"
+                        rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
                         value="Novo Edital"   
                         ajax="false"
                         icon="ui-icon-arrowrefresh-1-w"

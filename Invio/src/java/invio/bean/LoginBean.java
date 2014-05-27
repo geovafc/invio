@@ -19,7 +19,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class LoginBean {
 
-    private Login login;
+    private Login login = new Login();
     private LoginRN loginRN = new LoginRN();
 
     /**
@@ -36,7 +36,7 @@ public class LoginBean {
         this.login = login;
     }
 
-    public String entendeu() {
+    public String toNomePerfil() {
         switch (login.getPerfil()) {
             case 'A':
                 return "Administrador";
@@ -59,8 +59,7 @@ public class LoginBean {
             BeanUtil.criarMensagemDeInformacao(
                     "Sucesso",
                     "Login excluído");
-//            resposta = "/administracao/usuarios/listarUsuarios.xhtml";
-            resposta = "/indexHome.xhtml";
+            resposta = "/publico/indexHome.xhtml";
         } else {
             BeanUtil.criarMensagemDeErro(
                     "Erro",
@@ -69,15 +68,18 @@ public class LoginBean {
         return resposta;
     }
 
-    public void alterarPermissao() {
+    public String alterarPermissao() {
         if (loginRN.salvar(login)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Sucesso",
                     "Permissão alterada");
+            return "/publico/indexHome.xhtml";
         } else {
             BeanUtil.criarMensagemDeErro(
                     "Erro",
                     "Não foi possível alterar a permissão");
+            return null;
         }
+        
     }
 }

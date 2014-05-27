@@ -19,12 +19,10 @@
                     <br/>
                     <h:panelGrid columns="2">
 
-                        
+                        <h:outputLabel for="email" value="E-mail: *"/>
+                        <p:inputText id="email" required="true" value="#{usuarioBean.login.email}"/>
 
-                        <h:outputText value="E-mail: *"/>
-                        <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
-
-                        <h:outputLabel for="senha1" value="Escolha uma senha: *" />  
+                        <h:outputLabel for="pwd1" value="Escolha uma senha: *" />  
                         <p:password id="pwd1" 
                                     value="#{usuarioBean.login.senha}" 
                                     match="pwd2" 
@@ -37,27 +35,28 @@
                                     required="true"
                                     requiredMessage="Campos de Senhas não preenchidas ou incorretas."/>  
 
-                        <h:outputLabel for="senha2" value="Digite senha novamente: *" />  
-                        <p:password id="pwd2" value="#{usuarioBean.login.senha}" label="Senhas não preenchida ou diferentes." 
-                                    requiredMessage="" required="true" /> 
+                        <h:outputLabel for="pwd2" value="Digite senha novamente: *" />  
+                        <p:password id="pwd2"
+                                    value="#{usuarioBean.login.senha}"
+                                    label="Senhas não preenchida ou diferentes."
+                                    required="true" /> 
 
                         <p:commandButton 
-                            ajax="false" value="Enviar" 
-                            action="#{usuarioBean.alterarPermissao()}" 
-                            update="form"/>
-                        <h:outputText value="" />
-
+                            ajax="false"
+                            value="Enviar" 
+                            action="#{usuarioBean.salvar}"/>
                     </h:panelGrid>
 
                 </p:panel>
             </div>
 
         </h:form>
-        <h:form>
+        <h:form id="formCancelar">
             <div align="center">
-
                 <p:commandButton 
-                    ajax="false" value="Cancelar" action="/loginInicio.xhtml"/>
+                    ajax="false"
+                    value="Cancelar"
+                    action="#"/>
             </div>
         </h:form>
 

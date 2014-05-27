@@ -29,14 +29,13 @@
                         <h:outputText value="Data Final: *"/>
                         <p:calendar   value="#{editalBean.edital.datafinal}"/>
                         <h:outputText value="Instituição: *"/>
-                        <p:selectOneRadio id="tipo" value="#{editalBean.edital.instituicao}">  
-                            <f:selectItem itemLabel="Autor" itemValue="30" />  
-                            <f:selectItem itemLabel="Editor" itemValue="10" />  
-                        </p:selectOneRadio>
+                        <p:selectOneMenu value="#{editalBean.edital.instituicao}">
+                             <f:selectItem itemLabel="Selecione um desses" itemValue="" />
+                        </p:selectOneMenu>
                     </h:panelGrid>
 
                 </p:panel>
-                <p:commandButton value="Salvar" action="#{editalBean.salvar()}"
+                <p:commandButton value="Salvar" action="#{editalBean.salvar()}"/>
             </div>
 
         </h:form>
