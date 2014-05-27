@@ -84,13 +84,20 @@ public class LoginBean {
     }
 
     public String cadastrar() {
-        if (loginRN.salvar(login)) {
-            return "/publico/indexHome.xhtml";
-        } else {
+        if (loginRN.existe(login.getEmail())) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro",
-                    "Não foi possível alterar a permissão");
+                    "Falha ao Submeter!",
+                    "Já existe alguém com este email");
             return null;
+        } else {
+            if (loginRN.salvar(login)) {
+                return "/publico/login/telaConfirmacao.xhtml";
+            } else {
+                BeanUtil.criarMensagemDeErro(
+                        "Falha!",
+                        "Desculpe, algo de errado aconteceu, tente cadastrar novamente.");
+                return null;
+            }
         }
     }
 }
