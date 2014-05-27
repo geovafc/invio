@@ -8,9 +8,7 @@ import invio.entidade.Login;
 import invio.util.javamail.AtributosJavaMail;
 import invio.util.javamail.ConfiguracaoJavaMail;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.mail.MessagingException;
 
@@ -29,7 +27,9 @@ public class JavaMailRN {
     }
     
     
-    public boolean configurarEnviarEmail(Login login,String tituloEmail, String textoEmail) {
+    public boolean configurarEnviarEmail(Login login,
+            String tituloEmail, 
+            String textoEmail) {
         AtributosJavaMail ajm = new AtributosJavaMail();
 //configuracoes de envio
         

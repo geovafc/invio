@@ -80,6 +80,17 @@ public class LoginBean {
                     "Não foi possível alterar a permissão");
             return null;
         }
-        
+
+    }
+
+    public String cadastrar() {
+        if (loginRN.salvar(login)) {
+            return "/publico/indexHome.xhtml";
+        } else {
+            BeanUtil.criarMensagemDeErro(
+                    "Erro",
+                    "Não foi possível alterar a permissão");
+            return null;
+        }
     }
 }

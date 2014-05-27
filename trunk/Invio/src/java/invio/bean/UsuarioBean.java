@@ -1,5 +1,6 @@
 package invio.bean;
 
+import invio.util.javamail.TextoEmail;
 import invio.bean.util.BeanUtil;
 import invio.bean.util.UsuarioUtil;
 import invio.entidade.Curriculo;
@@ -120,8 +121,10 @@ public class UsuarioBean {
                 if (loginEncontrado == true) {
 
                     login = loginTemp;
-                    boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(login, "Solicitação de recuperação de senha",
-                            BeanTextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
+                    boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(
+                            login, 
+                            "Solicitação de recuperação de senha",
+                            TextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
                     if (falhaAoEnviarEmail == true) {
                         pagina = "/loginInicio.xhtml";
                         BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
@@ -151,7 +154,7 @@ public class UsuarioBean {
         login.setCodigoConfirmacaoTemp("XPTO");
         login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
         login.setAtivo(true);
-        boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
+        boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", TextoEmail.getTextoEmailCodigoConfirmacao(login));
         if (falhaAoEnviar) {
             BeanUtil.criarMensagemDeAviso(
                     "Falha no sistema. ",
@@ -200,7 +203,7 @@ public class UsuarioBean {
             boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(
                     login,
                     "Confirmação de registro de e-mail",
-                    BeanTextoEmail.getTextoEmailCodigoConfirmacao(login));
+                    TextoEmail.getTextoEmailCodigoConfirmacao(login));
 
             if (falhaAoEnviar == true) {
                 loginRN.remover(login);

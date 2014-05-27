@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package invio.bean;
+package invio.util.javamail;
 
 import invio.entidade.Login;
 
-public class BeanTextoEmail {
+public class TextoEmail {
 
     public static String getTextoEmailCodigoConfirmacao(Login login) {
         return "Olá " + login.getEmail() + "," + "\n\n\n"
