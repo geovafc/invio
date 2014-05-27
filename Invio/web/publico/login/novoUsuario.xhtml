@@ -22,14 +22,20 @@
                     <h:panelGrid columns="2">
 
                         <h:outputText value="email: *"/>
-                        <p:inputText required="true" id="email" value="#{usuarioBean.login.email}"/>
+                        <p:inputText 
+                            required="true" 
+                            id="email"
+                            value="#{loginBean.login.email}">
+                            <f:validateRegex 
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                        </p:inputText>
 
                         <h:outputLabel 
                             for="pwd1" 
                             value="Escolha uma senha: *" />  
                         <p:password 
                             id="pwd1" 
-                            value="#{usuarioBean.login.senha}" 
+                            value="#{loginBean.login.senha}" 
                             match="pwd2" 
                             weakLabel="Fraca" 
                             strongLabel="Forte" 
@@ -41,26 +47,27 @@
                             requiredMessage="Campos de Senhas não preenchidas ou incorretas."/>  
 
                         <h:outputLabel for="pwd2" value="Digite senha novamente: *" />  
-                        <p:password id="pwd2" value="#{usuarioBean.login.senha}" label="Senhas não preenchida ou diferentes." 
-                                    requiredMessage="" required="true" /> 
+                        <p:password 
+                            id="pwd2" 
+                            value="#{loginBean.login.senha}" 
+                            label="Senhas não preenchida ou diferentes." 
+                            requiredMessage="" 
+                            required="true" /> 
 
                         <p:commandButton 
-                            ajax="false" value="Enviar" 
-                            action="#{usuarioBean.alterarPermissao()}"/>
+                            ajax="false" 
+                            value="Cadastrar" 
+                            action="#{loginBean.cadastrar}"/>
+                        <p:commandButton 
+                            ajax="false"
+                            value="Cancelar"
+                            action="/loginInicio.xhtml"/>
 
                     </h:panelGrid>
 
                 </p:panel>
             </div>
 
-        </h:form>
-        <h:form id="formCancelar">
-            <div align="center">
-                <p:commandButton 
-                    ajax="false"
-                    value="Cancelar"
-                    action="#"/>
-            </div>
         </h:form>
 
     </ui:define>

@@ -1,7 +1,9 @@
 package invio.rn;
 
+import invio.util.javamail.TextoEmail;
 import invio.dao.LoginDAO;
 import invio.entidade.Login;
+import invio.util.Utilitario;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,14 @@ public class LoginRN {
         if (dao.iniciarTransacao()) {
             if (login.getId() == null) {
                 login.setPerfil('U');//Isso faz com que todo novo usuario no sistema entre com o nivel de acesso:usuário;
+                login.setCodigoConfirmacao(Utilitario.gerarSenhaAscii(8));
                 salvou = dao.criar(login);
+                if (salvou) {
+                    JavaMailRN javaMailRN = new JavaMailRN();
+                    javaMailRN.configurarEnviarEmail(login, 
+                            "[INVIO] Novo Cadastro", 
+                            TextoEmail.getTextoEmailCodigoConfirmacao(login));
+                }
             } else {
                 salvou = dao.alterar(login);
             }
