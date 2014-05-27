@@ -73,21 +73,12 @@ public class UsuarioBean {
         return "/loginInicio.xhtml";
     }
 
-    public String cancelarTelaConfirmacao() {
-        configurarLimparSessao();
-        return "/loginInicio.xhtml";
-    }
-
     public void configurarLimparSessao() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         BeanUtil.limpaSessaoParaInicio(session);
     }
 
-    public String irNovoUsuario() {
-//        configurarLimparSessao();
-        return "/publico/login/novoUsuario.xhtml";
-    }
     boolean entrar = false;
 
     public void setEntrar(boolean entrar) {
@@ -150,51 +141,6 @@ public class UsuarioBean {
         return "/publico/indexHome.xhtml";
     }
 
-    public String salvar() {
-        login.setCodigoConfirmacaoTemp("XPTO");
-        login.setDtCriacao(new Date());// RECEBER DATA ATUAL DO BANCO DE DADOS
-        login.setAtivo(true);
-        boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(login, "Confirmação de registro de e-mail", TextoEmail.getTextoEmailCodigoConfirmacao(login));
-        if (falhaAoEnviar) {
-            BeanUtil.criarMensagemDeAviso(
-                    "Falha no sistema. ",
-                    "Desculpe, não foi possível concluir o cadastro.");
-            configurarLimparSessao();
-            javaMailRN = new JavaMailRN();
-            return "/public/login/novoUsuario.xhtml";
-        } else {
-            BeanUtil.criarMensagemDeAviso(
-                    "Sucesso",
-                    "Sua inscrição no Sistema foi realizada com sucesso.");
-            return "/loginInicio.xhtml";
-        }
-    }
-    ArrayList<String> tiposPerfil;
-
-    public ArrayList<String> getTipoPerfilUsuarioComum() {
-        tiposPerfil = new ArrayList<String>();
-        tiposPerfil.add("");
-        tiposPerfil.add("Docente");
-
-        return tiposPerfil;
-
-    }
-
-    public ArrayList<String> getTipoPerfilAdmin() {
-        tiposPerfil = new ArrayList<String>();
-        tiposPerfil.add("Discente");
-        tiposPerfil.add("Docente");
-        tiposPerfil.add("Administrador");
-        tiposPerfil.add("Master");
-        return tiposPerfil;
-    }
-    String pagina2 = "";
-    boolean emailJaCadastrado = false;
-
-    public void setEmailJaCadastrado(boolean emailJaCadastrado) {
-        this.emailJaCadastrado = emailJaCadastrado;
-    }
-
     public String salvar2() {
         //concluir este método. Será chamado no alterar senha que ainda
         //não esta implementado na página.
@@ -219,21 +165,6 @@ public class UsuarioBean {
                         "Seus dados foram alterados com sucesso.");
                 configurarLimparSessao();
             }
-        }
-        return resposta;
-    }
-
-    public String okCodigo() {
-        String resposta = null;
-        if (login.getCodigoConfirmacaoTemp().equals(login.getCodigoConfirmacao())) {
-            login.setCodigoConfirmacaoTemp(login.getCodigoConfirmacao());
-            loginRN.salvar(login);
-            resposta = "/publico/indexHome.xhtml";
-        } else {
-            BeanUtil.criarMensagemDeAviso(
-                    "Aviso",
-                    "O código inserido está incorreto.");
-            resposta = "/publico/login/telaConfirmacao.xhtml";
         }
         return resposta;
     }
