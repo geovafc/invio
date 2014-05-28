@@ -15,8 +15,7 @@ public class Utilitario {
 
     private static final String CHAVE = "donazione";
     private static final String ALGORITMO = "DES";
-    private static final String CAMINHOARQUIVOS
-            = System.getProperty("user.home") + "/arquivos";
+    private static final String CAMINHOARQUIVOS = System.getProperty("user.home") + "/arquivos";
 
     public static String getCaminhoArquivos() {
         File f = new File(CAMINHOARQUIVOS);
@@ -84,12 +83,12 @@ public class Utilitario {
     public static String gerarSenhaAscii(int caracteres) {
         return RandomStringUtils.randomAlphanumeric(caracteres);
     }
-    
+
     public static void main(String[] args) {
-        String s = "123";
+        String s = "a";
         String r = criptografarPrivado(s);
         String d = descriptografarPrivado(r);
         System.out.println(r + " - " + d);
+        System.out.println("sha " + s + ": " + encriptarSHA256(s));
     }
-
 }

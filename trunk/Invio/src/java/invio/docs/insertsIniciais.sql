@@ -1,9 +1,3 @@
-INSERT INTO perfil (descricao) VALUES ('ROLE_MASTER');
-INSERT INTO perfil (descricao) VALUES ('ROLE_ADMINISTRACAO');
-INSERT INTO perfil (descricao) VALUES ('ROLE_DOCENTE');
-INSERT INTO perfil (descricao) VALUES ('ROLE_DISCENTE');
-INSERT INTO perfil (descricao) VALUES ('ROLE_TECNICO');
-
 INSERT INTO `instituicao` (`id`, `nome`, `sigla`) VALUES
 (1, 'Universidade Federal Rural da Amazônia', 'UFRA');
 
@@ -67,3 +61,12 @@ INSERT INTO `programa` (`id`, `nome`, `instituicao`, `area`) VALUES
 (5, ' Mestrado em Saúde e Produção Animal', 1, 3),
 (6, ' Mestrado em Ciências Biológicas', 1, 4),
 (7, ' Mestrado em Biotecnologia Aplicada à Agropecuária', 1, 5);
+
+insert into login 
+(email, senha, perfil) 
+values 
+('fabio.bezerra@ufra.edu.br', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 'A');
+insert into login 
+(email, senha, perfil) 
+values 
+('mkmikael07@gmail.com', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 'A');
