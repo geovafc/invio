@@ -14,17 +14,29 @@
         <form-login 
             login-page="/loginInicio.xhtml" 
             authentication-failure-url="/loginInicio.xhtml?erro=true"
-            always-use-default-target = "true" 
+            authentication-success-handler-ref="myLoginHandler" 
             default-target-url = "/publico/indexHome.xhtml"/>
     </http>
     
     <authentication-manager>
         <authentication-provider 
-            user-service-ref ='myUserDetailsService'/>
-        <!--<password-encoder hash="sha-256" />-->
+            user-service-ref ='myUserDetailsService'>
+            <password-encoder ref="passwordEncoder" />
+        </authentication-provider>
     </authentication-manager>
+
+    <beans:bean 
+        id="passwordEncoder"         
+        class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <beans:constructor-arg value="256"/>
+    </beans:bean>
+
     <beans:bean id="myUserDetailsService"
                 class="invio.spring.LoginSpring">
     </beans:bean>
-         
+
+    <beans:bean 
+        id="myLoginHandler"
+        class="invio.spring.HandlerSucesso">
+    </beans:bean>         
 </beans:beans>
