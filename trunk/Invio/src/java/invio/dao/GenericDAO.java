@@ -29,17 +29,16 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
         try {
             em.getTransaction().commit();
             return true;
-        } 
-//        catch (ConstraintViolationException e) {
-//            System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
-//            e.printStackTrace();
-//            return false;
-//        }
+        } //        catch (ConstraintViolationException e) {
+        //            System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
+        //            e.printStackTrace();
+        //            return false;
+        //        }
         catch (EntityExistsException e) {
             System.out.println("Já existe um está chave primária");
             e.printStackTrace();
             return false;
-        }  catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -67,15 +66,14 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
                 em.getTransaction().rollback();
             }
             return false;
-        } 
-//        catch (ConstraintViolationException e) {
-//            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
-//            e.printStackTrace();
-//            if (em.isOpen()) {
-//                em.getTransaction().rollback();
-//            }
-//            return false;
-//        } 
+        } //        catch (ConstraintViolationException e) {
+        //            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
+        //            e.printStackTrace();
+        //            if (em.isOpen()) {
+        //                em.getTransaction().rollback();
+        //            }
+        //            return false;
+        //        } 
         catch (Exception e) {
             e.printStackTrace();
             if (em.isOpen()) {
@@ -183,7 +181,8 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        if (this.em != null && this.em.isOpen()) {
+        if (this.em != null
+                && this.em.isOpen()) {
             this.em.flush();
             this.em.clear();
             this.em.close();
