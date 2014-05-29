@@ -33,10 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findById", query = "SELECT l FROM Login l WHERE l.id = :id"),
     @NamedQuery(name = "Login.findBySenha", query = "SELECT l FROM Login l WHERE l.senha = :senha"),
     @NamedQuery(name = "Login.findByCodigoConfirmacao", query = "SELECT l FROM Login l WHERE l.codigoConfirmacao = :codigoConfirmacao"),
-    @NamedQuery(name = "Login.findByCodigoConfirmacaoTemp", query = "SELECT l FROM Login l WHERE l.codigoConfirmacaoTemp = :codigoConfirmacaoTemp"),
     @NamedQuery(name = "Login.findByDtCriacao", query = "SELECT l FROM Login l WHERE l.dtCriacao = :dtCriacao"),
     @NamedQuery(name = "Login.findByEmail", query = "SELECT l FROM Login l WHERE l.email = :email"),
-    @NamedQuery(name = "Login.findByAtivo", query = "SELECT l FROM Login l WHERE l.ativo = :ativo"),
     @NamedQuery(name = "Login.findByPerfil", query = "SELECT l FROM Login l WHERE l.perfil = :perfil")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,16 +48,12 @@ public class Login implements Serializable {
     private String senha;
     @Column(name = "codigoConfirmacao")
     private String codigoConfirmacao;
-    @Column(name = "codigoConfirmacaoTemp")
-    private String codigoConfirmacaoTemp;
     @Column(name = "dtCriacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtCriacao;
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
-    @Column(name = "ativo")
-    private Boolean ativo;
     @Basic(optional = false)
     @Column(name = "perfil")
     private char perfil;
@@ -105,14 +99,6 @@ public class Login implements Serializable {
         this.codigoConfirmacao = codigoConfirmacao;
     }
 
-    public String getCodigoConfirmacaoTemp() {
-        return codigoConfirmacaoTemp;
-    }
-
-    public void setCodigoConfirmacaoTemp(String codigoConfirmacaoTemp) {
-        this.codigoConfirmacaoTemp = codigoConfirmacaoTemp;
-    }
-
     public Date getDtCriacao() {
         return dtCriacao;
     }
@@ -127,14 +113,6 @@ public class Login implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
     }
 
     public char getPerfil() {
