@@ -12,16 +12,16 @@
         <intercept-url pattern="/secretaria/**" access="ROLE_A,ROLE_S" />
         <intercept-url pattern="/usuario/**" access="ROLE_A,ROLE_S,ROLE_U" />
         <form-login 
-            login-page="/loginInicio.xhtml" 
+            login-page="/loginInicio.xhtml"
             authentication-failure-url="/loginInicio.xhtml?erro=true"
-            authentication-success-handler-ref="myLoginHandler" 
-            default-target-url = "/publico/indexHome.xhtml"/>
+            authentication-success-handler-ref="myHandlerSucesso"
+            default-target-url="/publico/indexHome.xhtml"/>
     </http>
     
     <authentication-manager>
         <authentication-provider 
             user-service-ref ='myUserDetailsService'>
-            <password-encoder ref="passwordEncoder" />
+            <!--<password-encoder ref="passwordEncoder" />-->
         </authentication-provider>
     </authentication-manager>
 
@@ -36,7 +36,7 @@
     </beans:bean>
 
     <beans:bean 
-        id="myLoginHandler"
+        id="myHandlerSucesso"
         class="invio.spring.HandlerSucesso">
     </beans:bean>         
 </beans:beans>

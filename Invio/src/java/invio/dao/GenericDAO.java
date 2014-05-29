@@ -13,7 +13,7 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     public GenericDAO() {
     }
 
-    public boolean iniciarTransacao() { 
+    public boolean iniciarTransacao() {
         try {
             if (em.getTransaction().isActive()) {
                 return true;
@@ -55,10 +55,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean criar(T o) {
         try {
-            //   this.iniciarTransacao();
+            this.iniciarTransacao();
             em.persist(o);
-            //      this.concluirTransacao();
-            return true;
+            return concluirTransacao();
         } catch (EntityExistsException e) {
             System.out.println("Id Já existe, Classe : " + o.getClass().getName());
             e.printStackTrace();
@@ -66,15 +65,7 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
                 em.getTransaction().rollback();
             }
             return false;
-        } //        catch (ConstraintViolationException e) {
-        //            System.out.println("Chave primaria não encontrada, Classe : " + o.getClass().getName());
-        //            e.printStackTrace();
-        //            if (em.isOpen()) {
-        //                em.getTransaction().rollback();
-        //            }
-        //            return false;
-        //        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             if (em.isOpen()) {
                 em.getTransaction().rollback();
@@ -102,10 +93,9 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean alterar(T o) {
         try {
-            //  this.iniciarTransacao();
+            this.iniciarTransacao();
             em.merge(o);
-            //  this.concluirTransacao();
-            return true;
+            return concluirTransacao();
         } catch (Exception e) {
             e.printStackTrace();
             if (em.isOpen()) {
