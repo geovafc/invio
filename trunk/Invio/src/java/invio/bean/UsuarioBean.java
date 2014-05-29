@@ -8,9 +8,8 @@ import invio.entidade.Login;
 import invio.rn.CurriculoRN;
 import invio.rn.JavaMailRN;
 import invio.rn.LoginRN;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -21,13 +20,12 @@ import javax.servlet.http.HttpSession;
 public class UsuarioBean {
 
     private LoginRN loginRN = new LoginRN();
-    private CurriculoRN curriculoRN = new CurriculoRN();
     private JavaMailRN javaMailRN = new JavaMailRN();
     private List<Login> logins;
     private Login login = new Login();
     private Curriculo curriculo = new Curriculo();
     private Login usuarioLogado = new Login();
-    private String codigoDeConfirmacaoTemp;
+    private String codigoDeConfirmacao;
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
     private String usuario;
@@ -45,12 +43,12 @@ public class UsuarioBean {
         return logins;
     }
 
-    public String getCodigoDeConfirmacaoTemp() {
-        return codigoDeConfirmacaoTemp;
+    public String getCodigoDeConfirmacao() {
+        return codigoDeConfirmacao;
     }
 
-    public void setCodigoDeConfirmacaoTemp(String codigoDeConfirmacaoTemp) {
-        this.codigoDeConfirmacaoTemp = codigoDeConfirmacaoTemp;
+    public void setCodigoDeConfirmacao(String codigoDeConfirmacaoTemp) {
+        this.codigoDeConfirmacao = codigoDeConfirmacaoTemp;
     }
 
     public Curriculo getCurriculo() {
@@ -178,6 +176,22 @@ public class UsuarioBean {
         return resposta;
     }
 
+    public String validar() {
+        Login usuarioAtual = UsuarioUtil.obterUsuarioLogado();
+        if (usuarioAtual.getCodigoConfirmacao().equals(codigoDeConfirmacao)) {
+            usuarioAtual.setCodigoConfirmacao(null);
+            loginRN.salvar(usuarioAtual);
+            return "/publico/indexHome.xhtml";
+        } else {
+            FacesMessage fm = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Erro!",
+                    "Código de confirmação inválido!");
+            FacesContext.getCurrentInstance().addMessage(null, fm);
+            return null;
+        }
+    }
+    
     public Login getUsuarioLogado() {
         usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         return usuarioLogado;

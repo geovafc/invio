@@ -997,6 +997,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.PDFBox 1.8.1.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.spring-security-3.0.5.RELEASE.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.javamail-1.4.7.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.commons-lang3-3.2.1.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.primefaces-4.0.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.primefacesThemes.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
@@ -1015,6 +1016,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.PDFBox 1.8.1.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.spring-security-3.0.5.RELEASE.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.javamail-1.4.7.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.commons-lang3-3.2.1.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.primefaces-4.0.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.primefacesThemes.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>

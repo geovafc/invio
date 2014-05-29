@@ -32,8 +32,8 @@ public class LoginSpring implements UserDetailsService {
         if (temp != null) {
             papeis.add(new GrantedAuthorityImpl("ROLE_" + temp.getPerfil()));
             User user = new User(
-                    temp.getEmail(), 
-                    temp.getSenha(), 
+                    temp.getEmail(),
+                    temp.getSenha(),
                     true,
                     true,
                     true,

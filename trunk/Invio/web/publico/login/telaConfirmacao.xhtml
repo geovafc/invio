@@ -6,49 +6,43 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-
         <h:form id="Codigo">
-
             <h:inputHidden 
                 id="objTelaConfirmacao"
                 value="#{usuarioBean.login.id}"/> 
 
-            <p:messages id="Erro" showDetail="true" showSummary="true"/>
+            <p:growl
+                id="mensagem"
+                sticky="false"
+                showDetail="true"
+                showSummary="true"/>
 
             <div align="center">
                 <p:panel>
-                    <h:outputText id="insira" value="Insira o código de confirmação enviado para seu e-mail."/>
+                    <h:outputText
+                        id="insira"
+                        value="Insira o código de confirmação enviado para seu e-mail."/>
                     <br/>
                     <br/>
                     <h:panelGrid columns="2">
                         <h:outputText value="Confirmação: "/>
                         <h:inputText 
                             id="codigoConfirmacao"
-                            value="#{usuarioBean.codigoDeConfirmacaoTemp}"
+                            value="#{usuarioBean.codigoDeConfirmacao}"
                             required="true"/>
-                        <br/>
-                        <br/>
-                        <p:commandButton 
-                            ajax="false" 
-                            value="OK" 
-                            action="#{usuarioBean.okCodigo()}"/>
+                    <p:commandButton 
+                        ajax="false" 
+                        value="OK" 
+                        action="#{usuarioBean.validar()}"/>
                     </h:panelGrid>
-
                 </p:panel>
-            </div>
-
-
-        </h:form>
-
-        <h:form>
-            <div align="center">
+                <br/>
                 <p:commandButton 
                     ajax="false"
                     value="Cancelar"
                     action="loginInicio.xhtml"/>
             </div>
         </h:form>
-
     </ui:define>
 
 </ui:composition>
