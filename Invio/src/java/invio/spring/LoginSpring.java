@@ -34,10 +34,6 @@ public class LoginSpring implements UserDetailsService {
             User user = new User(
                     temp.getEmail(), 
                     temp.getSenha(), 
-                    temp.getAtivo(), 
-                    true, 
-                    true, 
-                    true, 
                     papeis);
             return user;
         } else {
