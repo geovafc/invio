@@ -9,11 +9,15 @@ import invio.rn.LivroRN;
 import invio.rn.OrientacaoRN;
 import invio.rn.PeriodicoRN;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author soranso
  */
+@ManagedBean
+@RequestScoped
 public class AvaliacaoBean {
 
     private List<Periodico> periodicosAvaliado;
@@ -21,12 +25,12 @@ public class AvaliacaoBean {
     private List<Orientacao> orientacoesAvaliado;
     private Periodico periodico = new Periodico();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
-    Livro livro = new Livro();
-    LivroRN livroRN = new LivroRN();
+    private Livro livro = new Livro();
+    private LivroRN livroRN = new LivroRN();
     private Orientacao orientacao = new Orientacao();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
     public Integer estratoTemp;
-    Curriculo curriculo = new Curriculo();
+    private Curriculo curriculo;
 
     public Curriculo getCurriculo() {
         return curriculo;
@@ -52,10 +56,8 @@ public class AvaliacaoBean {
         return periodicosAvaliado;
     }
 
-    public List<Periodico> getPeriodicosParaAvaliar(Curriculo Curriculo) {
-        if (periodicosAvaliado == null) {
-            periodicosAvaliado = periodicoRN.obterTodosParaAvaliar(Curriculo);
-        }
+    public List<Periodico> getPeriodicosParaAvaliar() {
+        periodicosAvaliado = periodicoRN.obterTodosParaAvaliar(curriculo);
         return periodicosAvaliado;
     }
 
@@ -63,10 +65,10 @@ public class AvaliacaoBean {
 
         if (periodico.getEstrato().equals(getEstratoTemp())) {
             periodico.setAvaliacao("Avaliado");
-        } else if (periodico.getEstrato() < getEstratoTemp() || 
-                periodico.getEstrato() > getEstratoTemp()) {
+        } else if (periodico.getEstrato() < getEstratoTemp()
+                || periodico.getEstrato() > getEstratoTemp()) {
             periodico.setAvaliacao("Avaliado c/ Diferenças");
-        } else if (periodico.getEstrato().equals(getEstratoTemp().equals(0))){
+        } else if (periodico.getEstrato().equals(getEstratoTemp().equals(0))) {
             periodico.setAvaliacao("Recusado pelo Comitê");
         }
         Curriculo curriculoA = periodico.getCurriculo();
@@ -80,7 +82,7 @@ public class AvaliacaoBean {
         }
         return null;
     }
-    
+
     //Fim de periódicos lista e avaliação
     //Início Livro lista e avaliação
     public List<Livro> getLivrosAvaliado(Curriculo Curriculo) {
@@ -88,11 +90,11 @@ public class AvaliacaoBean {
         return livrosAvaliado;
     }
 
-    public List<Livro> getLivrosParaAvaliar(Curriculo Curriculo) {
-        livrosAvaliado = livroRN.obterTodosParaAvaliar(Curriculo);
+    public List<Livro> getLivrosParaAvaliar() {
+        livrosAvaliado = livroRN.obterTodosParaAvaliar(curriculo);
         return livrosAvaliado;
     }
-    
+
     public String avaliarLivro() {
         if (livro.getEstrato().equals(getEstratoTemp())) {
             livro.setAvaliacao("Avaliado");
@@ -101,8 +103,8 @@ public class AvaliacaoBean {
         } else if (livro.getEstrato() > getEstratoTemp()) {
             livro.setAvaliacao("Recusado pelo Comitê");
         }
-        Curriculo curriculo = livro.getCurriculo();
-        livro.setCurriculo(curriculo);
+        Curriculo c = livro.getCurriculo();
+        livro.setCurriculo(c);
         if (livroRN.salvar(livro)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
@@ -114,6 +116,7 @@ public class AvaliacaoBean {
     }
     //Fim Livro lista e avaliação
     //Início Orientações lista e avaliação
+
     public List<Orientacao> getOrientacoesAvaliado(Curriculo Curriculo) {
         if (orientacoesAvaliado == null) {
             orientacoesAvaliado = orientacaoRN.obterTodosAvaliado(Curriculo);
@@ -121,10 +124,8 @@ public class AvaliacaoBean {
         return orientacoesAvaliado;
     }
 
-    public List<Orientacao> getOrientacoesParaAvaliar(Curriculo Curriculo) {
-        if (orientacoesAvaliado == null) {
-            orientacoesAvaliado = orientacaoRN.obterTodosParaAvaliar(Curriculo);
-        }
+    public List<Orientacao> getOrientacoesParaAvaliar() {
+        orientacoesAvaliado = orientacaoRN.obterTodosParaAvaliar(curriculo);
         return orientacoesAvaliado;
     }
 
@@ -136,8 +137,8 @@ public class AvaliacaoBean {
         } else if (orientacao.getEstrato() > getEstratoTemp()) {
             orientacao.setAvaliacao("Recusado pelo Comitê");
         }
-        Curriculo curriculo = orientacao.getCurriculo();
-        orientacao.setCurriculo(curriculo);
+        Curriculo c = orientacao.getCurriculo();
+        orientacao.setCurriculo(c);
         if (orientacaoRN.salvar(orientacao)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
@@ -151,10 +152,10 @@ public class AvaliacaoBean {
     //Fim Orientações lista e avaliação
 
     public String pagListarAvaliar() {
-        return "/administracao/listarAvaliar.xhtml";
+        return "/secretaria/listarAvaliar.xhtml";
     }
 
     public String pagListarAvaliado() {
-        return "/administracao/listarAvaliado.xhtml";
+        return "/secretaria/listarAvaliado.xhtml";
     }
 }

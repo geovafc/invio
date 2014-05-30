@@ -28,11 +28,15 @@
                     <p:column headerText="Operações">  
                         <div align="center">
                             <p:commandButton 
+                                ajax="false"
                                 value="Avaliar"
                                 action="#{avaliacaoBean.pagListarAvaliar()}" >
-                                <f:setPropertyActionListener value="#{acurriculo}" target="#{avaliacaoBean.curriculo}"/>
+                                <f:setPropertyActionListener 
+                                    value="#{acurriculo}"
+                                    target="#{avaliacaoBean.curriculo}"/>
                             </p:commandButton>  
                             <p:commandButton 
+                                ajax="false"
                                 value="Avaliado"
                                 action="#{avaliacaoBean.pagListarAvaliado()}" >
                                 <f:setPropertyActionListener value="#{acurriculo}" target="#{avaliacaoBean.curriculo}"/>
