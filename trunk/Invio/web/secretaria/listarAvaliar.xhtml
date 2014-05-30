@@ -8,28 +8,31 @@
 
     <ui:define name="content">
 
-        <h:form id="form">
-
+        <h:form>
             <p:panel id="panelPeriodico">
                 <p:growl showDetail="true" showSummary="true"/>
-
-                <p:dataTable id="listaPeriodicosA"
-                             var="lperiodico" value="#{avaliacaoBean.getPeriodicosParaAvaliar(Curriculo)}" 
-                             emptyMessage="Sem registro para a exibição.">
+                
+                <p:dataTable 
+                    id="listaPeriodicosA"
+                    value="#{avaliacaoBean.periodicosParaAvaliar}"
+                    var="lperiodico" 
+                    emptyMessage="Sem registro para a exibição.">
 
                     <f:facet name="header">
                         Periodicos
                     </f:facet>
 
                     <p:column headerText="Título" > 
-                        <h:outputLabel value="#{lperiodico.titulo}" 
-                                       /> </p:column>  
-                    <p:column headerText="Revista" > 
-                        <h:outputLabel value="#{lperiodico.revista}" />
+                        <h:outputLabel value="#{lperiodico.titulo}"/>
                     </p:column>  
+
+                    <p:column headerText="Revista" > 
+                        <h:outputLabel value="#{lperiodico.revista}"/>
+                    </p:column>  
+
                     <p:column headerText="Pontuação Invio" > 
                         <div align="center">
-                            <h:outputLabel value="#{lperiodico.estrato}" />  
+                            <h:outputLabel value="#{lperiodico.estrato}"/>  
                         </div>
                     </p:column> 
 
@@ -48,6 +51,7 @@
                             </p:selectOneMenu>  
                         </div>
                     </p:column>
+
                     <p:column headerText="Conferência">
                         <div align="center">
                             <p:commandButton
@@ -57,34 +61,39 @@
                         </div>
                     </p:column>
                 </p:dataTable>
-
             </p:panel>
 
             <p:panel id="panelLivro">
-                <p:dataTable id="listaLivros"
-                             var="lislivro" value="#{avaliacaoBean.getLivrosParaAvaliar(Curriculo)}" 
-                             emptyMessage="Sem registros para a exibição">
+                <p:dataTable
+                    id="listaLivros"
+                    value="#{avaliacaoBean.livrosParaAvaliar}"
+                    var="lislivro"
+                    emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="header">
                         Livros
                     </f:facet>
 
                     <p:column headerText="Titulo">
-                        <h:outputLabel value="#{lisl}"/> 
+                        <h:outputLabel value="#{lislivro.titulo}"/> 
                     </p:column>
+
                     <p:column headerText="Capítulo"> 
                         <h:outputLabel value="#{lislivro.capitulo}"/> 
                     </p:column>
+
                     <p:column headerText="Ano"> 
                         <div align="center">
                             <h:outputLabel value="#{lislivro.ano}"/> 
                         </div>
                     </p:column>
+
                     <p:column headerText="Pontuação Invio">
                         <div align="center">
                             <h:outputLabel value="#{lislivro.estrato}"/>
                         </div>
                     </p:column>
+
                     <p:column headerText="Pontuação Comitê">
                         <div align="center">
                             <p:selectOneMenu value="#{avaliacaoBean.estratoTemp}">  
@@ -105,43 +114,44 @@
                         </div>
                     </p:column>
                 </p:dataTable>
-
             </p:panel>
 
             <p:panel id="panelOrientacao">
-                <p:dataTable id="listaOrientacao"
-                             var="lisorientacao" value="#{avaliacaoBean.getOrientacoesParaAvaliar(Curriculo)}" 
-                             emptyMessage="Sem registros para a exibição">
+                <p:dataTable
+                    id="listaOrientacao"
+                    value="#{avaliacaoBean.orientacoesParaAvaliar}"
+                    var="lisorientacao"
+                    emptyMessage="Sem registros para a exibição">
 
                     <f:facet name="header">
                         Orientações
                     </f:facet>
 
-                    <div align="center">
+                    <p:column headerText="Aluno">
+                        <h:outputLabel value="#{lisorientacao.aluno}"/> 
+                    </p:column>
 
-                        <p:column headerText="Aluno">
-                            <h:outputLabel value="#{lisorientacao.aluno}"/> 
-                        </p:column>
-                        <p:column headerText="Fim"> 
-                            <h:outputLabel value="#{lisorientacao.PFinal}"/> 
-                        </p:column>
-                        <p:column headerText="Pontuação Invio"> 
-                            <div align="center">
-                                <h:outputLabel value="#{lisorientacao.estrato}"/> 
-                            </div>
-                        </p:column>
-                        <p:column headerText="Pontuação Comitê">
-                            <div align="center">
-                                <p:selectOneMenu value="#{lisorientacao.estrato}">  
-                                    <f:selectItem itemLabel="8" itemValue="8" />  
-                                    <f:selectItem itemLabel="4" itemValue="4" />  
-                                    <f:selectItem itemLabel="2" itemValue="2" />  
-                                    <f:selectItem itemLabel="0" itemValue="0" />  
-                                </p:selectOneMenu>  
-                            </div>
-                        </p:column>
+                    <p:column headerText="Fim"> 
+                        <h:outputLabel value="#{lisorientacao.PFinal}"/> 
+                    </p:column>
 
-                    </div>
+                    <p:column headerText="Pontuação Invio"> 
+                        <div align="center">
+                            <h:outputLabel value="#{lisorientacao.estrato}"/> 
+                        </div>
+                    </p:column>
+
+                    <p:column headerText="Pontuação Comitê">
+                        <div align="center">
+                            <p:selectOneMenu value="#{lisorientacao.estrato}">  
+                                <f:selectItem itemLabel="8" itemValue="8" />  
+                                <f:selectItem itemLabel="4" itemValue="4" />  
+                                <f:selectItem itemLabel="2" itemValue="2" />  
+                                <f:selectItem itemLabel="0" itemValue="0" />  
+                            </p:selectOneMenu>  
+                        </div>
+                    </p:column>
+
                     <p:column headerText="Conferência">
                         <div align="center">
                             <p:commandButton
@@ -151,11 +161,7 @@
                         </div>
                     </p:column>
                 </p:dataTable>
-
             </p:panel>
-
         </h:form>
-
     </ui:define>
-
 </ui:composition>

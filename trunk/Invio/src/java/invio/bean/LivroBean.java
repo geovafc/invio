@@ -41,7 +41,7 @@ public class LivroBean {
     public List<Livro> getLivrosAtuais() {
         return livroRN.obterLivrosAtuais(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
-    
+
     public List<Livro> getLivrosPassados() {
         return livroRN.obterLivrosPassados(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }

@@ -40,7 +40,7 @@
                     rendered="#{usuarioBean.secretaria}"
                     value="Avaliar Produção"  ajax="false"
                     icon="ui-icon-arrowrefresh-1-w"
-                    action="/administracao/listarCurriculoAv.xhtml"/>
+                    action="/secretaria/listarCurriculoAv.xhtml"/>
                 <p:submenu
                     style="width: 100%; height: 100%"
                     rendered="#{usuarioBean.administrador}"
@@ -80,19 +80,20 @@
                         ajax="false"
                         icon="ui-icon-document"
                         action="/usuario/documentacao/listaRelatorios.xhtml"/>
+                    
                     <p:menuitem 
                         value="Periódicos" 
                         title="Lista de publicações em periódicos"
                         ajax="false"
                         icon="ui-icon-document"
-                        action="/usuario/cadastro/curriculo/producao/periodicos.xhtml"/>  
+                        action="/usuario/cadastro/curriculo/periodico/periodicos.xhtml"/>  
 
                     <p:menuitem 
                         value="Livros" 
                         ajax="false"
                         title="Publicações de livros como autor ou editor e capítulos"
                         icon="ui-icon-note"
-                        action="/usuario/cadastro/curriculo/producao/livros.xhtml"/>  
+                        action="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
                     
                     <p:menuitem 
                         value="Orientações " 
