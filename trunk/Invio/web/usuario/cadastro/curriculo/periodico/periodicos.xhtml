@@ -7,12 +7,12 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <p:panel header="Lista de Periódicos">
-            <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
+        <h:form id="Periodico" acceptcharset="UTF-8" >  
+            <p:panel header="Lista de Periódicos">
+                <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
-            *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
+                *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
 
-            <h:form id="Periodico" acceptcharset="UTF-8" >  
 
                 <p:messages id="messages" showDetail="true" showSummary="true"/>  
 
@@ -77,14 +77,9 @@
                                      size="2"   
                                      value="#{periodicoBean.periodico.paginafinal}" />
 
-<!--                        <p:fileUpload 
-                            label="Arquivo"
-                            uploadLabel="Carregar"
-                            cancelLabel="Cancelar"
-                            fileUploadListener="#{periodicoBean.handleFileUpload}" 
-                            mode="advanced" dragDropSupport="false"
-                            update="messages" 
-                            sizeLimit="10000000" />-->
+
+
+
 
                         <p:commandButton value="Limpar" type="reset"/>  
 
@@ -188,13 +183,20 @@
                                       overflow: hidden;  max-height: 12px; 
                                       min-height: 12px; white-space: pre-line">  
 
-                                <p:commandLink value="Excluir"
-                                               ajax="false"
-                                               action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml">
+                                <p:commandButton 
+                                    title="Enviar Periódico" 
+                                    icon="ui-icon-arrowstop-1-n"
+                                    onclick="PF('dlg2').show()"/>
+
+                                <p:commandButton 
+                                    title="Excluir"
+                                    icon="ui-icon-trash"
+                                    ajax="false"
+                                    action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml">
                                     <f:setPropertyActionListener 
                                         value="#{periodico}" 
                                         target="#{periodicoBean.periodico}" />
-                                </p:commandLink>  
+                                </p:commandButton>  
 
                             </p:column>
 
@@ -303,15 +305,22 @@
 
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line">  
+                                      min-height: 12px; white-space: pre-line"> 
 
-                                <p:commandLink value="Excluir"
-                                               ajax="false"
-                                               action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml">
+
+
+                                <p:commandButton ajax="false" 
+                                                 title="Enviar Periódico" 
+                                                 icon="ui-icon-arrowstop-1-n"
+                                                 onclick="PF('dlg2').show()"/>
+
+                                <p:commandButton icon="ui-icon-trash"
+                                                 ajax="false"
+                                                 action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml">
                                     <f:setPropertyActionListener 
                                         value="#{periodico}" 
                                         target="#{periodicoBean.periodico}" />
-                                </p:commandLink>  
+                                </p:commandButton>  
 
                             </p:column>
 
@@ -319,10 +328,20 @@
                     </p:tab>
 
                 </p:tabView>
+            </p:panel>
+            <p:dialog header="Enviar Periódico" widgetVar="dlg2" minHeight="40">
+                <p:fileUpload
+                    fileUploadListener="#{periodicoBean.handleFileUpload}"
+                    mode="advanced"
+                    label="Carregar Arquivo"
+                    update="enviado"
+                    auto="true"
+                    sizeLimit="10000000"
+                    allowTypes="/(\.|\/)(jpe?g|pdf)$/" />
+                <p:messages id="enviado" showSummary="true" showDetail="true"/>
+            </p:dialog>
 
-            </h:form>  
-
-        </p:panel>
+        </h:form>
 
     </ui:define>
 
