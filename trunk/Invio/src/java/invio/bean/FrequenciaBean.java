@@ -90,13 +90,19 @@ public class FrequenciaBean {
             } else if (tipo.equals("application/jpg")) {
                 tipo = "jpg";
             }
-            String nomeDoArquivo = this.fileUpload.uploadFrequencia(UsuarioUtil.obterUsuarioLogado().getCurriculo(), frequencia, tipo, stream);
+            String nomeDoArquivo = this.fileUpload.uploadFrequencia(
+                    UsuarioUtil.obterUsuarioLogado().getCurriculo(),
+                    frequencia,
+                    tipo,
+                    stream);
             this.frequencia.setLocalArquivo(nomeDoArquivo);
             frequenciaRN.salvar(frequencia);
             //Inicializa
             this.frequencia = new Frequencia();
             this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
+            BeanUtil.criarMensagemDeInformacao(
+                    "O Arquivo foi salvo com sucesso. ",
+                    "Arquivo: " + nomeDoArquivo);
         } catch (IOException ex) {
         }
     }
