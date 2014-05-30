@@ -146,6 +146,12 @@
                                       min-height: 12px; white-space: pre-line;
                                       text-align: center">  
 
+
+                                <p:commandButton
+                                    icon="ui-icon-arrowstop-1-n"
+                                    title="Enviar Comprovante"
+                                    onclick="PF('dlg1').show()"/>
+                                
                                 <p:commandButton title="Excluir"
                                                  icon="ui-icon-trash"
                                                  ajax="false"
@@ -155,11 +161,7 @@
                                         value="#{orientacao}" 
                                         target="#{orientacaoBean.orientacao}" />
                                 </p:commandButton>  
-                                <h:inputFile />
-                                <p:commandButton
-                                    icon="ui-icon-arrowstop-1-n"
-                                    title="Enviar Comprovante"
-                                    onclick="PF('dlg1').show()"/>
+
                             </p:column>
 
                             <f:facet name="footer">
