@@ -8,9 +8,9 @@
     <h:outputScript name="script/locales.js" library="js" />
 
     <ui:define name="content">
-        <p:panel header="Lista de Orientações">
 
-            <h:form id="Orientacao" acceptcharset="ISO-8859-1" >  
+        <h:form id="Orientacao" acceptcharset="ISO-8859-1" >  
+            <p:panel header="Lista de Orientações">
 
                 <p:messages showDetail="true" showSummary="true"/>  
 
@@ -143,17 +143,23 @@
 
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line">  
+                                      min-height: 12px; white-space: pre-line;
+                                      text-align: center">  
 
-                                <p:commandLink value="Excluir"
-                                               ajax="false"
-                                               action="/usuario/cadastro/curriculo/orientacao/excluirOrientacao.xhtml"
-                                               >
+                                <p:commandButton title="Excluir"
+                                                 icon="ui-icon-trash"
+                                                 ajax="false"
+                                                 action="/usuario/cadastro/curriculo/orientacao/excluirOrientacao.xhtml"
+                                                 >
                                     <f:setPropertyActionListener 
                                         value="#{orientacao}" 
                                         target="#{orientacaoBean.orientacao}" />
-                                </p:commandLink>  
+                                </p:commandButton>  
 
+                                <p:commandButton
+                                    icon="ui-icon-arrowstop-1-n"
+                                    title="Enviar Comprovante"
+                                    onclick="PF('dlg1').show()"/>
                             </p:column>
 
                             <f:facet name="footer">
@@ -163,7 +169,7 @@
 
                         </p:dataTable>  
                     </p:tab>
-                    
+
                     <p:tab id="orientacoesTab2" title="Orientações Arquivadas">
                         <p:dataTable 
                             id="orientacoesTabela2" 
@@ -227,26 +233,34 @@
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
                                       min-height: 12px; white-space: pre-line">  
-
-                                <p:commandLink value="Excluir"
-                                               ajax="false"
-                                               action="/usuario/cadastro/curriculo/orientacao/excluirOrientacao.xhtml"
-                                               >
-                                    <f:setPropertyActionListener 
-                                        value="#{orientacao}" 
-                                        target="#{orientacaoBean.orientacao}" />
-                                </p:commandLink>  
-
+                                    <p:commandButton value="Excluir"
+                                                     ajax="false"
+                                                     icon="ui-icon-trash"
+                                                     action="/usuario/cadastro/curriculo/orientacao/excluirOrientacao.xhtml"
+                                                     >
+                                        <f:setPropertyActionListener 
+                                            value="#{orientacao}" 
+                                            target="#{orientacaoBean.orientacao}" />
+                                    </p:commandButton>
                             </p:column>
-
                         </p:dataTable>  
-                        
+
                     </p:tab>
                 </p:tabView>
 
-            </h:form>  
-
-        </p:panel>
+            </p:panel>
+            <p:dialog header="Enviar Comprovante" widgetVar="dlg1" minHeight="40">
+                <p:fileUpload 
+                    fileUploadListener="#{curriculoBean.uploadActionPlano}"  
+                    mode="advanced"  
+                    label="Carregar Arquivo" 
+                    update="enviado"
+                    auto="true" 
+                    sizeLimit="10000000"   
+                    allowTypes="/(\.|\/)(jpe?g|pdf)$/"/>  
+                <p:messages id="enviado" showSummary="true" showDetail="true"/>
+            </p:dialog>
+        </h:form>  
 
     </ui:define>
 
