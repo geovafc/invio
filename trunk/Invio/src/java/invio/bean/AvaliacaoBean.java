@@ -5,38 +5,60 @@ import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
+import invio.rn.AvaliacaoRN;
 import invio.rn.LivroRN;
 import invio.rn.OrientacaoRN;
 import invio.rn.PeriodicoRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
  * @author soranso
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AvaliacaoBean {
 
-    private List<Periodico> periodicosAvaliado;
-    private List<Livro> livrosAvaliado;
-    private List<Orientacao> orientacoesAvaliado;
-    private Periodico periodico = new Periodico();
-    private PeriodicoRN periodicoRN = new PeriodicoRN();
-    private Livro livro = new Livro();
-    private LivroRN livroRN = new LivroRN();
-    private Orientacao orientacao = new Orientacao();
-    private OrientacaoRN orientacaoRN = new OrientacaoRN();
+    private final AvaliacaoRN rn = new AvaliacaoRN();
     public Integer estratoTemp;
     private Curriculo curriculo;
+    private boolean skip;
+
+    //Periodicos
+    private List<Periodico> periodicosAvaliado;
+    private Periodico periodico = new Periodico();
+    private final PeriodicoRN periodicoRN = new PeriodicoRN();
+    private List<Periodico> periodicos;
+    //Livros
+    private List<Livro> livrosAvaliado;
+    private Livro livro = new Livro();
+    private final LivroRN livroRN = new LivroRN();
+    private List<Livro> livros;
+    //Orientções
+    private List<Orientacao> orientacoesAvaliado;
+    private Orientacao orientacao = new Orientacao();
+    private final OrientacaoRN orientacaoRN = new OrientacaoRN();
+    private List<Orientacao> orientacoes;
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
 
     public Curriculo getCurriculo() {
         return curriculo;
     }
 
     public void setCurriculo(Curriculo curriculo) {
+        System.out.println(curriculo.getPeriodicoList());
+        System.out.println(curriculo.getOrientacaoList());
+        System.out.println(curriculo.getLivroList());
         this.curriculo = curriculo;
     }
 
@@ -49,6 +71,11 @@ public class AvaliacaoBean {
     }
 
     //Início Periódicos Lista e avaliação
+    public List<Periodico> getPeriodicos() {
+        periodicos = periodicoRN.obterTodos();
+        return periodicos;
+    }
+
     public List<Periodico> getPeriodicosAvaliado(Curriculo Curriculo) {
         if (periodicosAvaliado == null) {
             periodicosAvaliado = periodicoRN.obterTodosAvaliado(Curriculo);
@@ -85,6 +112,11 @@ public class AvaliacaoBean {
 
     //Fim de periódicos lista e avaliação
     //Início Livro lista e avaliação
+    public List<Livro> getLivros() {
+        livros = livroRN.obterTodos();
+        return livros;
+    }
+
     public List<Livro> getLivrosAvaliado(Curriculo Curriculo) {
         livrosAvaliado = livroRN.obterTodosAvaliado(Curriculo);
         return livrosAvaliado;
@@ -116,6 +148,11 @@ public class AvaliacaoBean {
     }
     //Fim Livro lista e avaliação
     //Início Orientações lista e avaliação
+
+    public List<Orientacao> getOrientacoes() {
+        orientacoes = orientacaoRN.obterTodos();
+        return orientacoes;
+    }
 
     public List<Orientacao> getOrientacoesAvaliado(Curriculo Curriculo) {
         if (orientacoesAvaliado == null) {
@@ -158,4 +195,22 @@ public class AvaliacaoBean {
     public String pagListarAvaliado() {
         return "/secretaria/listarAvaliado.xhtml";
     }
+
+    public List<Curriculo> autoComplete() {
+        return null;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        if (skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
+
+    public List<Curriculo> autoCompleteCurriculo(String busca) {
+        return rn.autoCompleteCurriculo(busca);
+    }
+
 }
