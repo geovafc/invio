@@ -37,7 +37,7 @@
                                 icon="ui-icon-pencil"/>
                 </p:column>
                         <p:column headerText="Editar"
-                                  rendered="#{usuarioBean.secretaria} OR #{usuarioBean.administrador}">
+                                  rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
                             <p:commandButton
                                 id="cbAlterar" 
                                 ajax="false" 
@@ -51,7 +51,7 @@
                         </p:column>
                         <p:column 
                             headerText="Excluir"
-                            rendered="#{usuarioBean.secretaria} OR #{usuarioBean.administrador}">
+                            rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
                             <p:commandButton 
                                 id="cbExcluir"
                                 ajax="false" 
@@ -60,7 +60,7 @@
                                 action="#{editalBean.excluir}" >
                                 <f:setPropertyActionListener 
                                     target="#{editalBean.excluir}" 
-                                    value="#{edital}x"/>
+                                    value="#{edital}"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>

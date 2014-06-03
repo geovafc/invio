@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="AvaliacaoWizard">
+
+            <p:messages showDetail="true" showSummary="true"/>
+
+            <p:wizard flowListener="#{avaliacaoBean.onFlowProcess}">
+                <p:tab id="busca" title="Busca">
+                    <p:panel header="Selecione o currículo">
+                        <h:panelGrid columns="2" >
+                            <h:outputText value="Nome/E-mail: *"/>
+                            <p:autoComplete
+                                id="acMinLength" 
+                                minQueryLength="3" 
+                                value="#{avaliacaoBean.curriculo}"
+                                var="curriculo"
+                                completeMethod="#{avaliacaoBean.autoCompleteCurriculo}"
+                                itemLabel="#{curriculo.nome}"
+                                itemValue="#{curriculo}"
+                                converter="curriculoConversor"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="livro" title="Livro">
+                    <p:panel header="Avaliação de Livros">
+                        <p:dataTable 
+                            id="dtLivro"
+                            value="#{avaliacaoBean.curriculo.livroList}"
+                            var="livro"
+                            paginator="true" rows="6"
+                            emptyMessage="Sem registro para a exibição.">
+
+                            <p:column headerText="Titulo" filterBy="#{livro.titulo}">  
+                                <h:outputText value="#{livro.titulo}"/>  
+                            </p:column>  
+                            <p:column headerText="Autor" filterBy="#{livro.autor}">  
+                                <h:outputText value="#{livro.autor}"/>  
+                            </p:column>  
+                            <p:column headerText="Ano" filterBy="#{livro.ano}">  
+                                <h:outputText value="#{livro.ano}"/>  
+                            </p:column>  
+                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
+                                <h:outputText value="#{livro.avaliacao}"/>  
+                            </p:column>  
+
+                            <p:column headerText="Operações">  
+                                <p:commandButton 
+                                    action="formulario.xhtml"
+                                    value="x1"
+                                    title="Confirmar"
+                                    ajax="false">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}"/> 
+                                </p:commandButton>  
+                                <p:commandButton 
+                                    action="formulario.xhtml"
+                                    value="x2"
+                                    title="Corrigir Pontuação"
+                                    ajax="false">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+
+                                <p:commandButton 
+                                    ajax="false"
+                                    action="excluir.xhtml"
+                                    value="X3"
+                                    title="Negar Produção">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                                <p:commandButton 
+                                    ajax="false"
+                                    action="excluir.xhtml"
+                                    value="X4"
+                                    title="Vizializar Comprovante">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                            </p:column> 
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                
+                <p:tab id="orientacao" title="Orientação">
+                    <p:panel header="Avaliação das Orientações">
+                        <p:dataTable 
+                            id="dtOrientacoes"
+                            var="orientacao" value="#{avaliacaoBean.curriculo.orientacaoList}"
+                            paginator="true" rows="6"
+                            emptyMessage="Sem registro para a exibição.">
+
+                            <p:column headerText="Aluno" filterBy="#{orientacao.aluno}">  
+                                <h:outputText value="#{orientacao.aluno}"/>  
+                            </p:column>  
+                            <p:column headerText="Período Inicial" filterBy="#{orientacao.PInicial}">  
+                                <h:outputText value="#{orientacao.PInicial}"/>  
+                            </p:column>  
+                            <p:column headerText="Período Final" filterBy="#{orientacao.PFinal}">  
+                                <h:outputText value="#{orientacao.PFinal}"/>  
+                            </p:column>  
+                            <p:column headerText="Tipo de Orientação" filterBy="#{orientacao.tipoOrientacao}">  
+                                <h:outputText value="#{orientacao.tipoOrientacao}"/>  
+                            </p:column>  
+                            <p:column headerText="Tipo de Bolsa" filterBy="#{orientacao.tipoBolsa}">  
+                                <h:outputText value="#{orientacao.tipoOrientacao}"/>  
+                            </p:column>  
+                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
+                                <h:outputText value="#{livro.avaliacao}"/>  
+                            </p:column>  
+
+                            <p:column headerText="Operações">  
+                                <p:commandButton 
+                                    action="formulario.xhtml"
+                                    value="x1"
+                                    title="Confirmar"
+                                    ajax="false">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                                <p:commandButton 
+                                    action="formulario.xhtml"
+                                    value="x2"
+                                    title="Corrigir Pontuação"
+                                    ajax="false">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+
+                                <p:commandButton 
+                                    ajax="false"
+                                    action="excluir.xhtml"
+                                    value="X3"
+                                    title="Negar Produção">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                                <p:commandButton 
+                                    ajax="false"
+                                    action="excluir.xhtml"
+                                    value="X4"
+                                    title="Vizializar Comprovante">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+
+                            </p:column> 
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                
+                <p:tab id="periodico" title="Periódico">
+                    <p:panel header="Avaliação de Livros">
+                        <p:dataTable 
+                            id="dtPeriodico"
+                            var="livro" value="#{avaliacaoBean.curriculo.periodicoList}"
+                            paginator="true" rows="6"
+                            emptyMessage="Sem registro para a exibição.">
+
+                            <p:column headerText="Titulo" filterBy="#{livro.titulo}">  
+                                <h:outputText value="#{livro.titulo}"/>  
+                            </p:column>  
+                            <p:column headerText="Autor" filterBy="#{livro.autores}">  
+                                <h:outputText value="#{livro.autores}"/>  
+                            </p:column>  
+                            <p:column headerText="Ano" filterBy="#{livro.ano}">  
+                                <h:outputText value="#{livro.ano}"/>  
+                            </p:column>  
+                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
+                                <h:outputText value="#{livro.avaliacao}"/>  
+                            </p:column>  
+
+                            <p:column headerText="Operações">  
+                                <p:commandButton 
+                                    action="formulario.xhtml"
+                                    value="x1"
+                                    title="Confirmar"
+                                    ajax="false">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                                <p:commandButton 
+                                    action="formulario.xhtml"
+                                    value="x2"
+                                    title="Corrigir Pontuação"
+                                    ajax="false">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+
+                                <p:commandButton 
+                                    ajax="false"
+                                    action="excluir.xhtml"
+                                    value="X3"
+                                    title="Negar Produção">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                                <p:commandButton 
+                                    ajax="false"
+                                    action="excluir.xhtml"
+                                    value="X4"
+                                    title="Vizializar Comprovante">  
+                                    <f:setPropertyActionListener 
+                                        value="#{area}" 
+                                        target="#{areaBean.area}" />  
+                                </p:commandButton>  
+                            </p:column> 
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+        </h:form>        
+    </ui:define>
+</ui:composition>
+

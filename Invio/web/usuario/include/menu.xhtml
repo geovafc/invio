@@ -19,7 +19,7 @@
                         value="Novo Edital"   
                         ajax="false"
                         icon="ui-icon-arrowrefresh-1-w"
-                        action="/secretaria/editalForm.xhtml"/>
+                        action="/secretaria/edital/editalForm.xhtml"/>
                     <p:menuitem 
                         value="Lista de Editais"  ajax="false"
                         icon="ui-icon-arrowrefresh-1-w" 
@@ -30,6 +30,16 @@
                             value="Listar Usuários"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/administracao/usuarios/listarUsuarios.xhtml"/>
+                
+                <p:menuitem 
+                            value="Avaliar Curriculos"  ajax="false"
+                            icon="ui-icon-arrowrefresh-1-w" 
+                            action="/secretaria/wizardAvaliacao.xhtml"/>
+                
+                <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
+                            value="Listar Currículos"  ajax="false"
+                            icon="ui-icon-arrowrefresh-1-w" 
+                            action="/secretaria/curriculo/listaCurriculo.xhtml"/>
                 
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Editar Permissão"  
