@@ -53,42 +53,21 @@
 
                             <p:column headerText="Operações">  
                                 <p:commandButton 
-                                    action="formulario.xhtml"
-                                    value="x1"
-                                    title="Confirmar"
-                                    ajax="false">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}"/> 
-                                </p:commandButton>  
-                                <p:commandButton 
-                                    action="formulario.xhtml"
-                                    value="x2"
-                                    title="Corrigir Pontuação"
-                                    ajax="false">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
-
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
+                                    value="Confirmar"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    action="excluir.xhtml"
-                                    value="X3"
-                                    title="Negar Produção">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
+                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
+                                    value="Corrigir"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    action="excluir.xhtml"
-                                    value="X4"
-                                    title="Vizializar Comprovante">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
+                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
+                                    value="Negar"/>
+                                <p:commandButton 
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
+                                    value="Visualização"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -106,10 +85,14 @@
                                 <h:outputText value="#{orientacao.aluno}"/>  
                             </p:column>  
                             <p:column headerText="Período Inicial" filterBy="#{orientacao.PInicial}">  
-                                <h:outputText value="#{orientacao.PInicial}"/>  
+                                <h:outputText value="#{orientacao.PInicial}">
+                                    <f:convertDateTime pattern="dd/MMM/yyyy"/>
+                                </h:outputText>  
                             </p:column>  
                             <p:column headerText="Período Final" filterBy="#{orientacao.PFinal}">  
-                                <h:outputText value="#{orientacao.PFinal}"/>  
+                                <h:outputText value="#{orientacao.PFinal}"> 
+                                    <f:convertDateTime pattern="dd/MMM/yyyy"/>
+                                </h:outputText>  
                             </p:column>  
                             <p:column headerText="Tipo de Orientação" filterBy="#{orientacao.tipoOrientacao}">  
                                 <h:outputText value="#{orientacao.tipoOrientacao}"/>  
@@ -122,108 +105,68 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <p:commandButton 
-                                    action="formulario.xhtml"
-                                    value="x1"
-                                    title="Confirmar"
-                                    ajax="false">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
-                                <p:commandButton 
-                                    action="formulario.xhtml"
-                                    value="x2"
-                                    title="Corrigir Pontuação"
-                                    ajax="false">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
-
+                               <p:commandButton 
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
+                                    value="Confirmar"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    action="excluir.xhtml"
-                                    value="X3"
-                                    title="Negar Produção">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
+                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
+                                    value="Corrigir"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    action="excluir.xhtml"
-                                    value="X4"
-                                    title="Vizializar Comprovante">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
-
+                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
+                                    value="Negar"/>
+                                <p:commandButton 
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
+                                    value="Visualização"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
                 </p:tab>
                 
                 <p:tab id="periodico" title="Periódico">
-                    <p:panel header="Avaliação de Livros">
+                    <p:panel header="Avaliação de Periódicos">
                         <p:dataTable 
                             id="dtPeriodico"
-                            var="livro" value="#{avaliacaoBean.curriculo.periodicoList}"
+                            var="periodico" value="#{avaliacaoBean.curriculo.periodicoList}"
                             paginator="true" rows="6"
                             emptyMessage="Sem registro para a exibição.">
 
-                            <p:column headerText="Titulo" filterBy="#{livro.titulo}">  
-                                <h:outputText value="#{livro.titulo}"/>  
+                            <p:column headerText="Titulo" filterBy="#{periodico.titulo}">  
+                                <h:outputText value="#{periodico.titulo}"/>  
                             </p:column>  
-                            <p:column headerText="Autor" filterBy="#{livro.autores}">  
-                                <h:outputText value="#{livro.autores}"/>  
+                            <p:column headerText="Autor" filterBy="#{periodico.autores}">  
+                                <h:outputText value="#{periodico.autores}"/>  
                             </p:column>  
-                            <p:column headerText="Ano" filterBy="#{livro.ano}">  
-                                <h:outputText value="#{livro.ano}"/>  
+                            <p:column headerText="Ano de Publicação" filterBy="#{periodico.ano}">  
+                                <h:outputText value="#{periodico.ano}"/>  
                             </p:column>  
-                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
-                                <h:outputText value="#{livro.avaliacao}"/>  
+                            <p:column headerText="Revista" filterBy="#{periodico.revista}">  
+                                <h:outputText value="#{periodico.revista}"/>
+                            </p:column>  
+                            <p:column headerText="Situação" filterBy="#{periodico.avaliacao}">  
+                                <h:outputText value="#{periodico.avaliacao}"/>  
                             </p:column>  
 
                             <p:column headerText="Operações">  
                                 <p:commandButton 
-                                    action="formulario.xhtml"
-                                    value="x1"
-                                    title="Confirmar"
-                                    ajax="false">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
-                                <p:commandButton 
-                                    action="formulario.xhtml"
-                                    value="x2"
-                                    title="Corrigir Pontuação"
-                                    ajax="false">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
-
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
+                                    value="Confirmar"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    action="excluir.xhtml"
-                                    value="X3"
-                                    title="Negar Produção">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
+                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
+                                    value="Corrigir"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    action="excluir.xhtml"
-                                    value="X4"
-                                    title="Vizializar Comprovante">  
-                                    <f:setPropertyActionListener 
-                                        value="#{area}" 
-                                        target="#{areaBean.area}" />  
-                                </p:commandButton>  
+                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
+                                    value="Negar"/>
+                                <p:commandButton 
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
+                                    value="Visualização"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>

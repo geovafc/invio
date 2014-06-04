@@ -2,6 +2,9 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+-- -----------------------------------------------------
+-- Schema invio
+-- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `invio` ;
 CREATE SCHEMA IF NOT EXISTS `invio` DEFAULT CHARACTER SET utf8 ;
 USE `invio` ;
@@ -123,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `invio`.`login` (
   `codigoConfirmacao` VARCHAR(100) NULL,
   `dtCriacao` DATETIME NULL,
   `email` VARCHAR(200) NOT NULL,
-  `perfil` CHAR NOT NULL COMMENT 'A - Administrador\nS - Secretaria\nU - Usuário',
+  `perfil` CHAR NOT NULL COMMENT 'A - Administrador' /* comment truncated */ /*S - Secretaria
+U - Usuário*/,
   `curriculo` INT(11) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
@@ -204,7 +208,9 @@ CREATE TABLE IF NOT EXISTS `invio`.`livro` (
   `estrato` INT NULL,
   `isbn` VARCHAR(45) NULL,
   `arquivo` VARCHAR(300) NULL,
-  `avaliacao` VARCHAR(45) NULL COMMENT 'AVALIADO\nAVALIADO COM DIFERENÇAS\nRECUSADO PELO COMITÊ\nNULL (NÃO AVALIADO)',
+  `avaliacao` VARCHAR(45) NULL COMMENT 'AVALIADO' /* comment truncated */ /*AVALIADO COM DIFERENÇAS
+RECUSADO PELO COMITÊ
+NULL (NÃO AVALIADO)*/,
   `tipoLivro` INT NOT NULL,
   `curriculo` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -314,6 +320,7 @@ CREATE TABLE IF NOT EXISTS `invio`.`orientacao` (
   `tipo_orientacao` INT NOT NULL DEFAULT 2 COMMENT 'IC - Iniciação Científica | ES - Especialização | TC - TCC | ME - Mestrado | DR - Doutorado | BD - Bolsista DTI | TD - Tese de Doutorado | DM - Dissertação de Mestrado',
   `tipo_bolsa` VARCHAR(100) NOT NULL,
   `estrato` INT NULL,
+  `arquivo` VARCHAR(300) NULL,
   `avaliacao` VARCHAR(45) NULL,
   `curriculo` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
