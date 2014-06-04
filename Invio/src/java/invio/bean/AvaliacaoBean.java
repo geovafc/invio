@@ -88,8 +88,8 @@ public class AvaliacaoBean {
         return periodicosAvaliado;
     }
 
+    @Deprecated
     public String avaliarPeriodico() {
-
         if (periodico.getEstrato().equals(getEstratoTemp())) {
             periodico.setAvaliacao("Avaliado");
         } else if (periodico.getEstrato() < getEstratoTemp()
@@ -113,7 +113,7 @@ public class AvaliacaoBean {
     //Fim de periódicos lista e avaliação
     //Início Livro lista e avaliação
     public List<Livro> getLivros() {
-        livros = livroRN.obterTodos();
+        livros = livroRN.obterLivrosAtuais(curriculo);
         return livros;
     }
 
@@ -127,6 +127,7 @@ public class AvaliacaoBean {
         return livrosAvaliado;
     }
 
+    @Deprecated
     public String avaliarLivro() {
         if (livro.getEstrato().equals(getEstratoTemp())) {
             livro.setAvaliacao("Avaliado");
@@ -166,6 +167,7 @@ public class AvaliacaoBean {
         return orientacoesAvaliado;
     }
 
+    @Deprecated
     public String avaliarOrientacao() {
         if (orientacao.getEstrato().equals(getEstratoTemp())) {
             orientacao.setAvaliacao("Avaliado");
@@ -213,4 +215,16 @@ public class AvaliacaoBean {
         return rn.autoCompleteCurriculo(busca);
     }
 
+    public boolean possueArquivoLivro(Livro livro) {
+        return rn.possueArquivoLivro(livro);
+    }
+    
+    public boolean possueArquivoPeriodico(Periodico periodico) {
+        return rn.possueArquivoPeriodico(periodico);
+    }
+    
+    public boolean possueArquivoOrientacao(Orientacao orientacao) {
+        return rn.possueArquivoOrientacao(orientacao);
+    }
+    
 }

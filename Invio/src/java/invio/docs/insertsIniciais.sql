@@ -65,8 +65,4 @@ INSERT INTO `programa` (`id`, `nome`, `instituicao`, `area`) VALUES
 insert into login 
 (email, senha, perfil) 
 values 
-('fabio.bezerra@ufra.edu.br', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 'A');
-insert into login 
-(email, senha, perfil) 
-values 
-('mkmikael07@gmail.com', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 'A');
+('padrao@gmail.com', '123', 'A');
