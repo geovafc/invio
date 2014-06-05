@@ -7,6 +7,9 @@ package invio.rn;
 
 import invio.dao.GenericDAO;
 import invio.entidade.Curriculo;
+import invio.entidade.Livro;
+import invio.entidade.Orientacao;
+import invio.entidade.Periodico;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +28,22 @@ public class AvaliacaoRN {
             for (Curriculo curriculo : curriculos) {
                 if (curriculo.getNome().toUpperCase().startsWith(busca.toUpperCase())) {
                     filtro.add(curriculo);
-                } else if (curriculo.getEmail().toUpperCase().startsWith(busca.toUpperCase())) {
-                    filtro.add(curriculo);
                 }
             }
         }
         return filtro;
     }
+    
+    public boolean possueArquivoLivro(Livro livro) {
+        return livro.getArquivo() != null;
+    }
+    
+    public boolean possueArquivoPeriodico(Periodico periodico) {
+        return periodico.getArquivo() != null;
+    }
+    
+    public boolean possueArquivoOrientacao(Orientacao orientacao) {
+        return orientacao.getArquivo() != null;
+    }
+    
 }
