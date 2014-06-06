@@ -144,7 +144,7 @@
 
                             <h:outputText value="Logradouro: " />  
                             <p:inputText id="logradouro" required="false" label="Logradouro"
-                                         value="#{curriculoBean.curriculo.logradouro}" />  
+                                         value="#{curriculoBean.curriculo.logradouro}"/>  
                             <p:message id="erroLogradouro" for="logradouro"/>
 
                             <h:outputText value="Número: " />  
@@ -248,7 +248,7 @@
                                 styleClass="outputLabel"
                                 value="#{curriculoBean.curriculo.dtNascimento}" 
                                 disabled="true">
-                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR" timeZone="Brazil/East"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="Brazil/East"/>
                             </h:inputText>
 
                             <h:outputText value="CPF: " />  

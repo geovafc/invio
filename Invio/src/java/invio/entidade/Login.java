@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author toshiaki
+ * @author bpmlab
  */
 @Entity
 @Table(name = "login")
@@ -58,7 +58,7 @@ public class Login implements Serializable {
     private String email;
     @Basic(optional = false)
     @Column(name = "perfil")
-    private char perfil;
+    private Character perfil;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne
     private Curriculo curriculo;
@@ -70,7 +70,7 @@ public class Login implements Serializable {
         this.id = id;
     }
 
-    public Login(Integer id, String senha, String email, char perfil) {
+    public Login(Integer id, String senha, String email, Character perfil) {
         this.id = id;
         this.senha = senha;
         this.email = email;
@@ -117,11 +117,11 @@ public class Login implements Serializable {
         this.email = email;
     }
 
-    public char getPerfil() {
+    public Character getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(char perfil) {
+    public void setPerfil(Character perfil) {
         this.perfil = perfil;
     }
 

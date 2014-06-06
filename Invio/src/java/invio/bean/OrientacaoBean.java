@@ -10,9 +10,14 @@ import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.entidade.Orientacao;
 import invio.rn.OrientacaoRN;
+import invio.util.UploadArquivo;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -24,6 +29,8 @@ public class OrientacaoBean {
 
     private Orientacao orientacao = new Orientacao();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
+    private UploadArquivo fileUpload = new UploadArquivo();
+    private Curriculo curriculo = new Curriculo();
 
     public OrientacaoBean() {
     }
@@ -54,6 +61,20 @@ public class OrientacaoBean {
         }
 
         return total;
+    }
+    
+    public String upload() {
+        return "usuario/cadastro/curriculo/orientacao/uploadOrientacao.xhtml";
+    }
+    
+    public Curriculo getCurriculo() {
+        if (curriculo == null) {
+            Login loginLog = UsuarioUtil.obterUsuarioLogado();
+            if (loginLog != null) {
+                curriculo = loginLog.getCurriculo();
+            }
+        }
+        return curriculo;
     }
 
     public String salvarOrientacao() {
@@ -126,5 +147,27 @@ public class OrientacaoBean {
 
     public String obterTipo(Integer tipo) {
         return orientacaoRN.obterTipoOrientacao(tipo);
+    }
+    
+    public void uploadActionOrientacao(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        InputStream stream = null;
+        try {
+            stream = file.getInputstream();
+            String tipo = file.getContentType();
+            if (tipo.equals("application/pdf")) {
+                tipo = "pdf";
+            } else if (tipo.equals("application/jpg")) {
+                tipo = "jpg";
+            }
+            String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
+            this.orientacao.setComprovante(nomeDoArquivo);
+            orientacaoRN.salvar(orientacao);
+            //Inicializa
+            this.orientacao = new Orientacao();
+            this.fileUpload = new UploadArquivo();
+            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
+        } catch (IOException ex) {
+        }
     }
 }

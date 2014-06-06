@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author toshiaki
+ * @author bpmlab
  */
 @Entity
 @Table(name = "unidade")

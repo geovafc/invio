@@ -36,6 +36,7 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class CurriculoBean {
+
     private CurriculoRN curriculoRN = new CurriculoRN();
     private LoginRN loginRN = new LoginRN();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
@@ -54,6 +55,8 @@ public class CurriculoBean {
     private Area areaOutra = new Area();
     private boolean exibirOutroArea;
     private Integer totalPontos;
+    private Orientacao orientacao;
+    private UploadedFile upload;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -71,6 +74,15 @@ public class CurriculoBean {
         return curriculos;
     }
 
+    public UploadedFile getUpload() {
+        return upload;
+    }
+
+    public void setUpload(UploadedFile upload) {
+        System.out.println("Toshiaki");
+        this.upload = upload;
+    }
+
     public List<Curriculo> getCurriculosDesc() {
         curriculos = curriculoRN.obterTodosDesc();
         return curriculosDesc;
@@ -82,6 +94,14 @@ public class CurriculoBean {
 
     public Plano getPlano() {
         return plano;
+    }
+
+    public Orientacao getOrientacao() {
+        return orientacao;
+    }
+
+    public void setOrientacao(Orientacao orientacao) {
+        this.orientacao = orientacao;
     }
 
     public void setPlano(Plano plano) {
@@ -110,6 +130,10 @@ public class CurriculoBean {
             BeanUtil.colocarNaSessao("curriculo", curriculo);
         }
         this.curriculo = curriculo;
+    }
+
+    public String voltarListaOrientacao() {
+        return "/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml";
     }
 
     public String salvarCurriculo() {
@@ -309,6 +333,30 @@ public class CurriculoBean {
             planoRN.salvar(plano);
             //Inicializa
             this.plano = new Plano();
+            this.fileUpload = new UploadArquivo();
+            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
+        } catch (IOException ex) {
+        }
+    }
+    
+    
+    public void uploadActionOrientacao(FileUploadEvent event) {
+        System.out.println("EVENTO: "+event.getFile().getFileName());
+        UploadedFile file = event.getFile();
+        InputStream stream = null;
+        try {
+            stream = file.getInputstream();
+            String tipo = file.getContentType();
+            if (tipo.equals("application/pdf")) {
+                tipo = "pdf";
+            } else if (tipo.equals("application/jpg")) {
+                tipo = "jpg";
+            }
+            String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
+            this.orientacao.setComprovante(nomeDoArquivo);           
+            orientacaoRN.salvar(orientacao);
+            //Inicializa
+            this.orientacao= new Orientacao();
             this.fileUpload = new UploadArquivo();
             BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
         } catch (IOException ex) {
@@ -521,4 +569,5 @@ public class CurriculoBean {
         Curriculo curriculoR = new Curriculo();
         Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
     }
+
 }
