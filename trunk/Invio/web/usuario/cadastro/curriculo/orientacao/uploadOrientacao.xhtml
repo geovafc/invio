@@ -9,7 +9,7 @@
         <p:commandButton value="Voltar" action="#{curriculoBean.voltarListaOrientacao()}" />
             <h:inputHidden 
                 id="ihComprovacao"
-                value="#{curriculoBean.curriculo.id}" />
+                value="#{curriculoBean.curriculo}" />
          <h:inputHidden 
                 id="ihOrientacao"
                 value="#{curriculoBean.orientacao.id}"/>
@@ -18,13 +18,13 @@
 
             <p:panel header="Comprovação de Orientação">
 
-                <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionOrientacao}"  
+                <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionPlano(event)}"  
                               mode="advanced"  
                               update="messages" label="Carregar Arquivo" 
                               auto="true"  
                               sizeLimit="10000000"   
                               allowTypes="/(\.|\/)(jpe?g|pdf)$/"/>  
-
+                
                 <p:growl id="messages" showDetail="true"/>  
 
             </p:panel>

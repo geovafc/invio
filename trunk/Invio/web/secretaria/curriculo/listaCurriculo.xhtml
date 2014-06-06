@@ -7,57 +7,58 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/publico/template/templatePadrao.xhtml">
         <ui:define name="content">
-            <p:dataTable id="dataTable"
-                         style="text-align: center"
-                         value="#{curriculoBean.curriculos}" 
-                         var="curriculo"
-                         emptyMessage="Sem registro para a exibição.">
+            <h:form>
+                <p:dataTable id="dataTable"
+                             style="text-align: center"
+                             value="#{curriculoBean.curriculos}" 
+                             var="curriculo"
+                             emptyMessage="Sem registro para a exibição.">
 
-                <p:column headerText="Nome"
-                          filterBy="#{curriculo.nome}"
-                          filterMatchMode="contains">
-                    <h:outputLabel value="#{curriculo.nome}"/>
-                </p:column>
-                <p:column headerText="Email"
-                          filterBy="#{curriculo.email}"
-                          filterMatchMode="contains">
-                    <h:outputLabel value="#{curriculo.email}"/>
-                </p:column>
-                <p:column headerText="Area" 
-                          filterBy="#{curriculo.area}" 
-                          filterMatchMode="contains"> 
-                    <h:outputLabel value="#{curriculo.area}"/>
-                </p:column>
+                    <p:column headerText="Nome"
+                              filterBy="#{curriculo.nome}"
+                              filterMatchMode="contains">
+                        <h:outputLabel value="#{curriculo.nome}"/>
+                    </p:column>
+                    <p:column headerText="Email"
+                              filterBy="#{curriculo.email}"
+                              filterMatchMode="contains">
+                        <h:outputLabel value="#{curriculo.email}"/>
+                    </p:column>
+                    <p:column headerText="Area" 
+                              filterBy="#{curriculo.area}" 
+                              filterMatchMode="contains"> 
+                        <h:outputLabel value="#{curriculo.area}"/>
+                    </p:column>
 
-                <p:column headerText="Editar"
-                          rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
-                    <p:commandButton
-                        id="cbAlterar" 
-                        ajax="false" 
-                        action="#{editalBean.editar()}" 
-                        title="Editar"
-                        icon="ui-icon-pencil">
-                        <f:setPropertyActionListener 
-                            target="#{editalBean.editar}" 
-                            value="#{edital}"/>
-                    </p:commandButton>
-                </p:column>
-                <p:column 
-                    headerText="Excluir"
-                    rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
-                    <p:commandButton 
-                        id="cbExcluir"
-                        ajax="false" 
-                        title="Excluir"
-                        icon="ui-icon-trash"
-                        action="#{editalBean.excluir}" >
-                        <f:setPropertyActionListener 
-                            target="#{editalBean.excluir}" 
-                            value="#{edital}"/>
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-
+                    <p:column headerText="Editar"
+                              rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
+                        <p:commandButton
+                            id="cbAlterar" 
+                            ajax="false" 
+                            action="#{editalBean.editar()}" 
+                            title="Editar"
+                            icon="ui-icon-pencil">
+                            <f:setPropertyActionListener 
+                                target="#{editalBean.edital}" 
+                                value="#{edital}"/>
+                        </p:commandButton>
+                    </p:column>
+                    <p:column 
+                        headerText="Excluir"
+                        rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
+                        <p:commandButton 
+                            id="cbExcluir"
+                            ajax="false" 
+                            title="Excluir"
+                            icon="ui-icon-trash"
+                            action="#{editalBean.excluir}" >
+                            <f:setPropertyActionListener 
+                                target="#{editalBean.edital}" 
+                                value="#{edital}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

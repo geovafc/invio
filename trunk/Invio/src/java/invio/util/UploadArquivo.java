@@ -7,6 +7,7 @@ package invio.util;
 import invio.entidade.Curriculo;
 import invio.entidade.Frequencia;
 import invio.entidade.Livro;
+import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
 import invio.entidade.Plano;
 import invio.entidade.Relatorio;
@@ -112,15 +113,17 @@ public class UploadArquivo {
         return nomeDoArquivo;
     }
     
-//    public String uploadOrientacao(Curriculo curriculo, 
-//            Orientacao orientacao, 
-//            String tipo, 
-//            InputStream stream) {
-//        String nomeDoArquivo = orientacao.getId() + orientacao.getAluno()+"."+ tipo;
-//        upload(curriculo, ConfiguracaoUtil.TipoProducao.ORIENTACOES, nomeDoArquivo, stream);
-//        return nomeDoArquivo;
-//    }
-
+//Este trecho estava antes como comentado 30/05/14
+    public String uploadOrientacao(Curriculo curriculo, 
+            Orientacao orientacao, 
+            String tipo, 
+            InputStream stream) {
+        System.out.println("caralho");
+        String nomeDoArquivo = orientacao.getId() + orientacao.getAluno()+"."+ tipo;
+        upload(curriculo, ConfiguracaoUtil.TipoProducao.ORIENTACOES, nomeDoArquivo, stream);
+        return nomeDoArquivo;
+    }
+//
     private void upload(Curriculo curriculo,
             ConfiguracaoUtil.TipoProducao tipo,
             String nomeDoArquivo,

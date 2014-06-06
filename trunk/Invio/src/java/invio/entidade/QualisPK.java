@@ -13,7 +13,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author toshiaki
+ * @author bpmlab
  */
 @Embeddable
 public class QualisPK implements Serializable {
