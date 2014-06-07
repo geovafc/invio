@@ -5,24 +5,24 @@
  */
 package invio.rn;
 
-import invio.dao.GenericDAO;
 import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Orientacao;
 import invio.entidade.Periodico;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author toshiaki & Mikael
+ * @author Toshiaki & Mikael
  */
-public class AvaliacaoRN {
+public class AvaliacaoRN implements Serializable {
 
-    private final GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
+    private final CurriculoRN rnCurriculo = new CurriculoRN();
 
     public List<Curriculo> autoCompleteCurriculo(String busca) {
-        List<Curriculo> curriculos = dao.obterTodos(Curriculo.class);
+        List<Curriculo> curriculos = rnCurriculo.obterTodos();
         List<Curriculo> filtro = new ArrayList<Curriculo>();
         if (busca != null) {
             for (Curriculo curriculo : curriculos) {
@@ -33,17 +33,52 @@ public class AvaliacaoRN {
         }
         return filtro;
     }
-    
-    public boolean possueArquivoLivro(Livro livro) {
-        return livro.getArquivo() != null;
+
+    public boolean possueArquivo(String arquivo) {
+        return arquivo != null || "".equals(arquivo);
+    }
+
+    public boolean confirmar(Curriculo curriculo, Object object) {
+        String avaliacao = "Avaliado";
+        if (object instanceof Livro) {
+            ((Livro)object).setAvaliacao(avaliacao);
+        } else if (object instanceof Orientacao) {
+            ((Orientacao)object).setAvaliacao(avaliacao);
+        } else if (object instanceof Periodico) {
+            ((Periodico)object).setAvaliacao(avaliacao);
+        }
+        return rnCurriculo.salvar(curriculo);
     }
     
-    public boolean possueArquivoPeriodico(Periodico periodico) {
-        return periodico.getArquivo() != null;
+    public boolean corrigir(Curriculo curriculo, Object object, Integer estrato) {
+        String avaliacao = "Avaliado com diferenças";
+        if (object instanceof Livro) {
+            ((Livro)object).setAvaliacao(avaliacao);
+            ((Livro)object).setEstrato(estrato);
+        } else if (object instanceof Orientacao) {
+            ((Orientacao)object).setAvaliacao(avaliacao);
+            ((Orientacao)object).setEstrato(estrato);
+        } else if (object instanceof Periodico) {
+            ((Periodico)object).setAvaliacao(avaliacao);
+            ((Periodico)object).setEstrato(estrato);
+        }
+        return rnCurriculo.salvar(curriculo);
     }
     
-    public boolean possueArquivoOrientacao(Orientacao orientacao) {
-        return orientacao.getArquivo() != null;
+    public boolean negar(Curriculo curriculo, Object object) {
+        String avaliacao = "Negado pelo Comitê";
+        int negado = 0;
+        if (object instanceof Livro) {
+            ((Livro)object).setAvaliacao(avaliacao);
+            ((Livro)object).setEstrato(negado);
+        } else if (object instanceof Orientacao) {
+            ((Orientacao)object).setAvaliacao(avaliacao);
+            ((Orientacao)object).setEstrato(negado);
+        } else if (object instanceof Periodico) {
+            ((Periodico)object).setAvaliacao(avaliacao);
+            ((Periodico)object).setEstrato(negado);
+        }
+        return rnCurriculo.salvar(curriculo);
     }
-    
+
 }

@@ -29,50 +29,6 @@
                     </p:panel>
                 </p:tab>
 
-                <p:tab id="livro" title="Livro">
-                    <p:panel header="Avaliação de Livros">
-                        <p:dataTable 
-                            id="dtLivro"
-                            value="#{avaliacaoBean.curriculo.livroList}"
-                            var="livro"
-                            paginator="true" rows="6"
-                            emptyMessage="Sem registro para a exibição.">
-
-                            <p:column headerText="Titulo" filterBy="#{livro.titulo}">  
-                                <h:outputText value="#{livro.titulo}"/>  
-                            </p:column>  
-                            <p:column headerText="Autor" filterBy="#{livro.autor}">  
-                                <h:outputText value="#{livro.autor}"/>  
-                            </p:column>  
-                            <p:column headerText="Ano" filterBy="#{livro.ano}">  
-                                <h:outputText value="#{livro.ano}"/>  
-                            </p:column>  
-                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
-                                <h:outputText value="#{livro.avaliacao}"/>  
-                            </p:column>  
-
-                            <p:column headerText="Operações">  
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
-                                    value="Confirmar"/>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
-                                    value="Corrigir"/>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
-                                    value="Negar"/>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoLivro(livro)}"
-                                    value="Visualização"/>
-                            </p:column> 
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
-                
                 <p:tab id="orientacao" title="Orientação">
                     <p:panel header="Avaliação das Orientações">
                         <p:dataTable 
@@ -100,32 +56,117 @@
                             <p:column headerText="Tipo de Bolsa" filterBy="#{orientacao.tipoBolsa}">  
                                 <h:outputText value="#{orientacao.tipoOrientacao}"/>  
                             </p:column>  
-                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
-                                <h:outputText value="#{livro.avaliacao}"/>  
+                            <p:column headerText="Estrato">  
+                                <h:outputText value="#{orientacao.estrato}"/>  
+                            </p:column>  
+                            <p:column headerText="Situação" filterBy="#{orientacao.avaliacao}">  
+                                <h:outputText value="#{orientacao.avaliacao}"/>  
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                               <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
-                                    value="Confirmar"/>
                                 <p:commandButton 
                                     ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
-                                    value="Corrigir"/>
+                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
+                                    action="#{avaliacaoBean.confirmar()}"
+                                    value="Confirmar">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{orientacao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton 
+                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
+                                    value="Corrigir"
+                                    onclick="dialogConfir.show()">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{orientacao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
+                                    action="#{avaliacaoBean.negar()}"
+                                    value="Negar"
+                                    update="orientacao">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{orientacao}"/>
+                                </p:commandButton>
                                 <p:commandButton 
                                     ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
-                                    value="Negar"/>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoOrientacao(orientacao)}"
+                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
                                     value="Visualização"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
                 </p:tab>
-                
+
+                <p:tab id="livro" title="Livro">
+                    <p:panel header="Avaliação de Livros">
+                        <p:dataTable 
+                            id="dtLivro"
+                            value="#{avaliacaoBean.curriculo.livroList}"
+                            var="livro"
+                            paginator="true" rows="6"
+                            emptyMessage="Sem registro para a exibição.">
+
+                            <p:column headerText="Titulo" filterBy="#{livro.titulo}">  
+                                <h:outputText value="#{livro.titulo}"/>  
+                            </p:column>  
+                            <p:column headerText="Autor" filterBy="#{livro.autor}">  
+                                <h:outputText value="#{livro.autor}"/>  
+                            </p:column>  
+                            <p:column headerText="Ano" filterBy="#{livro.ano}">  
+                                <h:outputText value="#{livro.ano}"/>  
+                            </p:column>  
+                            <p:column headerText="Estrato">  
+                                <h:outputText value="#{livro.estrato}"/>  
+                            </p:column>  
+                            <p:column headerText="Situação" filterBy="#{livro.avaliacao}">  
+                                <h:outputText value="#{livro.avaliacao}"/>  
+                            </p:column>  
+
+                            <p:column headerText="Operações">  
+                                <p:commandButton 
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
+                                    action="#{avaliacaoBean.confirmar()}"
+                                    value="Confirmar">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{livro}"/>
+                                </p:commandButton>
+
+                                <p:commandButton 
+                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
+                                    value="Corrigir"
+                                    onclick="dialogConfir.show()">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{livro}"/>
+                                </p:commandButton>
+
+                                <p:commandButton
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
+                                    action="#{avaliacaoBean.negar()}"
+                                    value="Negar"
+                                    update="livro">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{livro}"/>
+                                </p:commandButton>
+
+                                <p:commandButton 
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
+                                    value="Visualização"/>
+                            </p:column> 
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+
                 <p:tab id="periodico" title="Periódico">
                     <p:panel header="Avaliação de Periódicos">
                         <p:dataTable 
@@ -146,6 +187,9 @@
                             <p:column headerText="Revista" filterBy="#{periodico.revista}">  
                                 <h:outputText value="#{periodico.revista}"/>
                             </p:column>  
+                            <p:column headerText="Estrato">  
+                                <h:outputText value="#{periodico.estrato}"/>  
+                            </p:column>  
                             <p:column headerText="Situação" filterBy="#{periodico.avaliacao}">  
                                 <h:outputText value="#{periodico.avaliacao}"/>  
                             </p:column>  
@@ -153,26 +197,60 @@
                             <p:column headerText="Operações">  
                                 <p:commandButton 
                                     ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
-                                    value="Confirmar"/>
+                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
+                                    action="#{avaliacaoBean.confirmar()}"
+                                    value="Confirmar">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{periodico}"/>
+                                </p:commandButton>
+
+                                <p:commandButton 
+                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
+                                    value="Corrigir"
+                                    onclick="dialogConfir.show()">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{periodico}"/>
+                                    <p:ajax immediate="true"/>
+                                </p:commandButton>
+
+                                <p:commandButton
+                                    ajax="false"
+                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
+                                    action="#{avaliacaoBean.negar()}"
+                                    value="Negar"
+                                    update="periodico">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{periodico}"/>
+                                </p:commandButton>
                                 <p:commandButton 
                                     ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
-                                    value="Corrigir"/>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
-                                    value="Negar"/>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivoPeriodico(periodico)}"
+                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
                                     value="Visualização"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
                 </p:tab>
             </p:wizard>
-        </h:form>        
+
+            <p:dialog widgetVar="dialogConfir" header="Corrigir Pontuação">
+                <p:panelGrid columns="2">
+                    <h:outputText value="Estrato: "/>
+                    <p:inputText value="#{avaliacaoBean.estratoTemp}"/>
+                    <p:commandButton 
+                        value="Cancelar"
+                        onclick="dialogConfir.hide()">
+                    </p:commandButton>
+                    <p:commandButton 
+                        ajax="false"
+                        value="Corrigir"
+                        action="#{avaliacaoBean.corrigir()}">
+                    </p:commandButton>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
     </ui:define>
 </ui:composition>
 
