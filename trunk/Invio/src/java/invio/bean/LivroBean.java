@@ -10,20 +10,22 @@ import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.rn.LivroRN;
+import invio.util.Upload;
 import invio.util.UploadArquivo;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author fabio
+ * @author fabio & Mikael Lima
  */
 @ManagedBean
 @RequestScoped
 public class LivroBean {
 
-    private UploadArquivo fileUpload = new UploadArquivo();
     Livro livro = new Livro();
     LivroRN livroRN = new LivroRN();
 
@@ -96,7 +98,6 @@ public class LivroBean {
     }
 
     public String salvarEditarLivro(Livro livroTemp) {
-
         if (livroRN.salvar(livroTemp)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
@@ -120,26 +121,33 @@ public class LivroBean {
         livro = new Livro();
         return "livros.xhtml";
     }
-//    public void uploadActionLivro(FileUploadEvent event) {
-//        UploadedFile file = event.getFile();
-//        InputStream stream = null;
-//        try {
-//            stream = file.getInputstream();
-//            String tipo = file.getContentType();
-//            if (tipo.equals("application/pdf")) {
-//                tipo = "pdf";
-//            } else if (tipo.equals("application/jpg")) {
-//                tipo = "jpg";
-//            }
-//            String nomeDoArquivo = this.fileUpload.uploadLivro(getCurriculo(), livro, tipo, stream);
-//            this.livro.setArquivo(nomeDoArquivo);
-//            livroRN.salvar(livro);
-//            //Inicializa
-//            this.livro = new Livro();
-//            this.fileUpload = new UploadArquivo();
-//            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-//        } catch (IOException ex) {
-//        }
-//
-//    }
+    
+    public String upload() {
+        BeanUtil.colocarNaSessao("livroUpload", livro);
+        return "/usuario/cadastro/curriculo/livro/uploadLivro.xhtml";
+    }
+    
+    public String voltar() {
+        return "/usuario/cadastro/curriculo/livro/livros.xhtml";
+    }
+    
+    public void uploadArquivoLivro(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        if (file != null) {
+            String path = Upload.contextPath(file.getFileName());
+            livro = (Livro) BeanUtil.lerDaSessao("livroUpload");
+            livro.setArquivo(path);
+            boolean salvou = livroRN.salvar(livro);
+            boolean upload = Upload.copiarParaArquivos(file);
+
+            if (upload && salvou) {
+                BeanUtil.removerDaSessao("livroUpload");
+                BeanUtil.criarMensagemDeInformacao("Sucesso!",
+                        "O arquivo foi enviado.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro!",
+                        "O arquivo não foi enviado.");
+            }
+        }
+    }
 }

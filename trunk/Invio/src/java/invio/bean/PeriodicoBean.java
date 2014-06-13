@@ -7,32 +7,28 @@ import invio.entidade.Login;
 import invio.entidade.Periodico;
 import invio.rn.PeriodicoRN;
 import invio.rn.pdf.QualisRN;
-import invio.util.UploadArquivo;
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
+import invio.util.Upload;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author fabio
+ * @author fabio & Mikael
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class PeriodicoBean {
 
-    private UploadArquivo fileUpload = new UploadArquivo();
     private Periodico periodico = new Periodico();
-    private PeriodicoRN periodicoRN = new PeriodicoRN();
-    private Integer estratoTemp;
+    private final PeriodicoRN periodicoRN = new PeriodicoRN();
 
     public PeriodicoBean() {
     }
@@ -55,27 +51,28 @@ public class PeriodicoBean {
         return periodicoRN.obterPeriodicosPassados(curriculo);
     }
 
-    public void handleFileUpload(FileUploadEvent event) {
-        try {
-            System.out.println(event.getFile().getContents());
-            System.out.println(event.getFile().getContents());
-            System.out.println(event.getFile().getContents());
-            System.out.println(event.getFile().getContents());
-            FileOutputStream fos = new FileOutputStream("/home/bpmlab/NetBeansProjects/Invio/web/resources/arquivos/"
-                    + event.getFile().getFileName());
-            int c = 0;
-            while ((c = event.getFile().getInputstream().read()) != -1) {
-                fos.write(c);
+    public String upload() {
+        BeanUtil.colocarNaSessao("periodicoUpload", periodico);
+        return "/usuario/cadastro/curriculo/periodico/uploadPeriodico.xhtml";
+    }
+
+    public void uploadArquivoPeriodico(FileUploadEvent event) {
+        UploadedFile file = event.getFile();
+        if (file != null) {
+            String path = Upload.contextPath(file.getFileName());
+            periodico = (Periodico) BeanUtil.lerDaSessao("periodicoUpload");
+            periodico.setArquivo(path);
+            boolean salvou = periodicoRN.salvar(periodico);
+            boolean upload = Upload.copiarParaArquivos(file);
+
+            if (upload && salvou) {
+                BeanUtil.removerDaSessao("periodicoUpload");
+                BeanUtil.criarMensagemDeInformacao("Sucesso!",
+                        "O arquivo foi enviado.");
+            } else {
+                BeanUtil.criarMensagemDeErro("Erro!",
+                        "O arquivo não foi enviado.");
             }
-            event.getFile().getInputstream().close();
-            fos.close();
-            FacesMessage msg = new FacesMessage("Sucesso! ", event.getFile().getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        } catch (Exception e) {
-            FacesMessage msg = new FacesMessage("Falha ", event.getFile().getFileName()
-                    + " não foi carregado, verifique o tipo de arquivo, pode estar corrompido.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            e.printStackTrace();
         }
     }
 
@@ -88,7 +85,7 @@ public class PeriodicoBean {
         return total;
     }
 
-    public String salvarPeriodico() {
+    public void salvarPeriodico() {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
         if (curriculo == null) {
@@ -98,17 +95,14 @@ public class PeriodicoBean {
             BeanUtil.criarMensagemDeErro(
                     "Erro ao salvar o Periódico.",
                     "Preencha o campo Título.");
-            return null;
         } else if (periodico.getAutores() == null || periodico.getAutores().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
                     "Erro ao salvar o Periódico.",
                     "Preencha o campo Autor.");
-            return null;
         } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
                     "Erro ao salvar o Periódico.",
                     "Preencha o campo Ano Publicação.");
-            return null;
         } else {
             periodico.setCurriculo(curriculo);
 
@@ -121,7 +115,6 @@ public class PeriodicoBean {
             }
         }
         periodico = new Periodico();
-        return null;
     }
 
     public String excluirPeriodico() {
@@ -155,25 +148,8 @@ public class PeriodicoBean {
         QualisRN qualisRN = new QualisRN();
         return qualisRN.obterTodosTitulos(query);
     }
-//    public void uploadActionPeriodico(FileUploadEvent event) {
-//        UploadedFile file = event.getFile();
-//        InputStream stream = null;
-//        try {
-//            stream = file.getInputstream();
-//            String tipo = file.getContentType();
-//            if (tipo.equals("application/pdf")) {
-//                tipo = "pdf";
-//            } else if (tipo.equals("application/jpg")) {
-//                tipo = "jpg";
-//            }
-//            String nomeDoArquivo = this.fileUpload.uploadPeriodico(getCurriculo(), periodico, tipo, stream);
-//            this.periodico.setArquivo(nomeDoArquivo);
-//            periodicoRN.salvar(periodico);
-//            //Inicializa
-//            this.periodico = new Periodico();
-//            this.fileUpload = new UploadArquivo();
-//            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-//        } catch (IOException ex) {
-//        }
-//    }
+    
+    public String voltar() {
+        return "/usuario/cadastro/curriculo/periodico/periodicos.xhtml";
+    }
 }

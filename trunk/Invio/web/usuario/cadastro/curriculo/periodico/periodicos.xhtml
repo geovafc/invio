@@ -7,12 +7,10 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-        <h:form id="Periodico" acceptcharset="UTF-8" >  
+        <h:form id="Periodico" acceptcharset="UTF-8">  
             <p:panel header="Lista de Periódicos">
-                <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
 
                 *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
-
 
                 <p:messages id="messages" showDetail="true" showSummary="true"/>  
 
@@ -71,15 +69,11 @@
                                      value="#{periodicoBean.periodico.paginainicial}" />  
 
                         <h:outputLabel value="Página Final: " for="paginaF"/>  
-                        <p:inputText id="paginaF" 
+                        <p:inputText id="paginaF"
                                      maxlength="11"
-                                     required="false" 
-                                     size="2"   
+                                     required="false"
+                                     size="2"
                                      value="#{periodicoBean.periodico.paginafinal}" />
-
-
-
-
 
                         <p:commandButton value="Limpar" type="reset"/>  
 
@@ -87,29 +81,20 @@
                             id="btn_add" 
                             value="Adicionar"
                             ajax="false"
-                            action="#{periodicoBean.salvarPeriodico}"
-                            update=":periodicosTabela"/>
-
+                            action="#{periodicoBean.salvarPeriodico}"/>
                     </h:panelGrid>  
                 </p:panel>  
 
                 <br/>
 
                 <p:tabView>
-
                     <p:tab id="periodicoTab1" title="Periodicos Atuais">
-
                         <p:dataTable id="periodicosTabelaAtuais" 
                                      value="#{periodicoBean.periodicosAtuais}" 
                                      var="periodico"
                                      emptyMessage="Sem registro para a exibição."
                                      paginator="true" rows="5" 
                                      rowsPerPageTemplate="5,10,15">
-
-                            <!--                    <p:ajax 
-                                                    event="rowEdit" 
-                                                    listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
-                                                    update="periodicosTabela" />  -->
 
                             <p:column headerText="Título"
                                       style="max-width: 110px;min-width: 110px; 
@@ -175,42 +160,32 @@
                                 <h:outputLabel value="#{periodico.estrato}"/> 
                             </p:column>  
 
-                            <!--                    <p:column headerText="Editar" style="width:38px">  
-                                                    <p:rowEditor />  
-                                                </p:column>-->
-
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
                                       min-height: 12px; white-space: pre-line">  
 
                                 <p:commandButton 
+                                    ajax="false"
                                     title="Enviar Periódico" 
                                     icon="ui-icon-arrowstop-1-n"
-                                    onclick="PF('dlg2').show()"/>
+                                    action="#{periodicoBean.upload()}">
+                                    <f:setPropertyActionListener
+                                        target="#{periodicoBean.periodico}"
+                                        value="#{periodico}"/>
+                                </p:commandButton>
 
                                 <p:commandButton 
                                     title="Excluir"
-                                    icon="ui-icon-trash"
-                                    ajax="false"
-                                    action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml">
+                                    icon="ui-icon-trash">
+                                    <p:confirm
+                                        icon="ui-icon-alert"
+                                        message="Voce tem certeza?"
+                                        header="Confirmação"/>
                                     <f:setPropertyActionListener 
                                         value="#{periodico}" 
-                                        target="#{periodicoBean.periodico}" />
+                                        target="#{periodicoBean.periodico}"/>
                                 </p:commandButton>  
-
                             </p:column>
-
-                            <!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
-                                                          overflow: hidden;  max-height: 12px; 
-                                                          min-height: 12px; white-space: pre-line">  
-                                                    <p:commandLink value="Comprovação" ajax="false" update="periodicosTabela"
-                                                                   action="uploadPeriodico.xhtml">  
-                                                        <f:setPropertyActionListener 
-                                                            value="#{periodico}" 
-                                                            target="#{periodicoBean.periodico}" />
-                                                    </p:commandLink>
-                            
-                                                </p:column>-->
 
                             <f:facet name="footer">
                                 Total em Periódicos: 
@@ -219,21 +194,13 @@
                         </p:dataTable>  
                     </p:tab>
 
-
-
                     <p:tab id="periodicoTab2" title="Periodicos Arquivados">
-
                         <p:dataTable id="periodicosTabelaArquivados" 
                                      value="#{periodicoBean.periodicosPassados}" 
                                      var="periodico"
                                      emptyMessage="Sem registro para a exibição."
                                      paginator="true" rows="5" 
                                      rowsPerPageTemplate="5,10,15">
-
-                            <!--                    <p:ajax 
-                                                    event="rowEdit" 
-                                                    listener="#{periodicoBean.salvarEditarPeriodico(periodico)}" 
-                                                    update="periodicosTabela" />  -->
 
                             <p:column headerText="Título"
                                       style="max-width: 110px;min-width: 110px; 
@@ -299,50 +266,40 @@
                                 <h:outputLabel value="#{periodico.estrato}"/> 
                             </p:column>  
 
-                            <!--                    <p:column headerText="Editar" style="width:38px">  
-                                                    <p:rowEditor />  
-                                                </p:column>-->
-
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
                                       min-height: 12px; white-space: pre-line"> 
+                                <p:commandButton 
+                                    ajax="false"
+                                    title="Enviar Periódico" 
+                                    icon="ui-icon-arrowstop-1-n"
+                                    action="#{periodicoBean.upload}">
+                                    <f:setPropertyActionListener 
+                                        target="#{periodicoBean.periodico}"
+                                        value="#{periodico}"/>
+                                </p:commandButton>
 
-
-
-                                <p:commandButton ajax="false" 
-                                                 title="Enviar Periódico" 
-                                                 icon="ui-icon-arrowstop-1-n"
-                                                 onclick="PF('dlg2').show()"/>
-
-                                <p:commandButton icon="ui-icon-trash"
-                                                 ajax="false"
-                                                 action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml">
+                                <p:commandButton
+                                    title="Excluir"
+                                    icon="ui-icon-trash">
+                                    <p:confirm
+                                        icon="ui-icon-alert"
+                                        message="Voce tem certeza?"
+                                        header="Confirmação"/>
                                     <f:setPropertyActionListener 
                                         value="#{periodico}" 
-                                        target="#{periodicoBean.periodico}" />
+                                        target="#{periodicoBean.periodico}"/>
                                 </p:commandButton>  
-
                             </p:column>
-
                         </p:dataTable>  
                     </p:tab>
-
                 </p:tabView>
             </p:panel>
-            <p:dialog header="Enviar Periódico" widgetVar="dlg2" minHeight="40">
-                <p:fileUpload
-                    fileUploadListener="#{periodicoBean.handleFileUpload}"
-                    mode="advanced"
-                    label="Carregar Arquivo"
-                    update="enviado"
-                    auto="true"
-                    sizeLimit="10000000"
-                    allowTypes="/(\.|\/)(jpe?g|pdf)$/" />
-                <p:messages id="enviado" showSummary="true" showDetail="true"/>
-            </p:dialog>
 
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
         </h:form>
-
     </ui:define>
-
 </ui:composition>

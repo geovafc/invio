@@ -125,6 +125,16 @@ public class CurriculoBean {
         this.curriculos = curriculos;
     }
 
+    public Curriculo getCurriculo() {
+        if (curriculo == null) {
+            Login loginLog = UsuarioUtil.obterUsuarioLogado();
+            if (loginLog != null) {
+                curriculo = loginLog.getCurriculo();
+            }
+        }
+        return curriculo;
+    }
+
     public void setCurriculo(Curriculo curriculo) {
         if (BeanUtil.lerDaSessao("curriculo") == null) {
             BeanUtil.colocarNaSessao("curriculo", curriculo);
@@ -338,10 +348,9 @@ public class CurriculoBean {
         } catch (IOException ex) {
         }
     }
-    
-    
+
     public void uploadActionOrientacao(FileUploadEvent event) {
-        System.out.println("EVENTO: "+event.getFile().getFileName());
+        System.out.println("EVENTO: " + event.getFile().getFileName());
         UploadedFile file = event.getFile();
         InputStream stream = null;
         try {
@@ -353,10 +362,10 @@ public class CurriculoBean {
                 tipo = "jpg";
             }
             String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
-            this.orientacao.setComprovante(nomeDoArquivo);           
+            this.orientacao.setArquivo(nomeDoArquivo);
             orientacaoRN.salvar(orientacao);
             //Inicializa
-            this.orientacao= new Orientacao();
+            this.orientacao = new Orientacao();
             this.fileUpload = new UploadArquivo();
             BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
         } catch (IOException ex) {
@@ -443,16 +452,6 @@ public class CurriculoBean {
     /**
      * @return the curriculo
      */
-    public Curriculo getCurriculo() {
-        if (curriculo == null) {
-            Login loginLog = UsuarioUtil.obterUsuarioLogado();
-            if (loginLog != null) {
-                curriculo = loginLog.getCurriculo();
-            }
-        }
-        return curriculo;
-    }
-
     public void exibirTabOutroArea() {
         if (curriculo != null) {
             if (curriculo.getArea().equals(areaOutra)) {
@@ -569,5 +568,4 @@ public class CurriculoBean {
         Curriculo curriculoR = new Curriculo();
         Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
     }
-
 }

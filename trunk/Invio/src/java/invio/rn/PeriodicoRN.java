@@ -6,7 +6,6 @@ import invio.entidade.Curriculo;
 import invio.entidade.Periodico;
 import invio.rn.pdf.QualisRN;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class PeriodicoRN {
