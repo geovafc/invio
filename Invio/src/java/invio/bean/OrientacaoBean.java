@@ -10,9 +10,7 @@ import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.entidade.Orientacao;
 import invio.rn.OrientacaoRN;
-import invio.util.UploadArquivo;
-import java.io.IOException;
-import java.io.InputStream;
+import invio.util.Upload;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -21,16 +19,14 @@ import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author fabio
+ * @author fabio & Mikael Lima
  */
 @ManagedBean
 @RequestScoped
 public class OrientacaoBean {
 
     private Orientacao orientacao = new Orientacao();
-    private OrientacaoRN orientacaoRN = new OrientacaoRN();
-    private UploadArquivo fileUpload = new UploadArquivo();
-    private Curriculo curriculo = new Curriculo();
+    private final OrientacaoRN orientacaoRN = new OrientacaoRN();
 
     public OrientacaoBean() {
     }
@@ -47,7 +43,7 @@ public class OrientacaoBean {
         //TODO Orientações do curriculo indicado (login)
         return orientacaoRN.obterOrientacoesAtuais(UsuarioUtil.obterUsuarioLogado().getCurriculo());
     }
-    
+
     public List<Orientacao> getOrientacoesPassadas() {
         //TODO Orientações do curriculo indicado (login)
         return orientacaoRN.obterOrientacoesPassadas(UsuarioUtil.obterUsuarioLogado().getCurriculo());
@@ -62,19 +58,10 @@ public class OrientacaoBean {
 
         return total;
     }
-    
+
     public String upload() {
-        return "usuario/cadastro/curriculo/orientacao/uploadOrientacao.xhtml";
-    }
-    
-    public Curriculo getCurriculo() {
-        if (curriculo == null) {
-            Login loginLog = UsuarioUtil.obterUsuarioLogado();
-            if (loginLog != null) {
-                curriculo = loginLog.getCurriculo();
-            }
-        }
-        return curriculo;
+        BeanUtil.colocarNaSessao("orientacaoUpload", orientacao);
+        return "/usuario/cadastro/curriculo/orientacao/uploadOrientacao.xhtml";
     }
 
     public String salvarOrientacao() {
@@ -142,32 +129,35 @@ public class OrientacaoBean {
                     "Orientação: " + orientacao.getAluno());
         }
         orientacao = new Orientacao();
-        return "orientacoes.xhtml";
+        return "/orientacoes.xhtml";
+
     }
 
     public String obterTipo(Integer tipo) {
         return orientacaoRN.obterTipoOrientacao(tipo);
     }
-    
-    public void uploadActionOrientacao(FileUploadEvent event) {
+
+    public void uploadArquivoOrientacao(FileUploadEvent event) {
         UploadedFile file = event.getFile();
-        InputStream stream = null;
-        try {
-            stream = file.getInputstream();
-            String tipo = file.getContentType();
-            if (tipo.equals("application/pdf")) {
-                tipo = "pdf";
-            } else if (tipo.equals("application/jpg")) {
-                tipo = "jpg";
+        if (file != null) {
+            String path = Upload.contextPath(file.getFileName());
+            orientacao = (Orientacao) BeanUtil.lerDaSessao("orientacaoUpload");
+            orientacao.setArquivo(path);
+            boolean salvou = orientacaoRN.salvar(orientacao);
+            boolean upload = Upload.copiarParaArquivos(file);
+
+            if (upload && salvou) {
+                BeanUtil.removerDaSessao("orientacaoUpload");
+                BeanUtil.criarMensagemDeInformacao(
+                        "Sucesso!", "O arquivo foi enviado.");
+            } else {
+                BeanUtil.criarMensagemDeErro(
+                        "Erro!", "O arquivo não foi enviado.");
             }
-            String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
-            this.orientacao.setComprovante(nomeDoArquivo);
-            orientacaoRN.salvar(orientacao);
-            //Inicializa
-            this.orientacao = new Orientacao();
-            this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-        } catch (IOException ex) {
         }
+    }
+    
+    public String voltar() {
+        return "/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml";
     }
 }

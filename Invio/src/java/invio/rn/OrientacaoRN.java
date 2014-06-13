@@ -3,30 +3,30 @@ package invio.rn;
 import invio.dao.OrientacaoDAO;
 import invio.entidade.Curriculo;
 import invio.entidade.Orientacao;
+import invio.util.Upload;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.primefaces.model.UploadedFile;
 
 public class OrientacaoRN {
 
     private OrientacaoDAO dao = new OrientacaoDAO();
 
     public boolean salvar(Orientacao orientacao) {
-        boolean salvou = false;
-
-        if (dao.iniciarTransacao()) {
-            if (orientacao.getId() == null) {
-                if (dao.criar(orientacao)) {
-                    salvou = true;
-                }
+        if (orientacao.getAluno().equals("") ||
+                orientacao.getTipoOrientacao() == 0 ||
+                orientacao.getTipoBolsa().equals("") ||
+                orientacao.getPFinal() == null) {
+            return false;
+        } else {
+            if (orientacao.getId() == null || orientacao.getId() == 0) {
+                return dao.criar(orientacao);
             } else {
-                if (dao.alterar(orientacao)) {
-                    salvou = true;
-                }
+                return dao.alterar(orientacao);
             }
-            dao.concluirTransacao();
         }
-        return salvou;
     }
 
     public boolean remover(Orientacao orientacao) {

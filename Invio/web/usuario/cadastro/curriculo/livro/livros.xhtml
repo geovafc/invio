@@ -8,8 +8,6 @@
 
     <ui:define name="content">
         <p:panel header="Lista de Livros">
-            <!--            <p:commandButton value="Voltar" action="/cadastro/curriculo/listar.xhtml" />-->
-
             <h:form id="Livro" acceptcharset="ISO-8859-1" >  
 
                 <p:messages showDetail="true" showSummary="true"/>  
@@ -18,9 +16,11 @@
                     <h:panelGrid columns="4" id="grid" cellspacing="4">  
 
                         <h:outputText value="Tipo: " />  
-                        <p:selectOneRadio id="tipo" value="#{livroBean.livro.tipoLivro}">  
-                            <f:selectItem itemLabel="Autor" itemValue="30" />  
-                            <f:selectItem itemLabel="Editor" itemValue="10" />  
+                        <p:selectOneRadio
+                            id="tipo"
+                            value="#{livroBean.livro.tipoLivro}">  
+                            <f:selectItem itemLabel="Autor" itemValue="30"/>  
+                            <f:selectItem itemLabel="Editor" itemValue="10"/>  
                         </p:selectOneRadio>  
 
                         <h:outputLabel value="Título : *"/> 
@@ -65,17 +65,12 @@
                 <br/>
 
                 <p:tabView>
-
                     <p:tab id="livrosTab1" title="Livros Atuais">
-
                         <p:dataTable id="livrosTabela" 
                                      value="#{livroBean.livrosAtuais}" var="livro"
                                      emptyMessage="Sem registro para a exibição."
                                      paginator="true" rows="5" 
                                      rowsPerPageTemplate="5,10,15">
-
-<!--                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
-                            update="livrosTabela" />  -->
 
                             <p:column headerText="Título"
                                       style="max-width: 110px;min-width: 110px; 
@@ -120,38 +115,32 @@
                                 <h:outputLabel value="#{livro.estrato}"/> 
                             </p:column> 
 
-                            <!--                    <p:column headerText="Editar" style="width:38px">  
-                                                    <p:rowEditor />  
-                                                </p:column>-->
-
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
                                       min-height: 12px; white-space: pre-line">  
+                                <div align="center">
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-arrowstop-1-n"
+                                        action="#{livroBean.upload}">  
+                                        <f:setPropertyActionListener 
+                                            value="#{livro}" 
+                                            target="#{livroBean.livro}"/>
+                                    </p:commandButton>
 
-
-                                <p:commandLink value="Excluir"
-                                               ajax="false"
-                                               action="/usuario/cadastro/curriculo/livro/excluirLivro.xhtml">
-                                    <f:setPropertyActionListener 
-                                        value="#{livro}" 
-                                        target="#{livroBean.livro}" />
-                                </p:commandLink>  
-
-
+                                    <p:commandButton
+                                        title="Excluir"
+                                        icon="ui-icon-trash">
+                                        <p:confirm
+                                            icon="ui-icon-alert"
+                                            message="Voce tem certeza?"
+                                            header="Confimação"/>
+                                        <f:setPropertyActionListener 
+                                            value="#{livro}" 
+                                            target="#{livroBean.livro}"/>
+                                    </p:commandButton>  
+                                </div>
                             </p:column>
-
-                            <!--                    <p:column headerText="Incluir" style="max-width: 105px;min-width: 105px; 
-                                                          overflow: hidden;  max-height: 12px; 
-                                                          min-height: 12px; white-space: pre-line">  
-                            
-                                                    <p:commandLink value="Comprovação" ajax="false" update="livrosTabela"
-                                                                   action="uploadLivro.xhtml">  
-                                                        <f:setPropertyActionListener 
-                                                            value="#{livro}" 
-                                                            target="#{livroBean.livro}" />
-                                                    </p:commandLink>
-                            
-                                                </p:column>-->
 
                             <f:facet name="footer">
                                 Total em Livros: 
@@ -167,9 +156,6 @@
                                      paginator="true" rows="5" 
                                      rowsPerPageTemplate="5,10,15">
 
-<!--                    <p:ajax event="rowEdit" listener="#{livroBean.salvarEditarLivro(Livro)}" 
-                            update="livrosTabela" />  -->
-
                             <p:column headerText="Título"
                                       style="max-width: 110px;min-width: 110px; 
                                       overflow: hidden;  max-height: 12px; 
@@ -213,32 +199,41 @@
                                 <h:outputLabel value="#{livro.estrato}"/> 
                             </p:column> 
 
-                            <!--                    <p:column headerText="Editar" style="width:38px">  
-                                                    <p:rowEditor />  
-                                                </p:column>-->
-
                             <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
                                       overflow: hidden;  max-height: 12px; 
                                       min-height: 12px; white-space: pre-line">  
+                                <div align="center">
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-arrowstop-1-n"
+                                        action="#{livroBean.upload}">  
+                                        <f:setPropertyActionListener 
+                                            value="#{livro}" 
+                                            target="#{livroBean.livro}"/>
+                                    </p:commandButton>
 
-
-                                <p:commandLink value="Excluir"
-                                               ajax="false"
-                                               action="/usuario/cadastro/curriculo/livro/excluirLivro.xhtml">
-                                    <f:setPropertyActionListener 
-                                        value="#{livro}" 
-                                        target="#{livroBean.livro}" />
-                                </p:commandLink>  
+                                    <p:commandButton
+                                        title="Excluir"
+                                        icon="ui-icon-trash">
+                                        <p:confirm
+                                            icon="ui-icon-alert"
+                                            message="Voce tem certeza?"
+                                            header="Confimação"/>
+                                        <f:setPropertyActionListener 
+                                            value="#{livro}" 
+                                            target="#{livroBean.livro}"/>
+                                    </p:commandButton>  
+                                </div>
                             </p:column>
                         </p:dataTable>
-
                     </p:tab>
-
                 </p:tabView>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
             </h:form>  
-
         </p:panel>
-
     </ui:define>
-
 </ui:composition>
