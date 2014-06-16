@@ -2,7 +2,11 @@ package invio.bean;
 
 import invio.bean.util.BeanUtil;
 import invio.entidade.Curriculo;
+import invio.entidade.Livro;
+import invio.entidade.Orientacao;
+import invio.entidade.Periodico;
 import invio.rn.AvaliacaoRN;
+import invio.util.Upload;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -80,6 +84,10 @@ public class AvaliacaoBean implements Serializable {
         return rn.autoCompleteCurriculo(busca);
     }
 
+    public void visualizarComprovante(String path) {
+        Upload.exportaPDF(path);
+    }
+    
     public boolean possueArquivo(String arquivo) {
         return rn.possueArquivo(arquivo);
     }

@@ -95,8 +95,13 @@
                                 </p:commandButton>
                                 <p:commandButton 
                                     ajax="false"
+                                    action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
                                     rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
-                                    value="Visualização"/>
+                                    value="Visualização">
+                                    <f:setPropertyActionListener
+                                        target="#{avaliacaoBean.producao}"
+                                        value="#{orientacao}"/>
+                                </p:commandButton>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
