@@ -30,28 +30,29 @@
                             value="Listar Usuários"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/administracao/usuarios/listarUsuarios.xhtml"/>
-                
-                <p:menuitem 
-                            value="Avaliar Curriculos"  ajax="false"
-                            icon="ui-icon-arrowrefresh-1-w" 
-                            action="/secretaria/wizardAvaliacao.xhtml"/>
-                
+
+                <p:menuitem
+                    rendered="#{usuarioBean.secretaria}"
+                    value="Avaliar Curriculos"  ajax="false"
+                    icon="ui-icon-arrowrefresh-1-w" 
+                    action="/secretaria/wizardAvaliacao.xhtml"/>
+
                 <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
                             value="Listar Currículos"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/secretaria/curriculo/listaCurriculo.xhtml"/>
-                
+
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Editar Permissão"  
                             ajax="false"
                             icon="ui-icon-pencil" 
                             action="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
-                
+
                 <p:menuitem 
                     rendered="#{usuarioBean.secretaria}"
-                    value="Avaliar Produção"  ajax="false"
+                    value="Avaliar Curriculos"  ajax="false"
                     icon="ui-icon-arrowrefresh-1-w"
-                    action="/secretaria/listarCurriculoAv.xhtml"/>
+                    action="/secretaria/wizardAvaliacao.xhtml"/>
                 <p:submenu
                     style="width: 100%; height: 100%"
                     rendered="#{usuarioBean.administrador}"
@@ -68,7 +69,7 @@
                         action="/usuario/cadastro/instituicao/listar.xhtml"/>
                 </p:submenu>
 
-                
+
                 <p:submenu 
                     style="width: 100%; height: 100%"
                     label="Meu Currículo" 
@@ -92,7 +93,7 @@
                         ajax="false"
                         icon="ui-icon-document"
                         action="/usuario/documentacao/listaRelatorios.xhtml"/>
-                    
+
                     <p:menuitem 
                         value="Periódicos" 
                         title="Lista de publicações em periódicos"
@@ -106,7 +107,7 @@
                         title="Publicações de livros como autor ou editor e capítulos"
                         icon="ui-icon-note"
                         action="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
-                    
+
                     <p:menuitem 
                         value="Orientações " 
                         ajax="false"
