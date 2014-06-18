@@ -64,8 +64,9 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <div align="center"
-                                     rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}">
+                                <h:panelGroup
+                                    style="text-align: center"
+                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}">
                                     <p:commandButton 
                                         ajax="false"
                                         icon="ui-icon-check"
@@ -102,7 +103,7 @@
                                         action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
                                         onclick="this.form.target = '_blank'"
                                         title="visualizar o comprovante"/>
-                                </div>
+                                </h:panelGroup>
                                 <h:outputText
                                     value="Sem Comprovante"
                                     rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
@@ -137,8 +138,9 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <div align="center"
-                                     rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}">
+                                <h:panelGroup
+                                    style="text-align: center"
+                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}">
                                     <p:commandButton
                                         ajax="false"
                                         icon="ui-icon-check"
@@ -175,7 +177,10 @@
                                         action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
                                         onclick="this.form.target = '_blank'"
                                         title="visualizar o comprovante"/>
-                                </div>
+                                </h:panelGroup>
+                                <h:outputText
+                                    value="Sem Comprovante"
+                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -209,8 +214,9 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <div align="center"
-                                     rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}">
+                                <h:panelGroup
+                                    style="text-align: center"
+                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}">
                                     <p:commandButton 
                                         ajax="false"
                                         icon="ui-icon-check"
@@ -240,14 +246,17 @@
                                             target="#{avaliacaoBean.producao}"
                                             value="#{periodico}"/>
                                     </p:commandButton>
-                                    
+
                                     <p:commandButton 
                                         ajax="false"
                                         icon="ui-icon-document"
                                         action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
                                         onclick="this.form.target = '_blank'"
                                         title="visualizar o comprovante"/>
-                                </div>
+                                </h:panelGroup>
+                                <h:outputText
+                                    value="Sem Comprovante"
+                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>

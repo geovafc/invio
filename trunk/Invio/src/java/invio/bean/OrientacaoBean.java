@@ -129,7 +129,7 @@ public class OrientacaoBean {
                     "Orientação: " + orientacao.getAluno());
         }
         orientacao = new Orientacao();
-        return "/orientacoes.xhtml";
+        return null;
 
     }
 

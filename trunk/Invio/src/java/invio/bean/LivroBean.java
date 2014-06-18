@@ -11,7 +11,6 @@ import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.rn.LivroRN;
 import invio.util.Upload;
-import invio.util.UploadArquivo;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -30,6 +29,7 @@ public class LivroBean {
     LivroRN livroRN = new LivroRN();
 
     public LivroBean() {
+        livro.setTipoLivro(30);
     }
 
     public Livro getLivro() {
@@ -94,6 +94,7 @@ public class LivroBean {
             }
         }
         livro = new Livro();
+        livro.setTipoLivro(30);
         return null;
     }
 
