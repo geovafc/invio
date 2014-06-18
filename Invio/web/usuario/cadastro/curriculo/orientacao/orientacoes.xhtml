@@ -12,7 +12,7 @@
         <h:form id="Orientacao" enctype="multipart/form-data" acceptcharset="ISO-8859-1" >  
             <p:panel header="Lista de Orientações">
 
-                <p:messages showDetail="true" showSummary="true"/>  
+                <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>  
 
                 <p:panel header="Nova Orientação">  
                     <h:panelGrid columns="6" id="grid" cellspacing="4">  
@@ -147,14 +147,15 @@
                                 <p:commandButton 
                                     title="Excluir"
                                     icon="ui-icon-trash"
-                                    action="#{orientacaoBean.excluirOrientacao()}">
+                                    action="#{orientacaoBean.excluirOrientacao()}"
+                                    update="orientacoesTabela">
+                                    <f:setPropertyActionListener 
+                                        target="#{orientacaoBean.orientacao}"
+                                        value="#{orientacao}"/>
                                     <p:confirm
                                         header="Confirmação"
                                         icon="ui-icon-alert"
                                         message="Voce tem certeza?"/>
-                                    <f:setPropertyActionListener 
-                                        target="#{orientacaoBean.orientacao}"
-                                        value="#{orientacao}"/>
                                 </p:commandButton>  
                             </p:column>
 
