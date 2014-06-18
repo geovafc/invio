@@ -130,14 +130,16 @@
 
                                     <p:commandButton
                                         title="Excluir"
-                                        icon="ui-icon-trash">
+                                        action="#{livroBean.excluirLivro()}"
+                                        icon="ui-icon-trash"
+                                        update="livrosTabela">
+                                        <f:setPropertyActionListener 
+                                            target="#{livroBean.livro}"
+                                            value="#{livro}"/>
                                         <p:confirm
                                             icon="ui-icon-alert"
                                             message="Voce tem certeza?"
                                             header="Confimação"/>
-                                        <f:setPropertyActionListener 
-                                            value="#{livro}" 
-                                            target="#{livroBean.livro}"/>
                                     </p:commandButton>  
                                 </div>
                             </p:column>

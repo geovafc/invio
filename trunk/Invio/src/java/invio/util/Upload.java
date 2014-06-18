@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +56,10 @@ public class Upload {
         try {
             FileInputStream input = new FileInputStream(path);
             byte[] bytes = IOUtils.toByteArray(input);
-            response.getOutputStream().write(bytes);
+            OutputStream output = response.getOutputStream();
+            output.write(bytes);
+            IOUtils.closeQuietly(input);
+            IOUtils.closeQuietly(output);
         } catch (IOException e) {
         }
     }

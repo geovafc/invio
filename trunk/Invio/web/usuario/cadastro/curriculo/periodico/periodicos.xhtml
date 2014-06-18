@@ -176,14 +176,16 @@
 
                                 <p:commandButton 
                                     title="Excluir"
-                                    icon="ui-icon-trash">
+                                    action="#{periodicoBean.excluirPeriodico()}"
+                                    icon="ui-icon-trash"
+                                    update="periodicosTabelaAtuais">
+                                    <f:setPropertyActionListener 
+                                        target="#{periodicoBean.periodico}"
+                                        value="#{periodico}"/>
                                     <p:confirm
                                         icon="ui-icon-alert"
                                         message="Voce tem certeza?"
                                         header="Confirmação"/>
-                                    <f:setPropertyActionListener 
-                                        value="#{periodico}" 
-                                        target="#{periodicoBean.periodico}"/>
                                 </p:commandButton>  
                             </p:column>
 

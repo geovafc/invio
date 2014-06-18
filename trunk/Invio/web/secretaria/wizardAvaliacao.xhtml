@@ -64,44 +64,48 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
-                                    action="#{avaliacaoBean.confirmar()}"
-                                    value="Confirmar">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{orientacao}"/>
-                                </p:commandButton>
+                                <div align="center"
+                                     rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}">
+                                    <p:commandButton 
+                                        ajax="false"
+                                        icon="ui-icon-check"
+                                        action="#{avaliacaoBean.confirmar()}"
+                                        title="confirmar a produção">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{orientacao}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton 
-                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
-                                    value="Corrigir"
-                                    onclick="dialogConfir.show()">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{orientacao}"/>
-                                </p:commandButton>
+                                    <p:commandButton 
+                                        title="corrigir a produção"
+                                        icon="ui-icon-pencil"
+                                        onclick="dialogConfir.show()">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{orientacao}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
-                                    action="#{avaliacaoBean.negar()}"
-                                    value="Negar"
-                                    update="orientacao">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{orientacao}"/>
-                                </p:commandButton>
-                                <p:commandButton 
-                                    ajax="false"
-                                    action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
-                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"
-                                    value="Visualização">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{orientacao}"/>
-                                </p:commandButton>
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-close"
+                                        action="#{avaliacaoBean.negar()}"
+                                        title="negar produção"
+                                        update="orientacao">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{orientacao}"/>
+                                    </p:commandButton>
+
+                                    <p:commandButton 
+                                        ajax="false"
+                                        icon="ui-icon-document"
+                                        action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
+                                        onclick="this.form.target = '_blank'"
+                                        title="visualizar o comprovante"/>
+                                </div>
+                                <h:outputText
+                                    value="Sem Comprovante"
+                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -133,40 +137,45 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
-                                    action="#{avaliacaoBean.confirmar()}"
-                                    value="Confirmar">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{livro}"/>
-                                </p:commandButton>
+                                <div align="center"
+                                     rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}">
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-check"
+                                        action="#{avaliacaoBean.confirmar()}"
+                                        title="confirmar produção">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{livro}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton 
-                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
-                                    value="Corrigir"
-                                    onclick="dialogConfir.show()">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{livro}"/>
-                                </p:commandButton>
+                                    <p:commandButton 
+                                        title="corrigir produção"
+                                        icon="ui-icon-pencil"
+                                        onclick="dialogConfir.show()">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{livro}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
-                                    action="#{avaliacaoBean.negar()}"
-                                    value="Negar"
-                                    update="livro">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{livro}"/>
-                                </p:commandButton>
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-close"
+                                        action="#{avaliacaoBean.negar()}"
+                                        title="negar produção"
+                                        update="livro">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{livro}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"
-                                    value="Visualização"/>
+                                    <p:commandButton 
+                                        ajax="false"
+                                        icon="ui-icon-document"
+                                        action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
+                                        onclick="this.form.target = '_blank'"
+                                        title="visualizar o comprovante"/>
+                                </div>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -200,40 +209,45 @@
                             </p:column>  
 
                             <p:column headerText="Operações">  
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
-                                    action="#{avaliacaoBean.confirmar()}"
-                                    value="Confirmar">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{periodico}"/>
-                                </p:commandButton>
+                                <div align="center"
+                                     rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}">
+                                    <p:commandButton 
+                                        ajax="false"
+                                        icon="ui-icon-check"
+                                        action="#{avaliacaoBean.confirmar()}"
+                                        title="confirmar produção">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{periodico}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton 
-                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
-                                    value="Corrigir"
-                                    onclick="dialogConfir.show()">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{periodico}"/>
-                                    <p:ajax immediate="true"/>
-                                </p:commandButton>
+                                    <p:commandButton 
+                                        title="Corrigir"
+                                        icon="ui-icon-pencil"
+                                        onclick="dialogConfir.show()">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{periodico}"/>
+                                    </p:commandButton>
 
-                                <p:commandButton
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
-                                    action="#{avaliacaoBean.negar()}"
-                                    value="Negar"
-                                    update="periodico">
-                                    <f:setPropertyActionListener
-                                        target="#{avaliacaoBean.producao}"
-                                        value="#{periodico}"/>
-                                </p:commandButton>
-                                <p:commandButton 
-                                    ajax="false"
-                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}"
-                                    value="Visualização"/>
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-close"
+                                        action="#{avaliacaoBean.negar()}"
+                                        title="negar produção"
+                                        update="periodico">
+                                        <f:setPropertyActionListener
+                                            target="#{avaliacaoBean.producao}"
+                                            value="#{periodico}"/>
+                                    </p:commandButton>
+                                    
+                                    <p:commandButton 
+                                        ajax="false"
+                                        icon="ui-icon-document"
+                                        action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
+                                        onclick="this.form.target = '_blank'"
+                                        title="visualizar o comprovante"/>
+                                </div>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>

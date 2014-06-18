@@ -35,7 +35,7 @@ public class AvaliacaoRN implements Serializable {
     }
 
     public boolean possueArquivo(String arquivo) {
-        return arquivo != null || "".equals(arquivo);
+        return !(arquivo == null || "".equals(arquivo));
     }
 
     public boolean confirmar(Curriculo curriculo, Object object) {
