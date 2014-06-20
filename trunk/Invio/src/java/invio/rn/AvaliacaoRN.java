@@ -46,6 +46,8 @@ public class AvaliacaoRN implements Serializable {
             ((Orientacao)object).setAvaliacao(avaliacao);
         } else if (object instanceof Periodico) {
             ((Periodico)object).setAvaliacao(avaliacao);
+        } else {
+            return false; //Raramente ocorrerá
         }
         return rnCurriculo.salvar(curriculo);
     }
@@ -61,6 +63,8 @@ public class AvaliacaoRN implements Serializable {
         } else if (object instanceof Periodico) {
             ((Periodico)object).setAvaliacao(avaliacao);
             ((Periodico)object).setEstrato(estrato);
+        } else {
+            return false; //Raramente ocorrerá
         }
         return rnCurriculo.salvar(curriculo);
     }
@@ -77,6 +81,8 @@ public class AvaliacaoRN implements Serializable {
         } else if (object instanceof Periodico) {
             ((Periodico)object).setAvaliacao(avaliacao);
             ((Periodico)object).setEstrato(negado);
+        } else {
+            return false; //Raramente ocorrerá
         }
         return rnCurriculo.salvar(curriculo);
     }

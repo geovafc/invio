@@ -21,7 +21,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Mikael Lima
  */
-public class Upload {
+public class ArquivoUtil {
 
     public static String contextPath(String fileName) {
         FacesContext context = FacesContext.getCurrentInstance();

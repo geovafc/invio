@@ -41,12 +41,12 @@ public class Programa implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @JoinColumn(name = "area", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Area area;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instituicao instituicao;
+    @JoinColumn(name = "area", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Area area;
 
     public Programa() {
     }
@@ -76,20 +76,20 @@ public class Programa implements Serializable {
         this.nome = nome;
     }
 
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
-
     public Instituicao getInstituicao() {
         return instituicao;
     }
 
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     @Override

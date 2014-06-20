@@ -10,7 +10,7 @@ import invio.entidade.Curriculo;
 import invio.entidade.Login;
 import invio.entidade.Orientacao;
 import invio.rn.OrientacaoRN;
-import invio.util.Upload;
+import invio.util.ArquivoUtil;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -141,11 +141,11 @@ public class OrientacaoBean {
     public void uploadArquivoOrientacao(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         if (file != null) {
-            String path = Upload.contextPath(file.getFileName());
+            String path = ArquivoUtil.contextPath(file.getFileName());
             orientacao = (Orientacao) BeanUtil.lerDaSessao("orientacaoUpload");
             orientacao.setArquivo(path);
             boolean salvou = orientacaoRN.salvar(orientacao);
-            boolean upload = Upload.copiarParaArquivos(file);
+            boolean upload = ArquivoUtil.copiarParaArquivos(file);
 
             if (upload && salvou) {
                 BeanUtil.removerDaSessao("orientacaoUpload");

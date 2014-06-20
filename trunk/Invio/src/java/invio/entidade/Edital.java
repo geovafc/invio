@@ -70,11 +70,11 @@ public class Edital implements Serializable {
     @Column(name = "datafinal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datafinal;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "edital")
-    private List<Plano> planoList;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instituicao instituicao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "edital")
+    private List<Plano> planoList;
 
     public Edital() {
     }
@@ -148,6 +148,14 @@ public class Edital implements Serializable {
         this.datafinal = datafinal;
     }
 
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }
+
     @XmlTransient
     public List<Plano> getPlanoList() {
         return planoList;
@@ -155,14 +163,6 @@ public class Edital implements Serializable {
 
     public void setPlanoList(List<Plano> planoList) {
         this.planoList = planoList;
-    }
-
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
     }
 
     @Override

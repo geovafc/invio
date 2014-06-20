@@ -2,11 +2,8 @@ package invio.bean;
 
 import invio.bean.util.BeanUtil;
 import invio.entidade.Curriculo;
-import invio.entidade.Livro;
-import invio.entidade.Orientacao;
-import invio.entidade.Periodico;
 import invio.rn.AvaliacaoRN;
-import invio.util.Upload;
+import invio.util.ArquivoUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -89,11 +86,11 @@ public class AvaliacaoBean implements Serializable {
             BeanUtil.criarMensagemDeErro(
                     "Erro!", "não há comprovante");
         } else {
-            Upload.exportaPDF(path);
+            ArquivoUtil.exportaPDF(path);
         }
     }
     
-    public boolean possueArquivo(String arquivo) {
+    public boolean possuiArquivo(String arquivo) {
         return rn.possueArquivo(arquivo);
     }
 
@@ -101,7 +98,7 @@ public class AvaliacaoBean implements Serializable {
         if (rn.confirmar(curriculo, producao)) {
             BeanUtil.criarMensagemDeInformacao("Sucesso", "A produção foi avaliada");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro", "Ocorreu um erro inesperado");
+            BeanUtil.criarMensagemDeErro("Erro", "Não foi possível confirmar produção");
         }
     }
     
@@ -109,7 +106,7 @@ public class AvaliacaoBean implements Serializable {
         if (rn.corrigir(curriculo, producao, estratoTemp)) {
             BeanUtil.criarMensagemDeInformacao("Sucesso", "A produção foi corrigida");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro", "Ocorreu um erro inesperado");
+            BeanUtil.criarMensagemDeErro("Erro", "Não foi possível corrigir produção");
         }
     }
 
@@ -117,7 +114,7 @@ public class AvaliacaoBean implements Serializable {
         if (rn.negar(curriculo, producao)) {
             BeanUtil.criarMensagemDeInformacao("Sucesso", "A produção foi negada");
         } else {
-            BeanUtil.criarMensagemDeErro("Erro", "Ocorreu um erro inesperado");
+            BeanUtil.criarMensagemDeErro("Erro", "Não foi possível negar a produção");
         }
     }
 }

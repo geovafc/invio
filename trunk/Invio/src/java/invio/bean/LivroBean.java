@@ -10,7 +10,7 @@ import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.rn.LivroRN;
-import invio.util.Upload;
+import invio.util.ArquivoUtil;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -136,11 +136,11 @@ public class LivroBean {
     public void uploadArquivoLivro(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         if (file != null) {
-            String path = Upload.contextPath(file.getFileName());
+            String path = ArquivoUtil.contextPath(file.getFileName());
             livro = (Livro) BeanUtil.lerDaSessao("livroUpload");
             livro.setArquivo(path);
             boolean salvou = livroRN.salvar(livro);
-            boolean upload = Upload.copiarParaArquivos(file);
+            boolean upload = ArquivoUtil.copiarParaArquivos(file);
 
             if (upload && salvou) {
                 BeanUtil.removerDaSessao("livroUpload");
