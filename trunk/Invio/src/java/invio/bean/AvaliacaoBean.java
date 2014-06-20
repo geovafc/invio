@@ -85,7 +85,12 @@ public class AvaliacaoBean implements Serializable {
     }
 
     public void visualizarComprovante(String path) {
-        Upload.exportaPDF(path);
+        if (path == null || "".equals(path)) {
+            BeanUtil.criarMensagemDeErro(
+                    "Erro!", "não há comprovante");
+        } else {
+            Upload.exportaPDF(path);
+        }
     }
     
     public boolean possueArquivo(String arquivo) {

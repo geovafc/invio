@@ -92,6 +92,7 @@ public class OrientacaoBean {
                     "Selecione o Tipo de Bolsa.");
         } else {
             orientacao.setCurriculo(curriculo);
+            orientacao.setArquivo("");
             if (orientacaoRN.salvar(orientacao)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",

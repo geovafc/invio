@@ -152,11 +152,29 @@
                                     <f:setPropertyActionListener 
                                         target="#{orientacaoBean.orientacao}"
                                         value="#{orientacao}"/>
+                                    <f:setPropertyActionListener 
+                                        value="#{orientacao}"
+                                        target="#{orientacaoBean.orientacao}"/>
                                     <p:confirm
                                         header="Confirmação"
                                         icon="ui-icon-alert"
                                         message="Voce tem certeza?"/>
                                 </p:commandButton>  
+                                <p:commandButton 
+                                    ajax="false"
+                                    icon="ui-icon-document"
+                                    actionListener="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
+                                    onclick="this.form.target='_blank';"
+                                    title="visualizar o comprovante"/>
+                            </p:column>
+                            
+                            <p:column headerText="Comprovante" style="overflow: hidden">
+                                <h:outputText
+                                    value="Sem Comprovante"
+                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
+                                <h:outputText
+                                    value="Comprovante Enviado"
+                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
                             </p:column>
 
                             <f:facet name="footer">
