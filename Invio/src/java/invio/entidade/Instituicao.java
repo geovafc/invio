@@ -52,9 +52,9 @@ public class Instituicao implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Programa> programaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
-    private List<Edital> editalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Unidade> unidadeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
+    private List<Edital> editalList;
 
     public Instituicao() {
     }
@@ -112,21 +112,21 @@ public class Instituicao implements Serializable {
     }
 
     @XmlTransient
-    public List<Edital> getEditalList() {
-        return editalList;
-    }
-
-    public void setEditalList(List<Edital> editalList) {
-        this.editalList = editalList;
-    }
-
-    @XmlTransient
     public List<Unidade> getUnidadeList() {
         return unidadeList;
     }
 
     public void setUnidadeList(List<Unidade> unidadeList) {
         this.unidadeList = unidadeList;
+    }
+
+    @XmlTransient
+    public List<Edital> getEditalList() {
+        return editalList;
+    }
+
+    public void setEditalList(List<Edital> editalList) {
+        this.editalList = editalList;
     }
 
     @Override

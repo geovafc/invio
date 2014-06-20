@@ -7,7 +7,7 @@ import invio.entidade.Login;
 import invio.entidade.Periodico;
 import invio.rn.PeriodicoRN;
 import invio.rn.pdf.QualisRN;
-import invio.util.Upload;
+import invio.util.ArquivoUtil;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -59,11 +59,11 @@ public class PeriodicoBean {
     public void uploadArquivoPeriodico(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         if (file != null) {
-            String path = Upload.contextPath(file.getFileName());
+            String path = ArquivoUtil.contextPath(file.getFileName());
             periodico = (Periodico) BeanUtil.lerDaSessao("periodicoUpload");
             periodico.setArquivo(path);
             boolean salvou = periodicoRN.salvar(periodico);
-            boolean upload = Upload.copiarParaArquivos(file);
+            boolean upload = ArquivoUtil.copiarParaArquivos(file);
 
             if (upload && salvou) {
                 BeanUtil.removerDaSessao("periodicoUpload");

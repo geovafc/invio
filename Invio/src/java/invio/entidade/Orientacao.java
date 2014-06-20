@@ -39,9 +39,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Orientacao.findByTipoOrientacao", query = "SELECT o FROM Orientacao o WHERE o.tipoOrientacao = :tipoOrientacao"),
     @NamedQuery(name = "Orientacao.findByTipoBolsa", query = "SELECT o FROM Orientacao o WHERE o.tipoBolsa = :tipoBolsa"),
     @NamedQuery(name = "Orientacao.findByEstrato", query = "SELECT o FROM Orientacao o WHERE o.estrato = :estrato"),
-    @NamedQuery(name = "Orientacao.findByAvaliacao", query = "SELECT o FROM Orientacao o WHERE o.avaliacao = :avaliacao"),
-    @NamedQuery(name = "Orientacao.findByComprovante", query = "SELECT o FROM Orientacao o WHERE o.comprovante = :comprovante"),
-    @NamedQuery(name = "Orientacao.findByArquivo", query = "SELECT o FROM Orientacao o WHERE o.arquivo = :arquivo")})
+    @NamedQuery(name = "Orientacao.findByArquivo", query = "SELECT o FROM Orientacao o WHERE o.arquivo = :arquivo"),
+    @NamedQuery(name = "Orientacao.findByAvaliacao", query = "SELECT o FROM Orientacao o WHERE o.avaliacao = :avaliacao")})
 public class Orientacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,12 +66,10 @@ public class Orientacao implements Serializable {
     private String tipoBolsa;
     @Column(name = "estrato")
     private Integer estrato;
-    @Column(name = "avaliacao")
-    private String avaliacao;
-    @Column(name = "comprovante")
-    private String comprovante;
     @Column(name = "arquivo")
     private String arquivo;
+    @Column(name = "avaliacao")
+    private String avaliacao;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Curriculo curriculo;
@@ -148,28 +145,20 @@ public class Orientacao implements Serializable {
         this.estrato = estrato;
     }
 
-    public String getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(String avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-
-    public String getComprovante() {
-        return comprovante;
-    }
-
-    public void setComprovante(String comprovante) {
-        this.comprovante = comprovante;
-    }
-
     public String getArquivo() {
         return arquivo;
     }
 
     public void setArquivo(String arquivo) {
         this.arquivo = arquivo;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
     public Curriculo getCurriculo() {

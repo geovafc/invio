@@ -3,7 +3,7 @@ package invio.rn;
 import invio.dao.OrientacaoDAO;
 import invio.entidade.Curriculo;
 import invio.entidade.Orientacao;
-import invio.util.Upload;
+import invio.util.ArquivoUtil;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
