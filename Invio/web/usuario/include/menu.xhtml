@@ -31,12 +31,12 @@
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/administracao/usuarios/listarUsuarios.xhtml"/>
 
-                <p:menuitem
+                <p:menuitem 
                     rendered="#{usuarioBean.secretaria}"
-                    value="Avaliar Curriculos"  ajax="false"
-                    icon="ui-icon-arrowrefresh-1-w" 
+                    value="Avaliar Curriculos"
+                    ajax="false"
+                    icon="ui-icon-arrowrefresh-1-w"
                     action="/secretaria/wizardAvaliacao.xhtml"/>
-
                 <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
                             value="Listar Currículos"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 

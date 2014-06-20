@@ -66,7 +66,7 @@
                             <p:column headerText="Operações">  
                                 <h:panelGroup
                                     style="text-align: center"
-                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}">
+                                    rendered="#{avaliacaoBean.possuiArquivo()}">
                                     <p:commandButton 
                                         ajax="false"
                                         icon="ui-icon-check"
@@ -106,7 +106,7 @@
                                 </h:panelGroup>
                                 <h:outputText
                                     value="Sem Comprovante"
-                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
+                                    rendered="#{!avaliacaoBean.possuiArquivo()}"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -140,7 +140,7 @@
                             <p:column headerText="Operações">  
                                 <h:panelGroup
                                     style="text-align: center"
-                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}">
+                                    rendered="#{avaliacaoBean.possuiArquivo()}">
                                     <p:commandButton
                                         ajax="false"
                                         icon="ui-icon-check"
@@ -180,7 +180,7 @@
                                 </h:panelGroup>
                                 <h:outputText
                                     value="Sem Comprovante"
-                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
+                                    rendered="#{!avaliacaoBean.possuiArquivo()}"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -216,7 +216,7 @@
                             <p:column headerText="Operações">  
                                 <h:panelGroup
                                     style="text-align: center"
-                                    rendered="#{avaliacaoBean.possueArquivo(periodico.arquivo)}">
+                                    rendered="#{avaliacaoBean.possuiArquivo()}">
                                     <p:commandButton 
                                         ajax="false"
                                         icon="ui-icon-check"
@@ -256,7 +256,7 @@
                                 </h:panelGroup>
                                 <h:outputText
                                     value="Sem Comprovante"
-                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
+                                    rendered="#{!avaliacaoBean.possuiArquivo()}"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
