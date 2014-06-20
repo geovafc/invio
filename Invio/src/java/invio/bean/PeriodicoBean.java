@@ -105,6 +105,7 @@ public class PeriodicoBean {
                     "Preencha o campo Ano Publicação.");
         } else {
             periodico.setCurriculo(curriculo);
+            periodico.setArquivo("");
 
             if (periodicoRN.salvar(periodico)) {
                 BeanUtil.criarMensagemDeInformacao(

@@ -41,7 +41,7 @@ public class FrequenciaBean {
     }
     
     public String voltarListaFrequencia(){
-        return "/documentacao/listaFrequencias.xhtml";
+        return "/usuario/documentacao/listaFrequencias.xhtml";
     }
 
     public String salvarFrequencia() {

@@ -85,6 +85,7 @@ public class LivroBean {
                 livro.setEstrato(10);
             }
             livro.setCurriculo(curriculo);
+            livro.setArquivo("");
             if (livroRN.salvar(livro)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
