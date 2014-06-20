@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
     <h:outputScript name="script/locales.js" library="js" />
-
+    <h:outputStylesheet library="css" name="tabela.css"/>
     <ui:define name="content">
 
         <h:form id="Orientacao" enctype="multipart/form-data" acceptcharset="ISO-8859-1" >  
@@ -85,55 +85,40 @@
                             rowsPerPageTemplate="20,40">
 
                             <p:column headerText="Bolsista"
-                                      style="max-width: 250px;min-width: 110px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line">
+                                      style="width: 15%">
                                 <h:outputLabel value="#{orientacao.aluno}"/> 
                             </p:column>
 
                             <p:column headerText="Período Inicial"
-                                      style="max-width: 50px;min-width: 45px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line"> 
+                                      style="width: 7%"> 
                                 <h:outputText  value="#{orientacao.PInicial}">
                                     <f:convertDateTime pattern="MM/yyyy"/>
                                 </h:outputText> 
                             </p:column>
 
                             <p:column headerText="Período Final"
-                                      style="max-width: 80px;min-width: 55px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line"> 
+                                      style="width: 7%"> 
                                 <h:outputLabel value="#{orientacao.PFinal}">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputLabel> 
                             </p:column>
 
                             <p:column headerText="Tipo de Orientação"
-                                      style="max-width: 250px;min-width: 110px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line">
+                                      style="width: 25%">
                                 <h:outputLabel value="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}"/> 
                             </p:column>
 
                             <p:column headerText="Tipo de Bolsa"
-                                      style="max-width: 110px;min-width: 110px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line"> 
+                                      style="width: 11%; text-align: center"> 
                                 <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
                             </p:column>
 
                             <p:column headerText="Pontuação"
-                                      style="max-width: 70px;min-width: 30px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line">
+                                      style="width: 8%; text-align: center">
                                 <h:outputLabel value="#{orientacao.estrato}"/> 
                             </p:column>
 
-                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
-                                      overflow: hidden;  max-height: 12px; 
-                                      min-height: 12px; white-space: pre-line;
-                                      text-align: center">  
+                            <p:column headerText="Operação" style="width: 11%; text-align: center">  
                                 <p:commandButton
                                     ajax="false"
                                     icon="ui-icon-arrowstop-1-n"
@@ -168,13 +153,13 @@
                                     title="visualizar o comprovante"/>
                             </p:column>
                             
-                            <p:column headerText="Comprovante" style="overflow: hidden">
+                            <p:column headerText="Comprovante" style="width: 10%;overflow: hidden">
                                 <h:outputText
                                     value="Sem Comprovante"
-                                    rendered="#{!avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
+                                    rendered="#{!avaliacaoBean.possuiArquivo()}"/>
                                 <h:outputText
                                     value="Comprovante Enviado"
-                                    rendered="#{avaliacaoBean.possueArquivo(orientacao.arquivo)}"/>
+                                    rendered="#{avaliacaoBean.possuiArquivo()}"/>
                             </p:column>
 
                             <f:facet name="footer">
