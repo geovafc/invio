@@ -144,20 +144,12 @@
                                     
                                     <p:commandButton 
                                         ajax="false"
+                                        rendered="#{avaliacaoBean.possuiArquivo(livro.arquivo)}"
                                         icon="ui-icon-document"
                                         actionListener="#{avaliacaoBean.visualizarComprovante(livro.arquivo)}"
                                         onclick="this.form.target = '_blank';"
                                         title="visualizar o comprovante"/>
                                 </div>
-                            </p:column>
-
-                            <p:column headerText="Comprovante" style="overflow: hidden">
-                                <h:outputText
-                                    value="Sem Comprovante"
-                                    rendered="#{!avaliacaoBean.possueArquivo(livro.arquivo)}"/>
-                                <h:outputText
-                                    value="Comprovante Enviado"
-                                    rendered="#{avaliacaoBean.possueArquivo(livro.arquivo)}"/>
                             </p:column>
 
                             <f:facet name="footer">
