@@ -11,6 +11,7 @@ import invio.entidade.Curriculo;
 import invio.entidade.Livro;
 import invio.entidade.Login;
 import invio.entidade.Periodico;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author Dir de Armas Marinha
  */
-public class CurriculoRN {
+public class CurriculoRN implements Serializable{
 
     GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
     CurriculoDAO curriculoDAO = new CurriculoDAO();

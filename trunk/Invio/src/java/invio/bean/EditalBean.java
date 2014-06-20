@@ -74,7 +74,7 @@ public class EditalBean {
     }
     
     public String editar(){
-        return "/secretaria/editalForm.xhtml";
+        return "/usuario/cadastro/curriculo/wizard.xhtml";
     }
     public String submeter(){
         return "/usuario/submissao/uploadFile.xhtml";
