@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,10 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Unidade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 150)
     @Column(name = "nome")
     private String nome;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
@@ -97,7 +99,7 @@ public class Unidade implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Unidade[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Unidade[ id=" + id + " ]";
     }
     
 }

@@ -362,7 +362,6 @@ public class CurriculoBean {
                 tipo = "jpg";
             }
             String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
-            this.orientacao.setArquivo(nomeDoArquivo);
             orientacaoRN.salvar(orientacao);
             //Inicializa
             this.orientacao = new Orientacao();

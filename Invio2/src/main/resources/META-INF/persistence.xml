@@ -2,6 +2,20 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="bpmlab_Invio2_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>bpmlab.invio.entidade.Plano</class>
+    <class>bpmlab.invio.entidade.Unidade</class>
+    <class>bpmlab.invio.entidade.Qualis</class>
+    <class>bpmlab.invio.entidade.Periodico</class>
+    <class>bpmlab.invio.entidade.Curriculo</class>
+    <class>bpmlab.invio.entidade.Area</class>
+    <class>bpmlab.invio.entidade.Instituicao</class>
+    <class>bpmlab.invio.entidade.Login</class>
+    <class>bpmlab.invio.entidade.Orientacao</class>
+    <class>bpmlab.invio.entidade.Edital</class>
+    <class>bpmlab.invio.entidade.Relatorio</class>
+    <class>bpmlab.invio.entidade.Programa</class>
+    <class>bpmlab.invio.entidade.Livro</class>
+    <class>bpmlab.invio.entidade.Frequencia</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/invio?zeroDateTimeBehavior=convertToNull"/>

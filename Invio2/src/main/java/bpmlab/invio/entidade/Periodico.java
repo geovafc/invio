@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -46,40 +48,56 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Periodico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "titulo")
     private String titulo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "autores")
     private String autores;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
     @Column(name = "ano")
     private String ano;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "revista")
     private String revista;
+    @Size(max = 45)
     @Column(name = "volume")
     private String volume;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "paginainicial")
     private int paginainicial;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "paginafinal")
     private int paginafinal;
+    @Size(max = 300)
     @Column(name = "arquivo")
     private String arquivo;
     @Column(name = "estrato")
     private Integer estrato;
+    @Size(max = 45)
     @Column(name = "avaliacao")
     private String avaliacao;
+    @Size(max = 200)
     @Column(name = "jcr")
     private String jcr;
+    @Size(max = 30)
     @Column(name = "doi")
     private String doi;
+    @Size(max = 200)
     @Column(name = "link")
     private String link;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
@@ -245,7 +263,7 @@ public class Periodico implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Periodico[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Periodico[ id=" + id + " ]";
     }
     
 }

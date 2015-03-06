@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,8 +34,10 @@ public class Qualis implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected QualisPK qualisPK;
+    @Size(max = 45)
     @Column(name = "estrato")
     private String estrato;
+    @Size(max = 60)
     @Column(name = "status")
     private String status;
 
@@ -95,7 +98,7 @@ public class Qualis implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Qualis[ qualisPK=" + qualisPK + " ]";
+        return "bpmlab.invio.entidade.Qualis[ qualisPK=" + qualisPK + " ]";
     }
     
 }

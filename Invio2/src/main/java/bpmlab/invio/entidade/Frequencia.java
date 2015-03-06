@@ -21,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -39,16 +41,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Frequencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "mes")
     private String mes;
     @Column(name = "dataUpload")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataUpload;
+    @Size(max = 255)
     @Column(name = "localArquivo")
     private String localArquivo;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
@@ -129,7 +134,7 @@ public class Frequencia implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Frequencia[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Frequencia[ id=" + id + " ]";
     }
     
 }

@@ -25,6 +25,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -46,35 +48,42 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Edital implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 255)
     @Column(name = "titulo")
     private String titulo;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "numero")
     private int numero;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ano")
     private int ano;
     @Basic(optional = false)
+    @NotNull
     @Lob
+    @Size(min = 1, max = 65535)
     @Column(name = "resumo")
     private String resumo;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "datainicial")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datainicial;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "datafinal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datafinal;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "edital")
+    private List<Plano> planoList;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instituicao instituicao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "edital")
-    private List<Plano> planoList;
 
     public Edital() {
     }
@@ -148,14 +157,6 @@ public class Edital implements Serializable {
         this.datafinal = datafinal;
     }
 
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
-    }
-
     @XmlTransient
     public List<Plano> getPlanoList() {
         return planoList;
@@ -163,6 +164,14 @@ public class Edital implements Serializable {
 
     public void setPlanoList(List<Plano> planoList) {
         this.planoList = planoList;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 
     @Override
@@ -187,7 +196,7 @@ public class Edital implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Edital[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Edital[ id=" + id + " ]";
     }
     
 }

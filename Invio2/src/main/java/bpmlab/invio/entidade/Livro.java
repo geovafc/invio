@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -42,27 +44,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 150)
     @Column(name = "titulo")
     private String titulo;
+    @Size(max = 45)
     @Column(name = "capitulo")
     private String capitulo;
+    @Size(max = 150)
     @Column(name = "autor")
     private String autor;
+    @Size(max = 50)
     @Column(name = "ano")
     private String ano;
     @Column(name = "estrato")
     private Integer estrato;
+    @Size(max = 45)
     @Column(name = "isbn")
     private String isbn;
+    @Size(max = 300)
     @Column(name = "arquivo")
     private String arquivo;
+    @Size(max = 45)
     @Column(name = "avaliacao")
     private String avaliacao;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "tipoLivro")
     private int tipoLivro;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
@@ -191,7 +201,7 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Livro[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Livro[ id=" + id + " ]";
     }
     
 }

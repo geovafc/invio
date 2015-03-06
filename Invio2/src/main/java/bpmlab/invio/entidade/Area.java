@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,11 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Area implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "nome")
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "area")
@@ -116,7 +120,7 @@ public class Area implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Area[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Area[ id=" + id + " ]";
     }
     
 }
