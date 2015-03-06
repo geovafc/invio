@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="Periodico" acceptcharset="UTF-8"  >  
+            <h:form id="Periodico" acceptcharset="UTF-8">  
+                <p:panel header="Lista de Periódicos">
+                    *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
+                    <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>  
+
+                    <p:panel header="Novo Periódico">  
+                        <h:panelGrid columns="4" id="grid" cellspacing="4"> 
+
+                            <h:outputLabel value="Autor(es) : *" />  
+                            <p:inputText 
+                                id="Autor"
+                                maxlength="400"
+                                required="false"   
+                                value="#{periodicoBean.periodico.autores}" />  
+
+                            <h:outputLabel value="Título : *"/> 
+                            <p:inputText 
+                                id="Titulo"  
+                                maxlength="400"
+                                value="#{periodicoBean.periodico.titulo}" 
+                                required="false"/>  
+
+                            <h:outputLabel value="Revista : " />  
+                            <p:autoComplete 
+                                id="Revista" 
+                                scrollHeight="100" 
+                                value="#{periodicoBean.periodico.revista}"   
+                                completeMethod="#{periodicoBean.complete}"/>
+
+                            <h:outputLabel value="Ano de Publicação : *"/>  
+                            <p:inputMask  value="#{periodicoBean.periodico.ano}" mask="9999"
+                                          id="DataPublicacao" required="false"/>
+
+                            <h:outputLabel value="Volume : " for="volume"/> 
+                            <p:inputText id="volume" 
+                                         maxlength="45"
+                                         required="false"   
+                                         value="#{periodicoBean.periodico.volume}" />  
+
+                            <h:outputLabel value="DOI: " for="doi"/>  
+                            <p:inputText 
+                                id="doi" 
+                                required="false"
+                                maxlength="30"
+                                value="#{periodicoBean.periodico.doi}" />  
+
+                            <h:outputLabel value="JCR: " for="jcr"/>  
+                            <p:inputText id="jcr" 
+                                         maxlength="200"
+                                         required="false"
+                                         value="#{periodicoBean.periodico.jcr}" />  
+
+                            <h:outputLabel value="Página Incial: " for="paginaI"/>  
+                            <p:inputText id="paginaI" 
+                                         maxlength="11"
+                                         required="false" 
+                                         size="2"   
+                                         value="#{periodicoBean.periodico.paginainicial}" />  
+
+                            <h:outputLabel value="Página Final: " for="paginaF"/>  
+                            <p:inputText id="paginaF"
+                                         maxlength="11"
+                                         required="false"
+                                         size="2"
+                                         value="#{periodicoBean.periodico.paginafinal}" />
+
+                            <p:commandButton value="Limpar" type="reset"/>  
+
+                            <p:commandButton 
+                                id="btn_add" 
+                                value="Adicionar"
+                                ajax="false"
+                                action="#{periodicoBean.salvarPeriodico}"/>
+                        </h:panelGrid>  
+                    </p:panel>  
+
+                    <br/>
+
+                    <p:tabView>
+                        <p:tab id="periodicoTab1" title="Periodicos Atuais">
+                            <p:dataTable id="periodicosTabelaAtuais" 
+                                         value="#{periodicoBean.periodicosAtuais}" 
+                                         var="periodico"
+                                         emptyMessage="Sem registro para a exibição."
+                                         paginator="true" rows="5" 
+                                         rowsPerPageTemplate="5,10,15">
+
+                                <p:column headerText="Título"
+                                          style="max-width: 110px;min-width: 110px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line">
+                                    <h:outputLabel value="#{periodico.titulo}"/> 
+                                </p:column>  
+
+                                <p:column headerText="Autor"
+                                          style="max-width: 110px;min-width: 110px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.autores}"/> 
+                                </p:column>
+
+                                <p:column headerText="Revista"
+                                          style="max-width: 110px;min-width: 110px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.revista}"/> 
+                                </p:column>
+
+                                <p:column headerText="Ano"
+                                          style="max-width: 65px;min-width: 65px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.ano}"/>
+                                </p:column>
+
+
+                                <p:column headerText="Volume"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.volume}"/> 
+                                </p:column>
+
+                                <p:column headerText="Página Inicial"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.paginainicial}"/> 
+                                </p:column>
+
+                                <p:column headerText="Página Final"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.paginafinal}"/> 
+                                </p:column>
+
+                                <p:column headerText="JCR"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.jcr}"/> 
+                                </p:column>
+
+                                <p:column headerText="Pontuação"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line">
+                                    <h:outputLabel value="#{periodico.estrato}"/> 
+                                </p:column>  
+
+                                <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line">  
+
+                                    <p:commandButton 
+                                        ajax="false"
+                                        title="Enviar Periódico" 
+                                        icon="ui-icon-arrowstop-1-n"
+                                        action="#{periodicoBean.upload()}">
+                                        <f:setPropertyActionListener
+                                            target="#{periodicoBean.periodico}"
+                                            value="#{periodico}"/>
+                                    </p:commandButton>
+
+
+
+                                    <p:commandButton 
+                                        title="Excluir"
+                                        action="#{periodicoBean.excluirPeriodico()}"
+                                        icon="ui-icon-trash"
+                                        ajax="false"
+                                        icon="ui-icon-trash"                                    
+                                        action="#{periodicoBean.excluirPeriodico}"
+                                        title="Excluir"
+                                        update="periodicosTabelaAtuais">
+                                        <f:setPropertyActionListener 
+                                            value="#{periodico}" 
+                                            target="#{periodicoBean.periodico}" />  
+                                        <!--                                    <p:confirm
+                                                                                header="Confirmação"                                       
+                                                                                message="Você quer excluir o usuário #{periodico.titulo}?"
+                                                                                icon="ui-icon-alert" />-->
+                                    </p:commandButton> 
+                                    target="#{periodicoBean.periodico}"
+                                    value="#{periodico}"/>
+                                    <p:confirm
+                                        icon="ui-icon-alert"
+                                        message="Voce tem certeza?"
+                                        header="Confirmação"/>
+                                    </p:commandButton>  
+
+                                    <p:commandButton 
+                                        ajax="false"
+                                        rendered="#{avaliacaoBean.possuiArquivo(periodico.arquivo)}"
+                                        icon="ui-icon-document"
+                                        actionListener="#{avaliacaoBean.visualizarComprovante(periodico.arquivo)}"
+                                        onclick="this.form.target = '_blank';"
+                                        title="visualizar o comprovante"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    Total em Periódicos: 
+                                    <h:outputLabel value="#{periodicoBean.total}"/>
+                                </f:facet>
+                            </p:dataTable>  
+                        </p:tab>
+
+                        <p:tab id="periodicoTab2" title="Periodicos Arquivados">
+                            <p:dataTable id="periodicosTabelaArquivados" 
+                                         value="#{periodicoBean.periodicosPassados}" 
+                                         var="periodico"
+                                         emptyMessage="Sem registro para a exibição."
+                                         paginator="true" rows="5" 
+                                         rowsPerPageTemplate="5,10,15">
+
+                                <p:column headerText="Título"
+                                          style="max-width: 110px;min-width: 110px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line">
+                                    <h:outputLabel value="#{periodico.titulo}"/> 
+                                </p:column>  
+
+                                <p:column headerText="Autor"
+                                          style="max-width: 110px;min-width: 110px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.autores}"/> 
+                                </p:column>
+
+                                <p:column headerText="Revista"
+                                          style="max-width: 110px;min-width: 110px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.revista}"/> 
+                                </p:column>
+
+                                <p:column headerText="Ano"
+                                          style="max-width: 65px;min-width: 65px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.ano}"/>
+                                </p:column>
+
+
+                                <p:column headerText="Volume"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.volume}"/> 
+                                </p:column>
+
+                                <p:column headerText="Página Inicial"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.paginainicial}"/> 
+                                </p:column>
+
+                                <p:column headerText="Página Final"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.paginafinal}"/> 
+                                </p:column>
+
+                                <p:column headerText="JCR"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <h:outputLabel value="#{periodico.jcr}"/> 
+                                </p:column>
+
+                                <p:column headerText="Pontuação"
+                                          style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line">
+                                    <h:outputLabel value="#{periodico.estrato}"/> 
+                                </p:column>  
+
+                                <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                          overflow: hidden;  max-height: 12px; 
+                                          min-height: 12px; white-space: pre-line"> 
+                                    <p:commandButton 
+                                        ajax="false"
+                                        title="Enviar Periódico" 
+                                        icon="ui-icon-arrowstop-1-n"
+                                        action="#{periodicoBean.upload}">
+                                        <f:setPropertyActionListener 
+                                            target="#{periodicoBean.periodico}"
+                                            value="#{periodico}"/>
+                                    </p:commandButton>
+
+                                    <p:commandButton icon="ui-icon-trash"
+                                                     title="Excluir Periódico"
+                                                     ajax="false"
+                                                     action="/usuario/cadastro/curriculo/periodico/excluirPeriodico.xhtml"/>
+                                    <p:commandButton
+                                        title="Excluir"
+                                        icon="ui-icon-trash">
+                                        <p:confirm
+                                            icon="ui-icon-alert"
+                                            message="Voce tem certeza?"
+                                            header="Confirmação"/>
+                                        <f:setPropertyActionListener 
+                                            value="#{periodico}" 
+                                            target="#{periodicoBean.periodico}"/>
+                                    </p:commandButton>  
+                                </p:column>
+                            </p:dataTable>  
+                        </p:tab>
+                    </p:tabView>
+                </p:panel>
+                <!--            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton
+                                    value="Sim"
+                                    type="button"
+                                    styleClass="ui-confirmdialog-yes"
+                                    icon="ui-icon-check"/>
+                                <p:commandButton
+                                    value="Não"
+                                    type="button"
+                                    styleClass="ui-confirmdialog-no"
+                                    icon="ui-icon-close"/>
+                            </p:confirmDialog>-->
+                <p:dialog header="Enviar Periódico" widgetVar="dlg2" minHeight="40">
+                    <!--                <p:fileUpload
+                                        fileUploadListener="#{periodicoBean.handleFileUpload}"
+                                        mode="advanced"
+                                        label="Carregar Arquivo"
+                                        update="enviado"
+                                        auto="true"
+                                        sizeLimit="10000000"
+                                        allowTypes="/(\.|\/)(jpe?g|pdf)$/" />-->
+                    <p:messages id="enviado" showSummary="true" showDetail="true"/>
+                </p:dialog>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+    </ui:define>
+</ui:composition>

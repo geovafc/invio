@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:outputScript name="script/locales.js" library="js" />
+    <h:outputStylesheet library="css" name="tabela.css"/>
+    <ui:define name="content">
+
+        <h:form id="Orientacao" enctype="multipart/form-data" acceptcharset="ISO-8859-1" >  
+            <p:panel header="Lista de Orientações">
+
+                <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>  
+
+                <p:panel header="Nova Orientação">  
+                    <h:panelGrid columns="6" id="grid" cellspacing="4">  
+
+                        <h:outputText value="Tipo de Orientação: *" />
+                        <p:selectOneMenu id="tOrientacao" value="#{orientacaoBean.orientacao.tipoOrientacao}">  
+                            <f:selectItem itemLabel="" itemValue="0"/>  
+                            <f:selectItem itemLabel="Bolsista DTI (Orientação)" itemValue="1" />  
+                            <f:selectItem itemLabel="Dissertação de Mestrado (Co-orientação)" itemValue="2" />  
+                            <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="3" />  
+                            <f:selectItem itemLabel="Especialização (Orientação)" itemValue="4" />  
+                            <f:selectItem itemLabel="Iniciação Científica (Orientação)" itemValue="5" />  
+                            <f:selectItem itemLabel="TCC (Orientação)" itemValue="6" />  
+                            <f:selectItem itemLabel="Tese de Doutorado (Co-orientação)" itemValue="7" />  
+                            <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" /> 
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="Nome Bolsista : *"/> 
+                        <p:inputText 
+                            id="Bolsista"   
+                            maxlength="100"
+                            value="#{orientacaoBean.orientacao.aluno}" />  
+
+                        <h:outputText value="Tipo de Bolsa: *" />
+                        <p:selectOneMenu value="#{orientacaoBean.orientacao.tipoBolsa}">  
+                            <f:selectItem itemLabel="" itemValue="" />  
+                            <f:selectItem itemLabel="PIBIC/UFRA-AF" itemValue="UFRA-AF" />  
+                            <f:selectItem itemLabel="PIBIC/UFRA" itemValue="UFRA" />  
+                            <f:selectItem itemLabel="CNPq-AF" itemValue="CNPQ-AF" />  
+                            <f:selectItem itemLabel="CNPq" itemValue="CNPQ" />  
+                            <f:selectItem itemLabel="FAPESPA" itemValue="FAPESPA" />  
+                            <f:selectItem itemLabel="CAPES" itemValue="CAPES" />  
+                            <f:selectItem itemLabel="Outro" itemValue="Outro" />  
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Período Inicial :" />
+                        <p:calendar showButtonPanel="true"
+                                    value="#{orientacaoBean.orientacao.PInicial}" 
+                                    navigator="true" 
+                                    selectOtherMonths="true"
+                                    pattern="MM/yyyy" 
+                                    id="periodoInicial" /> 
+
+                        <h:outputText value="Período Final: *"/>
+                        <p:calendar 
+                            value="#{orientacaoBean.orientacao.PFinal}" 
+                            navigator="true" 
+                            pattern="MM/yyyy" 
+                            id="periodoFinal" />                        
+
+                        <p:commandButton value="Limpar" type="reset"/>  
+                        <p:commandButton 
+                            id="btn_add" 
+                            value="Adicionar"
+                            ajax="false"
+                            action="#{orientacaoBean.salvarOrientacao}"/>
+                    </h:panelGrid>  
+                </p:panel>  
+
+                <br/>
+
+                <p:tabView>
+                    <p:tab id="orientacoesTab1" title="Orientações Contabilizadas">
+                        <p:dataTable 
+                            id="orientacoesTabela" 
+                            value="#{orientacaoBean.orientacoesAtuais}" 
+                            var="orientacao"
+                            emptyMessage="Sem registro para a exibição."
+                            paginator="true" rows="10" 
+                            rowsPerPageTemplate="20,40">
+
+                            <p:column headerText="Bolsista"
+                                      style="width: 15%">
+                                <h:outputLabel value="#{orientacao.aluno}"/> 
+                            </p:column>
+
+                            <p:column headerText="Período Inicial"
+                                      style="width: 7%"> 
+                                <h:outputText  value="#{orientacao.PInicial}">
+                                    <f:convertDateTime pattern="MM/yyyy"/>
+                                </h:outputText> 
+                            </p:column>
+
+                            <p:column headerText="Período Final"
+                                      style="width: 7%"> 
+                                <h:outputLabel value="#{orientacao.PFinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputLabel> 
+                            </p:column>
+
+                            <p:column headerText="Tipo de Orientação"
+                                      style="width: 25%">
+                                <h:outputLabel value="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}"/> 
+                            </p:column>
+
+                            <p:column headerText="Tipo de Bolsa"
+                                      style="width: 11%; text-align: center"> 
+                                <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
+                            </p:column>
+
+                            <p:column headerText="Pontuação"
+                                      style="width: 8%; text-align: center">
+                                <h:outputLabel value="#{orientacao.estrato}"/> 
+                            </p:column>
+
+                            <p:column headerText="Operação" style="width: 11%; text-align: center">  
+                                <p:commandButton
+                                    ajax="false"
+                                    icon="ui-icon-arrowstop-1-n"
+                                    title="Enviar Comprovante"
+<<<<<<< .mine
+                                    onclick="PF('dlg1').show()"/>
+                                
+                                <p:commandButton title="Excluir"
+                                                 icon="ui-icon-trash"
+                                                 ajax="false"
+                                                 action="#{periodicoBean.excluirPeriodico}"
+                                                 >
+=======
+                                    action="#{orientacaoBean.upload()}">
+>>>>>>> .r442
+                                    <f:setPropertyActionListener 
+                                        target="#{orientacaoBean.orientacao}"
+                                        value="#{orientacao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton 
+                                    title="Excluir"
+                                    icon="ui-icon-trash"
+                                    action="#{orientacaoBean.excluirOrientacao()}"
+                                    update="orientacoesTabela">
+                                    <f:setPropertyActionListener 
+                                        target="#{orientacaoBean.orientacao}"
+                                        value="#{orientacao}"/>
+                                    <f:setPropertyActionListener 
+                                        value="#{orientacao}"
+                                        target="#{orientacaoBean.orientacao}"/>
+                                    <p:confirm
+                                        header="Confirmação"
+                                        icon="ui-icon-alert"
+                                        message="Voce tem certeza?"/>
+                                </p:commandButton>  
+                                
+                                <p:commandButton 
+                                    rendered="#{avaliacaoBean.possuiArquivo(orientacao.arquivo)}"
+                                    icon="ui-icon-document"
+                                    actionListener="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
+                                    onclick="this.form.target='_blank';"
+                                    title="visualizar o comprovante"/>
+                            </p:column>
+                            
+                            <f:facet name="footer">
+                                Total em orientações:
+                                <h:outputLabel value="#{orientacaoBean.total}"/>
+                            </f:facet>
+                        </p:dataTable>  
+                    </p:tab>
+
+                    <p:tab id="orientacoesTab2" title="Orientações Arquivadas">
+                        <p:dataTable 
+                            id="orientacoesTabela2" 
+                            value="#{orientacaoBean.orientacoesPassadas}" 
+                            var="orientacao"
+                            emptyMessage="Sem registro para a exibição."
+                            paginator="true" rows="10" 
+                            rowsPerPageTemplate="20,40">
+
+                            <p:column headerText="Bolsista"
+                                      style="max-width: 250px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacao.aluno}"/> 
+                            </p:column>
+
+                            <p:column headerText="Período Inicial"
+                                      style="max-width: 50px;min-width: 45px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputText  value="#{orientacao.PInicial}">
+                                    <f:convertDateTime pattern="MM/yyyy"/>
+                                </h:outputText> 
+                            </p:column>
+
+                            <p:column headerText="Período Final"
+                                      style="max-width: 80px;min-width: 55px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{orientacao.PFinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputLabel> 
+                            </p:column>
+
+                            <p:column headerText="Tipo de Orientação"
+                                      style="max-width: 250px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}"/> 
+                            </p:column>
+
+                            <p:column headerText="Tipo de Bolsa"
+                                      style="max-width: 110px;min-width: 110px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line"> 
+                                <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
+                            </p:column>
+
+                            <p:column headerText="Pontuação"
+                                      style="max-width: 70px;min-width: 30px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <h:outputLabel value="#{orientacao.estrato}"/> 
+                            </p:column>
+
+                            <p:column headerText="Operação" style="max-width: 95px;min-width: 95px; 
+                                      overflow: hidden;  max-height: 12px; 
+                                      min-height: 12px; white-space: pre-line">
+                                <p:commandButton
+                                    ajax="false"
+                                    icon="ui-icon-arrowstop-1-n"
+                                    title="Enviar Comprovante"
+                                    action="#{orientacaoBean.upload()}">
+                                    <f:setPropertyActionListener 
+                                        target="#{orientacaoBean.orientacao}"
+                                        value="#{orientacao}"/>
+                                </p:commandButton>
+
+                                <p:commandButton 
+                                    icon="ui-icon-trash"
+                                    action="#{orientacaoBean.excluirOrientacao()}">
+                                    <p:confirm
+                                        icon="ui-icon-alert"
+                                        message="Voce tem certeza?"
+                                        header="Confimação"/>
+                                    <f:setPropertyActionListener 
+                                        value="#{orientacao}" 
+                                        target="#{orientacaoBean.orientacao}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>  
+                    </p:tab>
+                </p:tabView>
+            </p:panel>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>  
+    </ui:define>
+</ui:composition>

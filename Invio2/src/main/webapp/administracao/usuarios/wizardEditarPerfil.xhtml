@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl 
+                showDetail="true" 
+                showSummary="true"/>
+            <p:wizard>
+                <p:tab 
+                    id="busca" 
+                    title="Buscar">
+                    <h:outputText value="Login:"/>
+                    <p:autoComplete 
+                        id="acSimple" 
+                        value="#{loginBean.login}" 
+                        var="login"
+                        itemLabel="#{login.curriculo.nome} | #{login.email}"
+                        itemValue="#{login}"
+                        converter="loginConversor"
+                        forceSelection="true"
+                        completeMethod="#{loginBean.autoComplete}" />
+                </p:tab>
+                <p:tab 
+                    id="edicao" 
+                    title="Editar">
+                    <h:panelGrid 
+                        columns="2">
+                        <h:outputText 
+                            value="Nome: " />
+                        <h:outputText 
+                            value="#{loginBean.login.curriculo.nome}" />
+                        <h:outputText 
+                            value="E-mail: " />
+                        <h:outputText 
+                            value="#{loginBean.login.email}" />
+
+                        <h:outputText 
+                            value="Tipo Usuário: " />
+                        <p:selectOneMenu 
+                            id="perfil" 
+                            style="width: 185px" 
+                            value="#{loginBean.login.perfil}">  
+                            <f:selectItem 
+                                itemLabel="Usuário" 
+                                itemValue="U" /> 
+                            <f:selectItem 
+                                itemLabel="Secretaria" 
+                                itemValue="S" />      
+                            <f:selectItem 
+                                itemLabel="Administrador" 
+                                itemValue="A"  />  
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab 
+                    id="confirmacao" 
+                    title="Confirmar">
+                    <h:panelGrid 
+                        columns="2">
+                        <h:outputText 
+                            value="Nome: " />
+                        <h:outputText 
+                            value="#{loginBean.login.curriculo.nome}" />
+                        <h:outputText 
+                            value="E-mail: " />
+                        <h:outputText 
+                            value="#{loginBean.login.email}" />
+
+                        <h:outputText 
+                            value="Tipo Usuário: " />
+                        <h:outputText 
+                            value="#{loginBean.toNomePerfil()}" />
+                    </h:panelGrid>
+                    
+                    <p:commandButton 
+                        ajax="false"
+                        value="Salvar" 
+                        icon="ui-icon-check"
+                        action="#{loginBean.alterarPermissao()}" />
+                </p:tab>
+            </p:wizard>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

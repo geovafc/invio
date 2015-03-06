@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form acceptcharset="ISO-8859-1" >
+
+            
+            <h:inputHidden 
+                id="objPrograma"
+                value="#{programaBean.programa.id}"/>
+            <p:growl/>
+
+            <h:panelGrid columns="3">
+
+                <h:outputText value="Nome: "/>
+                <f:view encoding="ISO-8859-1">
+                <h:inputText style="width: 400px" id="programaNome" value="#{programaBean.programa.nome}"/>
+                </f:view>
+                <h:message for="programaNome"/>
+
+                <h:outputText value="Instituição: "/>
+                <p:selectOneMenu 
+                    id="instituicaoSelect" 
+                    label="#{programaBean.programa.instituicao.nome}"
+                    value="#{programaBean.programa.instituicao}"
+                    style="width: 400px">
+                    <f:selectItems value="#{programaBean.instituicoes}"/>
+                    <f:converter converterId="instituicaoConversor"/>
+
+                </p:selectOneMenu>
+                <h:message for="instituicaoSelect"/>
+
+                <h:outputText value="Área: " />  
+                <p:selectOneMenu value="#{programaBean.area}" effect="fade"
+                                 style="width: 400px"
+                                 converter="areaConversor">  
+                    <f:selectItems value="#{programaBean.areas}" var="area" 
+                                   itemLabel="#{area.nome}" itemValue="#{nome}"/>  
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+
+            <p:commandButton 
+                ajax="false" value="Salvar" 
+                action="#{programaBean.salvar}"
+                update="form"/>
+            <p:commandButton 
+                ajax="false" value="Cancelar" action="listar.xhtml"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
