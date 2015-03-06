@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -39,6 +41,8 @@ public class Programa implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
     @Column(name = "nome")
     private String nome;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
@@ -114,7 +118,7 @@ public class Programa implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Programa[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Programa[ id=" + id + " ]";
     }
     
 }

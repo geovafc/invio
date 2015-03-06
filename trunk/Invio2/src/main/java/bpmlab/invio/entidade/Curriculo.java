@@ -26,6 +26,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -64,65 +66,97 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Curriculo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "cpf")
     private String cpf;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "nome")
     private String nome;
     @Column(name = "dtNascimento")
     @Temporal(TemporalType.DATE)
     private Date dtNascimento;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "logradouro")
     private String logradouro;
+    @Size(max = 50)
     @Column(name = "numero_end")
     private String numeroEnd;
+    @Size(max = 10)
     @Column(name = "cep")
     private String cep;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "bairro")
     private String bairro;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "cidade")
     private String cidade;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "estado")
     private String estado;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "pais")
     private String pais;
+    @Size(max = 20)
     @Column(name = "telefone")
     private String telefone;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "celular")
     private String celular;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 150)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "matricula")
     private String matricula;
+    @Size(max = 200)
     @Column(name = "grupo_pesq")
     private String grupoPesq;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "lattes")
     private String lattes;
+    @Size(max = 200)
     @Column(name = "curso")
     private String curso;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "genero")
     private String genero;
+    @Size(max = 100)
     @Column(name = "instituto_campi")
     private String institutoCampi;
     @Column(name = "fco")
     private Integer fco;
     @Column(name = "extrato")
     private Integer extrato;
+    @Size(max = 45)
     @Column(name = "titulacao")
     private String titulacao;
     @JoinTable(name = "plano_curriculo", joinColumns = {
@@ -131,23 +165,23 @@ public class Curriculo implements Serializable {
     @ManyToMany
     private List<Plano> planoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
-    private List<Frequencia> frequenciaList;
-    @JoinColumn(name = "area", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Area area;
-    @JoinColumn(name = "instituicao", referencedColumnName = "id")
-    @ManyToOne
-    private Instituicao instituicao;
-    @OneToMany(mappedBy = "curriculo")
-    private List<Login> loginList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Orientacao> orientacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
-    private List<Livro> livroList;
+    @JoinColumn(name = "instituicao", referencedColumnName = "id")
+    @ManyToOne
+    private Instituicao instituicao;
+    @JoinColumn(name = "area", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Area area;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Relatorio> relatorioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Frequencia> frequenciaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    private List<Livro> livroList;
+    @OneToMany(mappedBy = "curriculo")
+    private List<Login> loginList;
 
     public Curriculo() {
     }
@@ -366,40 +400,6 @@ public class Curriculo implements Serializable {
     }
 
     @XmlTransient
-    public List<Frequencia> getFrequenciaList() {
-        return frequenciaList;
-    }
-
-    public void setFrequenciaList(List<Frequencia> frequenciaList) {
-        this.frequenciaList = frequenciaList;
-    }
-
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
-
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
-    }
-
-    @XmlTransient
-    public List<Login> getLoginList() {
-        return loginList;
-    }
-
-    public void setLoginList(List<Login> loginList) {
-        this.loginList = loginList;
-    }
-
-    @XmlTransient
     public List<Periodico> getPeriodicoList() {
         return periodicoList;
     }
@@ -417,6 +417,40 @@ public class Curriculo implements Serializable {
         this.orientacaoList = orientacaoList;
     }
 
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    @XmlTransient
+    public List<Relatorio> getRelatorioList() {
+        return relatorioList;
+    }
+
+    public void setRelatorioList(List<Relatorio> relatorioList) {
+        this.relatorioList = relatorioList;
+    }
+
+    @XmlTransient
+    public List<Frequencia> getFrequenciaList() {
+        return frequenciaList;
+    }
+
+    public void setFrequenciaList(List<Frequencia> frequenciaList) {
+        this.frequenciaList = frequenciaList;
+    }
+
     @XmlTransient
     public List<Livro> getLivroList() {
         return livroList;
@@ -427,12 +461,12 @@ public class Curriculo implements Serializable {
     }
 
     @XmlTransient
-    public List<Relatorio> getRelatorioList() {
-        return relatorioList;
+    public List<Login> getLoginList() {
+        return loginList;
     }
 
-    public void setRelatorioList(List<Relatorio> relatorioList) {
-        this.relatorioList = relatorioList;
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
 
     @Override
@@ -457,7 +491,7 @@ public class Curriculo implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Curriculo[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Curriculo[ id=" + id + " ]";
     }
     
 }

@@ -92,7 +92,6 @@ public class OrientacaoBean {
                     "Selecione o Tipo de Bolsa.");
         } else {
             orientacao.setCurriculo(curriculo);
-            orientacao.setArquivo("");
             if (orientacaoRN.salvar(orientacao)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
@@ -143,7 +142,6 @@ public class OrientacaoBean {
         if (file != null) {
             String path = ArquivoUtil.contextPath(file.getFileName());
             orientacao = (Orientacao) BeanUtil.lerDaSessao("orientacaoUpload");
-            orientacao.setArquivo(path);
             boolean salvou = orientacaoRN.salvar(orientacao);
             boolean upload = ArquivoUtil.copiarParaArquivos(file);
 

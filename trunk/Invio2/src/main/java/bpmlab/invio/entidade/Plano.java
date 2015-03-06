@@ -24,6 +24,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -42,14 +44,17 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Plano implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "titulo")
     private String titulo;
     @Lob
+    @Size(max = 65535)
     @Column(name = "resumo")
     private String resumo;
     @Column(name = "data")
@@ -144,7 +149,7 @@ public class Plano implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Plano[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Plano[ id=" + id + " ]";
     }
     
 }

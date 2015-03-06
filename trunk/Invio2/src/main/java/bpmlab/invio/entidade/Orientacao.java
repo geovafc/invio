@@ -21,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -39,35 +41,39 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Orientacao.findByTipoOrientacao", query = "SELECT o FROM Orientacao o WHERE o.tipoOrientacao = :tipoOrientacao"),
     @NamedQuery(name = "Orientacao.findByTipoBolsa", query = "SELECT o FROM Orientacao o WHERE o.tipoBolsa = :tipoBolsa"),
     @NamedQuery(name = "Orientacao.findByEstrato", query = "SELECT o FROM Orientacao o WHERE o.estrato = :estrato"),
-    @NamedQuery(name = "Orientacao.findByArquivo", query = "SELECT o FROM Orientacao o WHERE o.arquivo = :arquivo"),
     @NamedQuery(name = "Orientacao.findByAvaliacao", query = "SELECT o FROM Orientacao o WHERE o.avaliacao = :avaliacao")})
 public class Orientacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "aluno")
     private String aluno;
     @Column(name = "p_inicial")
     @Temporal(TemporalType.DATE)
     private Date pInicial;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "p_final")
     @Temporal(TemporalType.DATE)
     private Date pFinal;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "tipo_orientacao")
     private int tipoOrientacao;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "tipo_bolsa")
     private String tipoBolsa;
     @Column(name = "estrato")
     private Integer estrato;
-    @Column(name = "arquivo")
-    private String arquivo;
+    @Size(max = 45)
     @Column(name = "avaliacao")
     private String avaliacao;
     @JoinColumn(name = "curriculo", referencedColumnName = "id")
@@ -145,14 +151,6 @@ public class Orientacao implements Serializable {
         this.estrato = estrato;
     }
 
-    public String getArquivo() {
-        return arquivo;
-    }
-
-    public void setArquivo(String arquivo) {
-        this.arquivo = arquivo;
-    }
-
     public String getAvaliacao() {
         return avaliacao;
     }
@@ -191,7 +189,7 @@ public class Orientacao implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Orientacao[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Orientacao[ id=" + id + " ]";
     }
     
 }

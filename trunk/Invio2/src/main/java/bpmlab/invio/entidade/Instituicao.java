@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,14 +39,18 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Instituicao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "sigla")
     private String sigla;
     @OneToMany(mappedBy = "instituicao")
@@ -52,9 +58,9 @@ public class Instituicao implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Programa> programaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
-    private List<Unidade> unidadeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
     private List<Edital> editalList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituicao")
+    private List<Unidade> unidadeList;
 
     public Instituicao() {
     }
@@ -112,21 +118,21 @@ public class Instituicao implements Serializable {
     }
 
     @XmlTransient
-    public List<Unidade> getUnidadeList() {
-        return unidadeList;
-    }
-
-    public void setUnidadeList(List<Unidade> unidadeList) {
-        this.unidadeList = unidadeList;
-    }
-
-    @XmlTransient
     public List<Edital> getEditalList() {
         return editalList;
     }
 
     public void setEditalList(List<Edital> editalList) {
         this.editalList = editalList;
+    }
+
+    @XmlTransient
+    public List<Unidade> getUnidadeList() {
+        return unidadeList;
+    }
+
+    public void setUnidadeList(List<Unidade> unidadeList) {
+        this.unidadeList = unidadeList;
     }
 
     @Override
@@ -151,7 +157,7 @@ public class Instituicao implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.Instituicao[ id=" + id + " ]";
+        return "bpmlab.invio.entidade.Instituicao[ id=" + id + " ]";
     }
     
 }

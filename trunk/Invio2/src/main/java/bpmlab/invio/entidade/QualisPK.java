@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -18,12 +20,18 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class QualisPK implements Serializable {
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "titulo")
     private String titulo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "areaAvaliacao")
     private String areaAvaliacao;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "issn")
     private String issn;
 
@@ -90,7 +98,7 @@ public class QualisPK implements Serializable {
 
     @Override
     public String toString() {
-        return "invio.entidade.QualisPK[ titulo=" + titulo + ", areaAvaliacao=" + areaAvaliacao + ", issn=" + issn + " ]";
+        return "bpmlab.invio.entidade.QualisPK[ titulo=" + titulo + ", areaAvaliacao=" + areaAvaliacao + ", issn=" + issn + " ]";
     }
     
 }
