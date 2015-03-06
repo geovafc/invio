@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="Codigo">
+            <h:inputHidden 
+                id="objTelaConfirmacao"
+                value="#{usuarioBean.login.id}"/> 
+
+            <p:growl
+                id="mensagem"
+                sticky="false"
+                showDetail="true"
+                showSummary="true"/>
+
+            <div align="center">
+                <p:panel>
+                    <h:outputText
+                        id="insira"
+                        value="Insira o código de confirmação enviado para seu e-mail."/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Confirmação: "/>
+                        <h:inputText 
+                            id="codigoConfirmacao"
+                            value="#{usuarioBean.codigoDeConfirmacao}"
+                            required="true"/>
+                    <p:commandButton 
+                        ajax="false" 
+                        value="OK" 
+                        action="#{usuarioBean.validar()}"/>
+                    </h:panelGrid>
+                </p:panel>
+                <br/>
+                <p:commandButton 
+                    ajax="false"
+                    value="Cancelar"
+                    action="loginInicio.xhtml"/>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <h:inputHidden 
+                id="ihCurriculo"
+                value="#{curriculoBean.curriculo}" 
+                converter="curriculoConversor"/>
+            
+            <h:inputHidden value="#{relatorioBean.relatorio}"
+                           converter="relatorioConversor"/>
+            
+            
+            <h:panelGrid 
+                id="display" 
+                columns="2" 
+                cellpadding="4" 
+                style="margin:0 auto;">  
+
+                <f:facet name="header">
+                    <h:outputText value="Deseja realmente Exluir o Relatório?"/>
+                </f:facet>
+                
+                <h:outputText value="Mês: " />  
+                <h:outputText value="#{relatorioBean.relatorio.mes}" 
+                              style="font-weight:bold"/>  
+
+                <p:commandButton 
+                    action="#{relatorioBean.excluirRelatorio()}" 
+                    ajax="false"
+                    value="Sim" />
+
+                <p:commandButton 
+                    value="Não" 
+                    ajax="false"
+                    action="listaRelatorios.xhtml"/>
+
+            </h:panelGrid> 
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

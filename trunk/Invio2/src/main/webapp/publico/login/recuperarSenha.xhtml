@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formrecuperarSenha">
+            <p:messages showDetail="true" showSummary="true"/>
+
+            <div align="center">
+                <p:panel>
+                    <h:outputText id="recSenha" value="Recuperar Senha do Sistema."/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid id="gridrecuperarSenha"  style="width: 32%" columns="2">
+
+                        <h:outputText  id="loginLabel" value="E-mail:"/>
+                        <p:inputText  id="email" value="#{usuarioBean.login.email}"/>
+
+
+                        <p:commandButton value="Enviar" 
+                                         ajax="false" 
+                                         action="#{usuarioBean.recuperarSenha()}"/>
+                        <h:outputText value=""/>
+                    </h:panelGrid>
+
+
+
+                </p:panel>
+            </div>
+
+        </h:form>
+        <h:form>
+            <div align="center">
+
+                <p:commandButton 
+                    ajax="false" value="Cancelar" action="#{usuarioBean.cancelarTelaConfirmacao()}"/>
+            </div>
+
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

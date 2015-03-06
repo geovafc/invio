@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <h:inputHidden value="#{instituicaoBean.instituicao}" converter="instituicaoConversor"/>
+            
+            <h:panelGrid 
+                id="display" 
+                columns="2" 
+                cellpadding="4" 
+                style="margin:0 auto;">  
+
+                <f:facet name="header">
+                    <h:outputText value="Deseja realmente Exluir?"/>
+                </f:facet>
+                
+                <h:outputText value="Nome:" />  
+                <h:outputText value="#{instituicaoBean.instituicao.nome}" 
+                              style="font-weight:bold"/>  
+
+                <p:commandButton 
+                    action="#{instituicaoBean.excluirInstituicao()}" 
+                    ajax="false"
+                    value="Sim" />
+
+                <p:commandButton 
+                    value="Não" 
+                    ajax="false"
+                    action="#{instituicaoBean.irListarInstituicoes()}"/>
+
+            </h:panelGrid> 
+            
+
+        </h:form>
+<!--    <h:form prependId="false">  
+                          
+        <p:growl id="messages" />  
+      
+        <h:panelGrid columns="1" cellpadding="5">  
+            <h:outputText id="msg" value="#{instituicaoBean.instituicao}"/>  
+              
+            <p:commandButton id="showDialogButton" value="Deseja realmente excluir?" onclick="confirmation.show()" type="button"/>  
+        </h:panelGrid>  
+          
+        <p:confirmDialog id="confirmDialog" message="Você deseja realmente excluir?"  
+                    header="Initiating destroy process" severity="alert" widgetVar="confirmation">  
+                      
+            <p:commandButton id="confirm" value="Sim" update="messages" oncomplete="confirmation.hide()"  
+                        actionListener="#{buttonBean.destroyWorld}" />  
+            <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button" />   
+                      
+        </p:confirmDialog>  
+      
+    </h:form>   -->
+
+    </ui:define>
+
+</ui:composition>

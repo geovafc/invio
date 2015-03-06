@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        
+       
+            <p:commandButton  value="Voltar" />
+        
+            
+        <h:inputHidden 
+                id="ihComprovacao"
+                value="#{curriculoBean.curriculo.id}"/>
+         <h:inputHidden 
+                id="ihPlano"
+                value="#{curriculoBean.plano.id}" />
+        
+        <h:form enctype="multipart/form-data">  
+
+            <p:panel header="Comprovação de Plano">
+                
+                 <h:inputHidden 
+                id="ihPlano"
+                value="#{curriculoBean.plano}" 
+                converter="planoConversor"/>
+
+                 <p:fileUpload fileUploadListener="#{curriculoBean.uploadActionPlano}"  
+                              mode="advanced"  
+                              update="messages" label="Carregar Arquivo" 
+                              auto="true"  
+                              sizeLimit="10000000"   
+                              allowTypes="/(\.|\/)(jpe?g|pdf)$/"/>  
+
+                <p:growl id="messages" showDetail="true"/>  
+
+            </p:panel>
+
+        </h:form>  
+
+    </ui:define>
+
+</ui:composition>

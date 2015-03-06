@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templateSemMenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="Cadastro">
+
+            <p:messages showDetail="true" showSummary="true"/>
+
+            <div align="center">
+                <p:panel >
+                    <h:outputText 
+                        id="bemVindo" 
+                        value="Preencha as informações abaixo para cadastro:"/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="email: *"/>
+                        <p:inputText 
+                            required="true" 
+                            id="email"
+                            value="#{loginBean.login.email}">
+                            <f:validateRegex 
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                        </p:inputText>
+
+                        <h:outputLabel 
+                            for="pwd1" 
+                            value="Escolha uma senha: *" />  
+                        <p:password 
+                            id="pwd1" 
+                            value="#{loginBean.login.senha}" 
+                            match="pwd2" 
+                            weakLabel="Fraca" 
+                            strongLabel="Forte" 
+                            goodLabel="Bom" 
+                            promptLabel="Entre com a senha" 
+                            feedback="true" 
+                            label="Senhas não preenchida ou diferentes." 
+                            required="true"
+                            requiredMessage="Campos de Senhas não preenchidas ou incorretas."/>  
+
+                        <h:outputLabel for="pwd2" value="Digite senha novamente: *" />  
+                        <p:password 
+                            id="pwd2" 
+                            value="#{loginBean.login.senha}" 
+                            label="Senhas não preenchida ou diferentes." 
+                            requiredMessage="" 
+                            required="true" /> 
+
+                        <p:commandButton 
+                            ajax="false" 
+                            value="Cadastrar" 
+                            action="#{loginBean.cadastrar}"/>
+                        <p:commandButton 
+                            ajax="false"
+                            value="Cancelar"
+                            action="/loginInicio.xhtml"/>
+
+                    </h:panelGrid>
+
+                </p:panel>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

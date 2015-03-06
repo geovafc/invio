@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/publico/template/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="form">
+
+            <p:panel header="Lista de Usuários">
+                <p:growl showDetail="true" showSummary="true"/>
+
+                <p:dataTable 
+                    id="dtUsuario"
+                    var="login" 
+                    value="#{usuarioBean.logins}"
+                    emptyMessage="Sem registro para a exibição."
+                    paginator="true" 
+                    rows="15"  
+                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                    rowsPerPageTemplate="15,25,50">
+
+                    <p:column 
+                        headerText="Nome" 
+                        filterBy="#{login.curriculo.nome}" >  
+                        <h:outputText value="#{login.curriculo.nome}" />  
+                    </p:column>  
+
+                    <p:column 
+                        headerText="Login" 
+                        filterBy="#{login.email}" >  
+                        <h:outputText value="#{login.email}" />  
+                    </p:column>  
+
+
+                    <p:column 
+                        headerText="Operações">  
+                        <p:commandButton 
+                            action="/administracao/usuarios/editarPermissoes.xhtml"
+                            icon="ui-icon-pencil"
+                            title="Perfil"
+                            ajax="false">  
+                            <f:setPropertyActionListener 
+                                value="#{login}" 
+                                target="#{loginBean.login}" />  
+                        </p:commandButton>  
+
+                        <p:commandButton 
+                            ajax="true"
+                            icon="ui-icon-trash"
+                            action="#{loginBean.excluirLogin}"
+                            title="Excluir">  
+                            <f:setPropertyActionListener 
+                                value="#{login}" 
+                                target="#{loginBean.login}" />  
+                            <p:confirm
+                                header="Confirmação"
+                                message="Você quer excluir o usuário #{login.email}?"
+                                icon="ui-icon-alert" />
+                        </p:commandButton> 
+                    </p:column> 
+                </p:dataTable>
+            </p:panel>
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton
+                    value="Sim"
+                    type="button"
+                    styleClass="ui-confirmdialog-yes"
+                    icon="ui-icon-check"/>
+                <p:commandButton
+                    value="Não"
+                    type="button"
+                    styleClass="ui-confirmdialog-no"
+                    icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

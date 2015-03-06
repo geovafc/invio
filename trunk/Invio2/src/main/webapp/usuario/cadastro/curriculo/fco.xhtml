@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Ficha Curricular do Orientador</title>
+    </h:head>
+    <h:body>
+        
+        <p:panel 
+            header="Dados do Pesquisador">
+            <!--Considerando que CurriculoBean é Session-->
+            <p:panelGrid 
+                id="panelGridCurriculo"
+                columns="2" >
+
+                <h:outputText value="Nome: "/>
+                <h:outputText value="#{curriculoBean.curriculo.nome}"/>
+
+                <h:outputText value="Titulação: "/>
+                <h:outputText value="#{curriculoBean.curriculo.titulacao}"/>
+
+                <h:outputText value="Currículo Lattes: "/>
+                <h:outputText value="#{curriculoBean.curriculo.lattes}"/>
+
+                <h:outputText value="Área de Atuação: "/>
+                <h:outputText value="#{curriculoBean.curriculo.area.nome}"/>
+
+                <h:outputText value="Celular: "/>
+                <h:outputText value="#{curriculoBean.curriculo.celular}"/>
+
+                <h:outputText value="E-mail: "/>
+                <h:outputText value="#{curriculoBean.curriculo.email}"/>
+
+                <h:outputText value="Endereço: "/>
+                <h:outputText 
+                    value="#{curriculoBean.curriculo.logradouro} #{curriculoBean.curriculo.numeroEnd}"/>
+
+            </p:panelGrid>
+
+        </p:panel>
+
+        <p:panel 
+            id="panelPeriodico"
+            header="Produção científica em periódicos">
+            <p:growl showDetail="true" showSummary="true"/>
+
+            <p:dataTable id="listaPeriodicosA"
+                         var="periodico" value="#{periodicoBean.periodicos}" 
+                         emptyMessage="Sem registro para a exibição.">
+
+                <p:column headerText="Título" width="45%" > 
+                    <h:outputLabel value="#{periodico.titulo}" /> 
+                </p:column>  
+
+                <p:column headerText="Revista" width="45%"> 
+                    <h:outputLabel value="#{periodico.revista}" />
+                </p:column>  
+
+                <p:column headerText="Pontuação" width="10%" > 
+                    <h:outputLabel value="#{periodico.estrato}" />  
+                </p:column> 
+
+                <f:facet name="footer">
+                    Total em Periódicos: 
+                    <h:outputLabel value="#{periodicoBean.total}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+        <p:panel 
+            id="panelLivro" 
+            header="Produção científica em livros">
+            <p:dataTable 
+                id="listaLivros"
+                value="#{livroBean.livros}" 
+                var="livro" 
+                emptyMessage="Sem registros para a exibição">
+
+                <p:column headerText="Titulo">
+                    <h:outputLabel value="#{livro.titulo}"/> 
+                </p:column>
+
+                <p:column headerText="Capítulo"> 
+                    <h:outputLabel value="#{livro.capitulo}"/> 
+                </p:column>
+
+                <p:column headerText="Autor"> 
+                    <h:outputLabel value="#{livro.autor}"/> 
+                </p:column>
+
+                <p:column headerText="Ano"> 
+                    <h:outputLabel value="#{livro.ano}"/> 
+                </p:column>
+
+                <p:column headerText="Pontuação">
+                    <h:outputLabel value="#{livro.estrato}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    Total em Livros: 
+                    <h:outputLabel value="#{livroBean.total}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+        <p:panel id="panelOrientacao">
+            <p:dataTable 
+                id="listaOrientacao"
+                value="#{orientacaoBean.orientacoes}" 
+                var="orientacao" 
+                emptyMessage="Sem registros para a exibição">
+
+                <f:facet name="header">
+                    Orientações
+                </f:facet>
+
+                <p:column headerText="Aluno">
+                    <h:outputLabel value="#{orientacao.aluno}"/> 
+                </p:column>
+
+                <p:column headerText="Início"> 
+                    <h:outputLabel value="#{orientacao.PInicial}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputLabel>
+                </p:column>
+
+                <p:column headerText="Fim"> 
+                    <h:outputLabel value="#{orientacao.PFinal}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputLabel>
+                </p:column>
+
+                <p:column headerText="Tipo de Bolsa"> 
+                    <h:outputLabel value="#{orientacao.tipoBolsa}"/> 
+                </p:column>
+
+                <p:column headerText="Pontuação"> 
+                    <h:outputLabel value="#{orientacao.estrato}"/> 
+                </p:column>
+
+                <f:facet name="footer">
+                    Total em orientações:
+                    <h:outputLabel value="#{orientacaoBean.total}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+
+        <p:panel header="Pontuação Final">
+
+            <p:panelGrid
+                id="panelCurriculo"
+                columns="2">
+                <h:outputText  value="Total:"/>   
+                <h:inputText 
+                    disabled="true" 
+                    value="#{curriculoBean.Fco}"/> 
+            </p:panelGrid>
+
+        </p:panel>
+    </h:body>
+</html>
