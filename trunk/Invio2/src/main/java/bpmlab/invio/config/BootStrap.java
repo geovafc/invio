@@ -7,6 +7,7 @@ package bpmlab.invio.config;
 
 import bpmlab.invio.dao.FabricaEntityManager;
 import bpmlab.invio.dao.GenericDAO;
+import bpmlab.invio.entidade.Area;
 import bpmlab.invio.entidade.Login;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -26,6 +27,8 @@ public class BootStrap implements ServletContextListener {
         GenericDAO dao = new GenericDAO();
         ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
         dao.criar(new Login(null, encoder.encodePassword("123", null), "mkmikael@gmail.com", 'A'));
+        Area a = new Area(null, "Computação");
+        dao.criar(a);
     }
 
     @Override

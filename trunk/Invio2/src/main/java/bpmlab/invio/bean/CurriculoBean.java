@@ -126,19 +126,10 @@ public class CurriculoBean {
     }
 
     public Curriculo getCurriculo() {
-        if (curriculo == null) {
-            Login loginLog = UsuarioUtil.obterUsuarioLogado();
-            if (loginLog != null) {
-                curriculo = loginLog.getCurriculo();
-            }
-        }
         return curriculo;
     }
 
     public void setCurriculo(Curriculo curriculo) {
-        if (BeanUtil.lerDaSessao("curriculo") == null) {
-            BeanUtil.colocarNaSessao("curriculo", curriculo);
-        }
         this.curriculo = curriculo;
     }
 
@@ -161,12 +152,11 @@ public class CurriculoBean {
                 curriculo.setExtrato(0);
             }
 
+            curriculoRN.salvar(curriculo);
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();
             loginLogado.setCurriculo(curriculo);
 
-            if (loginRN.salvar(loginLogado)
-                    && curriculoRN.salvar(curriculo)) {
-
+            if (loginRN.salvar(loginLogado)) {
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
                         "O curriculo " + getCurriculo().getNome() + " foi gravado com sucesso.");
@@ -229,12 +219,11 @@ public class CurriculoBean {
     }
 
     public String meuCurriculo() {
-        Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
-        Curriculo curriculoWiz = usuarioLogado.getCurriculo();
-        if (curriculoWiz != null) {
-            setCurriculo(curriculoWiz);
+        if (curriculo == null) {
+            curriculo = new Curriculo();
         } else {
-            setCurriculo(new Curriculo());
+            Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
+            curriculo = usuarioLogado.getCurriculo();
         }
         return "/usuario/cadastro/curriculo/wizard.xhtml";
     }
