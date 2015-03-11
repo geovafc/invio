@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 PrimeFaces.locales['pt_BR'] = {
     closeText : 'Fechar',
     prevText : 'Anterior',

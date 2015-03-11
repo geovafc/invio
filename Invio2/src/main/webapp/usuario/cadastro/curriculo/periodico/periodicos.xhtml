@@ -8,7 +8,7 @@
 
     <ui:define name="content">
         <h:form id="Periodico" acceptcharset="UTF-8"  >  
-            <h:form id="Periodico" acceptcharset="UTF-8">  
+              
                 <p:panel header="Lista de Periódicos">
                     *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
                     <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>  
@@ -176,9 +176,6 @@
 
 
                                     <p:commandButton 
-                                        title="Excluir"
-                                        action="#{periodicoBean.excluirPeriodico()}"
-                                        icon="ui-icon-trash"
                                         ajax="false"
                                         icon="ui-icon-trash"                                    
                                         action="#{periodicoBean.excluirPeriodico}"
@@ -191,14 +188,12 @@
                                                                                 header="Confirmação"                                       
                                                                                 message="Você quer excluir o usuário #{periodico.titulo}?"
                                                                                 icon="ui-icon-alert" />-->
-                                    </p:commandButton> 
-                                    target="#{periodicoBean.periodico}"
-                                    value="#{periodico}"/>
                                     <p:confirm
                                         icon="ui-icon-alert"
                                         message="Voce tem certeza?"
                                         header="Confirmação"/>
-                                    </p:commandButton>  
+                                    </p:commandButton> 
+                                    
 
                                     <p:commandButton 
                                         ajax="false"

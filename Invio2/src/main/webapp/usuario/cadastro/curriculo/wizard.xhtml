@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <h:outputScript name="script/locales.js" library="js" />
+    <h:outputScript name="js-primefaces.js" library="js" />
 
     <ui:define name="content">
         <h:form >
@@ -68,12 +68,12 @@
                             <h:outputText value="Data de Nascimento: *" />
                             <p:calendar 
                                 id="nascimentoCal" 
-                                locale="pt_BR"
                                 showButtonPanel="true"
                                 value="#{curriculoBean.curriculo.dtNascimento}" 
                                 navigator="true" 
                                 pattern="dd/MM/yyyy" 
                                 yearRange="c-50:c-0"
+                                locale="pt_BR"
                                 required="true"/>
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
