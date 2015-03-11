@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Dir de Armas Marinha
  */
-public class CurriculoRN implements Serializable{
+public class CurriculoRN implements Serializable {
 
     GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
     CurriculoDAO curriculoDAO = new CurriculoDAO();
@@ -30,23 +30,18 @@ public class CurriculoRN implements Serializable{
     public boolean salvar(Curriculo c) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (c.getId() == null) {
-                if (dao.criar(c)) {
-                    salvou = true;
-                }
-            } else {
-                if (c.getPeriodicoList() != null) {
-                    PeriodicoRN periodicoRN = new PeriodicoRN();
-                    for (Periodico p : c.getPeriodicoList()) {
-                        periodicoRN.atribuirPontuacaoAutomaticamente(p);
-                    }
-                }
-                if (dao.alterar(c)) {
-                    salvou = true;
+        if (c.getId() == null) {
+            salvou = dao.criar(c);
+        } else {
+            if (c.getPeriodicoList() != null) {
+                PeriodicoRN periodicoRN = new PeriodicoRN();
+                for (Periodico p : c.getPeriodicoList()) {
+                    periodicoRN.atribuirPontuacaoAutomaticamente(p);
                 }
             }
-            dao.concluirTransacao();
+            if (dao.alterar(c)) {
+                salvou = true;
+            }
         }
         return salvou;
     }
@@ -92,16 +87,13 @@ public class CurriculoRN implements Serializable{
 
         Collections.sort(mapa);
 
-
         for (CurriculoPts curriculoPts : mapa) {
             obterTodosDesc.add(curriculoPts.getC());
         }
 
-
         return obterTodosDesc;
     }
 }
-
 
 class CurriculoPts implements Comparable<CurriculoPts> {
 
@@ -145,7 +137,7 @@ class CurriculoPts implements Comparable<CurriculoPts> {
 
         List<Livro> livros = curriculo.getLivroList();
         List<Periodico> periodicos = curriculo.getPeriodicoList();
-        
+
         for (Periodico periodico : periodicos) {
             if (!periodico.getAvaliacao().trim().equals("")
                     && !periodico.getAvaliacao().trim().equals("Nao")

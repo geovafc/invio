@@ -184,19 +184,17 @@
                 <p:tab id="areaCurriculo" title="Área">  
                     <p:panel header="Área do Currículo" style="height: 420px">  
                         <h:panelGrid columns="1" columnClasses="label, value">  
-
-                            <h:outputText value="Selecione a área: " /> 
+                            <h:outputText value="Selecione a área: " />
                             <p:selectOneListbox  id="scrollAreaCurriculo" 
-                                                 value="#{curriculoBean.curriculo.area}" 
+                                                 value="#{curriculoBean.curriculo.area}"
                                                  converter="areaConversor" 
-                                                 style="width: 300px;height:200px"> 
-                                <f:selectItems 
+                                                 style="width: 300px;height:200px">
+                                <f:selectItems
                                     value="#{areaBean.areas}" 
                                     var="area" 
                                     itemLabel="#{area.nome}"
                                     itemValue="#{area}"/>
                                 <f:selectItem itemLabel="Outra Área" itemValue=""/>
-                                
                             </p:selectOneListbox> 
                         </h:panelGrid>  
                     </p:panel>  
@@ -205,7 +203,6 @@
                 <p:tab id="areaOutroCurriculo" title="Outra Área" >
                     <p:panel header="Área do Currículo" style="height: 420px">  
                         <h:panelGrid columns="3" columnClasses="label, value">  
-
                             <f:view encoding="ISO-8859-1">
                                 <h:outputText value="Digite sua área: *"/>
                                 <p:autoComplete 
@@ -219,9 +216,9 @@
                                     required="true"
                                     converter="areaConversor"/>
                             </f:view>
-                        </h:panelGrid>  
-                    </p:panel>  
-                </p:tab>  
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
 
                 <p:tab id="confirm" title="Confirmação">  
                     <p:panel  header="Confirmação" style="height: 420px">  
