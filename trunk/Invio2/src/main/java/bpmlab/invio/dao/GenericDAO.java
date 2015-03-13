@@ -1,72 +1,28 @@
 package bpmlab.invio.dao;
 
 import java.util.List;
-import javax.persistence.EntityExistsException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-//import org.hibernate.exception.ConstraintViolationException;
 
 public class GenericDAO<T> implements InterfaceDAO<T> {
-
+    
+    private static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
     private EntityManager em = FabricaEntityManager.obterFabrica().createEntityManager();
 
     public GenericDAO() {
     }
 
-    public boolean iniciarTransacao() {
-        try {
-            if (em.getTransaction().isActive()) {
-                return true;
-            }
-            em.getTransaction().begin();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean concluirTransacao() {
-        try {
-            em.getTransaction().commit();
-            return true;
-        } //        catch (ConstraintViolationException e) {
-        //            System.out.println("Já existe um está chave primária, erro: ConstraintViolationException");
-        //            e.printStackTrace();
-        //            return false;
-        //        }
-        catch (EntityExistsException e) {
-            System.out.println("Já existe um está chave primária");
-            e.printStackTrace();
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean cancelarTransacao() {
-        try {
-            em.getTransaction().rollback();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     @Override
     public boolean criar(T o) {
         try {
-            this.iniciarTransacao();
+            em.getTransaction().begin();
             em.persist(o);
-            return concluirTransacao();
-        } catch (EntityExistsException e) {
-            System.out.println("Id Já existe, Classe : " + o.getClass().getName());
-            e.printStackTrace();
-            if (em.isOpen()) {
-                em.getTransaction().rollback();
-            }
-            return false;
+            em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "ERRO NA CAMADA DAO", e);
             if (em.isOpen()) {
                 em.getTransaction().rollback();
             }
@@ -77,12 +33,12 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean excluir(T o) {
         try {
-            this.iniciarTransacao();
+            em.getTransaction().begin();
             em.remove(em.merge(o));
-            this.concluirTransacao();
+            em.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "ERRO NA CAMADA DAO", e);
             if (em.isOpen()) {
                 em.getTransaction().rollback();
             }
@@ -93,11 +49,12 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     public boolean alterar(T o) {
         try {
-            this.iniciarTransacao();
+            em.getTransaction().begin();
             em.merge(o);
-            return concluirTransacao();
+            em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "ERRO NA CAMADA DAO", e);
             if (em.isOpen()) {
                 em.getTransaction().rollback();
             }
@@ -171,11 +128,8 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        if (this.em != null
-                && this.em.isOpen()) {
-            this.em.flush();
-            this.em.clear();
-            this.em.close();
-        }
+        System.out.println("*******************************MORREU");
+        em.close();
     }
+    
 }

@@ -18,14 +18,11 @@ public class PeriodicoRN {
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
-        if (periodicoDAO.iniciarTransacao()) {
-            if (periodico.getId() == null) {
-                atribuirPontuacaoAutomaticamente(periodico);
-                salvou = periodicoDAO.criar(periodico);
-            } else {
-                salvou = periodicoDAO.alterar(periodico);
-            }
-            periodicoDAO.concluirTransacao();
+        if (periodico.getId() == null) {
+            atribuirPontuacaoAutomaticamente(periodico);
+            salvou = periodicoDAO.criar(periodico);
+        } else {
+            salvou = periodicoDAO.alterar(periodico);
         }
         return salvou;
     }

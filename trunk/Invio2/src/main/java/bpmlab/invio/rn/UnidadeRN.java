@@ -17,22 +17,19 @@ import java.util.List;
 public class UnidadeRN {
 
     GenericDAO<Unidade> dao = new GenericDAO<Unidade>();
-   private List<Unidade> unidades;
-    
+    private List<Unidade> unidades;
+
     public boolean salvar(Unidade u) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (u.getId() == null) {
-                if (dao.criar(u)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(u)) {
-                    salvou = true;
-                }
+        if (u.getId() == null) {
+            if (dao.criar(u)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(u)) {
+                salvou = true;
+            }
         }
         return salvou;
     }
@@ -48,19 +45,18 @@ public class UnidadeRN {
     public List<Unidade> obterTodos() {
         return dao.obterTodos(Unidade.class);
     }
-    
+
     public List<Unidade> obTerUnidades(Instituicao instituicao) {
         List<Unidade> unidadesTemp1 = dao.obterTodos(Unidade.class);
         ArrayList<Unidade> unidadesTemp2 = new ArrayList<Unidade>();
-        
-        
+
         for (Unidade unidade : unidadesTemp1) {
-            
+
             if (unidade.getInstituicao().getId().equals(instituicao.getId())) {
                 unidadesTemp2.add(unidade);
             }
-            
+
         }
         return unidadesTemp2;
-}
+    }
 }

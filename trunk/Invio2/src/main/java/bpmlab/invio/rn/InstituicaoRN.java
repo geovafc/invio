@@ -15,22 +15,18 @@ import java.util.List;
 public class InstituicaoRN {
 
     GenericDAO<Instituicao> dao = new GenericDAO<Instituicao>();
-  
 
     public boolean salvar(Instituicao i) {
-       boolean salvou = false;
+        boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (i.getId() == null) {
-                if (dao.criar(i)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(i)) {
-                    salvou = true;
-                }
+        if (i.getId() == null) {
+            if (dao.criar(i)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(i)) {
+                salvou = true;
+            }
         }
         return salvou;
     }
@@ -46,7 +42,5 @@ public class InstituicaoRN {
     public List<Instituicao> obterTodos() {
         return dao.obterTodos(Instituicao.class);
     }
-    
-    
 
 }

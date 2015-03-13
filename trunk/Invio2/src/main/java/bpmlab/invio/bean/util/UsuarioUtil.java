@@ -18,8 +18,15 @@ public class UsuarioUtil {
     public static Login obterUsuarioLogado() {
         FacesContext f = FacesContext.getCurrentInstance();
         ExternalContext e = f.getExternalContext();
-        LoginRN loginRN = new LoginRN();
-        return loginRN.obter(e.getRemoteUser());
+        Login login = (Login) BeanUtil.lerDaSessao("USUARIO_LOGADO");
+        if (login == null) {
+            LoginRN loginRN = new LoginRN();
+            login = loginRN.obter(e.getRemoteUser());
+            BeanUtil.colocarNaSessao("USUARIO_LOGADO", login);
+            return login;
+        } else {
+            return login;
+        }
     }
 
     public static boolean isUsuarioLogadoAdministrador() {

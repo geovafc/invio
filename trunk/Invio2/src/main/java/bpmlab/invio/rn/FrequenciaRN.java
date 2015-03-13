@@ -14,17 +14,14 @@ public class FrequenciaRN {
     public boolean salvar(Frequencia frequencia) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (frequencia.getId() == null) {
-                if (dao.criar(frequencia)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(frequencia)) {
-                    salvou = true;
-                }
+        if (frequencia.getId() == null) {
+            if (dao.criar(frequencia)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(frequencia)) {
+                salvou = true;
+            }
         }
         return salvou;
     }

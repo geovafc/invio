@@ -126,6 +126,12 @@ public class CurriculoBean {
     }
 
     public Curriculo getCurriculo() {
+        if (curriculo == null) {
+            curriculo = new Curriculo();
+        } else {
+            Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
+            curriculo = usuarioLogado.getCurriculo();
+        }
         return curriculo;
     }
 
@@ -153,6 +159,7 @@ public class CurriculoBean {
             }
 
             curriculoRN.salvar(curriculo);
+            System.out.println("************************" + curriculo.getId());
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();
             loginLogado.setCurriculo(curriculo);
 
@@ -219,12 +226,6 @@ public class CurriculoBean {
     }
 
     public String meuCurriculo() {
-        if (curriculo == null) {
-            curriculo = new Curriculo();
-        } else {
-            Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
-            curriculo = usuarioLogado.getCurriculo();
-        }
         return "/usuario/cadastro/curriculo/wizard.xhtml";
     }
 
