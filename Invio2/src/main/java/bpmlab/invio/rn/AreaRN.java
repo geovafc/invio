@@ -13,17 +13,14 @@ public class AreaRN {
 
         boolean salvou = false;
 
-        if (areaDAO.iniciarTransacao()) {
-            if (a.getId() == null) {
-                if (areaDAO.criar(a)) {
-                    salvou = true;
-                }
-            } else {
-                if (areaDAO.alterar(a)) {
-                    salvou = true;
-                }
+        if (a.getId() == null) {
+            if (areaDAO.criar(a)) {
+                salvou = true;
             }
-            areaDAO.concluirTransacao();
+        } else {
+            if (areaDAO.alterar(a)) {
+                salvou = true;
+            }
         }
         return salvou;
     }

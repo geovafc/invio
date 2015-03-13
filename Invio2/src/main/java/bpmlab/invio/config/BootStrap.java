@@ -33,7 +33,6 @@ public class BootStrap implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        FabricaEntityManager.obterFabrica().close();
     }
 
 }

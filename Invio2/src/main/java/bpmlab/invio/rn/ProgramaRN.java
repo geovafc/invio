@@ -26,17 +26,14 @@ public class ProgramaRN {
     public boolean salvar(Programa p) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (p.getId() == null) {
-                if (dao.criar(p)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(p)) {
-                    salvou = true;
-                }
+        if (p.getId() == null) {
+            if (dao.criar(p)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(p)) {
+                salvou = true;
+            }
         }
         return salvou;
     }

@@ -1,4 +1,3 @@
-
 package bpmlab.invio.rn;
 
 import bpmlab.invio.dao.GenericDAO;
@@ -19,17 +18,14 @@ public class LivroRN {
     public boolean salvar(Livro livro) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (livro.getId() == null) {
-                if (dao.criar(livro)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(livro)) {
-                    salvou = true;
-                }
+        if (livro.getId() == null) {
+            if (dao.criar(livro)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(livro)) {
+                salvou = true;
+            }
         }
         return salvou;
     }

@@ -14,17 +14,14 @@ public class RelatorioRN {
     public boolean salvar(Relatorio relatorio) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (relatorio.getId() == null) {
-                if (dao.criar(relatorio)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(relatorio)) {
-                    salvou = true;
-                }
+        if (relatorio.getId() == null) {
+            if (dao.criar(relatorio)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(relatorio)) {
+                salvou = true;
+            }
         }
         return salvou;
     }

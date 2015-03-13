@@ -28,11 +28,4 @@ public class AreaDAO extends GenericDAO<Area> {
         return areas;
     }
     
-    public static void main(String[] args) {
-        AreaDAO dao  = new AreaDAO();
-        List<Area> areas = dao.obterAreas(new Instituicao(1));
-        for (Area area : areas) {
-            System.out.println(area.getNome());
-        }
-    }
 }

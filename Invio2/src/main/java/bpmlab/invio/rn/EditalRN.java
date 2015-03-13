@@ -22,9 +22,11 @@ public class EditalRN {
     public Edital obter(Edital edital) {
         return dao.obter(Edital.class, edital.getId());
     }
+
     public List<Edital> obterTodosAbertos() {
         return daoEdital.obterTodosAbertos();
     }
+
     public List<Edital> obterTodosFechados() {
         return daoEdital.obterTodosFechados();
     }
@@ -35,22 +37,19 @@ public class EditalRN {
 
     public boolean salvar(Edital edital) {
         boolean salvou = false;
-        if (dao.iniciarTransacao()) {
-            if (edital.getId() == null) {
-                if (dao.criar(edital)) {
+        if (edital.getId() == null) {
+            if (dao.criar(edital)) {
+                salvou = true;
+            } else {
+                if (dao.alterar(edital)) {
                     salvou = true;
-                } else {
-                    if (dao.alterar(edital)) {
-                        salvou = true;
-                    }
                 }
-                dao.concluirTransacao();
             }
         }
         return salvou;
     }
 
-    public boolean remover(Edital edital){
+    public boolean remover(Edital edital) {
         return dao.excluir(edital);
     }
 }

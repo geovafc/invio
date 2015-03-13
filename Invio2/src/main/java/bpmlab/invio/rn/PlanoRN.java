@@ -22,17 +22,14 @@ public class PlanoRN {
     public boolean salvar(Plano i) {
         boolean salvou = false;
 
-        if (dao.iniciarTransacao()) {
-            if (i.getId() == null) {
-                if (dao.criar(i)) {
-                    salvou = true;
-                }
-            } else {
-                if (dao.alterar(i)) {
-                    salvou = true;
-                }
+        if (i.getId() == null) {
+            if (dao.criar(i)) {
+                salvou = true;
             }
-            dao.concluirTransacao();
+        } else {
+            if (dao.alterar(i)) {
+                salvou = true;
+            }
         }
         return salvou;
     }
@@ -50,7 +47,7 @@ public class PlanoRN {
     }
 
     public List<Plano> obterTodosDecrescente(Curriculo c) {
-        
+
         return c.getPlanoList();
 //        return pdao.obterPlanoDecrescente(c);
     }
