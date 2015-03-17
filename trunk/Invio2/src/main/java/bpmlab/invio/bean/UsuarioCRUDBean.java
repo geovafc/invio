@@ -5,6 +5,7 @@ import bpmlab.invio.entidade.Login;
 import bpmlab.invio.rn.LoginRN;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 /**
  *
@@ -29,13 +30,21 @@ public class UsuarioCRUDBean {
     }
     
     public String salvar() {
-        login.setPerfil('U');
-        if (rn.salvar(login)) {
-            BeanUtil.criarMensagemDeInformacao("Sua conta foi criada com sucesso!", "");
-            return "/loginInicio.xhtml";
-        } else {
-            BeanUtil.criarMensagemDeErro("Ocorreu um erro inesperado!", "");
+        if (rn.existe(login.getEmail())) {
+            BeanUtil.criarMensagemDeErro("O Email ja está cadastrado tente outro.", "");
             return null;
+        } else {
+            login.setPerfil('U');
+            ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+            String criptografada = encoder.encodePassword(login.getSenha(), null);
+            login.setSenha(criptografada);
+            if (rn.salvar(login)) {
+                BeanUtil.criarMensagemDeInformacao("Sua conta foi criada com sucesso!", "");
+                return "/loginInicio.xhtml";
+            } else {
+                BeanUtil.criarMensagemDeErro("Ocorreu um erro inesperado!", "");
+                return null;
+            }
         }
     }
 }

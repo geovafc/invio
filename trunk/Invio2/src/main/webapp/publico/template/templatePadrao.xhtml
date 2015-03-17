@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Sistema Invio</title>
-        
+
         <link rel="icon" href="../resources/imagem/ico.png" type="image/ico" />
         <h:outputStylesheet library="css" name="default.css"/>
     </h:head>
@@ -23,17 +23,8 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="west" 
-                          size="230" 
-                          header="Menu" 
-                          resizable="true" 
-                          maxSize="300"
-                          collapsible="true" 
                           closable="false">
-
-                <ui:insert name="menu">
-                    <ui:include src="/usuario/include/menu.xhtml"/>
-                </ui:insert>
-
+                <ui:include src="/usuario/include/menu.xhtml"/>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" size="750">

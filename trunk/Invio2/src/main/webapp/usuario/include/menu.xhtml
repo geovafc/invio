@@ -3,35 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <h:body>
-        <h:form style="width: 90%; height: 60%"> 
-            <p:slideMenu 
-                my="left top" 
-                at="left bottom" 
-                style="width: 100%; height: 100%"
-                backLabel="Voltar">  
-                <p:submenu rendered="false"
-                           style="width: 100%; height: 100%"
-                           label="Edital" 
-                           icon="ui-icon-refresh" > 
-                    <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-                    <p:menuitem
-                        rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
-                        value="Novo Edital"   
-                        ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w"
-                        action="/secretaria/edital/editalForm.xhtml"/>
-                    <p:menuitem 
-                        value="Lista de Editais"  ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w" 
-                        action="/publico/edital/listaEdital.xhtml"/>
-                </p:submenu>
+    <h:form style="margin: 1px; "> 
+        <p:menu>
+            <p:submenu rendered="false"
+                       label="Edital" 
+                       icon="ui-icon-refresh">
+                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
+                <p:menuitem
+                    rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
+                    value="Novo Edital"   
+                    ajax="false"
+                    icon="ui-icon-arrowrefresh-1-w"
+                    action="/secretaria/edital/editalForm.xhtml"/>
+                <p:menuitem 
+                    value="Lista de Editais"  ajax="false"
+                    icon="ui-icon-arrowrefresh-1-w" 
+                    action="/publico/edital/listaEdital.xhtml"/>
+            </p:submenu>
+
+            <p:submenu label="Administrador"
+                       rendered="#{usuarioBean.administrador}">
+                <p:menuitem rendered="#{usuarioBean.administrador}"
+                            value="Editar Permissão"  
+                            ajax="false"
+                            icon="ui-icon-pencil" 
+                            action="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
 
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Listar Usuários"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/administracao/usuarios/listarUsuarios.xhtml"/>
+            </p:submenu>
 
+            <p:submenu label="Secretaria" rendered="#{usuarioBean.administrador or usuarioBean.secretaria}">
                 <p:menuitem 
                     rendered="#{usuarioBean.secretaria}"
                     value="Avaliar Curriculos"
@@ -42,115 +46,102 @@
                             value="Listar Currículos"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
                             action="/secretaria/curriculo/listaCurriculo.xhtml"/>
+            </p:submenu>
 
-                <p:menuitem rendered="#{usuarioBean.administrador}"
-                            value="Editar Permissão"  
-                            ajax="false"
-                            icon="ui-icon-pencil" 
-                            action="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
-
-                <p:submenu
-                    style="width: 100%; height: 100%"
-                    rendered="false #{usuarioBean.administrador}"
-                    label="Cadastros" 
-                    icon="ui-icon-refresh">
-                    <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-                    <p:menuitem
-                        value="Programa"   
-                        ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w"
-                        action="/usuario/cadastro/programa/listar.xhtml"/>
-                    <p:menuitem 
-                        value="Instituição"  ajax="false"
-                        icon="ui-icon-arrowrefresh-1-w" 
-                        action="/usuario/cadastro/instituicao/listar.xhtml"/>
-                </p:submenu>
-
-
-                <p:submenu 
-                    style="width: 100%; height: 100%"
-                    label="Meu Currículo" 
-                    icon="ui-icon-refresh">  
-                    <p:menuitem 
-                        value="Meu Perfil"  
-                        title="Informações pessoais, titulação e área de atuação"
-                        ajax="false"
-                        icon="ui-icon-contact"
-                        action="#{curriculoBean.meuCurriculo}"/> 
-
-                    <p:menuitem
-                        rendered="false"
-                        value="Frequências" 
-                        title="Lista de frequências"
-                        ajax="false"
-                        icon="ui-icon-document"
-                        action="/usuario/documentacao/listaFrequencias.xhtml"/>
-                    <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-
-                    <p:menuitem 
-                        rendered="false"
-                        value="Relatórios" 
-                        title="Lista de relatórios finais e parciais."
-                        ajax="false"
-                        icon="ui-icon-document"
-                        action="/usuario/documentacao/listaRelatorios.xhtml"/>
-                    <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-
-                    <p:menuitem 
-                        value="Periódicos" 
-                        title="Lista de publicações em periódicos"
-                        ajax="false"
-                        icon="ui-icon-document"
-                        action="/usuario/cadastro/curriculo/periodico/periodicos.xhtml"/>  
-
-                    <p:menuitem 
-                        value="Livros" 
-                        ajax="false"
-                        title="Publicações de livros como autor ou editor e capítulos"
-                        icon="ui-icon-note"
-                        action="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
-
-                    <p:menuitem 
-                        value="Orientações " 
-                        ajax="false"
-                        title="Indicação dos alunos orientados"
-                        icon="ui-icon-person"
-                        action="/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml"/>  
-                </p:submenu>
-                <p:submenu
-                    style="width: 100%; height: 100%"
-                    label="Relatórios" 
-                    icon="ui-icon-refresh"
-                    rendered="false">
-                    <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-                    <p:menuitem
-                        value="Docentes" 
-                        title="Lista de Docentes cadastrados no sistema."
-                        ajax="false"
-                        icon="ui-icon-person"
-                        action="#{curriculoBean.gerarListaDocentes()}"/>
-                </p:submenu>
-
-                <p:menuitem 
-                    value="Imprimir Currículo"  
-                    title="Imprimir a Ficha Curricular com as Produções"
+            <p:submenu
+                rendered="false #{usuarioBean.administrador}"
+                label="Cadastros" 
+                icon="ui-icon-refresh">
+                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
+                <p:menuitem
+                    value="Programa"   
                     ajax="false"
                     icon="ui-icon-arrowrefresh-1-w"
-                    target="_blank"
-                    action="#{curriculoBean.gerarFCO()}"/> 
+                    action="/usuario/cadastro/programa/listar.xhtml"/>
+                <p:menuitem 
+                    value="Instituição"  ajax="false"
+                    icon="ui-icon-arrowrefresh-1-w" 
+                    action="/usuario/cadastro/instituicao/listar.xhtml"/>
+            </p:submenu>
 
-                <p:separator />
+
+            <p:submenu 
+                label="Meu Currículo"
+                icon="ui-icon-refresh">
+                <p:menuitem 
+                    value="Meu Perfil"  
+                    title="Informações pessoais, titulação e área de atuação"
+                    ajax="false"
+                    icon="ui-icon-contact"
+                    action="#{curriculoBean.meuCurriculo}"/> 
+
+                <p:menuitem
+                    rendered="false"
+                    value="Frequências" 
+                    title="Lista de frequências"
+                    ajax="false"
+                    icon="ui-icon-document"
+                    action="/usuario/documentacao/listaFrequencias.xhtml"/>
+                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
+
+                <p:menuitem 
+                    rendered="false"
+                    value="Relatórios" 
+                    title="Lista de relatórios finais e parciais."
+                    ajax="false"
+                    icon="ui-icon-document"
+                    action="/usuario/documentacao/listaRelatorios.xhtml"/>
+                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
+
+                <p:menuitem 
+                    value="Periódicos" 
+                    title="Lista de publicações em periódicos"
+                    ajax="false"
+                    icon="ui-icon-document"
+                    action="/usuario/cadastro/curriculo/periodico/periodicos.xhtml"/>  
+
+                <p:menuitem 
+                    value="Livros" 
+                    ajax="false"
+                    title="Publicações de livros como autor ou editor e capítulos"
+                    icon="ui-icon-note"
+                    action="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
+
+                <p:menuitem 
+                    value="Orientações " 
+                    ajax="false"
+                    title="Indicação dos alunos orientados"
+                    icon="ui-icon-person"
+                    action="/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml"/>  
+            </p:submenu>
+            <p:submenu
+                label="Relatórios" 
+                icon="ui-icon-refresh"
+                rendered="false">
+                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
+                <p:menuitem
+                    value="Docentes" 
+                    title="Lista de Docentes cadastrados no sistema."
+                    ajax="false"
+                    icon="ui-icon-person"
+                    action="#{curriculoBean.gerarListaDocentes()}"/>
+            </p:submenu>
+
+            <p:menuitem 
+                value="Imprimir Currículo"  
+                title="Imprimir a Ficha Curricular com as Produções"
+                ajax="false"
+                icon="ui-icon-arrowrefresh-1-w"
+                target="_blank"
+                action="#{curriculoBean.gerarFCO()}"/> 
+            <p:separator/>
+            <p:menuitem id="misair" 
+                        icon="ui-icon-power"
+                        value="Sair" 
+                        url="#{request.contextPath}/j_spring_security_logout"/>
+        </p:menu>  
 
 
-            </p:slideMenu>  
-            <p:menuitem id="misair" ajax="false">
-                <a onclick="document.location = '#{request.contextPath}/j_spring_security_logout'" 
-                   title="Sair">
-                    <h:graphicImage library="imagem" name="sair.png"/>
-                </a>
-            </p:menuitem>
-
-        </h:form> 
-    </h:body>
+    </h:form> 
 </html>
 

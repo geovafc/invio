@@ -10,7 +10,7 @@
             <p:growl 
                 showDetail="true" 
                 showSummary="true"/>
-            <p:wizard>
+            <p:wizard backLabel="Voltar" nextLabel="Próximo">
                 <p:tab 
                     id="busca" 
                     title="Buscar">
@@ -19,11 +19,18 @@
                         id="acSimple" 
                         value="#{loginBean.login}" 
                         var="login"
-                        itemLabel="#{login.curriculo.nome} | #{login.email}"
+                        itemLabel="#{login.email}"
                         itemValue="#{login}"
                         converter="loginConversor"
                         forceSelection="true"
-                        completeMethod="#{loginBean.autoComplete}" />
+                        completeMethod="#{loginBean.autoComplete}">
+                        <p:column rendered="#{login.curriculo != null}">
+                            <h:outputText value="#{login.curriculo.nome}"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{login.email}"/>
+                        </p:column>
+                    </p:autoComplete>
                 </p:tab>
                 <p:tab 
                     id="edicao" 
