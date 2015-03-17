@@ -23,7 +23,7 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "ERRO NA CAMADA DAO", e);
-            if (em.isOpen()) {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             return false;
@@ -39,7 +39,7 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "ERRO NA CAMADA DAO", e);
-            if (em.isOpen()) {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             return false;
@@ -55,7 +55,7 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "ERRO NA CAMADA DAO", e);
-            if (em.isOpen()) {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             return false;
