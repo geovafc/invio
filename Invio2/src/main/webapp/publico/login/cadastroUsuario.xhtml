@@ -1,30 +1,50 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/publico/template/templateSemMenu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:form>
+            <p:growl/>
+            <div align="center">
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="txEmail" value="Email"/>
+                    <p:inputText id="txEmail"
+                                 value="#{usuarioCRUDBean.login.email}"
+                                 required="true"
+                                 requiredMessage="Campo Obrigatório!"
+                                 size="35"/>
+                    <p:message for="txEmail"/>
 
-    <body>
+                    <p:outputLabel for="txSenha" value="Senha"/>
+                    <p:password id="txSenha"
+                                value="#{usuarioCRUDBean.login.senha}"
+                                required="true"
+                                requiredMessage="Campo Obrigatório!"
+                                validatorMessage="Senha confirmada incorretamente!"
+                                promptLabel="Favor digite sua senha"
+                                goodLabel="Bom"
+                                weakLabel="Fraco"
+                                strongLabel="Forte"
+                                feedback="true"
+                                match="txSenhaConfirmacao"/>
+                    <p:message for="txSenha"/>
 
-        <ui:composition template="/publico/template/templateSemMenu.xhtml">
+                    <p:outputLabel for="txSenhaConfirmacao" value="Confirmar Senha"/>
+                    <p:password id="txSenhaConfirmacao"
+                                required="true"
+                                requiredMessage="Campo Obrigatório!"/>
+                    <p:message for="txSenhaConfirmacao"/>
+                </h:panelGrid>
 
-            <ui:define name="header">
-                header
-            </ui:define>
-
-            <ui:define name="content">
-                <h:form>
-                    <h:commandButton 
-                        value="Enviar3" 
-                        action="#{usuarioCRUDBean.salvar()}" />
-                </h:form>
-            </ui:define>
-
-            <ui:define name="bottom">
-                bottom
-            </ui:define>
-
-        </ui:composition>
-
-    </body>
-</html>
+                <p:commandButton id="cbSalvar"
+                                 ajax="false"
+                                 value="Enviar"
+                                 action="#{usuarioCRUDBean.salvar()}"/>
+                <p:button id="btnVoltar"
+                          value="Voltar"
+                          outcome="/loginInicio.xhtml"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

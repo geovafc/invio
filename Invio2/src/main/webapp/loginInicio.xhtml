@@ -6,6 +6,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
+        <p:growl/>
         <form 
             action="#{request.contextPath}/j_spring_security_check" 
             method="post">
@@ -46,22 +47,12 @@
             </div>
         </form>
 
-        <h:form>
-            <div align="center">
-                <p:commandLink 
-                    value="Esqueceu sua senha?" 
-                    ajax="false" 
-                    action="#{usuarioBean.irRecuperarSenha()}"/>
-            </div>
-            <br/>
-            <div align="center">
-                <p:commandLink 
-                    value="Criar uma conta" 
-                    ajax="false" 
-                    action="#{usuarioBean.irNovoUsuario()}" 
-                    />
-            </div>
-        </h:form>
+        <div align="center">
+            <p:link id="linkCriarConta"
+                    outcome="/publico/login/cadastroUsuario.xhtml">
+                Criar uma conta
+            </p:link>
+        </div>
 
         <br/>
         <div align="center">
