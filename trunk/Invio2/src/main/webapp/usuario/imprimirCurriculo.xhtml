@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>#{usuarioBean.usuarioLogado.curriculo.nome}</title>
+        <script>
+            window.onload = function() {
+                window.print();
+            };
+        </script>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="impressao.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <div class="pagina">
+            <h:panelGrid columns="2">
+                <h:graphicImage library="imagem" name="UFRA_brasao.gif" height="110"/>
+                <h1 style="padding-left: 20px">Universidade Federal Rural da Amazonia</h1>
+            </h:panelGrid>
+            <br/>
+
+            <h1>#{usuarioBean.usuarioLogado.curriculo.nome}</h1>
+            <br/>
+            <table class="table table-bordered">
+                <tr>
+                    <td>Matricula: #{usuarioBean.usuarioLogado.curriculo.matricula}</td>
+                    <td colspan="2">Titulação: #{usuarioBean.usuarioLogado.curriculo.titulacao}</td>
+                </tr>
+                <tr>
+                    <td>Cidade: #{usuarioBean.usuarioLogado.curriculo.cidade}</td>
+                    <td>Estado: #{usuarioBean.usuarioLogado.curriculo.estado}</td>
+                    <td>CEP: #{usuarioBean.usuarioLogado.curriculo.cep}</td>
+                </tr>
+                <tr>
+                    <td>Bairro: #{usuarioBean.usuarioLogado.curriculo.bairro}</td>
+                    <td colspan="2">Logradouro: #{usuarioBean.usuarioLogado.curriculo.logradouro}</td>
+                </tr>
+                <tr>
+                    <td>Celular: #{usuarioBean.usuarioLogado.curriculo.celular}</td>
+                    <td colspan="2">Email: #{usuarioBean.usuarioLogado.curriculo.email}</td>
+                </tr>
+                <tr>
+                    <td>Nascimento: 
+                        <h:outputText value="#{usuarioBean.usuarioLogado.curriculo.dtNascimento}">
+                            <f:convertDateTime />
+                        </h:outputText>
+                    </td>
+                    <td colspan="2">CPF: #{usuarioBean.usuarioLogado.curriculo.cpf}</td>
+                </tr>
+                <tr>
+                    <td colspan="1">Curso: #{usuarioBean.usuarioLogado.curriculo.curso}</td>
+                    <td>Area: #{usuarioBean.usuarioLogado.curriculo.area.nome}</td>
+                    <td>Instituto: #{usuarioBean.usuarioLogado.curriculo.institutoCampi}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Lattes: <a target="_blank" href="#{usuarioBean.usuarioLogado.curriculo.lattes}">
+                            #{usuarioBean.usuarioLogado.curriculo.lattes}
+                        </a>
+                    </td>
+                    <td>
+                        <b>
+                            FCO: #{usuarioBean.usuarioLogado.curriculo.fco}
+                        </b>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+            </table>
+
+            <h3>Livros</h3>
+            <hr/>
+            <c:if test="#{usuarioBean.usuarioLogado.curriculo.livroList == null or
+                                     usuarioBean.usuarioLogado.curriculo.livroList.size() == 0}">
+                <h5>Sem Livros</h5>
+            </c:if>
+            <h:dataTable value="#{usuarioBean.usuarioLogado.curriculo.livroList}"
+                         var="livro"
+                         class="table table-bordered table-striped"
+                         rendered="#{usuarioBean.usuarioLogado.curriculo.livroList != null and
+                                     usuarioBean.usuarioLogado.curriculo.livroList.size() > 0}">
+                <h:column>
+                    <f:facet name="header">Título</f:facet>
+                    <h:outputText value="#{livro.titulo}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">ISBN</f:facet>
+                    <h:outputText value="#{livro.isbn}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Capitulo</f:facet>
+                    <h:outputText value="#{livro.capitulo}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Autor</f:facet>
+                    <h:outputText value="#{livro.autor}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Ano</f:facet>
+                    <h:outputText value="#{livro.ano}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Pontuação</f:facet>
+                    <h:outputText value="#{livro.estrato}"/>
+                </h:column>
+            </h:dataTable>
+
+            <h3>Orientações</h3>
+            <hr/>
+            <c:if test="#{usuarioBean.usuarioLogado.curriculo.orientacaoList == null or
+                                     usuarioBean.usuarioLogado.curriculo.orientacaoList.size() == 0}">
+                <h5>Sem Orientações</h5>
+            </c:if>
+            <h:dataTable value="#{usuarioBean.usuarioLogado.curriculo.orientacaoList}"
+                         var="o"
+                         class="table table-bordered table-striped"
+                         rendered="#{usuarioBean.usuarioLogado.curriculo.orientacaoList != null and
+                                     usuarioBean.usuarioLogado.curriculo.orientacaoList.size() > 0}">
+                <h:column>
+                    <f:facet name="header">Aluno</f:facet>
+                    <h:outputText value="#{o.aluno}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Tipo de Orientação</f:facet>
+                    <h:outputText value="#{o.tipoOrientacao}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Tipo de Bolsa</f:facet>
+                    <h:outputText value="#{o.tipoBolsa}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Período</f:facet>
+                    <h:outputText value="#{o.PInicial}">
+                        <f:convertDateTime/>
+                    </h:outputText>
+                    - 
+                    <h:outputText value="#{o.PFinal}">
+                        <f:convertDateTime/>
+                    </h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Pontuação</f:facet>
+                    <h:outputText value="#{o.estrato}"/>
+                </h:column>
+            </h:dataTable>
+
+            <h3>Publicações</h3>
+            <hr/>
+            <c:if test="#{usuarioBean.usuarioLogado.curriculo.periodicoList == null or
+                                     usuarioBean.usuarioLogado.curriculo.periodicoList.size() == 0}">
+                <h5>Sem Publicações</h5>
+            </c:if>
+            <h:dataTable value="#{usuarioBean.usuarioLogado.curriculo.periodicoList}"
+                         var="p"
+                         class="table table-bordered table-striped"
+                         rendered="#{usuarioBean.usuarioLogado.curriculo.periodicoList != null and
+                                     usuarioBean.usuarioLogado.curriculo.livroList.size() > 0}">
+                <h:column>
+                    <f:facet name="header">Título</f:facet>
+                    <h:outputText value="#{p.titulo}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Revista</f:facet>
+                    <h:outputText value="#{p.revista}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">DOI</f:facet>
+                    <h:outputText value="#{p.doi}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">JCR</f:facet>
+                    <h:outputText value="#{p.jcr}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Volume</f:facet>
+                    <h:outputText value="#{p.volume}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Pontuação</f:facet>
+                    <h:outputText value="#{o.estrato}"/>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </h:body>
+</html>
+

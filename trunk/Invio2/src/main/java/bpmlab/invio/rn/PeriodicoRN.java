@@ -33,16 +33,6 @@ public class PeriodicoRN {
             Area area = periodico.getCurriculo().getArea();
             pt = qualisRN.obterEstrato(periodico.getRevista(), area.getNome());
         }
-//        Curriculo curriculoDoPeriodico = curriculoDAO.obter(Curriculo.class,
-//                periodico.getCurriculo().getId());
-//        List<Curriculo> curriculoArea = curriculoDoPeriodico.getArea().getCurriculoList();
-//
-//        for (Curriculo temp : curriculoArea) {
-//            int ptTemp = qualisRN.obterEstrato(periodico.getRevista(), temp.getArea().getNome());
-//            if (ptTemp >= pt) {
-//                pt = ptTemp;
-//            }
-//        }
         periodico.setEstrato(pt);
     }
 

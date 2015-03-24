@@ -8,6 +8,15 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>south-street</param-value>
     </context-param>
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LdH1gMTAAAAAIDUYrb_n9T6kXLmMP7Mm90WU2Wu</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LdH1gMTAAAAAJ6n31YaoSdE4XlI-uA-eFewdr7f</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

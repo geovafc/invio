@@ -244,4 +244,8 @@ public class PDFBoxRegexRN {
 
         return resposta;
     }
+    
+    public static void main(String[] args) {
+        
+    }
 }

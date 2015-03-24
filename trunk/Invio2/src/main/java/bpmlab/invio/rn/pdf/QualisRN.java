@@ -27,7 +27,9 @@ public class QualisRN {
         int i = 0;
         final int PARAR = 100;
         int tamanhaLista = osQualis.size();
-
+        System.out.println(tamanhaLista);
+        System.exit(0);
+        
         for (int j = 0; j < tamanhaLista; j++) {
             Qualis qualis = osQualis.get(j);
 
