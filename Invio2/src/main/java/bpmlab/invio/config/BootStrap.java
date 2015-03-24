@@ -5,8 +5,8 @@
  */
 package bpmlab.invio.config;
 
-import bpmlab.invio.dao.FabricaEntityManager;
 import bpmlab.invio.dao.GenericDAO;
+import bpmlab.invio.dao.JpaUtil;
 import bpmlab.invio.entidade.Area;
 import bpmlab.invio.entidade.Login;
 import javax.servlet.ServletContextEvent;
@@ -23,16 +23,19 @@ public class BootStrap implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        FabricaEntityManager.obterFabrica();
         GenericDAO dao = new GenericDAO();
         ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
-        dao.criar(new Login(null, encoder.encodePassword("123", null), "mkmikael@gmail.com", 'A'));
-        Area a = new Area(null, "Computação");
-        dao.criar(a);
+        try {
+            dao.criar(new Login(1, encoder.encodePassword("123", null), "mkmikael@gmail.com", 'A'));
+            Area a = new Area(1, "Computação");
+            dao.criar(a);
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        JpaUtil.closeFactory();
     }
 
 }

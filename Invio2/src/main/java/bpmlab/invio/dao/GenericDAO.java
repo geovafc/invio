@@ -1,3 +1,4 @@
+
 package bpmlab.invio.dao;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import javax.persistence.Query;
 public class GenericDAO<T> implements InterfaceDAO<T> {
     
     private static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
-    private EntityManager em = FabricaEntityManager.obterFabrica().createEntityManager();
+    private EntityManager em = JpaUtil.getEntityManager();
 
     public GenericDAO() {
     }
@@ -128,8 +129,6 @@ public class GenericDAO<T> implements InterfaceDAO<T> {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("*******************************MORREU");
-        em.close();
     }
     
 }
