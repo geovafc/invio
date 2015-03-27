@@ -12,13 +12,12 @@
                 <p:menuitem
                     rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
                     value="Novo Edital"   
-                    ajax="false"
                     icon="ui-icon-arrowrefresh-1-w"
-                    action="/secretaria/edital/editalForm.xhtml"/>
+                    outcome="/secretaria/edital/editalForm.xhtml"/>
                 <p:menuitem 
-                    value="Lista de Editais"  ajax="false"
+                    value="Lista de Editais"
                     icon="ui-icon-arrowrefresh-1-w" 
-                    action="/publico/edital/listaEdital.xhtml"/>
+                    outcome="/publico/edital/listaEdital.xhtml"/>
             </p:submenu>
 
             <p:submenu label="Administrador"
@@ -43,9 +42,14 @@
                     icon="ui-icon-arrowrefresh-1-w"
                     action="/secretaria/wizardAvaliacao.xhtml"/>
                 <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
-                            value="Listar Currículos"  ajax="false"
+                            value="Listar Currículos"
                             icon="ui-icon-arrowrefresh-1-w" 
-                            action="/secretaria/curriculo/listaCurriculo.xhtml"/>
+                            outcome="/secretaria/curriculo/listaCurriculo.xhtml"/>
+                <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
+                            value="Relatório de FCO"
+                            icon="ui-icon-document" 
+                            target="_blank"
+                            outcome="/secretaria/relatorioDeFco.xhtml"/>
             </p:submenu>
 
             <p:submenu
@@ -66,6 +70,7 @@
 
 
             <p:submenu 
+                rendered="#{usuarioBean.usuarioSessao}"
                 label="Meu Currículo"
                 icon="ui-icon-refresh">
                 <p:menuitem 
@@ -88,32 +93,36 @@
                     rendered="false"
                     value="Relatórios" 
                     title="Lista de relatórios finais e parciais."
-                    ajax="false"
                     icon="ui-icon-document"
-                    action="/usuario/documentacao/listaRelatorios.xhtml"/>
+                    outcome="/usuario/documentacao/listaRelatorios.xhtml"/>
                 <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
 
                 <p:menuitem 
                     value="Periódicos" 
                     title="Lista de publicações em periódicos"
-                    ajax="false"
                     icon="ui-icon-document"
-                    action="/usuario/cadastro/curriculo/periodico/periodicos.xhtml"/>  
+                    outcome="/usuario/cadastro/curriculo/periodico/periodicos.xhtml"/>  
 
                 <p:menuitem 
                     value="Livros" 
-                    ajax="false"
                     title="Publicações de livros como autor ou editor e capítulos"
                     icon="ui-icon-note"
-                    action="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
+                    outcome="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
 
                 <p:menuitem 
                     value="Orientações " 
-                    ajax="false"
                     title="Indicação dos alunos orientados"
                     icon="ui-icon-person"
-                    action="/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml"/>  
+                    outcome="/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml"/>  
+                
+                <p:menuitem 
+                    value="Imprimir Currículo"  
+                    title="Imprimir a Ficha Curricular com as Produções"
+                    icon="ui-icon-arrowrefresh-1-w"
+                    target="_blank"
+                    outcome="/usuario/imprimirCurriculo.xhtml"/> 
             </p:submenu>
+            
             <p:submenu
                 label="Relatórios" 
                 icon="ui-icon-refresh"
@@ -127,12 +136,6 @@
                     action="#{curriculoBean.gerarListaDocentes()}"/>
             </p:submenu>
 
-            <p:menuitem 
-                value="Imprimir Currículo"  
-                title="Imprimir a Ficha Curricular com as Produções"
-                icon="ui-icon-arrowrefresh-1-w"
-                target="_blank"
-                outcome="/usuario/imprimirCurriculo.xhtml"/> 
             <p:separator/>
             <p:menuitem id="misair" 
                         icon="ui-icon-power"

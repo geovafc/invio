@@ -95,6 +95,11 @@ public class CurriculoRN implements Serializable {
 
         return obterTodosDesc;
     }
+
+    public List<Curriculo> obterTodosOrdenado() {
+        return curriculoDAO.obterTodosOrdenado();
+    }
+    
 }
 
 class CurriculoPts implements Comparable<CurriculoPts> {
@@ -160,4 +165,5 @@ class CurriculoPts implements Comparable<CurriculoPts> {
 
         return total;
     }
+    
 }

@@ -26,4 +26,10 @@ public class CurriculoDAO extends GenericDAO<Curriculo> {
         }
 
     }
+    
+    public List<Curriculo> obterTodosOrdenado() {
+        String consulta = "select c from Curriculo c order by c.fco desc";
+        return getEntityManager().createQuery(consulta).getResultList();
+    }
+     
 }

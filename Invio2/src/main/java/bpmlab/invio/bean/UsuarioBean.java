@@ -28,6 +28,7 @@ public class UsuarioBean {
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
     private String usuario;
+    private boolean usuarioSessao;
 
     public UsuarioBean() {
     }
@@ -207,8 +208,9 @@ public class UsuarioBean {
     public boolean isSecretaria() {
         return UsuarioUtil.isUsuarioLogadoSecretaria();
     }
-
-    public boolean isUsuario() {
-        return UsuarioUtil.isUsuarioLogadoUsuario();
+    
+    public boolean isUsuarioSessao() {
+        usuarioSessao = UsuarioUtil.isUsuarioLogadoUsuario();
+        return usuarioSessao;
     }
 }

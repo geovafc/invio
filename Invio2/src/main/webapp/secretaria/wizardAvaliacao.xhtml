@@ -80,7 +80,7 @@
                                 <p:commandButton 
                                     title="corrigir a produção"
                                     icon="ui-icon-pencil"
-                                    onclick="dialogConfir.show()">
+                                    onclick="PF('dialogConfir').show()">
                                     <f:setPropertyActionListener
                                         target="#{avaliacaoBean.producao}"
                                         value="#{orientacao}"/>
@@ -96,13 +96,6 @@
                                         target="#{avaliacaoBean.producao}"
                                         value="#{orientacao}"/>
                                 </p:commandButton>
-
-                                <p:commandButton 
-                                    ajax="false"
-                                    icon="ui-icon-document"
-                                    action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
-                                    onclick="this.form.target = '_blank'"
-                                    title="visualizar o comprovante"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -163,13 +156,6 @@
                                         target="#{avaliacaoBean.producao}"
                                         value="#{livro}"/>
                                 </p:commandButton>
-
-                                <p:commandButton 
-                                    ajax="false"
-                                    icon="ui-icon-document"
-                                    action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
-                                    onclick="this.form.target = '_blank'"
-                                    title="visualizar o comprovante"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -232,13 +218,6 @@
                                         target="#{avaliacaoBean.producao}"
                                         value="#{periodico}"/>
                                 </p:commandButton>
-
-                                <p:commandButton 
-                                    ajax="false"
-                                    icon="ui-icon-document"
-                                    action="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
-                                    onclick="this.form.target = '_blank'"
-                                    title="visualizar o comprovante"/>
                             </p:column> 
                         </p:dataTable>
                     </p:panel>
@@ -252,8 +231,7 @@
                     
                     <p:commandButton 
                         value="Cancelar"
-                        onclick="dialogConfir.hide()">
-                    </p:commandButton>
+                        onclick="dialogConfir.hide()"/>
                     
                     <p:commandButton 
                         ajax="false"
