@@ -37,7 +37,7 @@
 
             <p:submenu label="Secretaria" rendered="#{usuarioBean.administrador or usuarioBean.secretaria}">
                 <p:menuitem 
-                    rendered="#{usuarioBean.secretaria}"
+                    rendered="#{usuarioBean.secretaria or usuarioBean.administrador}"
                     value="Avaliar Curriculos"
                     ajax="false"
                     icon="ui-icon-arrowrefresh-1-w"
