@@ -9,8 +9,10 @@ import bpmlab.invio.bean.util.UsuarioUtil;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Orientacao;
+import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.OrientacaoRN;
 import bpmlab.invio.util.ArquivoUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -93,6 +95,15 @@ public class OrientacaoBean {
         } else {
             orientacao.setCurriculo(curriculo);
             if (orientacaoRN.salvar(orientacao)) {
+                if (curriculo.getOrientacaoList() == null) {
+                    curriculo.setOrientacaoList(new ArrayList<Orientacao>());
+                }
+                if (curriculo.getFco() == null) {
+                    curriculo.setFco(0);
+                }
+                curriculo.getOrientacaoList().add(orientacao);
+                curriculo.setFco(curriculo.getFco() + orientacao.getEstrato());
+                new CurriculoRN().salvar(curriculo);
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
                         "A orientação do bolsista " + orientacao.getAluno() + " foi salva com sucesso.");
@@ -118,8 +129,13 @@ public class OrientacaoBean {
     }
 
     public String excluirOrientacao() {
+        Login login = UsuarioUtil.obterUsuarioLogado();
+        Curriculo curriculo = login.getCurriculo();
         System.out.println("Orientação: " + orientacao);
         if (orientacaoRN.remover(orientacao)) {
+            curriculo.getOrientacaoList().remove(orientacao);
+            curriculo.setFco(curriculo.getFco() - orientacao.getEstrato());
+            new CurriculoRN().salvar(curriculo);
             BeanUtil.criarMensagemDeInformacao(
                     "Orientação excluída",
                     "Orientação: " + orientacao.getAluno());
@@ -155,7 +171,7 @@ public class OrientacaoBean {
             }
         }
     }
-    
+
     public String voltar() {
         return "/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml";
     }

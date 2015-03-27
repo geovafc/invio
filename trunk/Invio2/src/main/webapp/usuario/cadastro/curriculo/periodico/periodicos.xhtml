@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-        <h:form id="Periodico" acceptcharset="UTF-8"  >  
+        <h:form id="Periodico">  
             <p:panel header="Lista de Periódicos">
                 *ATENÇÃO: Não colar conteúdo Revista de outro local para adicionar no campo revista. 
                 <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>  
@@ -162,6 +162,7 @@
                         <p:commandButton 
                             ajax="false"
                             title="Enviar Periódico" 
+                            rendered="false"
                             icon="ui-icon-arrowstop-1-n"
                             action="#{periodicoBean.upload()}">
                             <f:setPropertyActionListener
@@ -170,18 +171,14 @@
                         </p:commandButton>
 
                         <p:commandButton 
-                            ajax="false"
                             icon="ui-icon-trash"                                    
-                            action="#{periodicoBean.excluirPeriodico}"
                             title="Excluir"
-                            update="periodicosTabelaAtuais">
+                            update="periodicosTabelaAtuais"
+                            process="@form"
+                            action="#{periodicoBean.excluirPeriodico()}">
                             <f:setPropertyActionListener 
                                 value="#{periodico}" 
                                 target="#{periodicoBean.periodico}" />  
-                            <!--                                    <p:confirm
-                                                                    header="Confirmação"                                       
-                                                                    message="Você quer excluir o usuário #{periodico.titulo}?"
-                                                                    icon="ui-icon-alert" />-->
                             <p:confirm
                                 icon="ui-icon-alert"
                                 message="Voce tem certeza?"

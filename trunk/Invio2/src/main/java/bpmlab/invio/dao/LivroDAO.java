@@ -19,7 +19,7 @@ public class LivroDAO extends GenericDAO<Livro> {
                 getResultList();
         return livros;
     }
-
+    
     public List<Livro> obterLivrosPassados(Curriculo curriculo, String anoLimite) {
         String consulta = "SELECT o FROM Livro o "
                 + "where o.curriculo = :curriculo AND o.ano < :anoLimite ORDER BY o.ano desc";

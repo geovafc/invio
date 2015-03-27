@@ -8,8 +8,7 @@
     <h:outputScript name="script/locales.js" library="js" />
     <h:outputStylesheet library="css" name="tabela.css"/>
     <ui:define name="content">
-
-        <h:form id="Orientacao" enctype="multipart/form-data" acceptcharset="ISO-8859-1" >  
+        <h:form id="Orientacao">
             <p:panel header="Lista de Orientações">
 
                 <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>  
@@ -34,7 +33,7 @@
                         <p:inputText 
                             id="Bolsista"   
                             maxlength="100"
-                            value="#{orientacaoBean.orientacao.aluno}" />  
+                            value="#{orientacaoBean.orientacao.aluno}" />
 
                         <h:outputText value="Tipo de Bolsa: *" />
                         <p:selectOneMenu value="#{orientacaoBean.orientacao.tipoBolsa}">  
@@ -64,6 +63,7 @@
                             id="periodoFinal" />                        
 
                         <p:commandButton value="Limpar" type="reset"/>  
+                        
                         <p:commandButton 
                             id="btn_add" 
                             value="Adicionar"
@@ -117,23 +117,6 @@
                     </p:column>
 
                     <p:column headerText="Operação" style="width: 11%; text-align: center">  
-                        <p:commandButton
-                            ajax="false"
-                            icon="ui-icon-arrowstop-1-n"
-                            title="Enviar Comprovante"
-
-                            onclick="PF('dlg1').show()"/>
-
-                        <p:commandButton title="Excluir"
-                                         icon="ui-icon-trash"
-                                         ajax="false"
-                                         action="#{periodicoBean.excluirPeriodico}"
-                                         >
-                            <f:setPropertyActionListener 
-                                target="#{orientacaoBean.orientacao}"
-                                value="#{orientacao}"/>
-                        </p:commandButton>
-
                         <p:commandButton 
                             title="Excluir"
                             icon="ui-icon-trash"
@@ -149,14 +132,7 @@
                                 header="Confirmação"
                                 icon="ui-icon-alert"
                                 message="Voce tem certeza?"/>
-                        </p:commandButton>  
-
-                        <p:commandButton 
-                            rendered="#{avaliacaoBean.possuiArquivo(orientacao.arquivo)}"
-                            icon="ui-icon-document"
-                            actionListener="#{avaliacaoBean.visualizarComprovante(orientacao.arquivo)}"
-                            onclick="this.form.target = '_blank';"
-                            title="visualizar o comprovante"/>
+                        </p:commandButton>
                     </p:column>
 
                     <f:facet name="footer">

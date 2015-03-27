@@ -140,8 +140,8 @@ public class CurriculoBean {
     public String salvarCurriculo() {
         if (curriculo.getArea() == null) {
             BeanUtil.criarMensagemDeErro(
-                    "Não foi selecionada nenhuma área de atuação.",
-                    "Por favor preencher uma área.");
+                    "NÃ£o foi selecionada nenhuma Ã¡rea de atuaÃ§Ã£o.",
+                    "Por favor preencher uma Ã¡rea.");
             return null;
         } else {
             if ("Doutorado".equals(curriculo.getTitulacao())) {
@@ -151,15 +151,14 @@ public class CurriculoBean {
             } else {
                 curriculo.setExtrato(0);
             }
-
             curriculoRN.salvar(curriculo);
-            
+
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();
             loginLogado.setCurriculo(curriculo);
 
             if (loginRN.salvar(loginLogado)) {
                 BeanUtil.criarMensagemDeInformacao(
-                        "Operação realizada com sucesso",
+                        "OperaÃ§Ã£o realizada com sucesso",
                         "O curriculo " + getCurriculo().getNome() + " foi gravado com sucesso.");
                 return "/publico/indexHome.xhtml";
             } else {
@@ -174,7 +173,7 @@ public class CurriculoBean {
     public String excluirCurriculo() {
         System.out.println("Curriculo " + getCurriculo());
         if (curriculoRN.remover(getCurriculo())) {
-            BeanUtil.criarMensagemDeInformacao("Curriculo excluído", "Curriculo: " + getCurriculo().getNome());
+            BeanUtil.criarMensagemDeInformacao("Curriculo excluÃ­do", "Curriculo: " + getCurriculo().getNome());
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir o curriculo", "Curriculo: " + getCurriculo().getNome());
         }
@@ -236,11 +235,16 @@ public class CurriculoBean {
         if (curriculo != null
                 && curriculo.getId() != null) {
             totalPontos = 0;
-            totalPontos += (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
 
-            List<Livro> livros = curriculo.getLivroList();
-            List<Periodico> periodicos = curriculo.getPeriodicoList();
-            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
+            if ("Doutorado".equals(curriculo.getTitulacao())) {
+                totalPontos += 30;
+            } else if ("Mestrado".equals(curriculo.getTitulacao())) {
+                totalPontos += 15;
+            }
+
+            List<Livro> livros = livroRN.obterLivrosAtuais(curriculo);
+            List<Periodico> periodicos = periodicoRN.obterPeriodicosAtuais(curriculo);
+            List<Orientacao> orientacoes = orientacaoRN.obterOrientacoesAtuais(curriculo);
 
             if (livros != null) {
                 for (Livro l : livros) {
@@ -256,8 +260,8 @@ public class CurriculoBean {
             }
 
             if (orientacoes != null) {
-                for (Orientacao orientacaoTemp : orientacoes) {
-                    totalPontos += orientacaoTemp.getEstrato();
+                for (Orientacao ori : orientacoes) {
+                    totalPontos += ori.getEstrato();
                 }
             }
         }
@@ -499,7 +503,7 @@ public class CurriculoBean {
     public String gerarFCO() {
         Login usuario = UsuarioUtil.obterUsuarioLogado();
         if (usuario.getCurriculo() == null) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", "Não há FCO preenchido para exibição.");
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "AtenÃ§Ã£o!", "NÃ£o hÃ¡ FCO preenchido para exibiÃ§Ã£o.");
             FacesContext.getCurrentInstance().addMessage(null, fm);
             return "/publico/indexHome.xhtml";
         } else {

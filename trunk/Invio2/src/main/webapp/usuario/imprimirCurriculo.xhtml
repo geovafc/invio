@@ -13,9 +13,8 @@
         </script>
     </h:head>
     <h:body>
-        <h:outputStylesheet library="css" name="impressao.css"/>
         <h:outputStylesheet library="css" name="bootstrap.css"/>
-        <div class="pagina">
+        <div style="width: 900px; margin: 0 auto">
             <h:panelGrid columns="2">
                 <h:graphicImage library="imagem" name="UFRA_brasao.gif" height="110"/>
                 <h1 style="padding-left: 20px">Universidade Federal Rural da Amazonia</h1>
@@ -61,8 +60,10 @@
                         </a>
                     </td>
                     <td>
+                        #{usuarioBean.usuarioLogado.curriculo.extrato}|
+                        #{usuarioBean.usuarioLogado.curriculo.fco}
                         <b>
-                            FCO: #{usuarioBean.usuarioLogado.curriculo.fco}
+                            FCO: #{usuarioBean.usuarioLogado.curriculo.fco + usuarioBean.usuarioLogado.curriculo.extrato}
                         </b>
                     </td>
                 </tr>
@@ -72,15 +73,15 @@
 
             <h3>Livros</h3>
             <hr/>
-            <c:if test="#{usuarioBean.usuarioLogado.curriculo.livroList == null or
-                                     usuarioBean.usuarioLogado.curriculo.livroList.size() == 0}">
+            <c:if test="#{livroBean.livrosAtuais == null or
+                                     livroBean.livrosAtuais.size() == 0}">
                 <h5>Sem Livros</h5>
             </c:if>
-            <h:dataTable value="#{usuarioBean.usuarioLogado.curriculo.livroList}"
+            <h:dataTable value="#{livroBean.livrosAtuais}"
                          var="livro"
                          class="table table-bordered table-striped"
-                         rendered="#{usuarioBean.usuarioLogado.curriculo.livroList != null and
-                                     usuarioBean.usuarioLogado.curriculo.livroList.size() > 0}">
+                         rendered="#{livroBean.livrosAtuais != null and
+                                     livroBean.livrosAtuais.size() > 0}">
                 <h:column>
                     <f:facet name="header">Título</f:facet>
                     <h:outputText value="#{livro.titulo}"/>
@@ -114,15 +115,15 @@
 
             <h3>Orientações</h3>
             <hr/>
-            <c:if test="#{usuarioBean.usuarioLogado.curriculo.orientacaoList == null or
-                                     usuarioBean.usuarioLogado.curriculo.orientacaoList.size() == 0}">
+            <c:if test="#{orientacaoBean.orientacoesAtuais == null or
+                                     orientacaoBean.orientacoesAtuais.size() == 0}">
                 <h5>Sem Orientações</h5>
             </c:if>
-            <h:dataTable value="#{usuarioBean.usuarioLogado.curriculo.orientacaoList}"
+            <h:dataTable value="#{orientacaoBean.orientacoesAtuais}"
                          var="o"
                          class="table table-bordered table-striped"
-                         rendered="#{usuarioBean.usuarioLogado.curriculo.orientacaoList != null and
-                                     usuarioBean.usuarioLogado.curriculo.orientacaoList.size() > 0}">
+                         rendered="#{orientacaoBean.orientacoesAtuais != null and
+                                     orientacaoBean.orientacoesAtuais.size() > 0}">
                 <h:column>
                     <f:facet name="header">Aluno</f:facet>
                     <h:outputText value="#{o.aluno}"/>
@@ -155,17 +156,17 @@
                 </h:column>
             </h:dataTable>
 
-            <h3>Publicações</h3>
+            <h3>Periódicos</h3>
             <hr/>
-            <c:if test="#{usuarioBean.usuarioLogado.curriculo.periodicoList == null or
-                                     usuarioBean.usuarioLogado.curriculo.periodicoList.size() == 0}">
+            <c:if test="#{periodicoBean.periodicosAtuais == null or
+                                     periodicoBean.periodicosAtuais.size() == 0}">
                 <h5>Sem Publicações</h5>
             </c:if>
-            <h:dataTable value="#{usuarioBean.usuarioLogado.curriculo.periodicoList}"
+            <h:dataTable value="#{periodicoBean.periodicosAtuais}"
                          var="p"
                          class="table table-bordered table-striped"
-                         rendered="#{usuarioBean.usuarioLogado.curriculo.periodicoList != null and
-                                     usuarioBean.usuarioLogado.curriculo.livroList.size() > 0}">
+                         rendered="#{periodicoBean.periodicosAtuais != null and
+                                     periodicoBean.periodicosAtuais.size() > 0}">
                 <h:column>
                     <f:facet name="header">Título</f:facet>
                     <h:outputText value="#{p.titulo}"/>
@@ -193,7 +194,7 @@
 
                 <h:column>
                     <f:facet name="header">Pontuação</f:facet>
-                    <h:outputText value="#{o.estrato}"/>
+                    <h:outputText value="#{p.estrato}"/>
                 </h:column>
             </h:dataTable>
         </div>

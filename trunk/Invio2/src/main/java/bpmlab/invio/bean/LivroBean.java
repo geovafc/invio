@@ -9,8 +9,10 @@ import bpmlab.invio.bean.util.UsuarioUtil;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Livro;
 import bpmlab.invio.entidade.Login;
+import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.LivroRN;
 import bpmlab.invio.util.ArquivoUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -87,6 +89,15 @@ public class LivroBean {
             livro.setCurriculo(curriculo);
             livro.setArquivo("");
             if (livroRN.salvar(livro)) {
+                if (curriculo.getLivroList() == null) {
+                    curriculo.setLivroList(new ArrayList<Livro>());
+                }
+                curriculo.getLivroList().add(livro);
+                if (curriculo.getFco() == null) {
+                    curriculo.setFco(0);
+                }
+                curriculo.setFco(curriculo.getFco() + livro.getEstrato());
+                new CurriculoRN().salvar(curriculo);
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
                         "O Livro " + livro.getTitulo() + " foi salvo com sucesso.");
@@ -113,8 +124,13 @@ public class LivroBean {
     }
 
     public String excluirLivro() {
+        Login login = UsuarioUtil.obterUsuarioLogado();
+        Curriculo curriculo = login.getCurriculo();
         System.out.println("Livro: " + livro);
         if (livroRN.remover(livro)) {
+            curriculo.getLivroList().remove(livro);
+            curriculo.setFco(curriculo.getFco() - livro.getEstrato());
+            new CurriculoRN().salvar(curriculo);
             BeanUtil.criarMensagemDeInformacao("Livro excluído", "Livro: " + livro.getTitulo());
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir Livro", "Livro: " + livro.getTitulo());
@@ -152,4 +168,5 @@ public class LivroBean {
             }
         }
     }
+
 }

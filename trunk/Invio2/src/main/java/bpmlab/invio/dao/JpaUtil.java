@@ -24,7 +24,7 @@ public class JpaUtil {
         if (factory == null) {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         }
-        if (manager.get() == null) {
+        if (manager.get() == null || !manager.get().isOpen()) {
             manager.set(factory.createEntityManager());
         }
         return manager.get();
@@ -33,12 +33,10 @@ public class JpaUtil {
     public static void closeEntityManager() {
         if (manager.get().isOpen()) {
             manager.get().close();
-            manager.set(null);
         }
     }
     
     public static void closeFactory() {
-        closeEntityManager();
         factory.close();
     }
 }
