@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Relatório de FCO</title>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+    </h:head>
+    <h:body>
+        <div style="width: 900px; margin: 0 auto;">
+            <center>
+                <h:panelGrid columns="2">
+                    <h:graphicImage library="imagem" name="UFRA_brasao.gif" height="110"/>
+                    <h2 style="padding-left: 20px">Universidade Federal Rural da Amazonia</h2>
+                </h:panelGrid>
+                <h1>Relatório de FCO</h1>
+            </center>
+            <br/>
+            <br/>
+            <c:if test="#{avaliacaoBean.curriculos == null || 
+                          avaliacaoBean.curriculos.size() == 0}">
+                <h5>Sem Curriculos</h5>
+            </c:if>
+            <h:dataTable id="tabela"
+                         class="table table-bordered table-striped"
+                         value="#{avaliacaoBean.curriculos}"
+                         var="c">
+                <h:column>
+                    <f:facet name="header">Usuário</f:facet>
+                    <h:outputText value="#{c.nome}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">FCO</f:facet>
+                    <h:outputText value="#{c.fco + c.extrato}"/>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </h:body>
+</html>
+

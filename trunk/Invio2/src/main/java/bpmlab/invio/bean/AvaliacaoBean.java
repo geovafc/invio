@@ -3,6 +3,7 @@ package bpmlab.invio.bean;
 import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.rn.AvaliacaoRN;
+import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.util.ArquivoUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class AvaliacaoBean implements Serializable {
     private Object producao;
     private Integer estratoTemp;
     private boolean skip;
+    private List<Curriculo> curriculos;
 
     public boolean isSkip() {
         return skip;
@@ -117,4 +119,10 @@ public class AvaliacaoBean implements Serializable {
             BeanUtil.criarMensagemDeErro("Erro", "Não foi possível negar a produção");
         }
     }
+
+    public List<Curriculo> getCurriculos() {
+        curriculos = new CurriculoRN().obterTodosOrdenado();
+        return curriculos;
+    }
+    
 }

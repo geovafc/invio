@@ -60,8 +60,6 @@
                         </a>
                     </td>
                     <td>
-                        #{usuarioBean.usuarioLogado.curriculo.extrato}|
-                        #{usuarioBean.usuarioLogado.curriculo.fco}
                         <b>
                             FCO: #{usuarioBean.usuarioLogado.curriculo.fco + usuarioBean.usuarioLogado.curriculo.extrato}
                         </b>
@@ -131,7 +129,7 @@
 
                 <h:column>
                     <f:facet name="header">Tipo de Orientação</f:facet>
-                    <h:outputText value="#{o.tipoOrientacao}"/>
+                    <h:outputText value="#{orientacaoBean.obterTipo(o.tipoOrientacao)}"/> 
                 </h:column>
 
                 <h:column>
