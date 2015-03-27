@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bpmlab.invio.entidade;
 
 import java.io.Serializable;
@@ -64,6 +63,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curriculo.findByExtrato", query = "SELECT c FROM Curriculo c WHERE c.extrato = :extrato"),
     @NamedQuery(name = "Curriculo.findByTitulacao", query = "SELECT c FROM Curriculo c WHERE c.titulacao = :titulacao")})
 public class Curriculo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -493,5 +493,5 @@ public class Curriculo implements Serializable {
     public String toString() {
         return "bpmlab.invio.entidade.Curriculo[ id=" + id + " ]";
     }
-    
+
 }

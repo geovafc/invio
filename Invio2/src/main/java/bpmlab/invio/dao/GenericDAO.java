@@ -1,13 +1,14 @@
 
 package bpmlab.invio.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class GenericDAO<T> implements InterfaceDAO<T> {
+public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
     
     private static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
     private EntityManager em = JpaUtil.getEntityManager();

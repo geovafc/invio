@@ -32,10 +32,9 @@ public class CurriculoRN implements Serializable {
 
         if (c.getId() == null || c.getId().equals(0)) {
             c.setId(null);
-            System.out.println("******************** CRIAR");
+            c.setFco(0);
             salvou = dao.criar(c);
         } else {
-            System.out.println("******************** ALTERAR");
             if (c.getPeriodicoList() != null) {
                 PeriodicoRN periodicoRN = new PeriodicoRN();
                 for (Periodico p : c.getPeriodicoList()) {

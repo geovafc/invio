@@ -18,8 +18,8 @@ public class PeriodicoRN {
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
+        atribuirPontuacaoAutomaticamente(periodico);
         if (periodico.getId() == null) {
-            atribuirPontuacaoAutomaticamente(periodico);
             salvou = periodicoDAO.criar(periodico);
         } else {
             salvou = periodicoDAO.alterar(periodico);
@@ -32,6 +32,7 @@ public class PeriodicoRN {
         if (periodico.getCurriculo() != null) {
             Area area = periodico.getCurriculo().getArea();
             pt = qualisRN.obterEstrato(periodico.getRevista(), area.getNome());
+            System.out.println(pt);
         }
         periodico.setEstrato(pt);
     }
@@ -63,4 +64,5 @@ public class PeriodicoRN {
     public List<Periodico> obterPeriodicosPassados(Curriculo curriculo) {
         return periodicoDAO.obterPeriodicosPassados(curriculo, anoLimite);
     }
+    
 }

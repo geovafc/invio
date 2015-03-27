@@ -27,7 +27,7 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
                 getResultList();
         return orientacoes;
     }
-
+    
     public List<Orientacao> obterOrientacoesPassadas(Curriculo curriculo, Date dataLimite) {
         String consulta = "SELECT o FROM Orientacao o "
                 + "WHERE o.curriculo = :curriculo AND :dataLimite > o.pFinal ORDER BY o.pFinal DESC";

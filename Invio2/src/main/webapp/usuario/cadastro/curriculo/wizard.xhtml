@@ -5,7 +5,6 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <h:outputScript name="js-primefaces.js" library="js" />
 
     <ui:define name="content">
         <h:form >
@@ -35,9 +34,8 @@
                     <p:panel header="Dados Pessoais" style="height: 500px">  
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
-                            <h:outputText rendered="#{usuarioBean.usuario}" value="Titulação: *"/>
-                            <p:selectOneMenu rendered="#{usuarioBean.usuario}" 
-                                             style="width: 125px" id="titulacao" 
+                            <h:outputText value="Titulação: *"/>
+                            <p:selectOneMenu style="width: 125px" id="titulacao" 
                                              required="true" value="#{curriculoBean.curriculo.titulacao}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Doutorado" itemValue="Doutorado" />  
@@ -45,7 +43,7 @@
                                 <f:selectItem itemLabel="Especialista" itemValue="Especialista" />  
                                 <f:selectItem itemLabel="Graduado" itemValue="Graduado" />  
                             </p:selectOneMenu>
-                            <p:message id="erroTitulacao" for="titulacao" rendered="#{usuarioBean.usuario}"/>
+                            <p:message id="erroTitulacao" for="titulacao"/>
 
                             <h:outputText value="Nome: *" />  
                             <p:inputText id="nome" required="true" label="Nome"  
@@ -66,15 +64,11 @@
                             <p:message id="erroCelular" for="celular"/>
 
                             <h:outputText value="Data de Nascimento: *" />
-                            <p:calendar 
-                                id="nascimentoCal" 
-                                showButtonPanel="true"
-                                value="#{curriculoBean.curriculo.dtNascimento}" 
-                                navigator="true" 
-                                pattern="dd/MM/yyyy" 
-                                yearRange="c-50:c-0"
-                                locale="pt_BR"
-                                required="true"/>
+                            <p:inputMask id="nascimentoCal"
+                                         mask="99/99/9999"
+                                         value="#{curriculoBean.curriculo.dtNascimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:inputMask>
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
                             <h:outputText value="Sexo: *"/>
@@ -128,7 +122,7 @@
                                          label="Curso"  
                                          value="#{curriculoBean.curriculo.curso}" />
                             <p:message id="erroCurso" for="curso" rendered="#{usuarioBean.usuario}"/>
-                                        
+
                             <h:outputText value="Instituto/Campi: *"/>
                             <p:inputText id="instituto" required="true" label="instituto"  
                                          value="#{curriculoBean.curriculo.institutoCampi}" />
