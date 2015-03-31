@@ -1,4 +1,3 @@
-
 package bpmlab.invio.dao;
 
 import java.io.Serializable;
@@ -9,15 +8,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
-    
+
     private static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
-    private EntityManager em = JpaUtil.getEntityManager();
 
     public GenericDAO() {
     }
 
     @Override
     public boolean criar(T o) {
+        EntityManager em = JpaUtil.getEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(o);
@@ -29,11 +28,14 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
                 em.getTransaction().rollback();
             }
             return false;
+        } finally {
+            JpaUtil.closeEntityManager();
         }
     }
 
     @Override
     public boolean excluir(T o) {
+        EntityManager em = JpaUtil.getEntityManager();
         try {
             em.getTransaction().begin();
             em.remove(em.merge(o));
@@ -45,11 +47,14 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
                 em.getTransaction().rollback();
             }
             return false;
+        } finally {
+            JpaUtil.closeEntityManager();
         }
     }
 
     @Override
     public boolean alterar(T o) {
+        EntityManager em = JpaUtil.getEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(o);
@@ -61,11 +66,14 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
                 em.getTransaction().rollback();
             }
             return false;
+        } finally {
+            JpaUtil.closeEntityManager();
         }
     }
 
     @Override
     public T obter(Class<T> classe, Object id) {
+        EntityManager em = JpaUtil.getEntityManager();
         if (id == null) {
             return null;
         }
@@ -75,41 +83,22 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
             return (T) q.setParameter("id", id).getSingleResult();
         } catch (Exception e) {
             return null;
+        } finally {
+            JpaUtil.closeEntityManager();
         }
     }
 
     @Override
     public List<T> obterTodos(Class<T> classe) {
+        EntityManager em = JpaUtil.getEntityManager();
         String query = classe.getSimpleName() + ".findAll";
         Query q = em.createNamedQuery(query);
-        return (List<T>) q.getResultList();
-    }
-
-    public List<T> obterLista(Class<T> classe,
-            List<String> criterios,
-            List valores,
-            final boolean AND) {
-        if (criterios == null
-                || valores == null
-                || criterios.size() != valores.size()
-                || criterios.size() < 1) {
-            return null;
-        }
-        String query = "SELECT o FROM " + classe.getSimpleName() + " o WHERE ";
-        query += " o." + criterios.get(0) + " = :" + criterios.get(0);
-        final String CONECTIVO = AND ? " AND " : " OR ";
-        for (int i = 1; i < criterios.size(); i++) {
-            query += CONECTIVO + " o." + criterios.get(i) + " = :" + criterios.get(i);
-        }
-        final Query q = em.createQuery(query);
         try {
-            for (int i = 0; i < valores.size(); i++) {
-                q.setParameter(criterios.get(i), valores.get(i));
-            }
             return (List<T>) q.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro: " + e);
             return null;
+        } finally {
+            JpaUtil.closeEntityManager();
         }
     }
 
@@ -117,19 +106,7 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
      * @return the entityManager
      */
     protected EntityManager getEntityManager() {
-        return em;
+        return JpaUtil.getEntityManager();
     }
 
-    /**
-     * @param entityManager the entityManager to set
-     */
-    protected void setEntityManager(EntityManager entityManager) {
-        this.em = entityManager;
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
-    
 }
