@@ -22,6 +22,9 @@ public class UsuarioUtil {
         if (login == null) {
             LoginRN loginRN = new LoginRN();
             login = loginRN.obter(e.getRemoteUser());
+            login.getCurriculo().getPeriodicoList();
+            login.getCurriculo().getLivroList();
+            login.getCurriculo().getOrientacaoList();
             BeanUtil.colocarNaSessao("USUARIO_LOGADO", login);
             return login;
         } else {
