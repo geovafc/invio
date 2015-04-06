@@ -6,7 +6,6 @@ import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Relatorio;
 import bpmlab.invio.rn.RelatorioRN;
-import bpmlab.invio.util.UploadArquivo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -20,7 +19,6 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class RelatorioBean {
 
-    private UploadArquivo fileUpload = new UploadArquivo();
     Relatorio relatorio = new Relatorio();
     RelatorioRN relatorioRN = new RelatorioRN();
 
@@ -82,25 +80,4 @@ public class RelatorioBean {
         return "listaRelatorios.xhtml";
     }
 
-    public void uploadActionRelatorio(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        InputStream stream = null;
-        try {
-            stream = file.getInputstream();
-            String tipo = file.getContentType();
-            if (tipo.equals("application/pdf")) {
-                tipo = "pdf";
-            } else if (tipo.equals("application/jpg")) {
-                tipo = "jpg";
-            }
-            String nomeDoArquivo = this.fileUpload.uploadRelatorio(UsuarioUtil.obterUsuarioLogado().getCurriculo(), relatorio, tipo, stream);
-            this.relatorio.setLocalArquivo(nomeDoArquivo);
-            relatorioRN.salvar(relatorio);
-            //Inicializa
-            this.relatorio = new Relatorio();
-            this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-        } catch (IOException ex) {
-        }
-    }
 }

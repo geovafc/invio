@@ -19,6 +19,7 @@ public class QualisDAO extends GenericDAO<Qualis> {
         q.setParameter("area", area);
         try {
             String resultado = (String) q.getSingleResult();
+            JpaUtil.closeEntityManager();
             return resultado.trim();
         } catch (Exception e) {
             return "";

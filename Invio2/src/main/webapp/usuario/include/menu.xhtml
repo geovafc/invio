@@ -24,9 +24,8 @@
                        rendered="#{usuarioBean.administrador}">
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Editar Permissão"  
-                            ajax="false"
                             icon="ui-icon-pencil" 
-                            action="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
+                            outcome="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
 
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Listar Usuários"  ajax="false"
@@ -34,7 +33,7 @@
                             action="/administracao/usuarios/listarUsuarios.xhtml"/>
             </p:submenu>
 
-            <p:submenu label="Secretaria" rendered="#{usuarioBean.administrador or usuarioBean.secretaria}">
+            <p:submenu label="Secretaria" rendered="#{usuarioBean.secretaria}">
                 <p:menuitem 
                     rendered="#{usuarioBean.secretaria or usuarioBean.administrador}"
                     value="Avaliar Curriculos"
@@ -70,7 +69,7 @@
 
 
             <p:submenu 
-                rendered="#{usuarioBean.usuarioSessao}"
+                rendered="#{!usuarioBean.administrador and !usuarioBean.secretaria}"
                 label="Meu Currículo"
                 icon="ui-icon-refresh">
                 <p:menuitem 

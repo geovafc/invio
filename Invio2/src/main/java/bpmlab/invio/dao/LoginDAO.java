@@ -13,9 +13,12 @@ public class LoginDAO extends GenericDAO<Login>{
         Query q = super.getEntityManager().createQuery(query);
         q.setParameter("email", email);
         try {
-            return (Login) q.getSingleResult();
+            Login login = (Login) q.getSingleResult();
+            return login;
         } catch (Exception e) {
             return null;
+        } finally {
+            JpaUtil.closeEntityManager();
         }
     }
     
@@ -23,8 +26,10 @@ public class LoginDAO extends GenericDAO<Login>{
         String query = "SELECT l FROM Login l WHERE l.email = :email";
         Query q = super.getEntityManager().createQuery(query);
         q.setParameter("email", email);
+        boolean resultado = ((Login) q.getSingleResult()).getEmail().equalsIgnoreCase(email);
+        JpaUtil.closeEntityManager();
         try {
-            return ((Login) q.getSingleResult()).getEmail().equalsIgnoreCase(email);
+            return resultado;
         } catch (Exception e) {
             return false;
         }

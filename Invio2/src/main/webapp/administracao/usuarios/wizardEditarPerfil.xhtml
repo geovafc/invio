@@ -10,33 +10,36 @@
             <p:growl 
                 showDetail="true" 
                 showSummary="true"/>
-            <p:wizard backLabel="Voltar" nextLabel="Próximo">
-                <p:tab 
-                    id="busca" 
-                    title="Buscar">
-                    <h:outputText value="Login:"/>
-                    <p:autoComplete 
-                        id="acSimple" 
-                        value="#{loginBean.login}" 
-                        var="login"
-                        itemLabel="#{login.email}"
-                        itemValue="#{login}"
-                        converter="loginConversor"
-                        forceSelection="true"
-                        completeMethod="#{loginBean.autoComplete}">
-                        <p:column rendered="#{login.curriculo != null}">
-                            <h:outputText value="#{login.curriculo.nome}"/>
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{login.email}"/>
-                        </p:column>
-                    </p:autoComplete>
+            <p:wizard backLabel="Voltar" nextLabel="Próximo" style="width: 500px">
+                <p:tab id="busca" 
+                       title="Buscar">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Buscar Usuário"/>
+                        <p:autoComplete 
+                            id="acSimple" 
+                            value="#{loginBean.login}" 
+                            var="login"
+                            itemLabel="#{login.email}"
+                            itemValue="#{login}"
+                            converter="loginConversor"
+                            forceSelection="true"
+                            placeholder="Preencha o nome do usuário"
+                            size="40"
+                            completeMethod="#{loginBean.autoComplete}">
+                            <p:column rendered="#{login.curriculo != null}">
+                                <h:outputText value="#{login.curriculo.nome}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{login.email}"/>
+                            </p:column>
+                        </p:autoComplete>
+                    </h:panelGrid>
                 </p:tab>
-                <p:tab 
-                    id="edicao" 
-                    title="Editar">
-                    <h:panelGrid 
-                        columns="2">
+
+                <p:tab id="edicao" 
+                       title="Editar">
+                    <p:panelGrid columns="2" cellpadding="10">
+
                         <h:outputText 
                             value="Nome: " />
                         <h:outputText 
@@ -62,13 +65,11 @@
                                 itemLabel="Administrador" 
                                 itemValue="A"  />  
                         </p:selectOneMenu>
-                    </h:panelGrid>
+                    </p:panelGrid>
                 </p:tab>
-                <p:tab 
-                    id="confirmacao" 
-                    title="Confirmar">
-                    <h:panelGrid 
-                        columns="2">
+                <p:tab id="confirmacao" 
+                       title="Confirmar">
+                    <p:panelGrid columns="2" cellpadding="10">
                         <h:outputText 
                             value="Nome: " />
                         <h:outputText 
@@ -82,17 +83,16 @@
                             value="Tipo Usuário: " />
                         <h:outputText 
                             value="#{loginBean.toNomePerfil()}" />
-                    </h:panelGrid>
-                    
-                    <p:commandButton 
+                    </p:panelGrid>
+
+                    <p:commandButton
+                        style="float: right"
                         ajax="false"
                         value="Salvar" 
                         icon="ui-icon-check"
                         action="#{loginBean.alterarPermissao()}" />
                 </p:tab>
             </p:wizard>
-
         </h:form>
-
     </ui:define>
 </ui:composition>

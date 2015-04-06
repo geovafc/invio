@@ -7,8 +7,6 @@ import javax.persistence.Query;
 
 public class PeriodicoDAO extends GenericDAO<Periodico> {
 
-    GenericDAO<Periodico> genericDAO = new GenericDAO<Periodico>();
-
     public List<Periodico> obterPeriodicosAtuais(Curriculo curriculo, String anoAtual, String anoLimite) {
         String consulta = "SELECT o FROM Periodico o "
                 + "WHERE o.curriculo = :curriculo AND o.ano BETWEEN :anoLimite AND :anoAtual ORDER BY o.ano desc";
@@ -17,6 +15,7 @@ public class PeriodicoDAO extends GenericDAO<Periodico> {
                 setParameter("anoAtual", anoAtual).
                 setParameter("anoLimite", anoLimite).
                 getResultList();
+        JpaUtil.closeEntityManager();
         return periodicos;
     }
     
@@ -27,6 +26,7 @@ public class PeriodicoDAO extends GenericDAO<Periodico> {
         List<Periodico> periodicos = query.setParameter("curriculo", curriculo).
                 setParameter("anoLimite", anoLimite).
                 getResultList();
+        JpaUtil.closeEntityManager();
         return periodicos;
     }
     
@@ -39,6 +39,7 @@ public class PeriodicoDAO extends GenericDAO<Periodico> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Periodico> periodicos = query.getResultList();
+        JpaUtil.closeEntityManager();
         return periodicos;
     }
 
@@ -51,7 +52,8 @@ public class PeriodicoDAO extends GenericDAO<Periodico> {
         } else {
             consulta2 += "and o.avaliacao IS NULL";
         }
-        List<Periodico> orientacoes = genericDAO.getEntityManager().createQuery(consulta2).getResultList();
+        List<Periodico> orientacoes = getEntityManager().createQuery(consulta2).getResultList();
+        JpaUtil.closeEntityManager();
         return orientacoes;
     }
 }

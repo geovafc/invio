@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -164,9 +165,9 @@ public class Curriculo implements Serializable {
         @JoinColumn(name = "plano_id", referencedColumnName = "id")})
     @ManyToMany
     private List<Plano> planoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo", fetch = FetchType.EAGER)
     private List<Periodico> periodicoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo", fetch = FetchType.EAGER)
     private List<Orientacao> orientacaoList;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne
@@ -178,7 +179,7 @@ public class Curriculo implements Serializable {
     private List<Relatorio> relatorioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Frequencia> frequenciaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo", fetch = FetchType.EAGER)
     private List<Livro> livroList;
     @OneToMany(mappedBy = "curriculo")
     private List<Login> loginList;

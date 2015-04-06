@@ -9,7 +9,6 @@ import bpmlab.invio.entidade.Area;
 import bpmlab.invio.entidade.Programa;
 import bpmlab.invio.rn.AreaRN;
 import bpmlab.invio.rn.ProgramaRN;
-import bpmlab.invio.util.ComparadorArea;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -102,43 +101,11 @@ public class ProgramaBean {
     // CONTROLE DE AREA APARTIR DESSA LINHA
     private DualListModel<Area> itens2;
     private List<Area> selecionadas;
-    private ComparadorArea comparadorArea = new ComparadorArea();
 
-//    public DualListModel<Area> getItensAreas() {
-//
-//        selecionadas = programa.getAreaList();
-//
-//        List<Area> naoSelecionada = programaRN.obterItensNaoSelecionados(programa);
-//
-//        Collections.sort(naoSelecionada, comparadorArea);
-//
-//        if (selecionadas != null) {
-//            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-//        } else if (selecionadas == null) {
-//            selecionadas = new ArrayList<Area>();
-//            itens2 = new DualListModel<Area>(naoSelecionada, selecionadas);
-//        }
-//
-//        return itens2;
-//    }
     public void setItensAreas(DualListModel<Area> itens) {
         this.itens2 = itens;
     }
 
-//    public String salvarAreasPrograma() {
-//        List<Area> areasPrograma = (ArrayList<Area>) itens2.getTarget();
-//
-//        selecionadas = areasPrograma;
-//        
-//
-//        //OBS: SEMPRE VERIFICAR SE ESTÁ SENDO ESTANCIADO A LISTA: programa.getAreaList()
-//        //NA ENTIDADE PROGRAMA.
-//
-//        programa.setAreaList(selecionadas);
-//        programaRN.salvar(programa);
-//
-//        return "/cadastro/programa/listar.xhtml";
-//    }
     public Area getArea() {
         return area;
     }

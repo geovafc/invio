@@ -15,6 +15,7 @@ public class FrequenciaDAO extends GenericDAO<Frequencia> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Frequencia> frequencias = query.getResultList();
+        JpaUtil.closeEntityManager();
         return frequencias;
     }
 }

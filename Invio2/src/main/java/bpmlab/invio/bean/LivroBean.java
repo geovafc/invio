@@ -11,7 +11,6 @@ import bpmlab.invio.entidade.Livro;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.LivroRN;
-import bpmlab.invio.util.ArquivoUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -147,26 +146,6 @@ public class LivroBean {
     
     public String voltar() {
         return "/usuario/cadastro/curriculo/livro/livros.xhtml";
-    }
-    
-    public void uploadArquivoLivro(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        if (file != null) {
-            String path = ArquivoUtil.contextPath(file.getFileName());
-            livro = (Livro) BeanUtil.lerDaSessao("livroUpload");
-            livro.setArquivo(path);
-            boolean salvou = livroRN.salvar(livro);
-            boolean upload = ArquivoUtil.copiarParaArquivos(file);
-
-            if (upload && salvou) {
-                BeanUtil.removerDaSessao("livroUpload");
-                BeanUtil.criarMensagemDeInformacao("Sucesso!",
-                        "O arquivo foi enviado.");
-            } else {
-                BeanUtil.criarMensagemDeErro("Erro!",
-                        "O arquivo não foi enviado.");
-            }
-        }
     }
 
 }

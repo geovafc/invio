@@ -15,6 +15,7 @@ public class RelatorioDAO extends GenericDAO<Relatorio> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Relatorio> relatorios = query.getResultList();
+        JpaUtil.closeEntityManager();
         return relatorios;
     }
 }

@@ -29,18 +29,11 @@ public class CurriculoRN implements Serializable {
 
     public boolean salvar(Curriculo c) {
         boolean salvou = false;
-
         if (c.getId() == null || c.getId().equals(0)) {
             c.setId(null);
             c.setFco(0);
             salvou = dao.criar(c);
         } else {
-            if (c.getPeriodicoList() != null) {
-                PeriodicoRN periodicoRN = new PeriodicoRN();
-                for (Periodico p : c.getPeriodicoList()) {
-                    periodicoRN.atribuirPontuacaoAutomaticamente(p);
-                }
-            }
             if (dao.alterar(c)) {
                 salvou = true;
             }

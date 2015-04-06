@@ -14,7 +14,7 @@ public class AreaDAO extends GenericDAO<Area> {
     public List<Area> obterAreaPorCriterio(String digitacao) {
         String consulta = "select o from Area o where o.nome like'%" + digitacao + "%'";
         List<Area> areas = getEntityManager().createQuery(consulta).getResultList();
-
+        JpaUtil.closeEntityManager();
         return areas;
     }
     
@@ -24,7 +24,7 @@ public class AreaDAO extends GenericDAO<Area> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("instituicao", instituicao);
         List<Area> areas = query.getResultList();
-
+        JpaUtil.closeEntityManager();
         return areas;
     }
     

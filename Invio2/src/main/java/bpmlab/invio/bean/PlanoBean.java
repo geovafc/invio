@@ -9,7 +9,6 @@ import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Edital;
 import bpmlab.invio.entidade.Plano;
 import bpmlab.invio.rn.PlanoRN;
-import bpmlab.invio.util.UploadArquivo;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -18,16 +17,10 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class PlanoBean {
 
-    /**
-     * Creates a new instance of PlanoBean
-     */
-    public PlanoBean() {
-    }
     private PlanoRN planoRN;
     private Plano plano = new Plano();
     private Edital edital;
     private List<Plano> planos;
-    private UploadArquivo fileUpload = new UploadArquivo();
     private Curriculo curriculo = new Curriculo();
 
     public Curriculo getCurriculo() {

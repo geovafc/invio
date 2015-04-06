@@ -6,7 +6,6 @@ import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Frequencia;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.rn.FrequenciaRN;
-import bpmlab.invio.util.UploadArquivo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -20,7 +19,6 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class FrequenciaBean {
 
-    private UploadArquivo fileUpload = new UploadArquivo();
     Frequencia frequencia = new Frequencia();
     FrequenciaRN frequenciaRN = new FrequenciaRN();
 
@@ -79,31 +77,4 @@ public class FrequenciaBean {
         return "listaFrequencias.xhtml";
     }
 
-    public void uploadActionFrequencia(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        InputStream stream = null;
-        try {
-            stream = file.getInputstream();
-            String tipo = file.getContentType();
-            if (tipo.equals("application/pdf")) {
-                tipo = "pdf";
-            } else if (tipo.equals("application/jpg")) {
-                tipo = "jpg";
-            }
-            String nomeDoArquivo = this.fileUpload.uploadFrequencia(
-                    UsuarioUtil.obterUsuarioLogado().getCurriculo(),
-                    frequencia,
-                    tipo,
-                    stream);
-            this.frequencia.setLocalArquivo(nomeDoArquivo);
-            frequenciaRN.salvar(frequencia);
-            //Inicializa
-            this.frequencia = new Frequencia();
-            this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao(
-                    "O Arquivo foi salvo com sucesso. ",
-                    "Arquivo: " + nomeDoArquivo);
-        } catch (IOException ex) {
-        }
-    }
 }

@@ -17,19 +17,10 @@ import bpmlab.invio.rn.LivroRN;
 import bpmlab.invio.rn.LoginRN;
 import bpmlab.invio.rn.OrientacaoRN;
 import bpmlab.invio.rn.PeriodicoRN;
-import bpmlab.invio.rn.PlanoRN;
 import bpmlab.invio.rn.pdf.QualisRN;
-import bpmlab.invio.util.UploadArquivo;
-import invio.util.relatorio.Relatorio;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -43,14 +34,12 @@ public class CurriculoBean {
     private LivroRN livroRN = new LivroRN();
     private AreaRN areaRN = new AreaRN();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
-    private PlanoRN planoRN = new PlanoRN();
     private List<Curriculo> curriculos;
     private List<Curriculo> curriculosDesc;
     private Curriculo curriculo;
     private Login login;
     private boolean skip;
     private Plano plano = new Plano();
-    private UploadArquivo fileUpload = new UploadArquivo();
     private Programa programa = new Programa();
     private Area areaOutra = new Area();
     private boolean exibirOutroArea;
@@ -66,11 +55,7 @@ public class CurriculoBean {
     }
 
     public List<Curriculo> getCurriculos() {
-        if (UsuarioUtil.isUsuarioLogadoAdministrador()) {
-            curriculos = curriculoRN.obterTodos();
-        } else {
-            curriculos = curriculoRN.obterCurriculoLogin(UsuarioUtil.obterUsuarioLogado());
-        }
+        curriculos = curriculoRN.obterTodos();
         return curriculos;
     }
 
@@ -140,8 +125,8 @@ public class CurriculoBean {
     public String salvarCurriculo() {
         if (curriculo.getArea() == null) {
             BeanUtil.criarMensagemDeErro(
-                    "NÃ£o foi selecionada nenhuma Ã¡rea de atuaÃ§Ã£o.",
-                    "Por favor preencher uma Ã¡rea.");
+                    "Não foi selecionada nenhuma Área de atuação.",
+                    "Por favor preencher uma Área.");
             return null;
         } else {
             if ("Doutorado".equals(curriculo.getTitulacao())) {
@@ -158,7 +143,7 @@ public class CurriculoBean {
 
             if (loginRN.salvar(loginLogado)) {
                 BeanUtil.criarMensagemDeInformacao(
-                        "OperaÃ§Ã£o realizada com sucesso",
+                        "Operação realizada com sucesso",
                         "O curriculo " + getCurriculo().getNome() + " foi gravado com sucesso.");
                 return "/publico/indexHome.xhtml";
             } else {
@@ -321,50 +306,6 @@ public class CurriculoBean {
         this.totalPontos = totalPontos;
     }
 
-    public void uploadActionPlano(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        InputStream stream = null;
-        try {
-            stream = file.getInputstream();
-            String tipo = file.getContentType();
-            if (tipo.equals("application/pdf")) {
-                tipo = "pdf";
-            } else if (tipo.equals("application/jpg")) {
-                tipo = "jpg";
-            }
-            String nomeDoArquivo = this.fileUpload.uploadPlano(getCurriculo(), plano, tipo, stream);
-            this.plano.setTitulo(nomeDoArquivo);
-            planoRN.salvar(plano);
-            //Inicializa
-            this.plano = new Plano();
-            this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-        } catch (IOException ex) {
-        }
-    }
-
-    public void uploadActionOrientacao(FileUploadEvent event) {
-        System.out.println("EVENTO: " + event.getFile().getFileName());
-        UploadedFile file = event.getFile();
-        InputStream stream = null;
-        try {
-            stream = file.getInputstream();
-            String tipo = file.getContentType();
-            if (tipo.equals("application/pdf")) {
-                tipo = "pdf";
-            } else if (tipo.equals("application/jpg")) {
-                tipo = "jpg";
-            }
-            String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
-            orientacaoRN.salvar(orientacao);
-            //Inicializa
-            this.orientacao = new Orientacao();
-            this.fileUpload = new UploadArquivo();
-            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-        } catch (IOException ex) {
-        }
-    }
-
     public String salvarFCO() {
 
         List<Periodico> periodicos = getCurriculo().getPeriodicoList();
@@ -392,31 +333,6 @@ public class CurriculoBean {
         return "/administracao/listarCurriculoAv.xhtml";
     }
 
-    //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
-    //DESTA LINHA PARA BAIXO ENCONTRA-SE O UPLOAD DE ORIENTACAO
-//    public void uploadActionOrientacao(FileUploadEvent event) {
-//        UploadedFile file = event.getFile();
-//        InputStream stream = null;
-//        try {
-//            stream = file.getInputstream();
-//            String tipo = file.getContentType();
-//            if (tipo.equals("application/pdf")) {
-//                tipo = "pdf";
-//            } else if (tipo.equals("application/jpg")) {
-//                tipo = "jpg";
-//            }
-//
-//
-//            String nomeDoArquivo = this.fileUpload.uploadOrientacao(getCurriculo(), orientacao, tipo, stream);
-//            this.orientacao.setArquivo(nomeDoArquivo);
-//            orientacaoRN.salvar(orientacao);
-//            //Inicializa
-//            this.orientacao = new Orientacao();
-//            this.fileUpload = new UploadArquivo();
-//            BeanUtil.criarMensagemDeInformacao("O Arquivo foi salvo com sucesso. ", "Arquivo: " + nomeDoArquivo);
-//        } catch (IOException ex) {
-//        }
-//    }
     public Programa getPrograma() {
         return programa;
     }
@@ -430,21 +346,6 @@ public class CurriculoBean {
         curriculoRN.salvar(getCurriculo());
     }
 
-    //Bolsa de Produtividade do CNPq
-//    public boolean isBolsaP() {
-//        return BolsaP;
-//    }
-//
-//    public void setBolsaP(boolean BolsaP) {
-//        if (BolsaP == true) {
-//            curriculo.setBolsaProdutividade(30);
-//        }
-//        this.BolsaP = BolsaP;
-//    }
-    //Bolsa de Produtividade do CNPq
-    /**
-     * @return the curriculo
-     */
     public void exibirTabOutroArea() {
         if (curriculo != null) {
             if (curriculo.getArea().equals(areaOutra)) {
@@ -492,73 +393,4 @@ public class CurriculoBean {
         return areaRN.completeArea(query);
     }
 
-    public void gerarListaDocentes() {
-
-        String path = "/usuario/core/report/crachaCredenciado.jasper";
-        List<Curriculo> dataSource = new ArrayList<Curriculo>();
-        Curriculo curriculoR = new Curriculo();
-        dataSource.add(curriculoR);
-    }
-
-    public String gerarFCO() {
-        Login usuario = UsuarioUtil.obterUsuarioLogado();
-        if (usuario.getCurriculo() == null) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "AtenÃ§Ã£o!", "NÃ£o hÃ¡ FCO preenchido para exibiÃ§Ã£o.");
-            FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "/publico/indexHome.xhtml";
-        } else {
-            String path = "/usuario/core/report/fco.jasper";
-            Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
-            String area = curriculoR.getArea().getNome();
-            int id_do_usuario_logado = curriculoR.getId();
-
-            Relatorio.geraRelatorio(path, "Curriculo - " + curriculoR.getNome(), id_do_usuario_logado, area);
-            return null;
-        }
-    }
-
-    public void gerarcrachaCredenciado() {
-
-        String path = "/usuario/core/report/crachaCredenciado.jasper";
-        List dataSource = new ArrayList();
-        Curriculo curriculoR = UsuarioUtil.obterUsuarioLogado().getCurriculo();
-        List datasourceLivro = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
-        List datasourcePeriodico = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
-        List datasourceOrientacao = new ArrayList(UsuarioUtil.obterUsuarioLogado().getCurriculo().getOrientacaoList());
-        dataSource.addAll(datasourceLivro);
-        dataSource.addAll(datasourcePeriodico);
-        dataSource.addAll(datasourceOrientacao);
-        dataSource.add(curriculoR);
-        String area = curriculoR.getArea().getNome();
-        int id_do_usuario_logado = curriculoR.getId();
-
-        Relatorio.ImprimirRelatorio(path, dataSource,
-                "relatorio" + id_do_usuario_logado + area, id_do_usuario_logado, area);
-    }
-
-    public void gerarListaLivros() {
-        //TODO
-        String path = "/usuario/core/report/listaLivro.jasper";
-        List<Livro> dataSource = new ArrayList<Livro>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getLivroList());
-        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
-        String nome = UsuarioUtil.obterUsuarioLogado().getCurriculo().getNome();
-        Relatorio.geraRelatorio(path, nome, params, null);
-    }
-
-    public void gerarListaPerioticos() {
-        //TODO
-        String path = "/usuario/core/report/listaPeriodico.jasper";
-        List<Periodico> dataSource = new ArrayList<Periodico>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getPeriodicoList());
-        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
-        Curriculo curriculoR = new Curriculo();
-        Relatorio.geraRelatorio(path, "Curriculo - " + curriculoR.getNome(), null, null);
-    }
-
-    public void gerarListaOrientacoes() {
-        //TODO
-        String path = "/usuario/core/report/listaOrientacao.jasper";
-        List<Orientacao> dataSource = new ArrayList<Orientacao>(UsuarioUtil.obterUsuarioLogado().getCurriculo().getOrientacaoList());
-        Curriculo curriculoR = new Curriculo();
-        Object params = UsuarioUtil.obterUsuarioLogado().getCurriculo().getId();
-    }
 }
