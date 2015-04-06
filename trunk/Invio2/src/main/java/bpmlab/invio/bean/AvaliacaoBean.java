@@ -4,7 +4,6 @@ import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.rn.AvaliacaoRN;
 import bpmlab.invio.rn.CurriculoRN;
-import bpmlab.invio.util.ArquivoUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -83,15 +82,6 @@ public class AvaliacaoBean implements Serializable {
         return rn.autoCompleteCurriculo(busca);
     }
 
-    public void visualizarComprovante(String path) {
-        if (path == null || "".equals(path)) {
-            BeanUtil.criarMensagemDeErro(
-                    "Erro!", "não há comprovante");
-        } else {
-            ArquivoUtil.exportaPDF(path);
-        }
-    }
-    
     public boolean possuiArquivo(String arquivo) {
         return rn.possueArquivo(arquivo);
     }

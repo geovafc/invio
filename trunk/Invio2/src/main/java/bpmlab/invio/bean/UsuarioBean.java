@@ -12,7 +12,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 @ManagedBean
 @SessionScoped
@@ -28,7 +27,6 @@ public class UsuarioBean {
     private String cpfLoginTemp = "";
     private String cpfLogin = "";
     private String usuario;
-    private boolean usuarioSessao;
 
     public UsuarioBean() {
     }
@@ -73,17 +71,6 @@ public class UsuarioBean {
 
     public String irRecuperarSenha() {
         return "/publico/login/recuperarSenha.xhtml";
-    }
-
-    public String logoutSair() {
-        configurarLimparSessao();
-        return "/loginInicio.xhtml";
-    }
-
-    public void configurarLimparSessao() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        BeanUtil.limpaSessaoParaInicio(session);
     }
 
     boolean entrar = false;
@@ -131,7 +118,6 @@ public class UsuarioBean {
                     } else {
                         pagina = "/loginInicio.xhtml";
                         BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
-                        configurarLimparSessao();
                     }
                 }
             }
@@ -163,14 +149,12 @@ public class UsuarioBean {
                 resposta = "/loginInicio.xhtml";
                 BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
                         "Não foi possível concluir a requisição, tente mais tarde.");
-                configurarLimparSessao();
                 javaMailRN = new JavaMailRN();
             } else {
                 resposta = "/loginInicio.xhtml";
                 BeanUtil.criarMensagemDeAviso(
                         "Aviso",
                         "Seus dados foram alterados com sucesso.");
-                configurarLimparSessao();
             }
         }
         return resposta;
@@ -210,7 +194,6 @@ public class UsuarioBean {
     }
     
     public boolean isUsuarioSessao() {
-        usuarioSessao = UsuarioUtil.isUsuarioLogadoUsuario();
-        return usuarioSessao;
+        return UsuarioUtil.isUsuarioLogadoUsuario();
     }
 }

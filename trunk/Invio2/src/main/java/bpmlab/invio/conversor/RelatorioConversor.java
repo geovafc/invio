@@ -22,7 +22,6 @@ public class RelatorioConversor implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        System.out.println("relatorioConversor " + value);
         Relatorio resposta = null;
         if (value == null || "".equals(value)) {
             return resposta;
@@ -35,7 +34,6 @@ public class RelatorioConversor implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        System.out.println("relatorioConversor " + value);
         if (value == null) {
             return "";
         } else if (value instanceof Relatorio) {

@@ -11,7 +11,6 @@ import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Orientacao;
 import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.OrientacaoRN;
-import bpmlab.invio.util.ArquivoUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -151,25 +150,6 @@ public class OrientacaoBean {
 
     public String obterTipo(Integer tipo) {
         return orientacaoRN.obterTipoOrientacao(tipo);
-    }
-
-    public void uploadArquivoOrientacao(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        if (file != null) {
-            String path = ArquivoUtil.contextPath(file.getFileName());
-            orientacao = (Orientacao) BeanUtil.lerDaSessao("orientacaoUpload");
-            boolean salvou = orientacaoRN.salvar(orientacao);
-            boolean upload = ArquivoUtil.copiarParaArquivos(file);
-
-            if (upload && salvou) {
-                BeanUtil.removerDaSessao("orientacaoUpload");
-                BeanUtil.criarMensagemDeInformacao(
-                        "Sucesso!", "O arquivo foi enviado.");
-            } else {
-                BeanUtil.criarMensagemDeErro(
-                        "Erro!", "O arquivo não foi enviado.");
-            }
-        }
     }
 
     public String voltar() {

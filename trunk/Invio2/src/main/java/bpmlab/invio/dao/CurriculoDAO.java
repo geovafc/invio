@@ -12,24 +12,22 @@ import java.util.List;
 public class CurriculoDAO extends GenericDAO<Curriculo> {
 
     public List<Curriculo> findCurriculoByUsuario(Login loginLogado) {
-
         List<Curriculo> curriculos;
-
         String consulta = "select o.curriculo from Login o where o.id=" + loginLogado.getId();
-        
         curriculos = getEntityManager().createQuery(consulta).getResultList();
-        
+        JpaUtil.closeEntityManager();
         if (curriculos == null || curriculos.isEmpty()) {
             return new ArrayList<Curriculo>();
         } else {
             return curriculos;
         }
-
     }
     
     public List<Curriculo> obterTodosOrdenado() {
         String consulta = "select c from Curriculo c order by c.fco desc";
-        return getEntityManager().createQuery(consulta).getResultList();
+        List lista = getEntityManager().createQuery(consulta).getResultList();
+        JpaUtil.closeEntityManager();
+        return lista;
     }
      
 }

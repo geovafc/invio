@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bpmlab.invio.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,28 +16,30 @@ import javax.persistence.Persistence;
  * @author bpmlab
  */
 public class JpaUtil {
-    
+
     private static final String PERSISTENCE_UNIT = "bpmlab_Invio2_war_1.0-SNAPSHOTPU";
     private static EntityManagerFactory factory;
-    private static ThreadLocal<EntityManager> manager = new ThreadLocal<EntityManager>();
-    
+    private static EntityManager manager;
+
     public static EntityManager getEntityManager() {
         if (factory == null) {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         }
-        if (manager.get() == null || !manager.get().isOpen()) {
-            manager.set(factory.createEntityManager());
+        if (manager == null || !manager.isOpen()) {
+            manager = factory.createEntityManager();
         }
-        return manager.get();
+        return manager;
     }
 
     public static void closeEntityManager() {
-        if (manager.get().isOpen()) {
-            manager.get().close();
+        if (manager.isOpen()) {
+            manager.close();
         }
     }
-    
+
     public static void closeFactory() {
-        factory.close();
+        if (factory != null || factory.isOpen()) {
+            factory.close();
+        }
     }
 }

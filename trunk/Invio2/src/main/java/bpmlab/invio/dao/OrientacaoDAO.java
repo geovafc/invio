@@ -16,8 +16,6 @@ import javax.persistence.Query;
  */
 public class OrientacaoDAO extends GenericDAO<Orientacao> {
 
-    private GenericDAO<Orientacao> genericDAO = new GenericDAO<Orientacao>();
-
     public List<Orientacao> obterOrientacoesAtuais(Curriculo curriculo, Date dataLimite) {
         String consulta = "SELECT o FROM Orientacao o "
                 + "WHERE o.curriculo = :curriculo AND o.pFinal >= :dataLimite ORDER BY o.pFinal DESC";
@@ -25,6 +23,7 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
         List<Orientacao> orientacoes = query.setParameter("curriculo", curriculo)
                 .setParameter("dataLimite", dataLimite).
                 getResultList();
+        JpaUtil.closeEntityManager();
         return orientacoes;
     }
     
@@ -36,6 +35,7 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
                 setParameter("curriculo", curriculo)
                 .setParameter("dataLimite", dataLimite)
                 .getResultList();
+        JpaUtil.closeEntityManager();
         return orientacoes;
     }
 
@@ -48,6 +48,7 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Orientacao> orientacoes = query.getResultList();
+        JpaUtil.closeEntityManager();
         return orientacoes;
     }
 
@@ -60,7 +61,8 @@ public class OrientacaoDAO extends GenericDAO<Orientacao> {
         } else {
             consulta2 += "and o.avaliacao IS NULL";
         }
-        List<Orientacao> orientacoes = genericDAO.getEntityManager().createQuery(consulta2).getResultList();
+        List<Orientacao> orientacoes = getEntityManager().createQuery(consulta2).getResultList();
+        JpaUtil.closeEntityManager();
         return orientacoes;
     }
 

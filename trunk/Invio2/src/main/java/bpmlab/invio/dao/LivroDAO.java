@@ -7,7 +7,6 @@ import javax.persistence.Query;
 
 public class LivroDAO extends GenericDAO<Livro> {
 
-    GenericDAO<Livro> genericDAO = new GenericDAO<Livro>();
 
     public List<Livro> obterLivrosAtuais(Curriculo curriculo, String anoAtual, String anoLimite) {
         String consulta = "SELECT o FROM Livro o "
@@ -17,6 +16,7 @@ public class LivroDAO extends GenericDAO<Livro> {
                 setParameter("anoAtual", anoAtual).
                 setParameter("anoLimite", anoLimite).
                 getResultList();
+        JpaUtil.closeEntityManager();
         return livros;
     }
     
@@ -27,6 +27,7 @@ public class LivroDAO extends GenericDAO<Livro> {
         List<Livro> livros = query.setParameter("curriculo", curriculo).
                 setParameter("anoLimite", anoLimite).
                 getResultList();
+        JpaUtil.closeEntityManager();
         return livros;
     }
 
@@ -39,6 +40,7 @@ public class LivroDAO extends GenericDAO<Livro> {
         Query query = getEntityManager().createQuery(consulta);
         query.setParameter("curriculo", curriculo);
         List<Livro> livros = query.getResultList();
+        JpaUtil.closeEntityManager();
         return livros;
     }
 
@@ -51,7 +53,8 @@ public class LivroDAO extends GenericDAO<Livro> {
         } else {
             consulta2 += "and o.avaliacao IS NULL";
         }
-        List<Livro> livros = genericDAO.getEntityManager().createQuery(consulta2).getResultList();
+        List<Livro> livros = getEntityManager().createQuery(consulta2).getResultList();
+        JpaUtil.closeEntityManager();
         return livros;
     }
 }

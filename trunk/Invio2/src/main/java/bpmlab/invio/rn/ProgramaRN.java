@@ -59,12 +59,6 @@ public class ProgramaRN {
         return retorno;
     }
 
-//    public static void main(String[] args) {
-//        ProgramaRN programaRN = new ProgramaRN();
-//        for (Programa p : programaRN.obterTodos()) {
-//            System.out.println(p);
-//        }
-//    }
     public List<Area> obterSelecionados2(Programa programa) {
 
         List<Area> temp = daoArea.obterTodos(Area.class);
@@ -80,16 +74,4 @@ public class ProgramaRN {
 
         return areasSelecionadas;
     }
-//    public List<Area> obterItensNaoSelecionados(Programa programa) {
-//
-//        List<Area> areas = daoArea.obterTodos(Area.class);
-//
-//        List<Area> selecionadas = programa.getAreaList();
-//
-//        if(selecionadas != null){
-//            areas.removeAll(selecionadas);
-//        }
-//
-//        return areas;
-//    }
 }

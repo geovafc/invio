@@ -8,13 +8,10 @@ import bpmlab.invio.entidade.Periodico;
 import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.PeriodicoRN;
 import bpmlab.invio.rn.pdf.QualisRN;
-import bpmlab.invio.util.ArquivoUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -53,26 +50,6 @@ public class PeriodicoBean {
         return "/usuario/cadastro/curriculo/periodico/uploadPeriodico.xhtml";
     }
 
-    public void uploadArquivoPeriodico(FileUploadEvent event) {
-        UploadedFile file = event.getFile();
-        if (file != null) {
-            String path = ArquivoUtil.contextPath(file.getFileName());
-            periodico = (Periodico) BeanUtil.lerDaSessao("periodicoUpload");
-            periodico.setArquivo(path);
-            boolean salvou = periodicoRN.salvar(periodico);
-            boolean upload = ArquivoUtil.copiarParaArquivos(file);
-
-            if (upload && salvou) {
-                BeanUtil.removerDaSessao("periodicoUpload");
-                BeanUtil.criarMensagemDeInformacao("Sucesso!",
-                        "O arquivo foi enviado.");
-            } else {
-                BeanUtil.criarMensagemDeErro("Erro!",
-                        "O arquivo nÃ£o foi enviado.");
-            }
-        }
-    }
-
     public int getTotal() {
         int total = 0;
 
@@ -86,20 +63,20 @@ public class PeriodicoBean {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
         if (curriculo == null) {
-            BeanUtil.criarMensagemDeErro("VocÃª ainda nÃ£o possui CurrÃ­culo",
-                    "Por favor preencha seu currÃ­culo em 'Meu CurrÃ­culo' -> 'Meu Perfil'");
+            BeanUtil.criarMensagemDeErro("Você ainda não possui Curriculo",
+                    "Por favor preencha seu curriculo em 'Meu Curriculo' -> 'Meu Perfil'");
         } else if (periodico.getTitulo() == null || periodico.getTitulo().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro ao salvar o PeriÃ³dico.",
-                    "Preencha o campo TÃ­tulo.");
+                    "Erro ao salvar o Periódico.",
+                    "Preencha o campo Título.");
         } else if (periodico.getAutores() == null || periodico.getAutores().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro ao salvar o PeriÃ³dico.",
+                    "Erro ao salvar o Periódico.",
                     "Preencha o campo Autor.");
         } else if (periodico.getAno() == null || periodico.getAno().trim().equals("")) {
             BeanUtil.criarMensagemDeErro(
-                    "Erro ao salvar o PeriÃ³dico.",
-                    "Preencha o campo Ano PublicaÃ§Ã£o.");
+                    "Erro ao salvar o Periódico.",
+                    "Preencha o campo Ano Publicação.");
         } else {
             periodico.setCurriculo(curriculo);
             periodico.setArquivo("");
@@ -116,10 +93,10 @@ public class PeriodicoBean {
                 new CurriculoRN().salvar(curriculo);
                 
                 BeanUtil.criarMensagemDeInformacao(
-                        "OperaÃ§Ã£o realizada com sucesso",
-                        "O periÃ³dico " + periodico.getTitulo() + " foi salvo com sucesso.");
+                        "Operação realizada com sucesso",
+                        "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
             } else {
-                BeanUtil.criarMensagemDeErro("Erro ao salvar o periÃ³dico", "PeriÃ³dico: " + periodico.getTitulo());
+                BeanUtil.criarMensagemDeErro("Erro ao salvar o periódico", "Periódico: " + periodico.getTitulo());
             }
         }
         periodico = new Periodico();
@@ -134,31 +111,19 @@ public class PeriodicoBean {
             new CurriculoRN().salvar(curriculo);
             BeanUtil.criarMensagemDeInformacao(
                     "Sucesso",
-                    "Login excluÃ­do");
+                    "Login excluído");
         } else {
             BeanUtil.criarMensagemDeErro(
                     "Erro",
-                    "NÃ£o foi possÃ­vel excluir o login");
+                    "Não foi possível excluir o login");
         }
     }
 
-//    public String excluirPeriodico() {
-//        System.out.println("Periodico: " + periodico);
-//        if (periodicoRN.remover(periodico)) {
-//            BeanUtil.criarMensagemDeInformacao("PeriÃ³dico excluÃ­do",
-//                    "PeriÃ³dico: " + periodico.getTitulo());
-//        } else {
-//            BeanUtil.criarMensagemDeErro("Erro ao excluir PeriÃ³dico",
-//                    "PeriÃ³dico: " + periodico.getTitulo());
-//        }
-//        periodico = new Periodico();
-//        return "periodicos.xhtml";
-//    }
     public String salvarEditarPeriodico(Periodico periodicoTemp) {
         if (periodicoRN.salvar(periodicoTemp)) {
             BeanUtil.criarMensagemDeInformacao(
-                    "OperaÃ§Ã£o realizada com sucesso",
-                    "A orientaÃ§Ã£o do bolsista " + periodicoTemp.getTitulo()
+                    "Operação realizada com sucesso",
+                    "A orientação do bolsista " + periodicoTemp.getTitulo()
                     + " foi salva com sucesso.");
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao salvar a orientaÃ§Ã£o",

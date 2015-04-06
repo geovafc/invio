@@ -23,6 +23,7 @@ public class EditalDAO extends GenericDAO<Edital>{
         Date dataAtual = new Date();
         Query q = getEntityManager().createQuery(consulta).setParameter("dataAtual", dataAtual);
         resposta= (List<Edital>) q.getResultList();
+        JpaUtil.closeEntityManager();
         return resposta;
     }
     public List<Edital> obterTodosFechados(){
@@ -31,6 +32,7 @@ public class EditalDAO extends GenericDAO<Edital>{
         Date dataAtual = new Date();
         Query q = getEntityManager().createQuery(consulta).setParameter("dataAtual", dataAtual);
         resposta= (List<Edital>) q.getResultList();
+        JpaUtil.closeEntityManager();
         return resposta;
     }
 }

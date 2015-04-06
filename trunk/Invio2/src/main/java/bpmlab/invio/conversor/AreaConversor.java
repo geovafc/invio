@@ -14,7 +14,6 @@ public class AreaConversor implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        System.out.println("areaConversor " + value);
         Area resposta = null;
         if (value == null || "".equals(value)) {
             return resposta;
@@ -27,7 +26,6 @@ public class AreaConversor implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        System.out.println("areaConversor " + value);
         if (value == null) {
             return "";
         } else if (value instanceof Area) {

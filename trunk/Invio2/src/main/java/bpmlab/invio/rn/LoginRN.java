@@ -2,8 +2,6 @@ package bpmlab.invio.rn;
 
 import bpmlab.invio.dao.LoginDAO;
 import bpmlab.invio.entidade.Login;
-import bpmlab.invio.util.Utilitario;
-import bpmlab.invio.util.javamail.TextoEmail;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,6 @@ public class LoginRN {
 
     public boolean salvar(Login login) {
         boolean salvou;
-
         if (login.getId() == null) {
             salvou = dao.criar(login);
         } else {
