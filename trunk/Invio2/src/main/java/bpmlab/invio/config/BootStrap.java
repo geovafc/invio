@@ -52,7 +52,7 @@ public class BootStrap implements ServletContextListener {
             curriculo.setCep("68445-000");
             curriculo.setArea(area);
             dao.criar(curriculo);
-            Login user = new Login(null, encoder.encodePassword("123", null), "mkmikael@gmail.com", 'U');
+            Login user = new Login(null, encoder.encodePassword("123", null), "mkmikael@gmail.com", 'A');
             user.setCurriculo(curriculo);
             dao.criar(user);
 //            Usuário - FIM

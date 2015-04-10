@@ -20,7 +20,8 @@
                             <h:outputText value="Nome/E-mail: *"/>
                             <p:autoComplete
                                 id="acMinLength" 
-                                minQueryLength="3" 
+                                minQueryLength="3"
+                                size="40"
                                 value="#{avaliacaoBean.curriculo}"
                                 var="curriculo"
                                 completeMethod="#{avaliacaoBean.autoCompleteCurriculo}"
